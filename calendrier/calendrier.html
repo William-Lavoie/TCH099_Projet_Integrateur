@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/calendrier.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="calendrier_script.js"></script>
+
     <title>Calendrier</title>
 </head>
 <body>
     
     <header>
-        <div id="header_conteneur">
             <div id="logo">
                 <span id="logo_acronyme">HH</span> 
                 <span id="logo_nom">HuddleHarbor</span>
@@ -49,9 +52,59 @@
                     </div>                 
             </div>
 
-            
-
-        </div>
     </header>
+
+
+    <div id="formulaires-reunion">
+        <form id="nouvelle-reunion">
+
+            <label for="titre-reunion">Titre</label>
+            <input type="text" name="titre-reunion" >
+
+            <label for="debut-reunion">Début</label>
+            <input type="time" name="debut-reunion" >
+
+            <label for="fin-reunion">Fin</label>
+            <input type="time" name="fin-reunion" >
+
+            <label for="date-reunion">Choisir une date</label>
+            <input type="date" name="date-reunion" >
+
+            <label for="description-reunion">Description</label>
+            <textarea name="description-reunion"></textarea>
+
+
+            
+            <label for="groupe">Groupe</label>
+            <input type="radio" id="btn-radio" name="groupes-radio" >
+            
+            <label for="participants">Participants</label>
+            <input type="radio" id="groupes" name="groupes-radio" >
+
+            <button id="reunion-retour" type="reset">Retour</button>
+            <button id="reunion-continuer" type="submit">Continuer</button>
+
+        </form>
+
+
+        <form id="creer-reunion-groupe">
+            <label for="groupes">Choisir un groupe:</label>
+
+            <select name="groupes" id="choix-groupe">
+            <option value="groupe1">Groupe1</option>
+            
+            </select>        
+        </form>
+
+        <form id="creer-reunion-participants">
+            <input type="text">
+        </form>
+
+    </div>
+
+    <button id="creer-reunion">Créer réunion</button>
+
+
+
 </body>
 </html>

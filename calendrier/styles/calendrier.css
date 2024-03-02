@@ -1,0 +1,12 @@
+#nouvelle-reunion, #creer-reunion-groupe, #creer-reunion-participants {
+    width: 200px;
+    height: 300px;
+    border: 2px solid red;
+    display: none;
+}
+
+.reunion-visible {
+    display: flex  !important ;
+    flex-direction: column;
+}
+
