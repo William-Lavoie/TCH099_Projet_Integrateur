@@ -3,8 +3,8 @@ body {
 }
 
 #header_conteneur {
-    height: 100px;
-    width: 100%;
+    height: 10vmin;
+    width: 100vmax;
     position: fixed;
     display: flex;
     border-bottom: solid black 2px;
@@ -17,11 +17,12 @@ body {
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 25%;
+    width: 15vmax;
+    height: 10vmin;
 }
 
 #logo_acronyme {
+        font-size: 3vmax;
         box-sizing: border-box;
         font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
         font-style: italic;
@@ -29,48 +30,57 @@ body {
         color: #1399d8;
         text-align: left;
         line-height: normal;
-        font-size: 300%;
         position: relative;
-        top: 15%;
+        top: 10%;
 }
 
 #logo_nom {
-    height: 10%;
     box-sizing: border-box;
     font-family: "Poppins Bold", "Poppins", sans-serif;
     font-weight: 700;
     color: #7eccff;
     line-height: normal;
-    font-size: 200%;
+    font-size: 2vmax;
     margin-bottom: 5%;
   }
 
+  #header-profil-boutons {
+    height: 10vmin;
+    width: 85vmax;
+  }
+
   #barre-bleue_header {
-    height: 50%;
-    width: 100%;
+    width: 85vmax;
+    height: 5vmin;
     background-color:  rgba(3, 4, 94, 1);
     display: flex;
     justify-content: flex-end;
   }
 
+  #barre-bas-header {
+    height: 5vmin;
+    width: 85vmax;
+    display: flex;
+    justify-content: space-between;
+  }
+
   #btn_conteneur_header {
-    position: relative;
-    left: 150%;
-    bottom: 50%;
     display: flex;
     justify-content: space-around;
-    width: 50vw;
-    
+    width: 40vmax;
+    height: 5vmin;
+    position: relative;
+    bottom: 2.5vmin;
   }
 
   .header_boutons {
-    height: 200%;
-    width: 35%;
-    border-radius: 10px;
+    width: 15vmax;
+    height: 5vmin;
+    border-radius: 0.5em;
     color: white;
     background-color:  rgba(3, 4, 94, 1);
-    border: 2px solid white;
-    font-size: medium;
+    border:  0.12em solid white;
+    font-size: 0.9em;
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
 
   }
@@ -80,7 +90,7 @@ body {
   }
 
   #header_nom {
-    font-size: 150%;
+     font-size: 2vmax;
      box-sizing: border-box;
      font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
      font-weight: 700;
@@ -88,41 +98,39 @@ body {
      text-align: left;
      line-height: normal;
      color: black;
-     position: relative;
-     top: 140%;
-     right: 10%;
+     text-justify: center;
+     
    }
 
   #conteneur-profil {
-    height: 40vh;
+    height: 40vmin;
+    width: 20vmax;
     position: relative;
     right: 5%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 0.7%;
+    background-color: red;
+    
   }
 
   #photo-profil-conteneur {
-    height: 25%;
-    width: 100%;
+    height: 10vmin;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    bottom: 4vmin;
   }
 
   #photo-profil {
-    height: 90%;
+    height: 8vmin;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 0.1em solid black;
   }
 
   #menu-profil {
-   width: 100%;
-   height: 100%;
-   position: relative;
-   right: 8%;
-   bottom: 2%;
+   height: 40vmin;
    display: flex;
    flex-direction: column;
    justify-content: space-around;
@@ -131,8 +139,10 @@ body {
    margin: 5px;
    padding: 2%;
    border: 2px solid black;
-   border-radius: 8px;
+   border-radius: 0.5em;
    background-color: white;
+   position: relative;
+   bottom: 4.8vmin
  }
 
   .profil-boutons {
@@ -146,7 +156,7 @@ body {
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
   }
 
-  #photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover {
+  #photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover,  #conteneur-profil:hover {
     visibility: visible;
   }
 
