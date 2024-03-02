@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+}
+
+#header_conteneur {
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    border-bottom: solid black 2px;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(137, 119, 157);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 25%;
+}
+
+#logo_acronyme {
+        box-sizing: border-box;
+        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+        font-style: italic;
+        font-weight: 700;
+        color: #1399d8;
+        text-align: left;
+        line-height: normal;
+        font-size: 300%;
+        position: relative;
+        top: 15%;
+}
+
+#logo_nom {
+    height: 10%;
+    box-sizing: border-box;
+    font-family: "Poppins Bold", "Poppins", sans-serif;
+    font-weight: 700;
+    color: #7eccff;
+    line-height: normal;
+    font-size: 200%;
+    margin-bottom: 5%;
+  }
+
+  #barre-bleue_header {
+    height: 50%;
+    width: 100%;
+    background-color:  rgba(3, 4, 94, 1);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #btn_conteneur_header {
+    position: relative;
+    left: 150%;
+    bottom: 50%;
+    display: flex;
+    justify-content: space-around;
+    width: 50vw;
+    
+  }
+
+  .header_boutons {
+    height: 200%;
+    width: 35%;
+    border-radius: 10px;
+    color: white;
+    background-color:  rgba(3, 4, 94, 1);
+    border: 2px solid white;
+    font-size: medium;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+
+  }
+
+  .header_boutons:hover, .profil-boutons:hover {
+    background-color: #6a628d;
+  }
+
+  #header_nom {
+    font-size: 150%;
+     box-sizing: border-box;
+     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+     font-weight: 700;
+     color: #000000;
+     text-align: left;
+     line-height: normal;
+     color: black;
+     position: relative;
+     top: 140%;
+     right: 10%;
+   }
+
+  #conteneur-profil {
+    height: 40vh;
+    position: relative;
+    right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0.7%;
+  }
+
+  #photo-profil-conteneur {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #photo-profil {
+    height: 90%;
+    border-radius: 50%;
+    border: 2px solid black;
+  }
+
+  #menu-profil {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   right: 8%;
+   bottom: 2%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+   visibility: hidden; 
+   margin: 5px;
+   padding: 2%;
+   border: 2px solid black;
+   border-radius: 8px;
+   background-color: white;
+ }
+
+  .profil-boutons {
+    height: 23%;
+    width: 80%;
+    border-radius: 10px;
+    padding: 2px;
+    color: white;
+    background-color:  rgba(3, 4, 94, 1);
+    font-size: medium;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+  }
+
+  #photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover {
+    visibility: visible;
+  }
+
+

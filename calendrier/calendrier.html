@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="calendrier_style.css">
+    <link rel="stylesheet" href="header.css">
     <title>Calendrier</title>
 </head>
 <body>
@@ -20,9 +20,23 @@
                 </div>
             </div>
 
-            <div id="barre-bleue_header"></div>
+            <div id="barre-bleue_header">
+                    <span id="header_nom">Prénom Nom</span>
+                
+                    <div id="conteneur-profil">
+                        <div id="photo-profil-conteneur">
+                            <img src="../images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
+                        </div>
 
-          
+                        <div id="menu-profil">
+                            <button class="profil-boutons">Compte</button>
+                            <button class="profil-boutons">Statistiques</button>
+                            <button class="profil-boutons">Se déconnecter</button>
+
+                        </div>
+                    </div>
+            </div>
+
         </div>
     </header>
 </body>
