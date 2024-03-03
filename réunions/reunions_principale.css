@@ -1,5 +1,5 @@
 body{
-    height: 200vmin;
+    height: 100vmin;
     margin:0;
 }
 
@@ -186,6 +186,7 @@ aside {
     font-size: 1.2rem;
     text-decoration: none;
     transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease 0.1s;
+    overflow:auto;
 }
 
 aside table
@@ -195,9 +196,25 @@ aside table
     transition: opacity 0.5s ease 0.1s;
 }
 
-aside:not(.collapsed) table,
-aside:not(.collapsed) #conteneur_btn_cree_groups{
+aside:not(.collapsed) table
+{
     opacity: 1;
+}
+
+#cree_groupe{
+    position:fixed;
+    bottom: 0;
+}
+
+#cree_groupe button{
+    border: 1px black solid;
+    box-shadow: white;
+    border-radius: 15%;
+}
+
+#cree_groupe button:hover{
+    background-color: white;
+    color:black;
 }
 
 aside th,
@@ -220,13 +237,6 @@ aside button{
 
 aside button:hover{
     background-color:  rgba(3, 4, 94, 1);
-    border-radius: 25%;
-}
-
-
-#btn_cree_groups{
-    text-align: center;
-    margin-bottom: 20%;
 }
 
 aside.collapsed {
@@ -241,6 +251,25 @@ aside.collapsed {
 }
 
 
+.BtnPliable{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 10em;
+    font-size: 1.2rem;
+    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+}
+
+
+.BtnPliable.collapsed {
+    margin-left: 2vmin;
+    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+}
+
+
+/*start of code for the content that goes to the right of the aside*/
 content {
     display: flex;
     color: white;
@@ -258,16 +287,33 @@ content.collapsed {
     margin-left: 0;
 }
 
-.BtnPliable{
+
+/*footer */
+
+footer {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    margin-left: 18vmin;
-    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+    background-color:  rgba(3, 4, 94, 1);
+    color: white;
+    text-align: center;
+    margin-top: max(auto, 100vh);
+    padding: 2vmin;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
 }
 
+footer h5 {
+    margin: 0;
+    font-size: .8rem;
+}
 
-.BtnPliable.collapsed {
-    margin-left: 2vmin;
-    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+footer h4{
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #1399d8;
+        font-size: 2.5em;
+        font-weight: 700;
+        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+        font-style: italic;
 }
