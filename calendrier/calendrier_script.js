@@ -4,12 +4,34 @@ $(document).ready(function() {
     // Afficher le formulaire de création d'une réunion
     $("#creer-reunion").on("click", function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
+    
+        $("header, main, footer").css("opacity", "50%");
+        $("#nouvelle-reunion").css("opacity", "2");
+        $(this).prop("disabled", true);
     }) 
 
     // Fermer le formulaire de création d'une réunion
     $("#reunion-retour").on("click", function() {
         $("#nouvelle-reunion").removeClass("reunion-visible");
+        $("header, main, footer").css("opacity", "100%");
+        $("#creer-reunion").prop("disabled", false);
+
+
     }) 
+
+    // TODO: make it so clicking the "créer réunion" button also closes the form properly
+    $("body").on("click", function(event) {
+
+        if (!$(event.target).closest("#formulaires-reunion").length &&
+             $("#nouvelle-reunion").hasClass("reunion-visible") &&
+             !$(event.target).is("#creer-reunion")) {
+            $("header, main, footer").css("opacity", "100%");
+            $("#creer-reunion").prop("disabled", false);
+            $("#nouvelle-reunion").removeClass("reunion-visible");
+
+
+        }
+    })
 
     // Passage à la deuxième partie du formulaire
     $("#reunion-continuer").on("click", function(event) {

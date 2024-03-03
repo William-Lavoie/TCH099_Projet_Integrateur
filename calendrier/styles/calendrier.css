@@ -1,5 +1,7 @@
+
+
 #nouvelle-reunion, #creer-reunion-groupe, #creer-reunion-participants {
-    height: max(0vmin,300px);
+    height: max(60vmin,300px);
     aspect-ratio: 2/3;
     border: 2px solid red;
     display: none;
@@ -9,36 +11,63 @@
     right: 0;
     bottom: 0;
     left: 0;
+    background-color: white;
+    z-index: 1;
 }
 
 .reunion-visible {
     display: flex  !important ;
     flex-direction: column;
+    opacity: 100%;
 }
 
  /* main */
  main {
     height: 80vmin;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     
   }
 
-  #calendrier {
-    height: max(80%,315px);
-    aspect-ratio: 1.5/1;
+  #calendrier-jour {
+    height: 100%;
+    width: 100%;
     min-width: 475px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 5px;
+  
+  }
+
+  #calendrier {
+    width: max(60%,450px);
+    aspect-ratio: 1.5/1;
     border: 2px solid black;
     border-radius: 1em;
     overflow: hidden;
+    
   }
 
   #journee-mois {
     min-height: 50px;
     overflow: hidden;
     font-size: 2rem;
+    
+  }
+
+  .main-btn {
+    width: 15%;
+    min-width: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2%;
   }
 
 
