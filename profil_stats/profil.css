@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .profil {
+    background-color: #FFFFFF;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .photo {
+    background-image: url('avatar.png'); /* Replace with the path to your avatar image */
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background-color: #CCCCCC; /* Fallback color */
+  }
+  
+  .profil-info h2 {
+    margin: 0;
+    color: #333333;
+    font-size: 22px;
+  }
+  
+  .profil-info p {
+    color: #666666;
+    margin: 5px 0 20px;
+  }
+  
+  .edit-button {
+    background-color: #800080;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+  }
+  
+  .edit-button:hover {
+    background-color: #5c007a;
+  }
+  
+  body{
+    height: 200vmin;
+    margin:0;
+}
+
+header{
+    display: flex;
+    height: 10vmin;
+    min-height: 80px;
+    flex-direction: row;
+    background-color: #FFFFFF;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 2px black solid;
+}
+
+#blue_line_header{
+    z-index: -1;
+    height: 5vmin;
+    min-height: 40px;
+    width: 100%;
+    background-color:  rgba(3, 4, 94, 1);
+    top: 0;
+    position: absolute;
+}
+
+#logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(137, 119, 157);
+    width: 12rem;
+    height: 10vmin;
+    min-height: 80px;
+}
+
+#logo_acronyme {
+        color: #1399d8;
+        font-size: 2.5em;
+        font-weight: 700;
+        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+        font-style: italic;
+}
+
+#logo_nom {
+    color: #7eccff;
+    font-size: 1.5em;
+    font-weight: 700;
+    font-family: "Poppins Bold", "Poppins", sans-serif;
+}
+
+#button_container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10vmin;
+    height: 10vmin;
+    min-height: 80px;
+    margin-left: 5vmin;
+    flex-grow: 1;
+}
+
+.header_boutons {
+    margin-top: 2.5vmin;
+    width: 15rem;
+    height: 5vmin;
+    min-height: 40px;
+    color: white;
+    background-color:  rgba(3, 4, 94, 1);
+    border:  0.1rem solid white;
+    border-radius: 0.5em;
+    font-size: 0.9em;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+}
+
+.header_boutons:hover, .profil-boutons:hover {
+    background-color: #6a628d;
+}
+
+#header_nom {
+    display:flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 10vmin;
+    min-height: 80px;
+    font-size: 0.8em;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    flex-grow: 1;
+}
+
+#nom_et_pf{
+    display: flex;
+    flex-direction: row;
+}
+
+#conteneur_profile{
+    height: 40vmin;
+    min-height: 80px;
+    width: 16vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+
+#photo-profil-conteneur{
+    margin-top: 2.5vmin;
+    width: 5vmin;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 1vmin;
+
+}
+
+
+#photo-profil {
+    height: 5vmin;
+    min-height: 40px;
+    border-radius: 50%;
+    border: 0.1em solid black;
+}
+
+#menu-profil {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    visibility: hidden; 
+    padding: 2%;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    background-color: white;
+    flex-grow: 1;
+    width: 15vmin;
+}
+
+.profil-boutons {
+    border-radius: 10px;
+    padding: 1em;
+    width: 12vmin;
+    color: white;
+    background-color:  rgba(3, 4, 94, 1);
+    font-size: 1em;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+}
+
+#photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover,  #conteneur-profil:hover {
+    visibility: visible;
+}
+
+button:hover{
+    cursor: pointer;
+}
