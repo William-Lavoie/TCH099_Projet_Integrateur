@@ -1,5 +1,5 @@
 body {
-    height: 200vmin;
+    height: 100vmin;
     margin: 0;
 }
 
@@ -166,9 +166,7 @@ header {
   #photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover,  #conteneur-profil:hover {
     visibility: visible;
   }
-body {
-    margin: 0;
-}
+
 
 #header_conteneur {
     height: 10vmin;
@@ -334,4 +332,7 @@ body {
     visibility: visible;
   }
 
+
+
+ 
 
