@@ -58,7 +58,7 @@
     <div id="formulaires-reunion">
         <form id="nouvelle-reunion">
 
-            <label for="titre-reunion">Titre</label>
+            <label for="titre-reunion">Titre</label required>
             <input type="text" name="titre-reunion" >
 
             <label for="debut-reunion">Début</label>
@@ -73,8 +73,6 @@
             <label for="description-reunion">Description</label>
             <textarea name="description-reunion"></textarea>
 
-
-            
             <label for="groupe">Groupe</label>
             <input type="radio" id="btn-radio" name="groupes-radio" >
             
@@ -92,12 +90,16 @@
 
             <select name="groupes" id="choix-groupe">
             <option value="groupe1">Groupe1</option>
+            </select> 
             
-            </select>        
+            <button id="btn-retour-groupe" type="reset">Retour</button>
+            <button id="btn-confirmer-groupe" type="submit">Confirmer</button>
         </form>
 
         <form id="creer-reunion-participants">
             <input type="text">
+            <button id="btn-retour-participants" type="reset">Retour</button>
+            <button id="btn-confirmer-participants" type="submit">Confirmer</button>
         </form>
 
     </div>

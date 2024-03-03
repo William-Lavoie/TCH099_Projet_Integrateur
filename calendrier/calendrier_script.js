@@ -11,7 +11,6 @@ $(document).ready(function() {
         $("#nouvelle-reunion").removeClass("reunion-visible");
     }) 
 
-    
     // Passage à la deuxième partie du formulaire
     $("#reunion-continuer").on("click", function(event) {
 
@@ -30,6 +29,20 @@ $(document).ready(function() {
                 $("#creer-reunion-participants").addClass("reunion-visible");
             }
         }
+     })
+
+     // Retour vers la première page du formulaire depuis la page des groupes
+     $("#btn-retour-groupe").on("click", function(event) {
+       
+        $("#creer-reunion-groupe").removeClass("reunion-visible");
+        $("#nouvelle-reunion").addClass("reunion-visible");
+     })
+
+    // Retour vers la première page du formulaire depuis la page des participants
+     $("#btn-retour-participants").on("click", function(event) {
+       
+        $("#creer-reunion-participants").removeClass("reunion-visible");
+        $("#nouvelle-reunion").addClass("reunion-visible");
      })
       
 
