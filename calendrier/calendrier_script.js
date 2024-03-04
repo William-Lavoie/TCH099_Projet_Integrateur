@@ -41,6 +41,13 @@ $(document).ready(function() {
         // Vérifie que tous les champs sont remplis
         if ($("#nouvelle-reunion")[0].checkValidity()) {
 
+            // Conserver les informations 
+            let titre = $("#titre-reunion").val();
+            let debutReunion = $("#debut-reunion").val();
+            let finReunion = $("#fin-reunion").val();
+            let dateReunion = $("#date-reunion").val();
+
+            // Passer à la page suivante
             $("#nouvelle-reunion").removeClass("reunion-visible");
 
             if ($("#btn-radio")[0].checked) {
@@ -66,6 +73,9 @@ $(document).ready(function() {
         $("#creer-reunion-participants").removeClass("reunion-visible");
         $("#nouvelle-reunion").addClass("reunion-visible");
      })
+
+     // Soumissions de la création d'une réunion côté participants
+     
       
 
 

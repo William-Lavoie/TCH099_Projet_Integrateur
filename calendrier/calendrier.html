@@ -58,29 +58,29 @@
     <div id="formulaires-reunion">
         <form id="nouvelle-reunion">
 
-            <label for="titre-reunion">Titre</label required>
-            <input type="text" name="titre-reunion" >
+            <label for="titre-reunion">Titre</label>
+            <input type="text" name="titre-reunion" id="titre-reunion" required>
 
             <label for="debut-reunion">Début</label>
-            <input type="time" name="debut-reunion" >
+            <input type="time" name="debut-reunion" id="debut-reunion" required>
 
             <label for="fin-reunion">Fin</label>
-            <input type="time" name="fin-reunion" >
+            <input type="time" name="fin-reunion" id="fin-reunion" required>
 
             <label for="date-reunion">Choisir une date</label>
-            <input type="date" name="date-reunion" >
+            <input type="date" name="date-reunion" id="date-reunion" required>
 
             <label for="description-reunion">Description</label>
-            <textarea name="description-reunion"></textarea>
+            <textarea name="description-reunion" id="description-reunion"></textarea>
 
             <label for="groupe">Groupe</label>
-            <input type="radio" id="btn-radio" name="groupes-radio" >
+            <input type="radio" id="btn-radio" name="groupes-radio" required>
             
             <label for="participants">Participants</label>
-            <input type="radio" id="groupes" name="groupes-radio" >
+            <input type="radio" id="groupes" name="groupes-radio" required>
 
             <button id="reunion-retour" type="reset">Retour</button>
-            <button id="reunion-continuer" type="submit">Continuer</button>
+            <button id="reunion-continuer">Continuer</button>
 
         </form>
 
