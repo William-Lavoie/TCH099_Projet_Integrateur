@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+    let titre;
+    let dateReunion;
+    let debutReunion;
+    let finReunion;
+    let description;
 
     // Afficher le formulaire de création d'une réunion
     $("#creer-reunion").on("click", function() {
@@ -75,7 +80,26 @@ $(document).ready(function() {
      })
 
      // Soumissions de la création d'une réunion côté participants
-     
+   $("#btn-confirmer-groupe").on("click", function() {
+
+        const donnees = {"titre": titre,
+                         "debutReunion": debutReunion,
+                         "fineunion": finReunion,
+                         "dateReunion": dateReunion,
+                         "description": description};
+           
+        fetch("api/api_calendrier.php", {
+            method: 'POST',
+            header: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Success");
+            }
+        })
+
+   })
       
 
 

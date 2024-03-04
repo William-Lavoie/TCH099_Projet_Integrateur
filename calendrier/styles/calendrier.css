@@ -32,6 +32,7 @@ body {
     align-items: center;
     justify-content: center;
     flex: 1;
+    margin-top: 2%;
     
   }
 
@@ -44,7 +45,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    margin: 5px;
+    margin: 1%;
   
   }
 
@@ -84,7 +85,7 @@ body {
     background-color: rgba(3, 4, 94, 1);
     color: white;
     text-align: center;
-    margin-top: auto;
+    margin-top: 0.2%;
     padding: 2vmin;
     width: 100%;
   }
