@@ -1,4 +1,8 @@
-
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 #nouvelle-reunion, #creer-reunion-groupe, #creer-reunion-participants {
     height: max(60vmin,300px);
@@ -27,6 +31,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
     
   }
 
@@ -73,18 +78,17 @@
 
   /*footer */
 
-footer {
-  display: flex;
-  flex-direction: column;
-  background-color:  rgba(3, 4, 94, 1);
-  color: white;
-  text-align: center;
-  margin-top: max(auto, 100vh);
-  padding: 2vmin;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-}
+  footer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(3, 4, 94, 1);
+    color: white;
+    text-align: center;
+    margin-top: auto;
+    padding: 2vmin;
+    width: 100%;
+  }
+
 
 footer h5 {
   margin: 0;

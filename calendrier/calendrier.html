@@ -3,106 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="header_2.css">
     <link rel="stylesheet" href="styles/calendrier.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="calendrier_script.js"></script>
 
     <title>Calendrier</title>
 </head>
+
 <body>
     
     <header>
+        <div id="blue_line_header"> </div>
+
+
             <div id="logo">
                 <span id="logo_acronyme">HH</span> 
                 <span id="logo_nom">HuddleHarbor</span>
             </div>
 
-            <div id="header-milieu">
 
-                <div class="barre-bleue_header"></div>
+            <div id="button_container">
+                <button class="header_boutons">Calendrier</button>
+                <button class="header_boutons">Réunions</button>
+            </div>
 
-                <div id="header-milieu-bas">
-                    <div id="btn_conteneur_header">
-                        <button class="header_boutons">Calendrier</button>
-                        <button class="header_boutons">Réunions</button>
-                    </div>
 
-                        <span id="header_nom">Prénom Nom</span>
+            <div id="nom_et_pf">
+
+                <div id="header_nom">
+                    <h1>Prénom nom</h1>
                 </div>
 
 
-            </div>
+                <div id="conteneur_profile">
+                    <div id="photo-profil-conteneur">
+                        <img src="/images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
+                    </div>
 
-            <div id="header-profil">
+                    <div id="menu-profil">
+                        <button class="profil-boutons">Compte</button>
+                        <button class="profil-boutons">Statistiques</button>
+                        <button class="profil-boutons">Se déconnecter</button>
+                    </div>
 
-                <div class="barre-bleue_header"></div>
-                
-                    <div id="conteneur-profil">
-                        <div id="photo-profil-conteneur">
-                            <img src="../images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
-                        </div>
-
-                        <div id="menu-profil">
-                            <button class="profil-boutons">Compte</button>
-                            <button class="profil-boutons">Statistiques</button>
-                            <button class="profil-boutons">Se déconnecter</button>
-
-                        </div>
-                    </div>                 
+                </div>
             </div>
 
     </header>
 
 
-    <div id="formulaires-reunion">
-        <form id="nouvelle-reunion">
 
-            <label for="titre-reunion">Titre</label>
-            <input type="text" name="titre-reunion" id="titre-reunion" required>
-
-            <label for="debut-reunion">Début</label>
-            <input type="time" name="debut-reunion" id="debut-reunion" required>
-
-            <label for="fin-reunion">Fin</label>
-            <input type="time" name="fin-reunion" id="fin-reunion" required>
-
-            <label for="date-reunion">Choisir une date</label>
-            <input type="date" name="date-reunion" id="date-reunion" required>
-
-            <label for="description-reunion">Description</label>
-            <textarea name="description-reunion" id="description-reunion"></textarea>
-
-            <label for="groupe">Groupe</label>
-            <input type="radio" id="btn-radio" name="groupes-radio" required>
-            
-            <label for="participants">Participants</label>
-            <input type="radio" id="groupes" name="groupes-radio" required>
-
-            <button id="reunion-retour" type="reset">Retour</button>
-            <button id="reunion-continuer">Continuer</button>
-
-        </form>
-
-
-        <form id="creer-reunion-groupe">
-            <label for="groupes">Choisir un groupe:</label>
-
-            <select name="groupes" id="choix-groupe">
-            <option value="groupe1">Groupe1</option>
-            </select> 
-            
-            <button id="btn-retour-groupe" type="reset">Retour</button>
-            <button id="btn-confirmer-groupe" type="submit">Confirmer</button>
-        </form>
-
-        <form id="creer-reunion-participants">
-            <input type="text">
-            <button id="btn-retour-participants" type="reset">Retour</button>
-            <button id="btn-confirmer-participants" type="submit">Confirmer</button>
-        </form>
-
-    </div>
+   
 
 
     <main>
@@ -135,5 +87,54 @@
 </footer>
 
 </body>
+
+<div id="formulaires-reunion">
+    <form id="nouvelle-reunion">
+
+        <label for="titre-reunion">Titre</label>
+        <input type="text" name="titre-reunion" id="titre-reunion" required>
+
+        <label for="debut-reunion">Début</label>
+        <input type="time" name="debut-reunion" id="debut-reunion" required>
+
+        <label for="fin-reunion">Fin</label>
+        <input type="time" name="fin-reunion" id="fin-reunion" required>
+
+        <label for="date-reunion">Choisir une date</label>
+        <input type="date" name="date-reunion" id="date-reunion" required>
+
+        <label for="description-reunion">Description</label>
+        <textarea name="description-reunion" id="description-reunion"></textarea>
+
+        <label for="groupe">Groupe</label>
+        <input type="radio" id="btn-radio" name="groupes-radio" required>
+        
+        <label for="participants">Participants</label>
+        <input type="radio" id="groupes" name="groupes-radio" required>
+
+        <button id="reunion-retour" type="reset">Retour</button>
+        <button id="reunion-continuer">Continuer</button>
+
+    </form>
+
+
+    <form id="creer-reunion-groupe">
+        <label for="groupes">Choisir un groupe:</label>
+
+        <select name="groupes" id="choix-groupe">
+        <option value="groupe1">Groupe1</option>
+        </select> 
+        
+        <button id="btn-retour-groupe" type="reset">Retour</button>
+        <button id="btn-confirmer-groupe" type="submit">Confirmer</button>
+    </form>
+
+    <form id="creer-reunion-participants">
+        <input type="text">
+        <button id="btn-retour-participants" type="reset">Retour</button>
+        <button id="btn-confirmer-participants" type="submit">Confirmer</button>
+    </form>
+
+</div>
 
 </html>
