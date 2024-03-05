@@ -1,7 +1,7 @@
 <?php
 
 // Temporary values for testing on localhost
-$hostname = "localhost";
+    $hostname = "localhost";
     $username = "admin10";
     $password = "admin10";
     $database = "tch099";
