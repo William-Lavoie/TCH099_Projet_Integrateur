@@ -52,6 +52,10 @@ header{
     font-family: "Poppins Bold", "Poppins", sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 #button_container{
     display: flex;
     justify-content: flex-start;

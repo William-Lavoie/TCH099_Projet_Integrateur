@@ -16,6 +16,10 @@ header{
     border: 2px black solid;
 }
 
+a {
+    text-decoration: none;
+}
+
 #blue_line_header{
     z-index: -1;
     height: 5vmin;

@@ -302,6 +302,10 @@ header {
     max-width: 100%;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   #menu-profil {
    height: 40vmin;
    display: flex;
