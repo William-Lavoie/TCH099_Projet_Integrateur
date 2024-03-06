@@ -4,10 +4,11 @@ body {
   flex-direction: column;
 }
 
-#nouvelle-reunion, #creer-reunion-groupe, #creer-reunion-participants {
-    height: max(60vmin,300px);
-    aspect-ratio: 2/3;
-    border: 2px solid red;
+#nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants {
+    height: max(60vmin,400px);
+    aspect-ratio: 3/4;
+    border: 1px solid black;
+    border-radius: 0.5em;
     display: none;
     position: absolute;
     margin: auto;
@@ -15,8 +16,66 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: white;
     z-index: 1;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px black;
+    padding: 5p;
+}
+
+#formulaire-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 20%;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: rgba(3, 4, 94, 1);
+
+}
+
+#champs-a-remplir {
+  height: 80%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  color: black;
+  font-size: 1em;
+  margin-right: 1em;
+}
+
+.champ-reunion {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+input, textarea {
+  border-radius: 0.3em;
+  margin-right: 1em;
+  border: 1px solid lightgray;
+}
+
+textarea {
+  height: 30%;
+}
+
+
+#debut-reunion, #fin-reunion {
+  width: 6em;
+  font-size: 0.8rem;
+}
+
+#btn-radios {
+  margin-top: 1em;
 }
 
 .reunion-visible {
@@ -24,6 +83,16 @@ body {
     flex-direction: column;
     opacity: 100%;
 }
+
+#messages-erreur {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-style: italic;
+}
+
 
  /* main */
  main {

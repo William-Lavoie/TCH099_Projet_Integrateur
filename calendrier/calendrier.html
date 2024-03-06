@@ -97,32 +97,57 @@
 </body>
 
 <div id="formulaires-reunion">
-    <form id="nouvelle-reunion">
 
-        <label for="titre-reunion">Titre</label>
-        <input type="text" name="titre-reunion" id="titre-reunion" required>
+    <form id="nouvelle-reunion" class="reunion-visible">
 
-        <label for="debut-reunion">Début</label>
-        <input type="time" name="debut-reunion" id="debut-reunion" required>
+        <div id="formulaire-header">
+         Créer une nouvelle réunion<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆
+        </div>
 
-        <label for="fin-reunion">Fin</label>
-        <input type="time" name="fin-reunion" id="fin-reunion" required>
+        <div id="champs-a-remplir"> 
 
-        <label for="date-reunion">Choisir une date</label>
-        <input type="date" name="date-reunion" id="date-reunion" required>
+            <div class="champ-reunion">
+                <label for="titre-reunion">Titre</label>
+                <input type="text" name="titre-reunion" id="titre-reunion" required>
+            </div>
+            
+            <div class="champ-reunion">
+    
+                <label for="debut-reunion">Début</label>
+                <input type="time" name="debut-reunion" id="debut-reunion" required>
+    
+                <label for="fin-reunion">Fin</label>
+                <input type="time" name="fin-reunion" id="fin-reunion" required>
+    
+            </div>
+            
+            <div class="champ-reunion">
+                <label for="date-reunion">Choisir une date</label>
+                <input type="date" name="date-reunion" id="date-reunion" required>
+            </div>
+            
+            <label for="description-reunion">Description</label>
+            <textarea name="description-reunion" id="description-reunion"></textarea>
+    
+            <div id="btn-radios">
+                <label for="groupe">Groupe</label>
+                <input type="radio" id="btn-radio" name="groupes-radio" required>
+                
+                <label for="participants">Participants</label>
+                <input type="radio" id="groupes" name="groupes-radio" required>    
+            </div>
+           
+            <div id="messages-erreur">Hello</div>
+    
+            <div id="btn-reunion">
+                <button id="reunion-retour" type="reset">Retour</button>
+                <button id="reunion-continuer">Continuer</button>
+            </div>
+            
+    
 
-        <label for="description-reunion">Description</label>
-        <textarea name="description-reunion" id="description-reunion"></textarea>
-
-        <label for="groupe">Groupe</label>
-        <input type="radio" id="btn-radio" name="groupes-radio" required>
-        
-        <label for="participants">Participants</label>
-        <input type="radio" id="groupes" name="groupes-radio" required>
-
-        <button id="reunion-retour" type="reset">Retour</button>
-        <button id="reunion-continuer">Continuer</button>
-
+        </div>
+       
     </form>
 
 

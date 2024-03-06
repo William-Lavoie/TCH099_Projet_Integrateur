@@ -33,7 +33,7 @@ $(document).ready(function() {
     $("#creer-reunion").on("click", function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
     
-        $("header, main, footer").css("opacity", "50%");
+        $("header, main, footer").css("opacity", "20%");
         $("#nouvelle-reunion").css("opacity", "2");
         $(this).prop("disabled", true);
     }) 
@@ -83,6 +83,10 @@ $(document).ready(function() {
                 $("#creer-reunion-participants").addClass("reunion-visible");
             }
         }
+
+        else {
+            $("#messages-erreur").text("Il y a une erreur");
+        }
      })
 
      // Retour vers la première page du formulaire depuis la page des groupes
@@ -111,7 +115,7 @@ $(document).ready(function() {
                          "description": description};
            
                          console.log(donnees);
-        fetch("http://localhost:3333/calendrier/api/api_calendrier.php", {
+        fetch("http://localhost:3333/calendrier/api/api_calendrier.php/creer_reunion", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
