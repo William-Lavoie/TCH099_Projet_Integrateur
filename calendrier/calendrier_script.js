@@ -40,6 +40,7 @@ $(document).ready(function() {
 
     // Fermer le formulaire de création d'une réunion
     $("#reunion-retour").on("click", function() {
+       $("#messages-erreur").text("");
        fermerFormulaires();
     }) 
 
@@ -52,8 +53,7 @@ $(document).ready(function() {
             $("header, main, footer").css("opacity", "100%");
             $("#creer-reunion").prop("disabled", false);
             $("#nouvelle-reunion").removeClass("reunion-visible");
-
-
+            $("#messages-erreur").text("");
         }
     })
 
@@ -85,7 +85,29 @@ $(document).ready(function() {
         }
 
         else {
-            $("#messages-erreur").text("Il y a une erreur");
+            if ($("#titre-reunion").val() == "") {
+
+                $("#messages-erreur").text("Vous devez choisir un titre");
+            }
+
+            else if ($("#debut-reunion").val() == "") {
+
+                $("#messages-erreur").text("Vous devez choisir une heure de début");
+            }
+
+            else if($("#fin-reunion").val() == "") {
+
+                $("#messages-erreur").text("Vous devez choisir une heure de fin");
+            }
+
+            else if ($("#date-reunion").val() == "") {
+
+                $("#messages-erreur").text("Vous devez choisir une date");
+            }
+
+            else {
+                $("#messages-erreur").text("Vous devez choisir entre Groupe et Participants");
+            }
         }
      })
 
