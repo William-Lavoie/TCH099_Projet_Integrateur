@@ -38,7 +38,7 @@ body {
 
 }
 
-#champs-a-remplir {
+.champs-a-remplir {
   height: 80%;
   padding: 1em;
   display: flex;
@@ -93,6 +93,56 @@ textarea {
   font-style: italic;
 }
 
+.btn-reunion {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-reunion button{
+  background-color: rgba(3, 4, 94, 1);
+  color: white;
+  border-radius: 0.5em;
+  width: 40%;
+  padding: 2%
+}
+
+#ajouter-participants {
+  height: 100%;
+}
+
+#ajout-participant-label {
+  padding-left: 0.5em;
+  font-size: 1.2em;
+}
+
+#btn-creer-participant {
+  background-color: rgba(3, 4, 94, 1);
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  color: white;
+  font-size: 100%;
+}
+
+#nouveau-participant {
+  height: 2.5em;
+  width: 70%;
+  border-radius: 2em;
+  padding-left: 1em;
+  margin-right: 1em;
+}
+
+#nouveau-participant-creer {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4em;
+}
+
+#liste-participants {
+  height: 60%;
+  margin-top: 0.5em;
+}
+
 
  /* main */
  main {
@@ -143,6 +193,15 @@ textarea {
     justify-content: center;
     overflow: hidden;
     padding: 2%;
+  }
+
+  #creer-reunion {
+    background-color: rgba(3, 4, 94, 1);
+    color: white;
+    border-radius: 0.5em;
+    height: max(10%,40px);
+    font-size: 1em;
+    padding: 0.1em;
   }
 
 

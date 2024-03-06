@@ -76,8 +76,6 @@
 
         <div class="main-btn">
             <button id="creer-reunion">Créer réunion</button>
-            <button id="creer-reunion">Créer évènement</button>
-
         </div>
         
 
@@ -98,13 +96,13 @@
 
 <div id="formulaires-reunion">
 
-    <form id="nouvelle-reunion" class="reunion-visible">
+    <form id="nouvelle-reunion">
 
         <div id="formulaire-header">
          Créer une nouvelle réunion<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆
         </div>
 
-        <div id="champs-a-remplir"> 
+        <div class="champs-a-remplir"> 
 
             <div class="champ-reunion">
                 <label for="titre-reunion">Titre</label>
@@ -139,7 +137,7 @@
            
             <div id="messages-erreur"></div>
     
-            <div id="btn-reunion">
+            <div class="btn-reunion">
                 <button id="reunion-retour" type="reset">Retour</button>
                 <button id="reunion-continuer">Continuer</button>
             </div>
@@ -162,10 +160,39 @@
         <button id="btn-confirmer-groupe" type="submit">Confirmer</button>
     </form>
 
-    <form id="creer-reunion-participants">
-        <input type="text">
-        <button id="btn-retour-participants" type="reset">Retour</button>
-        <button id="btn-confirmer-participants">Confirmer</button>
+    <!--Ajouter participants-->
+    <form id="creer-reunion-participants" class="reunion-visible">
+
+        <div id="formulaire-header">
+            Créer une nouvelle réunion<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆
+        </div>
+
+        <div class="champs-a-remplir">
+
+            <div id="ajouter-participants">
+
+                <label for="ajouter-participant" id="ajout-participant-label">Ajouter participant</label>
+
+                <div id="nouveau-participant-creer">
+                    <input type="text" id="nouveau-participant" placeholder="Entrez l'adresse courriel ">
+                    <button id="btn-creer-participant">+</button>
+                </div>
+
+                <div id="liste-participants"></div>
+
+            </div>
+
+    
+    
+            <div class="btn-reunion">
+                 <button id="btn-retour-participants" type="reset">Retour</button>
+                 <button id="btn-confirmer-participants">Confirmer</button>  
+             </div>
+        </div>
+       
+            
+
+     
     </form>
 
 </div>

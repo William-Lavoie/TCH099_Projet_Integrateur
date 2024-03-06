@@ -20,6 +20,8 @@ $(document).ready(function() {
         $("#fin-reunion").val("");
         $("#date-reunion").val("");
         $("#description-reunion").val("");
+
+        $("#liste-participants").text("");
         
         // Réinitialiser les variables
         titre = null;
@@ -28,6 +30,10 @@ $(document).ready(function() {
         dateReunion = null;
         description = null;
     }
+
+    $("form button[type != 'reset']").on("click", function(event) {
+        event.preventDefault();
+    })
 
     // Afficher le formulaire de création d'une réunion
     $("#creer-reunion").on("click", function() {
@@ -124,6 +130,16 @@ $(document).ready(function() {
         $("#creer-reunion-participants").removeClass("reunion-visible");
         $("#nouvelle-reunion").addClass("reunion-visible");
      })
+
+     // TODO: this part isnt completed 
+    // Ajout d'un participant
+    $("#btn-creer-participant").on("click", function() {
+
+        let texte = $("#nouveau-participant").val();
+        $("#nouveau-participant").val("");
+
+        $("#liste-participants").text(texte);
+    }) 
 
     // Soumission de la création d'une réunion côté participants
    $("#btn-confirmer-participants").on("click", function(event) {
