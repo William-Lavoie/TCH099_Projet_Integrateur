@@ -19,8 +19,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $date = $donnees['dateReunion'];
         $description = $donnees['description'];
 
-        $query = $conn->prepare("INSERT INTO reunion (Titre, heure_debut, heure_fin, date, Description) VALUES ('$titre', '$debut', '$fin', '$date', '$description')");
+        $query = $conn->prepare("INSERT INTO reunion (id_réunions, courriel_createur, Titre, heure_debut, heure_fin, date, Description) VALUES ('1', 'william100@hotmail.com', '$titre', '$debut', '$fin', '$date', '$description')");
 
+        $query->execute();
+
+        $query = $conn->prepare("INSERT INTO étudiants_réunions VALUES ('william100@hotmail.com','2')");
         $query->execute();
 
         echo json_encode(["error" => "succes"]);

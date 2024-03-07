@@ -31,6 +31,50 @@ $(document).ready(function() {
         description = null;
     }
 
+    // Vérifier que les heures et la date choisies sont valides
+    function heureDateValides() {
+
+        const [heureDebut, minuteDebut] = debutReunion.split(':').map(Number);
+        const [heureFin, minuteFin] = finReunion.split(':').map(Number);
+
+        const dateFormate = dateReunion.replace(/-/g, '/'); 
+        const date = new Date(dateFormate);
+
+        const dateActuelle = new Date();
+        console.log(date);
+        console.log(dateActuelle);
+    
+        if (heureFin < heureDebut) {
+
+            $("#messages-erreur").text("L'heure de fin ne peut précéder l'heure de début");
+            return false;
+        }
+
+        else if (heureFin == heureDebut && minuteDebut > minuteFin) {
+
+            $("#messages-erreur").text("L'heure de fin ne peut précéder l'heure de début");
+            return false;
+        }
+
+        else if (date.getFullYear() < dateActuelle.getFullYear() ||
+                 date.getMonth() < dateActuelle.getMonth()  ||
+                 date.getDate() < dateActuelle.getDate()) {
+
+            $("#messages-erreur").text("La date ne peut pas déjà être passée");
+            return false;
+        }
+
+        else if (date.getDay() == dateActuelle.getDay() && date.getMonth() == dateActuelle.getMonth() 
+                && date.getFullYear() == dateActuelle.getFullYear() 
+                && (heureDebut < dateActuelle.getHours() || minuteDebut < dateActuelle.getMinutes())) {
+
+                $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
+                return false;
+        }
+
+        return true;
+    }
+
     $("form button[type != 'reset']").on("click", function(event) {
         event.preventDefault();
     })
@@ -78,19 +122,25 @@ $(document).ready(function() {
             dateReunion = $("#date-reunion").val();
             description = $("#description-reunion").val();
 
-            // Passer à la page suivante
-            $("#nouvelle-reunion").removeClass("reunion-visible");
+            if (heureDateValides()) {
 
-            if ($("#btn-radio")[0].checked) {
-                $("#creer-reunion-groupe").addClass("reunion-visible");
+                // Passer à la page suivante
+                $("#nouvelle-reunion").removeClass("reunion-visible");
+
+                if ($("#btn-radio")[0].checked) {
+                    $("#creer-reunion-groupe").addClass("reunion-visible");
+                }
+
+                if ($("#groupes")[0].checked) {
+                    $("#creer-reunion-participants").addClass("reunion-visible");
+                }
             }
 
-            if ($("#groupes")[0].checked) {
-                $("#creer-reunion-participants").addClass("reunion-visible");
-            }
+           
         }
 
         else {
+
             if ($("#titre-reunion").val() == "") {
 
                 $("#messages-erreur").text("Vous devez choisir un titre");
@@ -136,9 +186,19 @@ $(document).ready(function() {
     $("#btn-creer-participant").on("click", function() {
 
         let texte = $("#nouveau-participant").val();
-        $("#nouveau-participant").val("");
 
-        $("#liste-participants").text(texte);
+        // Vérifier si texte est une adresse courriel
+        if (texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+
+            $("#nouveau-participant").val("");
+
+            $("#liste-participants").text(texte);
+        }
+
+        else {
+            $("#messages-erreur-participants").text(texte + " n'est pas une adresse valide!");
+        }
+        
     }) 
 
     // Soumission de la création d'une réunion côté participants

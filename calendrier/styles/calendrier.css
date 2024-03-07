@@ -84,7 +84,7 @@ textarea {
     opacity: 100%;
 }
 
-#messages-erreur {
+#messages-erreur, #messages-erreur-participants {
   height: 20%;
   display: flex;
   justify-content: center;
@@ -139,7 +139,7 @@ textarea {
 }
 
 #liste-participants {
-  height: 60%;
+  height: 50%;
   margin-top: 0.5em;
 }
 
