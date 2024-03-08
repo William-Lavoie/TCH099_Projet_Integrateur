@@ -16,3 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// pour la modification
+document.getElementById('modifier-nom').addEventListener('click', function() {
+    let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
+    if (nouveauNom) {
+        let baseDonne = new baseDonne();
+        baseDonne.append('nouveauNom', nouveauNom); 
+
+        fetch('/modifier-nom', { // Envoie une requête POST au serveur
+            method: 'POST',
+            body: baseDonne
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Mettre à jour l'affichage du nom sur la page
+                document.getElementById('header_nom').querySelector('h1').textContent = nouveauNom;
+            } else {
+                alert("Erreur lors de la modification du nom.");
+            }
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+});
