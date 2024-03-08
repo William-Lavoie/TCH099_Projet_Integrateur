@@ -1,4 +1,5 @@
 body {
+    /* a revoir */
     font-family: Arial, sans-serif;
   }
   
@@ -209,4 +210,40 @@ button:hover{
 }
 .modifier-onglet {
     position: absolute;
-    background-color: #f
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.modifier-onglet {
+    position: absolute;
+    bottom: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white; 
+    color: #ffffff; 
+    border: 1px solid #0056b3; 
+    padding: 10px 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    display: none; 
+    width: auto; 
+    text-align: center; 
+}
+
+.modifier-onglet button {
+    background-color: #0056b3; 
+    color: #ffffff; 
+    border: none; 
+    padding: 8px 16px; 
+    margin: 5px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.modifier-onglet button:hover {
+    background-color: #003875; 
+}
