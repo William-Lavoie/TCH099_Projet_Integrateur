@@ -13,13 +13,13 @@ body {
   }
   
   .photo {
-    background-image: url('avatar.png'); /* Replace with the path to your avatar image */
+    background-image: url('avatar.png'); 
     background-size: cover;
     height: 100px;
     width: 100px;
     border-radius: 50%;
     margin: 0 auto 10px;
-    background-color: #CCCCCC; /* Fallback color */
+    background-color: #CCCCCC; 
   }
   
   .profil-info h2 {
@@ -209,9 +209,4 @@ button:hover{
 }
 .modifier-onglet {
     position: absolute;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
+    background-color: #f
