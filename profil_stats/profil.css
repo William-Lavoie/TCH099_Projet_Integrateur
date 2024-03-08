@@ -14,7 +14,7 @@ body {
   }
   
   .photo {
-    background-image: url('avatar.png'); 
+    background-image: url('image_profil_vide.png'); 
     background-size: cover;
     height: 100px;
     width: 100px;
