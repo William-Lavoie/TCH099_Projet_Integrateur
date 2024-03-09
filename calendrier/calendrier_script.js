@@ -6,7 +6,6 @@ $(document).ready(function() {
     let finReunion;
     let description;
 
-
     // Vider tous les champs et fermer les formulaires
     function fermerFormulaires() {
 
@@ -74,6 +73,21 @@ $(document).ready(function() {
 
         return true;
     }
+
+    function courrrielPresent(courriel) {
+
+        const listeParticipants = $("#liste-participants p");
+
+        for (let i=0; i < listeParticipants.length; i++) {
+
+            if (listeParticipants[i].innerText === courriel) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     $("form button[type != 'reset']").on("click", function(event) {
         event.preventDefault();
@@ -181,25 +195,77 @@ $(document).ready(function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
      })
 
-     // TODO: this part isnt completed 
+
+     
     // Ajout d'un participant
     $("#btn-creer-participant").on("click", function() {
 
+        $("#messages-erreur-participants").text("");
+
         let texte = $("#nouveau-participant").val();
 
-        // Vérifier si texte est une adresse courriel
-        if (texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
+        const boutonSupprimer = $("<button class='supprimer-participant'>X</button>");
 
+        if (courrrielPresent(texte)) {
             $("#nouveau-participant").val("");
-
-            $("#liste-participants").text(texte);
+            $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
         }
 
+        else if (texte != "" && texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+
+            const courriel = {"courriel": texte};
+    
+            fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_participants", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(courriel)
+            })
+            .then(response => {
+    
+            if (response.ok) {
+                 return response.json();
+            }
+    
+            else {
+                console.log("error");
+            }
+            })
+            .then(data => {
+                
+               if (data["existe"]) {
+
+                $("#nouveau-participant").val("");
+
+                    boutonSupprimer.on("click", function() {
+                    nouveauParticipant.remove();
+                });
+ 
+ 
+                 nouveauParticipant.children("p").text(texte);
+                 nouveauParticipant.append(boutonSupprimer);
+ 
+                 $("#liste-participants").append(nouveauParticipant);
+               }
+
+               else {
+
+                $("#messages-erreur-participants").text(texte + " ne correspond pas à un compte HuddleHarbor");
+
+               }
+                
+            })
+            .catch(error => {
+            console.log(error);
+            });
+        }
+        
         else {
             $("#messages-erreur-participants").text(texte + " n'est pas une adresse valide!");
         }
-        
-    }) 
+        }) 
+
+
 
     // Soumission de la création d'une réunion côté participants
    $("#btn-confirmer-participants").on("click", function(event) {

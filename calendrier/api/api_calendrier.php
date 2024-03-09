@@ -36,6 +36,37 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
 
     }
+
+
+
+    // Chercher si le participant existe
+    if (preg_match("~chercher_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['courriel'],)) {
+    
+            require("connexion.php");
+    
+            $courriel = $donnees['courriel'];
+           
+            $query = $conn->prepare("SELECT * FROM étudiants WHERE courriel = :courriel");
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+    
+            $query->execute();
+    
+            $resultat = $query->fetch(PDO::FETCH_ASSOC);
+
+            echo json_encode(["existe" => !empty($resultat)]);
+            }
+    
+            else {
+                echo json_encode(["error" => "erreur"]);
+            }
+    
+    }
 }
 
 ?>
