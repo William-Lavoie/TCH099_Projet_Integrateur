@@ -116,7 +116,7 @@ a {
 so the conterneu_profile pushes up on the photo-profil-conteneur and  photo-profil-conteneur only takes up the space needed
 for it's child rather than what it would need to be centeres
 so it does not stay centered when vh gets skwished a lot. */
-#photo-profil-conteneur{
+#photo-profil-conteneur {
     margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
     width: 5vmin;
     display: flex;
