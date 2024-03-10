@@ -104,6 +104,7 @@ header {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    text-wrap: nowrap;
     height: 10vmin;
     min-height: 80px;
     min-width: 80px;
@@ -248,12 +249,8 @@ aside:not(.collapsed) table {
 #creer_groupe {
     position: fixed;
     bottom: 0;
-    width: 10em;
     height: 10%;
-    padding: 2%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: center;
 }
 
 #creer_groupe button {
@@ -261,7 +258,6 @@ aside:not(.collapsed) table {
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
     border-radius: 5px;
     border: 1px solid #322e38;
-    background-color: #3c3744;
 }
 
 #creer_groupe button:hover{
