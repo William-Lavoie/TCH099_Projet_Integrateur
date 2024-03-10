@@ -1,162 +1,185 @@
-body{
-    height: 100vmin;
-    margin:0;
+body {
+    margin: 0;
+    width: 100vw;
+    height: min(100vh);
+    overflow-x: hidden;
+    background-color:  rgba(3, 4, 94, 1);
 }
 
-header{
-    display: flex;
-    height: max(10vmin, 80px);
-    flex-direction: row;
-    background-color: #FFFFFF;
-    align-items: center;
+header {
+    width: 100vw;
+    height: 20vmin;
     position: sticky;
     top: 0;
-    justify-content: space-between;
-    align-items: flex-start;
-    border: 2px black solid;
+    background-color: #03045e;
+    display: grid;
+    grid-template-areas: "a b c"
+                         "a d d";
+    grid-template-columns: 20% 40% 40%;
+    grid-template-rows: 70% 30%;
+    z-index: 1;
 }
 
-#blue_line_header{
-    z-index: -1;
-    height: 5vmin;
-    min-height: 40px;
-    width: 100%;
-    background-color:  rgba(3, 4, 94, 1);
-    top: 0;
-    position: absolute;
+#logo_conteneur {
+    grid-area: a;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#logo {
+#text_conteneur {
+    grid-area: b;
+    border: 0;
+    font-size: 1.5rem;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;    font-weight: 700;
+    color: #ffffff;
+    text-align: left;
+    line-height: normal;
+    display: flex;
+    align-items: end;
+}
+
+#boutons_conteneur {
+    grid-area: d;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#compte_conteneur {
+    grid-area: c;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+#logo_plan {
+    width: 90%;
+    height: 90%;
+    border: 0;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(137, 119, 157);
-    width: 12rem;
-    height: 10vmin;
-    min-height: 80px;
 }
 
 #logo_acronyme {
-        color: #1399d8;
-        font-size: 2.5em;
-        font-weight: 700;
-        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-        font-style: italic;
+    font-size: 3em;
+    color: #1399d8;
+    font-weight: 700;
+    font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+    font-style: italic;
 }
 
 #logo_nom {
+    font-size: 2em;
+    overflow: hidden;
+    word-break: break-all;
     color: #7eccff;
-    font-size: 1.5em;
     font-weight: 700;
     font-family: "Poppins Bold", "Poppins", sans-serif;
 }
 
-#button_container{
+#logo_slogan {
+    font-size: 1.5em;
+    overflow: hidden;
+    word-break: break-all;
+    background-color: rgba(255, 255, 255, 0);
+    font-family: "Script MT Bold", "Script MT", sans-serif;
+    font-weight: 700;
+    color: #a7a8ab;
+    line-height: normal;
+}
+
+#bouton1 {
+    width: 19%;
+    height: 2rem;
+    background-color: #00509d;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    line-height: normal;
+    border: 0;
+}
+
+#bouton2 {
+    width: 19%;
+    height: 2rem;
+    background-color: #003f88;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    line-height: normal;
+    border: 0;
+}
+
+#compte_ligne {
+    width: 100%;
+    height: 80%;
+    border: 2px solid white;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 10vmin;
-    height: 10vmin;
-    min-height: 80px;
-    margin-left: 5vmin;
-    flex-grow: 1;
+    justify-content: space-around;
 }
 
-.header_boutons {
-    width: max(15vmin, 80px);
-    height: 5vmin;
-    min-height: 40px;
-    color: white;
-    background-color:  rgba(3, 4, 94, 1);
-    border:  0.1rem solid white;
-    border-radius: 0.5em;
-    font-size: 0.9rem;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-}
+/**/
 
-.header_boutons:hover, .profil-boutons:hover {
-    background-color: #6a628d;
-}
-
-#nom_et_pf{
-    display: flex;
-    flex-direction: row;
-    height: max(10vmin, 80px);
-}
-
-#header_nom {
-    display:flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    height: 10vmin;
-    min-height: 80px;
-    min-width: 80px;
-    font-size: 0.8em;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-    flex-grow: 1;
-}
-
-
-#conteneur_profile{
-    height: max(30vmin, 240px);
-    width: 16vmin;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
-
-/* the centering of the profile picture is poorly done, it's relative the page rather than to one another 
-so the conterneu_profile pushes up on the photo-profil-conteneur and  photo-profil-conteneur only takes up the space needed
-for it's child rather than what it would need to be centeres
-so it does not stay centered when vh gets skwished a lot. */
-#photo-profil-conteneur{
-    margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
-    width: 5vmin;
+#image_bouton {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1vmin;
-    flex-direction: column;
 }
 
-
-#photo-profil {
-    height: max(5vmin, 40px);
-    border-radius: 50%;
-    border: 0.1em solid black;
+#bouton, #login {
+    width: 45%;
+    height: 60%;
+    background-color: #0077b6;
+    border: 2px solid #006ba7;
+    color: white;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 3%;
 }
 
-#menu-profil {
+#arriere_plan {
+    transform: rotate(180deg);
+    opacity: 0.85;
+}
+
+footer {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    visibility: hidden; 
-    padding: 2%;
-    border: 2px solid black;
-    border-radius: 0.5em;
-    background-color: white;
-    flex-grow: 1;
-    width: 15vmin;
-}
-
-.profil-boutons {
-    border-radius: 10px;
-    padding: 1em;
-    width: 12vmin;
-    color: white;
     background-color:  rgba(3, 4, 94, 1);
-    font-size: 1em;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    color: white;
+    text-align: center;
+    margin-top: max(auto, 100vh);
+    padding: 2vmin;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
 }
 
-#photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover,  #conteneur-profil:hover {
-    visibility: visible;
+footer h5 {
+    margin: 0;
+    font-size: .8rem;
 }
 
-button:hover{
-    cursor: pointer;
+footer h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #1399d8;
+        font-size: 2.5em;
+        font-weight: 700;
+        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+        font-style: italic;
 }

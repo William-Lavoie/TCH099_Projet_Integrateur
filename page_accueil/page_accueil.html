@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Page d'accueil</title>
     <link href="./page_accueil.css" rel="stylesheet">
-
 </head>
 <body>
-    
     <header>
-        <div id="blue_line_header"> </div>
-
-
-            <div id="logo">
-                <span id="logo_acronyme">HH</span> 
-                <span id="logo_nom">HuddleHarbor</span>
+        <div id="logo_conteneur">
+            <div id="logo_plan">
+                <div id="logo_acronyme">HH</div>
+                <div id="logo_nom">HuddleHarbor</div>
+                <div id="logo_slogan">Travillez avec efficacité!</div>
             </div>
-
-
-            <div id="button_container">
-                
+        </div>
+        <div id="text_conteneur">Créez des réunions rapidement
+                        <br> Joignez-vous avec les autres
+        </div>
+        <div id="boutons_conteneur">
+            <button id="bouton1">btn1</button>
+            <button id="bouton2">btn2</button>
+            <button id="bouton1">btn3</button>
+            <button id="bouton2">btn4</button>
+            <button id="bouton1">btn5</button>
+        </div>
+        <div id="compte_conteneur">
+            <div id="compte_ligne">
+                <button id="login"><img id="image_bouton" src="account_icon.svg" alt="Icône utilisateur" height="70%">  Se connecter</button>
+                <button id="bouton"><img id="image_bouton" src="account_icon.svg" alt="Icône utilisateur" height="70%">  Créer un compte</button>
             </div>
-
-
-            <div id="nom_et_pf">
-
-                <button>Register</button>
-
-                <a href="/calendrier/calendrier.html"><button> To cal</button></a>
-
-                <button id="login">Login</button>
-
-            </div>
-
+        </div>
     </header>
+    <img id="arriere_plan" src="imgAccueil.jpg" alt="Image arrière plan de la page d'accueil" width="100%" height="100%"></img>
+    <footer>
+        <h5>Privacy policy &nbsp | &nbsp Terms and condition</h5>
+        <h4>HH</h4>
+        <h5>© 2024 All rights reserved</h5>
+    </footer>
 
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="./login.js"></script>
