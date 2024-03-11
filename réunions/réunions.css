@@ -1,48 +1,62 @@
-body{
-    height: 100vmin;
-    margin:0;
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
-header{
-    display: flex;
-    height: max(10vmin, 80px);
-    flex-direction: row;
-    background-color: #FFFFFF;
-    align-items: center;
+header {
     position: sticky;
     top: 0;
-    justify-content: space-between;
-    align-items: flex-start;
-    border: 2px black solid;
-}
-
-#blue_line_header{
-    z-index: -1;
-    height: 5vmin;
-    min-height: 40px;
     width: 100%;
-    background-color:  rgba(3, 4, 94, 1);
-    top: 0;
-    position: absolute;
+    height: max(10vmin, 80px);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    z-index: 2;
 }
 
 #logo {
+    background-color: #8182AF;
+    width: 12rem;
+    height: 10vmin;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(137, 119, 157);
-    width: 12rem;
-    height: 10vmin;
-    min-height: 80px;
+}
+
+#blue_line_header {
+    position: absolute;
+    top: 0;
+    z-index: -5;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(3, 4, 94, 1);
+}
+
+#decorative_line_header {
+    position: absolute;
+    top: 97%;
+    z-index: -5;
+    width: 100%;
+    border: 1px solid #02004c;
+}
+
+#decorative_line_header2 {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    border: 1px solid #02004c;
 }
 
 #logo_acronyme {
-        color: #1399d8;
-        font-size: 2.5em;
-        font-weight: 700;
-        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-        font-style: italic;
+    color: #1399d8;
+    font-size: 2.5em;
+    font-weight: 700;
+    font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+    font-style: italic;
 }
 
 #logo_nom {
@@ -52,15 +66,11 @@ header{
     font-family: "Poppins Bold", "Poppins", sans-serif;
 }
 
-a {
-    text-decoration: none;
-}
-
 #button_container{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 10vmin;
+    gap: 5vmin;
     height: 10vmin;
     min-height: 80px;
     margin-left: 5vmin;
@@ -68,31 +78,33 @@ a {
 }
 
 .header_boutons {
-    width: max(15vmin, 80px);
+    width: max(25vmin, 80px);
     height: 5vmin;
     min-height: 40px;
     color: white;
-    background-color:  rgba(3, 4, 94, 1);
-    border:  0.1rem solid white;
+    background-color: rgba(3, 4, 94, 1);
+    border: 0.1rem solid white;
     border-radius: 0.5em;
     font-size: 0.9rem;
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
 }
 
 .header_boutons:hover, .profil-boutons:hover {
-    background-color: #6a628d;
+    background-color: #161782;
 }
 
-#nom_et_pf{
+#nom_et_pf {
+    width: 20rem;
+    height: 100%;
     display: flex;
     flex-direction: row;
-    height: max(10vmin, 80px);
 }
 
 #header_nom {
-    display:flex;
+    display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    text-wrap: nowrap;
     height: 10vmin;
     min-height: 80px;
     min-width: 80px;
@@ -101,179 +113,248 @@ a {
     flex-grow: 1;
 }
 
-
-#conteneur_profile{
-    height: max(30vmin, 240px);
+#conteneur_profil {
+    height: max(30vmin, 200px);
     width: 16vmin;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    z-index: 10;
 }
 
-
-/* the centering of the profile picture is poorly done, it's relative the page rather than to one another 
-so the conterneu_profile pushes up on the photo-profil-conteneur and  photo-profil-conteneur only takes up the space needed
-for it's child rather than what it would need to be centeres
-so it does not stay centered when vh gets skwished a lot. */
-#photo-profil-conteneur {
-    margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
-    width: 5vmin;
+#conteneur_photo_profil {
+    width: 100%;
+    height: max(10vmin, 75px);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1vmin;
-    flex-direction: column;
 }
 
-
-#photo-profil {
-    height: max(5vmin, 40px);
-    border-radius: 50%;
-    border: 0.1em solid black;
+#photo_profil {
+    border: 3px solid #02004c;
+    height: max(7vmin, 40px);
+    width: max(7vmin, 40px);
+    border-radius: 100%;
+    background-image: url("./image_profil_vide.png");
+    background-size: cover;
 }
 
-#menu-profil {
+#menu_profil {
+    height: 60%;
+    width: 120%;
+    margin-right: 4vmin;
+    background-color: white;
+    border: 1px solid #F4F4F4;
+    border-radius: 10%;
+    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-    visibility: hidden; 
-    padding: 2%;
-    border: 2px solid black;
-    border-radius: 0.5em;
-    background-color: white;
-    flex-grow: 1;
-    width: 15vmin;
+    justify-content: center;
+    justify-content: space-evenly;
+    visibility: hidden;
 }
 
-.profil-boutons {
-    border-radius: 10px;
-    padding: 1em;
-    width: 12vmin;
-    color: white;
-    background-color:  rgba(3, 4, 94, 1);
-    font-size: 1em;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-}
-
-#photo-profil-conteneur:hover + #menu-profil, #menu-profil:hover,  #conteneur-profil:hover {
+#conteneur_photo_profil:hover + #menu_profil, #menu_profil:hover, #conteneur_profil:hover {
     visibility: visible;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
+}
+
+.profil_boutons {
+    width: 100%;
+    height: 40%;
+    background-color: white;
+    border: thick double #f4f4f4;
+    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
+    font-weight: 700;
+    color: #6b6b6b;
+    text-align: center;
+    line-height: normal;
+}
+
+#profil_deconnecter {
+    width: 90%;
+    height: 20%;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #f4f4f4;
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.35);
+    font-family: "Arial", sans-serif;
+    color: #6b6b6b;
+    text-align: center;
+    line-height: normal;
 }
 
 
 
 /* start of aside code */
 
+/***********************
+ * asides
+ ***********************/
+
 main {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    width: 100%;
-    min-height: 100vh;     /* height set just to display the scrollability*/
-    transition: margin-left 0.5s;
+    height: 100vh;
+    transition: margin-left 0.5s, margin-right 0.5s;
+    background-color: white;
 }
 
-
-aside {
+#presence,
+#to_do{
     display: flex;
     flex-direction: column;
-    background-color: darkslateblue;
+    background-color: #3c3744;
     color: white;
-    position: fixed;
-    height: 100%;
-    width: 10em;
+    width: 12em; 
     font-size: 1.2rem;
+    position: fixed;
     text-decoration: none;
     transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease 0.1s;
-    overflow:auto;
+    height: 100vh;
+    z-index: 9;
 }
 
-aside table
-{
+.presence_radio{
+    font-size: 0.5em;
+}
+
+.presence_radio input[type="radio"] {
+    transform: scale(1.5);
+}
+
+.present_selecté {
+    color: green;
+}
+
+.absent_selecté {
+    color: red;
+}
+
+
+#to_do {
+    right:0;
+}
+
+#presence table,
+#to_do table {
     border-collapse: separate;
     opacity: 0;
     transition: opacity 0.5s ease 0.1s;
 }
 
-aside:not(.collapsed) table
-{
+#presence:not(.collapsed) table,
+#to_do:not(.collapsed) table {
     opacity: 1;
 }
 
-#cree_groupe{
-    position:fixed;
+#prendre_presence,
+#table_to_do {
+    position: fixed;
     bottom: 0;
+    height: 10%;
+    align-self: center;
 }
 
-#cree_groupe button{
-    border: 1px black solid;
-    box-shadow: white;
+#prendre_presence button,
+#table_to_do button {
     border-radius: 15%;
+    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
+    border-radius: 5px;
+    border: 1px solid #322e38;
 }
 
-#cree_groupe button:hover{
+#prendre_presence button:hover,
+#table_to_do button:hover{
     background-color: white;
-    color:black;
+    color: black;
 }
 
-aside th,
-aside td,
-aside button {
-    padding: 1em;
+#presence th,
+#to_do th,
+#presence td,
+#to_do td,
+#presence button,
+#to_do button {
+    padding-top: 0;
     text-align: center;
 }
 
-aside button{
-    background-color: darkslateblue;
-    box-shadow: none;
-    border: none;
-    color:white;
+#presence button, 
+#to_do button {
+    border: 1px solid #322e38;
+    background-color: #3c3744;
+    color: white;
     font-size: 1em;
-    border-bottom: 1px white solid;
+    padding: 10px;
     text-align: left;
-    width: 10rem;
+    width: 100%;
+    border-bottom: 1px white solid;
 }
 
-aside button:hover{
-    background-color:  rgba(3, 4, 94, 1);
+
+#presence button:hover,
+#to_do button:hover {
+    background-color: white;
+    color: black;
 }
 
-aside.collapsed {
+#presence.collapsed,
+#to_do.collapsed {
     width: 0;
     overflow: hidden;
 }
 
-#BtnPliable {
+#BtnPliableGauche,
+#BtnPliableDroite {
     font-size: 2rem;
-    background-color: white;
+    background-color: transparent;
+    color: #c5c5c5;
     border: none;
 }
 
 
-.BtnPliable{
-    position: fixed;
+.BtnPliableGauche,
+.BtnPliableDroite {
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-left: 10em;
     font-size: 1.2rem;
-    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+    z-index: 9;
+}
+
+.BtnPliableGauche{
+    position:fixed;
+    left: 13em;
+    transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+}
+
+.BtnPliableDroite{
+    position:fixed;
+    right: 13em;
+    transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
+}
+.BtnPliableGauche.collapsed {
+    left: 2vmin;
+}
+
+.BtnPliableDroite.collapsed {
+    right: 2vmin;
 }
 
 
-.BtnPliable.collapsed {
-    margin-left: 2vmin;
-    transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
-}
 
+/***********************
+ * content
+ ***********************/
 
-/*start of code for the content that goes to the right of the aside*/
 content {
     display: flex;
     color: white;
@@ -285,10 +366,6 @@ content {
     margin-right: 1vmin;
     margin-bottom: 5vmin;
     transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
-}
-
-content.collapsed {
-    margin-left: 0;
 }
 
 

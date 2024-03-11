@@ -3,125 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Réunion</title>
 
     <link href="./réunions.css" rel="stylesheet">
 
-    <script src="./reunions_principale.js"></script>
+    <script src="./réunions.js"></script>
 </head>
 <body>
     
     <header>
-        <div id="blue_line_header"> </div>
-
-
-        <a href="../calendrier/calendrier.html">
-            <div id="logo">
+        <button id="logo">
+            <a href="../calendrier/calendrier.html">
                 <span id="logo_acronyme">HH</span> 
                 <span id="logo_nom">HuddleHarbor</span>
+            </a>
+        </button>
+        <div id="blue_line_header"></div>
+        <div id="decorative_line_header"></div>
+        <div id="decorative_line_header2"></div>
+        
+        <div id="button_container">
+            <a href="../calendrier/calendrier.html">
+                <button class="header_boutons">Calendrier</button>
+            </a>
+            <a href="../réunions/réunions.html">
+                <button class="header_boutons">Réunions</button>
+            </a>
+        </div>
+
+        <div id="nom_et_pf">
+            <div id="header_nom">
+                <h1>Prénom Nom</h1>
             </div>
-        </a>
-          
-
-
-            <div id="button_container">
-
-                <a href="../calendrier/calendrier.html">
-                    <button class="header_boutons">Calendrier</button>
-                </a>
-
-                <a href="../réunions/réunions_principale.html">
-                    <button class="header_boutons">Réunions</button>
-                </a>
-            </div>
-
-            <div id="nom_et_pf">
-
-                <div id="header_nom">
-                    <h1>Prénom nom</h1>
-                </div>
-
-
-                <div id="conteneur_profile">
-                    <div id="photo-profil-conteneur">
-                        <img src="/images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
-                    </div>
-
-                    <div id="menu-profil">
-                        <button class="profil-boutons">Compte</button>
-                        <button class="profil-boutons">Statistiques</button>
-                        <button class="profil-boutons">Se déconnecter</button>
-                    </div>
-
+            <div id="conteneur_profil">
+                <button id="conteneur_photo_profil">
+                    <div id="photo_profil" alt="Photo de profil par défaut"></div>
+                </button>
+                <div id="menu_profil">
+                    <button class="profil_boutons">
+                        <a href="../profil_stats/profil.html">Compte et Statistiques</a>
+                    </button>
+                    <button id="profil_deconnecter">
+                        <a href="../page_accueil/page_accueil.html">Se déconnecter</a>
+                    </button>
                 </div>
             </div>
-
+        </div>
     </header>
-
     
         
     <main>
-        
-        
-        <aside>
-
-            <table class="hide-text">
+        <aside id="presence">
+            <table class="hide-text" >
                 <tr>
-                    <th colspan="2">Menu Groupe</th>
+                    <th colspan="3">Présence</th>
                 </tr>
                 <tr>
-                    <td>
-                        <button>Groupe 1</button>
-                    </td>
-                
+                    <td><br></td>
                 </tr>
                 <tr>
+                    <td id="name1" class="name">Name</td>
                     <td>
-                        <button>Groupe 2</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button>Groupe 3</button>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present1" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent1" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
                     </td>
                 </tr>
                 <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name2" class="name">Longer Name</td>
                     <td>
-                        <button>Groupe 4</button>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present2" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent2" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name3" class="name">Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present3" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent3" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button>Groupe 5</button>
+                        <br>
                     </td>
                 </tr>
-            
+                <tr>
+                    <td id="name4" class="name">Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present4" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent4" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name5" class="name">Longer Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present5" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent5" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name6" class="name">Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present6" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent6" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="name7" class="name">Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present7" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent7" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name8" class="name">Longer Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present8" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent8" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td id="name9" class="name">Name</td>
+                    <td>
+                        <form class="presence_form">
+                            <label class="presence_radio">
+                                <input type="radio" id="present9" class="Present" name="Presence" value="Present"> Present
+                            </label>
+                            <label class="presence_radio">
+                                <input type="radio" id="absent9" class="Absent" name="Presence" value="absent"> Absent
+                            </label>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <tr>
+                        <td id="name10" class="name">Name</td>
+                        <td>
+                            <form class="presence_form">
+                                <label class="presence_radio">
+                                    <input type="radio" id="present10" class="Present" name="Presence" value="Present"> 
+                                </label>
+                                <input type="radio" style="visibility: hidden;">
+                                <label class="presence_radio">
+                                    <input type="radio" id="absent10" class="Absent" name="Presence" value="absent"> 
+                                </label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="name11" class="name">Name</td>
+                        <td>
+                            <form class="presence_form">
+                                <label class="presence_radio">
+                                    <input type="radio" id="present11" class="Present" name="Presence" value="Present"> 
+                                </label>
+                                <input type="radio" style="visibility: hidden;">
+                                <label class="presence_radio">
+                                    <input type="radio" id="absent11" class="Absent" name="Presence" value="absent"> 
+                                </label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr>
+                        <td id="name12" class="name">Longer Name</td>
+                        <td>
+                            <form class="presence_form">
+                                <label class="presence_radio">
+                                    <input type="radio" id="present12" class="Present" name="Presence" value="Present"> 
+                                </label>
+                                <label class="presence_radio">
+                                    <input type="radio" id="absent12" class="Absent" name="Presence" value="absent"> 
+                                </label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr>
+                        <td id="name13" class="name">Name</td>
+                        <td>
+                            <form class="presence_form">
+                                <label class="presence_radio">
+                                    <input type="radio" id="present13" class="Present" name="Presence" value="Present"> 
+                                </label>
+                                <label class="presence_radio">
+                                    <input type="radio" id="absent13" class="Absent" name="Presence" value="absent"> 
+                                </label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
             </table>
 
-            <table class="hide-text" id="cree_groupe">
+            <table class="hide-text" id="prendre_presence">
                 <tr>
                     <td>
-                        <button>Cree Groupe</button>
+                        <label for="satisfaction">Niveau de satisfaction</label>
+                        <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="50" onchange="updateSliderValue()">
+                        <p id="valeurSatisfaction">50</p>
                     </td>
                 </tr>
             </table>
-
         </aside>
+        <div class="BtnPliableGauche">
+            <button id="BtnPliableGauche">⪓</button>
+        </div>
 
-
-            <div class="BtnPliable">
-                <button id="BtnPliable">⤄</button>
-            </div>
         
-
         <content>
-
-            <h1>test</h1>
 
         </content>
 
+        
+        <div class="BtnPliableDroite">
+            <button id="BtnPliableDroite">⪓</button>
+        </div>
+        <aside id="to_do">
+            <table class="hide-text">
+                <tr>
+                    <th colspan="2">To-Do</th>
+                </tr>
+            </table>
+            <table class="hide-text" id="table_to_do">
+                
+            </table>
+        </aside>
 
     </main>
+
+
 
     <footer>
         <h5>Privacy policy &nbsp | &nbsp Terms and condition</h5>
