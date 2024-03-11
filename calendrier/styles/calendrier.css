@@ -192,20 +192,17 @@ border: 2px solid black;
     min-width: 475px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    margin: 1%;
-  
+    margin: 1%;  
   }
 
   #calendrier {
     margin: 0;
-    width: max(60%,450px);
     aspect-ratio: 1.5/1;
     border: 1px solid black;
     border-radius: 1em;
-    overflow: hidden;
     display: flex;  
     flex-wrap: wrap;  
     box-sizing: border-box;
@@ -223,14 +220,55 @@ border: 2px solid black;
   }
 
   .jour:hover {
-    background-color: red;  
-  }
+      background-color: rgb(246, 246, 246);  
+    }
 
   #journee-mois {
+    height: 15%;
     min-height: 50px;
+    width: 60%;
     overflow: hidden;
     font-size: 2rem;
-    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+  }
+
+  #journee-mois button {
+    background-color: white;
+    border: 0;
+    height: fit-content;
+    width: fit-content;
+    font-size: 1em;
+  }
+
+  #journee-mois p {
+    font-size: 1em;
+  }
+
+  #calendrier-journees-semaine {
+    width: max(60%,450px);
+    height: 80%;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+
+  #journee-semaine {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .journee {
+    width: calc(100%/7);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    top: 20%;
   }
 
   .main-btn {
