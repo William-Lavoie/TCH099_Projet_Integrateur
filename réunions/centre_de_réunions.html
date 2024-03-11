@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réunions</title>
+    <link rel="stylesheet" href="./réunions_principale.css">
+    <script src="./centre_de_réunions.css"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="creer_groupe.js"></script>
+</head>
+<body>
+    <header>
+        <button id="logo">
+            <a href="../calendrier/calendrier.html">
+                <span id="logo_acronyme">HH</span> 
+                <span id="logo_nom">HuddleHarbor</span>
+            </a>
+        </button>
+        <div id="blue_line_header"></div>
+        <div id="decorative_line_header"></div>
+        <div id="decorative_line_header2"></div>
+        
+        <div id="button_container">
+            <a href="../calendrier/calendrier.html">
+                <button class="header_boutons">Calendrier</button>
+            </a>
+            <a href="../réunions/réunions.html">
+                <button class="header_boutons">Réunions</button>
+            </a>
+        </div>
+
+        <div id="nom_et_pf">
+            <div id="header_nom">
+                <h1>Prénom Nom</h1>
+            </div>
+            <div id="conteneur_profil">
+                <button id="conteneur_photo_profil">
+                    <div id="photo_profil" alt="Photo de profil par défaut"></div>
+                </button>
+                <div id="menu_profil">
+                    <button class="profil_boutons">
+                        <a href="../profil_stats/profil.html">Compte et Statistiques</a>
+                    </button>
+                    <button id="profil_deconnecter">
+                        <a href="../page_accueil/page_accueil.html">Se déconnecter</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside>
+            <table class="hide-text" id="groupes">
+                <tr>
+                    <th colspan="2">Groupes</th>
+                </tr>
+            </table>
+            <table class="hide-text" id="creer_groupe">
+                <tr>
+                    <td>
+                        <button>Créer groupe</button>
+                    </td>
+                </tr>
+            </table>
+        </aside>
+        <div class="BtnPliable">
+            <button id="BtnPliable">⪓</button>
+        </div>
+        <article id="main_aside">
+            <div id="conteneur_reunions">
+                <button id="reunion_gauche_fleche">⧼</button>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <div class="conteneur_reunion">
+                    <div class="reunion_header">
+                        <div id="titre_reunion">Réunion : Réchauffement Climatique</div>
+                        <button id="reglage_reunion">⚙</button>
+                    </div>
+                    <div id="description_reunion">Description</div>
+                </div>
+                <button id="reunion_droite_fleche">⧽</button>
+                <div id="reunion_pages">
+                    <div class="reunion_page">⬤</div>
+                    <div class="reunion_page">⬤</div>
+                </div>
+            </div>
+            <h1 id="reunions_text">Réunions Principales</h1>
+            <button id="creer_reunion">Créer une nouvelle réunion</button>
+        </article>
+    </main>
+
+    <footer>
+        <h5>Privacy policy &nbsp | &nbsp Terms and condition</h5>
+        <h4>HH</h4>
+        <h5>© 2024 All rights reserved</h5>
+    </footer>
+</body>
+
+<div id="conteneur-creer-groupe">
+    <div id="formulaire-creer-groupe">
+        <div id="creer-groupe-header">Créer un groupe<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆</div>
+        <form id="creer-groupe-contenu">
+            <div id="conteneur-nom-groupe">
+                <label for="nom-groupe">Nom du groupe</label>
+                <input type="text" name="nom-groupe" id="nom-groupe">                    
+            </div>
+            <br>
+            <div id="conteneur-participants">
+                <label for="participants" id="participants">Participants</label><br>
+                <input type="text" name="participants" id="ajouter-participants" placeholder="adresse courriel">
+                <button id="ajouter-participant">+</button>                    
+            </div>
+            <br>
+            <div id="liste-participants"></div>
+            <br>
+            <div id="conteneur-description">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"></textarea>
+            </div>
+            <br>
+            <div id="erreurs-creer-groupe"></div>
+            <div id="boutons-creer-groupe">
+                <button id="retour-creer-groupe">Retourner</button>
+                <button id="confirmer-creer-groupe">Confirmer</button>                
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>
+
+<!-- DELETE
+    symboles fleches ⇆<br>⥃<br>⇋<br>⇿<br>⪓
+    ⧼‹❮〈❬
+-->
