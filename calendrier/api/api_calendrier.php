@@ -67,6 +67,42 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             }
     
     }
+
+
+
+
+
+     // Chercher les réunions entre deux jours données
+     if (preg_match("~chercher_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['dateDebut']) && isset($donnees['dateFin'])) {
+    
+            require("connexion.php");
+    
+            $dateDebut = $donnees['dateDebut'];
+            $dateFin = $donnees['dateFin'];
+           
+            $query = $conn->prepare("SELECT * FROM reunion WHERE date BETWEEN :dateDebut AND :dateFin");
+            $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
+            $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
+
+    
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+            }
+    
+            else {
+                echo json_encode(["error" => "erreur"]);
+            }
+    
+    }
 }
 
 ?>

@@ -225,12 +225,12 @@ border: 2px solid black;
 
   #journee-mois {
     height: 15%;
-    min-height: 50px;
+    min-height: 70px;
     width: 60%;
     overflow: hidden;
     font-size: 2rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;    
   }
 
@@ -244,6 +244,7 @@ border: 2px solid black;
 
   #journee-mois p {
     font-size: 1em;
+    text-align: center;
   }
 
   #calendrier-journees-semaine {

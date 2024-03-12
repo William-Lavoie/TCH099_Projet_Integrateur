@@ -35,17 +35,18 @@ $(document).ready(function() {
     //Premier jour du mois courant
     const premierDuMois = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth(), 1);
     const premierJour = premierDuMois.getDay();
-    console.log(premierJour);
   
     // Remplir les derniers jours du mois passé 
     // TODO: Case where month is january (change year)
-    const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 0-premierJour+1);
+    const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
     let debutCalendrier = moisDernier.getDate();
-  console.log("debut" +premierJour);
+
+    //Remplir les réunions
+    chercherReunions(moisDernier, premierJour-1);
+
 
     let i = 0;
     for (i; i < premierJour; i++) {
-      console.log("test");
       const journee = $("<div class='jour'></div>");
       journee.text(debutCalendrier);
       journee.css("background-color", "lightgray");
@@ -63,6 +64,8 @@ $(document).ready(function() {
     const moisProchainPremierJour = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth()+1, 1);
     const finDuMois = (new Date(moisProchainPremierJour -1).getDate());
   
+    chercherReunions(premierDuMois, finDuMois-1);
+
     for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
   
@@ -92,6 +95,8 @@ $(document).ready(function() {
       index++;
     }
   
+    chercherReunions(new Date(jourCourant.getFullYear(),jourCourant.getMonth()+1, 1), 41-(finDuMois+premierJour));
+
     index = 1;
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
   
@@ -109,7 +114,61 @@ $(document).ready(function() {
       $("#calendrier").append(journee);
       index++;
     }
+  }
+
+
+  // Mettre les réunions dans le calendrier
+  function chercherReunions(dateDebut, nbJours) {
+
+    console.log(dateDebut);
+    let dateDebutFormatte = "";
+
+    dateDebutFormatte += dateDebut.getFullYear() + "/";
+    dateDebutFormatte += dateDebut.getMonth()+1 + "/";
+    dateDebutFormatte += dateDebut.getDate();
+
+    letDateFinFormatte = "";
+    if (dateDebut.getDate() > 9) {
+      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-2);
     }
+
+    else {
+      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
+    }
+    dateFinFormatte += dateDebut.getDate() + nbJours;
+    console.log(dateDebutFormatte);
+
+    const debut = {"dateDebut": dateDebutFormatte,
+                   "dateFin": dateFinFormatte};
+
+
+    fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(debut)
+    })
+    .then(response => {
+
+    console.log(response);
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+    console.log(data); 
+    console.log("ok");
+    })
+    .catch(error => {
+    console.log(error);
+    });
+}
+
+  
 
     
   // Jour courant 
@@ -129,6 +188,15 @@ $(document).ready(function() {
     afficherCalendrier(jourCourant.getMonth()+1);
     jourCourant = new Date(jourCourant.getFullYear(), jourCourant.getMonth()+1);
   })
+
+
+
+  $("#calendrier  div").on("click", function() {
+    $("#calendrier  div").css("border", "1px solid black");
+
+    $(this).css("border", "3px solid #7eccff");
+  })
+
 
 
 
