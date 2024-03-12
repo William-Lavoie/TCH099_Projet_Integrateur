@@ -114,6 +114,14 @@ $(document).ready(function() {
       $("#calendrier").append(journee);
       index++;
     }
+
+    
+    $("#calendrier  .jour").on("click", function() {
+      $("#calendrier  .jour").css("border", "1px solid black");
+
+      $(this).css("border", "3px solid #7eccff");
+    })
+
   }
 
 
@@ -190,12 +198,6 @@ $(document).ready(function() {
   })
 
 
-
-  $("#calendrier  div").on("click", function() {
-    $("#calendrier  div").css("border", "1px solid black");
-
-    $(this).css("border", "3px solid #7eccff");
-  })
 
 
 
