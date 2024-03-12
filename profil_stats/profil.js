@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// pour la modification
+// pour la modification NOM
 document.getElementById('modifier-nom').addEventListener('click', function() {
     let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
     if (nouveauNom) {
@@ -35,6 +35,41 @@ document.getElementById('modifier-nom').addEventListener('click', function() {
                 document.getElementById('header_nom').querySelector('h1').textContent = nouveauNom;
             } else {
                 alert("Erreur lors de la modification du nom.");
+            }
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+});
+
+// pour la modification PHOTO 
+document.getElementById('modifier-Photo').addEventListener('click', function() {
+    //un clic sur l'input de type fichier
+    document.getElementById('inputPhotoProfil').click(); 
+});
+
+document.getElementById('inputPhotoProfil').addEventListener('change', function(event) {
+    // je récupère le fichier sélectionné
+     let fichier = event.target.files[0]; 
+
+    if (fichier) {
+        let baseDonne = new baseDonne();
+
+        // jajoute le fichier à l'objet baseDonne
+        baseDonne.append('photoProfil', fichier); 
+
+        fetch('/changer-photo-profil', { 
+            // envoier une requête POST au serveur
+            method: 'POST',
+            body: baseDonne
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // mise à jour l'image de profil sur la page
+                document.getElementById('photo-profil').src = data.nouvelleUrlPhoto;
+                alert("La photo de profil a été mise à jour.");
+            } else {
+                alert("Erreur lors de la mise à jour de la photo de profil.");
             }
         })
         .catch(error => console.error('Erreur:', error));
