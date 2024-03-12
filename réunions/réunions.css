@@ -220,6 +220,10 @@ main {
     z-index: 9;
 }
 
+#presence_conteneur{
+    height: 75%;
+    overflow: auto;
+}
 .presence_radio{
     font-size: 0.5em;
 }
@@ -253,7 +257,7 @@ main {
     opacity: 1;
 }
 
-#prendre_presence,
+#table_satisfaction,
 #table_to_do {
     position: fixed;
     bottom: 0;
@@ -261,7 +265,7 @@ main {
     align-self: center;
 }
 
-#prendre_presence button,
+#table_satisfaction button,
 #table_to_do button {
     border-radius: 15%;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.35);
@@ -269,7 +273,7 @@ main {
     border: 1px solid #322e38;
 }
 
-#prendre_presence button:hover,
+#table_satisfaction button:hover,
 #table_to_do button:hover{
     background-color: white;
     color: black;

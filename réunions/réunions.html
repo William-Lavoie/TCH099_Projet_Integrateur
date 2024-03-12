@@ -54,7 +54,8 @@
         
     <main>
         <aside id="presence">
-            <table class="hide-text" >
+            <div id="presence_conteneur"> 
+            <table class="hide-text" id="presence_table" >
                 <tr>
                     <th colspan="3">Présence</th>
                 </tr>
@@ -62,7 +63,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name1" class="name">Name</td>
+                    <td id="name1" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -78,7 +79,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name2" class="name">Longer Name</td>
+                    <td id="name2" class="nomPresence">Longer Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -94,7 +95,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name3" class="name">Name</td>
+                    <td id="name3" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -112,7 +113,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id="name4" class="name">Name</td>
+                    <td id="name4" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -128,7 +129,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name5" class="name">Longer Name</td>
+                    <td id="name5" class="nomPresence">Longer Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -144,7 +145,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name6" class="name">Name</td>
+                    <td id="name6" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -162,7 +163,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id="name7" class="name">Name</td>
+                    <td id="name7" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -178,7 +179,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name8" class="name">Longer Name</td>
+                    <td id="name8" class="nomPresence">Longer Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -194,7 +195,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td id="name9" class="name">Name</td>
+                    <td id="name9" class="nomPresence">Name</td>
                     <td>
                         <form class="presence_form">
                             <label class="presence_radio">
@@ -213,7 +214,7 @@
                 </tr>
                 <tr>
                     <tr>
-                        <td id="name10" class="name">Name</td>
+                        <td id="name10" class="nomPresence">Name</td>
                         <td>
                             <form class="presence_form">
                                 <label class="presence_radio">
@@ -232,7 +233,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td id="name11" class="name">Name</td>
+                        <td id="name11" class="nomPresence">Name</td>
                         <td>
                             <form class="presence_form">
                                 <label class="presence_radio">
@@ -249,7 +250,7 @@
                         <td><br></td>
                     </tr>
                     <tr>
-                        <td id="name12" class="name">Longer Name</td>
+                        <td id="name12" class="nomPresence">Longer Name</td>
                         <td>
                             <form class="presence_form">
                                 <label class="presence_radio">
@@ -265,7 +266,7 @@
                         <td><br></td>
                     </tr>
                     <tr>
-                        <td id="name13" class="name">Name</td>
+                        <td id="name13" class="nomPresence">Name</td>
                         <td>
                             <form class="presence_form">
                                 <label class="presence_radio">
@@ -284,8 +285,8 @@
                     </tr>
                     <tr>
             </table>
-
-            <table class="hide-text" id="prendre_presence">
+        </div>
+            <table class="hide-text" id="table_satisfaction">
                 <tr>
                     <td>
                         <label for="satisfaction">Niveau de satisfaction</label>
@@ -300,7 +301,9 @@
         </div>
 
         
-        <content>
+        <content style="margin-left: 20vmin;">
+
+            <button id="testButton">Add</button>
 
         </content>
 
