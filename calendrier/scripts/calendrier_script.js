@@ -291,7 +291,7 @@ $(document).ready(function() {
 
                 // Fermer les formulaires
                 fermerFormulaires();
-
+                window.location.reload();
                 return response.json();
             }
 
