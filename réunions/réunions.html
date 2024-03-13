@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réunion</title>
 
+    
     <link href="./réunions.css" rel="stylesheet">
 
+   
+    
     <script src="./réunions.js"></script>
 </head>
 <body>
@@ -60,161 +63,38 @@
                     <th colspan="3">Présence</th>
                 </tr>
                 <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name1" class="nomPresence">Name</td>
+                    <td colspan="2">
+                        <p>Pas d'abscence</p>
+                    </td>
                     <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present1" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent1" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
+                        <!-- Rounded switch -->
+                        <label class="switch_presence">
+                            <input type="checkbox">
+                            <span class="slider round"></span> 
+                        </label>
                     </td>
                 </tr>
                 <tr>
                     <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name2" class="nomPresence">Longer Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present2" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent2" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name3" class="nomPresence">Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present3" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent3" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="name4" class="nomPresence">Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present4" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent4" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name5" class="nomPresence">Longer Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present5" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent5" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name6" class="nomPresence">Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present6" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent6" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="name7" class="nomPresence">Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present7" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent7" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name8" class="nomPresence">Longer Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present8" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent8" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td id="name9" class="nomPresence">Name</td>
-                    <td>
-                        <form class="presence_form">
-                            <label class="presence_radio">
-                                <input type="radio" id="present9" class="Present" name="Presence" value="Present"> Present
-                            </label>
-                            <label class="presence_radio">
-                                <input type="radio" id="absent9" class="Absent" name="Presence" value="absent"> Absent
-                            </label>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <br>
-                    </td>
                 </tr>
                 <tr>
                     <tr>
-                        <td id="name10" class="nomPresence">Name</td>
+                        <td id="name1" class="nomPresence" colspan="2">Name</td>
+                        <td>
+                            <form class="presence_form">
+                                <label class="switch_presence">
+                                    <input type="checkbox" id="present1" class="Present" name="Presence">
+                                    <span class="slider round"></span> 
+                                </label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                <tr>
+                    <tr>
+                        <td id="name1" class="nomPresence">Name</td>
                         <td>
                             <form class="presence_form">
                                 <label class="presence_radio">
@@ -250,35 +130,6 @@
                         <td><br></td>
                     </tr>
                     <tr>
-                        <td id="name12" class="nomPresence">Longer Name</td>
-                        <td>
-                            <form class="presence_form">
-                                <label class="presence_radio">
-                                    <input type="radio" id="present12" class="Present" name="Presence" value="Present"> 
-                                </label>
-                                <label class="presence_radio">
-                                    <input type="radio" id="absent12" class="Absent" name="Presence" value="absent"> 
-                                </label>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><br></td>
-                    </tr>
-                    <tr>
-                        <td id="name13" class="nomPresence">Name</td>
-                        <td>
-                            <form class="presence_form">
-                                <label class="presence_radio">
-                                    <input type="radio" id="present13" class="Present" name="Presence" value="Present"> 
-                                </label>
-                                <label class="presence_radio">
-                                    <input type="radio" id="absent13" class="Absent" name="Presence" value="absent"> 
-                                </label>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
                             <br>
                         </td>
@@ -286,6 +137,9 @@
                     <tr>
             </table>
         </div>
+
+
+        
             <table class="hide-text" id="table_satisfaction">
                 <tr>
                     <td>
@@ -332,5 +186,9 @@
         <h5>© 2024 All rights reserved</h5>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

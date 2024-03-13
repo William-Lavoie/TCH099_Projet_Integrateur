@@ -122,18 +122,19 @@ function addRowsToTable(numRows) {
 
         //will add the name per user from the data base
         var cell1 = row.insertCell(0);
+        cell1.colSpan = 2; //can't add it through html
         cell1.innerHTML = '<td class="nomPresence">Name</td>';
 
-        var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<form class="presence_form">' +
-            '<label class="presence_radio">' +
-            '<input type="radio" id="present' + i + '" class="Present" name="Presence" value="Present"> Present' +
-            '</label>' +
-            '<label class="presence_radio">' +
-            '<input type="radio" id="absent' + i + '" class="Absent" name="Presence" value="absent"> Absent' +
+        
+        var cell3 = row.insertCell(1);
+        cell3.innerHTML = '<form class="presence_form">' +
+            '<label class="switch_presence">' +
+            '<input type="checkbox" id="present' + i + '" class="Present" name="Presence">' +
+            '<span class="slider round"></span>' +
             '</label>' +
             '</form>';
 
+            
         var row2 = table.insertRow(-1);
         var spaceCell = row2.insertCell(0);
         spaceCell.innerHTML = '<td><br></td>';
