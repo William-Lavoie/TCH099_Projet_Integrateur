@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //  connexion à la base de données
             require("connexionP.php");
 
-            $query = $conn->prepare("UPDATE profils SET  = :nom WHERE courriel = 'william100@hotmail.ca'");
+            $query = $conn->prepare("UPDATE profils SET photo = :photo WHERE courriel = 'william100@hotmail.ca'");
             $query->bindParam(":photo", $fichier,  PDO::PARAM_STR);
 
         
@@ -69,11 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             //  format du nouveau nom est invalide
-            echo json_encode(['success' => false, 'error' => 'Photo invalide']);
+            echo json_encode(['success' => false, 'error' => 'Fichier invalide']);
         }
     } else {
         //  nouveau nom n'est pas fourni
-        echo json_encode(['success' => false, 'error' => 'Photo manquante! Veuillez en inserer une.']);
+        echo json_encode(['success' => false, 'error' => 'Fichier manquant! Veuillez en inserer un.']);
     }
 } else {
     // la méthode de la requête n'est pas POST
