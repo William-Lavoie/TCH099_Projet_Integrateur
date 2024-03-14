@@ -44,9 +44,12 @@ header {
 #boutons_conteneur {
     grid-area: d;
     border: 0;
+    text-wrap: nowrap;
+    font-size: max(1.8vw);
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding-right: 2%;
 }
 
 #compte_conteneur {
@@ -139,6 +142,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding-left: 3%;
+    padding-right: 5%;
 }
 
 #inscrire, #connecter {
@@ -150,6 +155,7 @@ header {
     display: flex;
     justify-content: space-evenly;
     padding: 1%;
+    margin: 2%;
 }
 
 #image_bouton {
@@ -198,4 +204,8 @@ footer h4 {
         font-weight: 700;
         font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
         font-style: italic;
+}
+
+button:hover {
+    opacity: 80%;
 }
