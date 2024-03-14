@@ -240,10 +240,21 @@ main {
     color: red;
 }
 
+.nomPresence{
+    overflow:hidden
+}
+
 
 #to_do {
     right:0;
 }
+
+.nomPresence {
+    max-width: 75%; /* Adjust this according to your needs */
+    overflow-x: auto;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
 
 #presence table,
 #to_do table {

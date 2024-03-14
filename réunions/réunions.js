@@ -1,7 +1,6 @@
-
-// Fonction pour aside pliable
-
-// Le Domain Object Model est chargée
+//************************************** */
+// Fonction pour aside pliable gauche
+//************************************** */
 document.addEventListener('DOMContentLoaded', function () {
     // Sélectionner les éléments nécessaires pour la transition
     var btnPliableGauche = document.querySelector('#BtnPliableGauche');
@@ -36,10 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-// Fonction pour aside pliable
-
-// Le Domain Object Model est chargée
+//*********************************** */
+// Fonction pour aside pliable droite
+//*********************************** */
 document.addEventListener('DOMContentLoaded', function () {
     // Sélectionner les éléments nécessaires pour la transition
     var btnPliableDroite = document.querySelector('#BtnPliableDroite');
@@ -73,8 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
+//************************** */
 //slider de satisfaction
+//************************** */
 function updateSliderValue() {
     var satisfaction = document.getElementById("satisfaction");
     var valeurSatisfaction = document.getElementById("valeurSatisfaction");
@@ -82,32 +81,9 @@ function updateSliderValue() {
 }
 
 
-//couleur de noms pour les presence
-document.addEventListener('DOMContentLoaded', function () {
-    const forms = document.querySelectorAll('.presence_form');
-
-    forms.forEach(function (form) {
-        form.addEventListener('change', function (event) {
-            const radioSelectioné = event.target;
-            updateNomDeCouleur(radioSelectioné);
-        });
-    });
-
-    function updateNomDeCouleur(radioSelectioné) {
-        const nomClass = radioSelectioné.value.toLowerCase() + '_selecté';
-        const nomElement = radioSelectioné.closest('tr').querySelector('.nomPresence');
-
-        // Enlever toutes les classes de couleur
-        nomElement.classList.remove('present_selecté', 'absent_selecté');
-
-        // Ajouter la class de couleur
-        if (radioSelectioné.checked) {
-            nomElement.classList.add(nomClass);
-        }
-    }
-});
-
+//************************* */
 //ajouter noms dans la table
+//************************* */
 document.addEventListener('DOMContentLoaded', function () {
     const testbtn = document.getElementById('testButton');
     testbtn.addEventListener('click', function() {
@@ -123,7 +99,7 @@ function addRowsToTable(numRows) {
         //will add the name per user from the data base
         var cell1 = row.insertCell(0);
         cell1.colSpan = 2; //can't add it through html
-        cell1.innerHTML = '<td class="nomPresence">Name</td>';
+        cell1.innerHTML = '<td id="nom' + i + '" class="nomPresence">Name</td>';
 
         
         var cell3 = row.insertCell(1);
@@ -138,6 +114,46 @@ function addRowsToTable(numRows) {
         var row2 = table.insertRow(-1);
         var spaceCell = row2.insertCell(0);
         spaceCell.innerHTML = '<td><br></td>';
+
+
+          // Add event listener to toggle color when checkbox is changed
+    var checkbox = document.getElementById('present' + i);
+    checkbox.addEventListener('change', function() {
+        var nameElement = document.getElementById('name' + i);
+        if (this.checked) {
+            nameElement.style.color = 'green';
+        } else {
+             nameElement.style.color = ''; // Reset to default color
+        }
+    });
     }
 }
+});
+
+//************************************* */
+//couleur de noms pour les presence
+//************************************* */
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const forms = document.querySelectorAll('.presence_form');
+
+    forms.forEach(function (form) {
+        form.addEventListener('change', function (event) {
+            const sliderSelectioné = event.target;
+            updateNomDeCouleur(sliderSelectioné);
+        });
+    });
+
+    function updateNomDeCouleur(sliderSelectioné) {
+        const nomClass = sliderSelectioné.value.toLowerCase() + '_selecté';
+        const nomElement = sliderSelectioné.closest('tr').querySelector('.nomPresence');
+
+        // Enlever toutes les classes de couleur
+        nomElement.classList.remove('present_selecté', 'absent_selecté');
+
+        // Ajouter la class de couleur
+        if (sliderSelectioné.checked) {
+            nomElement.classList.add(nomClass);
+        }
+    }
 });
