@@ -80,3 +80,4 @@ document.getElementById('inputPhotoProfil').addEventListener('change', function(
         .catch(error => console.error('Erreur:', error));
     }
 });
+*/
