@@ -7,10 +7,20 @@ auth0.createAuth0Client({
   }).then(async (auth0Client) => {
     // Assumes a button with id "login" in the DOM
     const loginButton = document.getElementById("connecter");
-  
+    const inscriptionButton = document.getElementById("inscrire");
+
+    //bouton d'authentification
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
       auth0Client.loginWithRedirect();
+    });
+
+    //bouton d'inscription
+    inscriptionButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      auth0Client.loginWithRedirect({authorizationParams: {
+        screen_hint: "signup",
+      }})
     });
   
     if (location.search.includes("state=") && 
@@ -38,8 +48,7 @@ auth0.createAuth0Client({
       profileElement.style.display = "block";
       profileElement.innerHTML = `
               <p>${userProfile.name}</p>
-              <img src="${userProfile.picture}" />
-            `;
+              <img src="${userProfile.picture}" />`;
     } else {
       profileElement.style.display = "none";
     }
