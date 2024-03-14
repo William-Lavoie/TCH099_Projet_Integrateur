@@ -52,7 +52,7 @@ document.getElementById('modifier-Photo').addEventListener('click', function() {
 
 document.getElementById('inputPhotoProfil').addEventListener('change', function(event) {
     // je récupère le fichier sélectionné
-     let fichier = event.target.files[0]; 
+    let fichier = event.target.files[0]; 
 
     if (fichier) {
         let baseDonne = new baseDonne();
@@ -80,3 +80,4 @@ document.getElementById('inputPhotoProfil').addEventListener('change', function(
         .catch(error => console.error('Erreur:', error));
     }
 });
+

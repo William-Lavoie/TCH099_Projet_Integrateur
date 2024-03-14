@@ -39,9 +39,10 @@
 
 
             <div id="nom_et_pf">
-
                 <div id="header_nom">
-                    <h1>Prénom nom</h1>
+                    <div id="profile"> <!--Remplir automatiquement du profile-->
+
+                    </div>
                 </div>
 
 
@@ -62,6 +63,9 @@
     </header>
 
     <main>
+        <div id="connecter" style="visibility: hidden;"></div>
+        <div id="inscrire" style="visibility: hidden;"></div> <!--stupid solution for login, but will delete late-->
+
 
         <div class="main-btn"></div>
 
@@ -104,6 +108,9 @@
     <h5>© 2024 All rights reserved</h5>
 </footer>
 
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="/page_accueil/login.js"></script>
 </body>
 
 <div id="formulaires-reunion">
