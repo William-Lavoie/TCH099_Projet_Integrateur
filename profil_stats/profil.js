@@ -43,41 +43,34 @@ document.getElementById('modifier-nom').addEventListener('click', function() {
     }
 });
 
-// pour la modification PHOTO 
-document.getElementById('modifier-Photo').addEventListener('click', function() {
-    //un clic sur l'input de type fichier
-    document.getElementById('inputPhotoProfil').click(); 
-});
 
-/*
-document.getElementById('inputPhotoProfil').addEventListener('change', function(event) {
+// pour la modification PHOTO 
+document.getElementById('modifier-Photo').addEventListener('modifier-Photo', function(event) {
     // je récupère le fichier sélectionné
     let fichier = event.target.files[0]; 
-
     if (fichier) {
-        let baseDonne = new baseDonne();
+          const donneesP ={"photo" : fichier};
 
-        // jajoute le fichier à l'objet baseDonne
-        baseDonne.append('photoProfil', fichier); 
-        const dataP = {"photo" : fichier};
-
-        fetch("http://localhost:3333/profil.php/modifier_nom", { 
-            // envoier une requête POST au serveur
+        fetch("http://localhost:3333/profil_stats/profil.php", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(dataP)
+            body: JSON.stringify(donneesP)
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // mise à jour l'image de profil sur la page
-                document.getElementById('photo-profil').src = data.nouvelleUrlPhoto;
-                alert("La photo de profil a été mise à jour.");
+                // Mettre à jour l'affichage du nom sur la page
+                document.getElementById('conteneur_profile').querySelector('h1').textContent = fichier;
             } else {
-                alert("Erreur lors de la mise à jour de la photo de profil.");
+                alert("Erreur lors de la modification de la photo de profil.");
             }
         })
         .catch(error => console.error('Erreur:', error));
     }
+<<<<<<< Updated upstream
 });
 */
+=======
+})
+
+>>>>>>> Stashed changes
