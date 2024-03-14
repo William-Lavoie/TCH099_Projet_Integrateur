@@ -32,7 +32,7 @@ auth0.createAuth0Client({
     const userProfile = await auth0Client.getUser();
   
     // Assumes an element with id "profile" in the DOM
-    const profileElement = document.getElementById("inscrire");
+    const profileElement = document.getElementById("profile");
   
     if (isAuthenticated) {
       profileElement.style.display = "block";
