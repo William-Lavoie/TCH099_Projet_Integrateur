@@ -67,10 +67,5 @@ document.getElementById('modifier-Photo').addEventListener('modifier-Photo', fun
         })
         .catch(error => console.error('Erreur:', error));
     }
-<<<<<<< Updated upstream
 });
-*/
-=======
-})
 
->>>>>>> Stashed changes
