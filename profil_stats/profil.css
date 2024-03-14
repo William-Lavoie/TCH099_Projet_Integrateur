@@ -247,3 +247,19 @@ button:hover{
 .modifier-onglet button:hover {
     background-color: #003875; 
 }
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+  }
+  
+  .grid-item {
+    border: 1px solid black;
+    height: 50px; 
+    background-color: white;
+  }
+  
+  .grid-item.filled {
+    background-color: #8FBC8F; 
+  }
