@@ -24,9 +24,12 @@ document.getElementById('modifier-nom').addEventListener('click', function() {
         let baseDonne = new baseDonne();
         baseDonne.append('nouveauNom', nouveauNom); 
 
-        fetch('/modifier-nom', { // Envoie une requête POST au serveur
+        const donnees ={"nom" : nouveauNom};
+
+        fetch("http://localhost:3333/profil.php/modifier_nom", { // Envoie une requête POST au serveur
             method: 'POST',
-            body: baseDonne
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
         })
         .then(response => response.json())
         .then(data => {
@@ -56,11 +59,13 @@ document.getElementById('inputPhotoProfil').addEventListener('change', function(
 
         // jajoute le fichier à l'objet baseDonne
         baseDonne.append('photoProfil', fichier); 
+        const dataP = {"photo" : fichier};
 
-        fetch('/changer-photo-profil', { 
+        fetch("http://localhost:3333/profil.php/modifier_nom", { 
             // envoier une requête POST au serveur
             method: 'POST',
-            body: baseDonne
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(dataP)
         })
         .then(response => response.json())
         .then(data => {
