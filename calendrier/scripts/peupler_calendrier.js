@@ -131,15 +131,14 @@ $(document).ready(function() {
   
     const moisProchainPremierJour = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth()+1, 1);
     const finDuMois = (new Date(moisProchainPremierJour -1).getDate());
-  
-    //chercherReunions(premierDuMois, finDuMois-1);
 
     for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
-      const reunionConsulter = $("<div class=consulter-reunion-calendrier></div>");
-      journee.append(reunionConsulter);
+      const reunionConsulter = $("<div class='consulter-reunion-calendrier'></div>");
   
       journee.text(index);
+      journee.append(reunionConsulter);
+
   
       switch(i) {
           
@@ -258,14 +257,14 @@ $(document).ready(function() {
     }
 
     
-    $("#calendrier  .jour").on("click", function() {
+    $(".jour").on("click", function() {
       $("#calendrier  .jour").css("border", "1px solid black");
-
-     
-      $(this).children("div").addClass("ouvrir-reunion");
-
-
       $(this).css("border", "3px solid #7eccff");
+
+      $(".consulter-reunion-calendrier").removeClass("ouvrir-reunion");
+      $(".consulter-reunion-calendrier").text("");
+      $(this).find(".consulter-reunion-calendrier").text($(this).text());
+      $(this).find(".consulter-reunion-calendrier").addClass("ouvrir-reunion");
     })
 
   }

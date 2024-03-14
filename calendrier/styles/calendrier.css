@@ -183,7 +183,7 @@ border: 2px solid black;
     justify-content: center;
     flex: 1;
     margin-top: 2%;
-    
+  
   }
 
   #calendrier-jour {
@@ -194,7 +194,6 @@ border: 2px solid black;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow: hidden;
     margin: 1%;  
   }
 
@@ -210,6 +209,7 @@ border: 2px solid black;
   }
 
   .jour {
+    position: relative;
     margin: 0;
     width: calc(100%/7);
     height: calc(100%/6);
@@ -244,16 +244,27 @@ border: 2px solid black;
     }
   
   .ouvrir-reunion {
-    position: absolute;
-    transition: width 2s, height 4s;
-    width: 300px;
-    height: 300px;
-    z-index: 10;
-    background-color: white;
+    position: relative;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+    width: 300% !important;
+    height: 500% !important;
+    z-index: 10 !important;
+    background-color: white !important;
+    border: 2px solid black;
+    box-sizing: border-box;
+    border-radius: 5%;  
+    padding: 10%;
+
+
   }
 
   .consulter-reunion-calendrier {
-    background-color: red;
+    height:0;
+    width: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
   }
 
   #journee-mois {

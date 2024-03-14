@@ -11,8 +11,6 @@ auth0.createAuth0Client({
     const loginButton = document.getElementById("connecter");
     const inscriptionButton = document.getElementById("inscrire");
     
-
-
     //bouton d'authentification
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
