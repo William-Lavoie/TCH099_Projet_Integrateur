@@ -97,7 +97,7 @@ $(document).ready(function() {
     $("#creer-reunion").on("click", function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
     
-        $("header, main, footer").css("opacity", "20%");
+        $("header, main, footer").css("opacity", "50%");
         $("#nouvelle-reunion").css("opacity", "2");
         $(this).prop("disabled", true);
     }) 

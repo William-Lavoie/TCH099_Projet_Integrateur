@@ -26,47 +26,44 @@
         </a>
           
 
-            <div id="button_container">
-
+        <div id="button_container">
                 <a href="../calendrier/calendrier.html">
                     <button class="header_boutons">Calendrier</button>
                 </a>
-
                 <a href="../réunions/réunions.html">
                     <button class="header_boutons">Réunions</button>
                 </a>
+        </div>
 
-                <div id="journee-mois">
-                    <button id="btn-dernier-mois">=</button>
-                    <div id="journee-mois"><p></p></div>
-                    <button id="btn-prochain-mois">=></button>
-                </div>
-                    
-            </div>
+
+        <div id="journee-mois">
+            <button id="btn-dernier-mois">←</button>
+            <div id="journee-du-mois"></div>
+            <button id="btn-prochain-mois">→</button>
+        </div>
 
             <div id="nom_et_pf">
-                <div id="header_nom">
-                    <div id="profile"> <!--Remplir automatiquement du profile-->
 
-                    </div>
-                </div>
-
-
-                <div id="conteneur_profile">
+            <div id="conteneur_profile">
                     <div id="photo-profil-conteneur">
-                        <img src="/images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
+                        <img src="../images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
                     </div>
 
                     <div id="menu-profil">
                         <button class="profil-boutons">Compte</button>
                         <button class="profil-boutons">Statistiques</button>
+<<<<<<< Updated upstream
                         <a href="/page_accueil/page_accueil.html"> <button class="profil-boutons" id="logout">Se déconnecter</button></a>
+=======
+                        <button id="logout" class="profil-boutons">Se déconnecter</button>
+>>>>>>> Stashed changes
                     </div>
 
                 </div>
             </div>
 
     </header>
+
 
     <main>
         <div id="connecter" style="visibility: hidden;"></div>
@@ -208,6 +205,11 @@
      
     </form>
 
+
+
 </div>
+
+<div id="consulter-reunion-calendrier"></div>
+
 
 </html>

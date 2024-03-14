@@ -29,7 +29,7 @@ $(document).ready(function() {
     }
     console.log(anneeActuel);
     console.log(moisActuel);
-    $("#journee-mois p").text(moisFormatte + " " + anneeActuel);
+    $("#journee-du-mois").text(moisFormatte + " " + anneeActuel);
     
 
   // Thing to append when there are meetings
@@ -132,11 +132,8 @@ $(document).ready(function() {
 
     for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
-      const reunionConsulter = $("<div class='consulter-reunion-calendrier'></div>");
   
       journee.text(index);
-      journee.append(reunionConsulter);
-
   
     
       if (nouveauMois.getFullYear() == new Date().getFullYear() && nouveauMois.getMonth() == new Date().getMonth() && i == new Date().getDate()+premierJour-1) {
@@ -237,10 +234,11 @@ $(document).ready(function() {
       $("#calendrier  .jour").css("border", "1px solid black");
       $(this).css("border", "3px solid #7eccff");
 
-      $(".consulter-reunion-calendrier").removeClass("ouvrir-reunion");
-      $(".consulter-reunion-calendrier").text("");
-      $(this).find(".consulter-reunion-calendrier").text($(this).text());
-      $(this).find(".consulter-reunion-calendrier").addClass("ouvrir-reunion");
+      $("#consulter-reunion-calendrier").text("");
+      $("header, main, footer, #creer-reunion").css("opacity", "50%");
+
+      $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
+
     })
 
 
