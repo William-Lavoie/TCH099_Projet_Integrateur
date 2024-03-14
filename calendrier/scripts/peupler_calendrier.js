@@ -56,9 +56,7 @@ $(document).ready(function() {
       journee.text(debutCalendrier);
       journee.css("background-color", "lightgray");
       
-      if (i == 0) {
-          journee.css("border-top-left-radius", "0.9em");
-      }
+      
   
       $("#calendrier").append(journee);
       debutCalendrier++;
@@ -140,22 +138,7 @@ $(document).ready(function() {
       journee.append(reunionConsulter);
 
   
-      switch(i) {
-          
-          case 0:
-              journee.css("border-top-left-radius", "0.9em");
-              break;
-          case 6:
-              journee.css("border-top-right-radius", "0.9em");
-              break; 
-          case 35:
-              journee.css("border-bottom-left-radius", "0.9em");
-              break; 
-          case 40:
-              journee.css("border-bottom-right-radius", "0.9em");
-              break;      
-      }
-
+    
       if (nouveauMois.getFullYear() == new Date().getFullYear() && nouveauMois.getMonth() == new Date().getMonth() && i == new Date().getDate()+premierJour-1) {
           journee.css("border", "3px solid #7eccff");
       }
@@ -245,13 +228,6 @@ $(document).ready(function() {
       journee.text(index);
       journee.css("background-color", "lightgray");
   
-      if (j == 34) {
-        journee.css("border-bottom-left-radius", "0.9em");
-      }
-  
-      if (j == 40) {
-        journee.css("border-bottom-right-radius", "0.9em");
-      }
       $("#calendrier").append(journee);
       index++;
     }
@@ -266,6 +242,9 @@ $(document).ready(function() {
       $(this).find(".consulter-reunion-calendrier").text($(this).text());
       $(this).find(".consulter-reunion-calendrier").addClass("ouvrir-reunion");
     })
+
+
+    $("#calendrier").children().eq(0).text("Lundi");
 
   }
 
