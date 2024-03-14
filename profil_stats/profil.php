@@ -8,16 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $donnees_json = file_get_contents('php://input');
     $donnees = json_decode($donnees_json, true);
     
-    if (isset($data['nom'])) {
-        $nouveauNom = $data['nom'];
-          // vvalidation du nouveau nom avec preg_match (il a le droit a  des lettres, chiffres, apostrophes, tirets, et espaces)
+    if (isset($donnees['nom'])) {
+        $nouveauNom = $donnees['nom'];
+          // validation du nouveau nom avec preg_match (il a le droit a  des lettres, chiffres, apostrophes, tirets, et espaces)
           if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
 
             //  connexion à la base de données
-            require("connexion.php");
+            require("connexionP.php");
 
-            $query = $conn->prepare("UPDATE Profils SET nom = $nouveauNom WHERE identifiant_utilisateur = :nom");
-            $query->bind_param(":nom", $nouveauNom,  PDO::PARAM_STR);
+            $query = $conn->prepare("UPDATE Profils SET nom = :nom WHERE courriel = 'bbb@.hotmail.com'");
+            $query->bindParam(":nom", $nouveauNom,  PDO::PARAM_STR);
 
         
             // executer la requête

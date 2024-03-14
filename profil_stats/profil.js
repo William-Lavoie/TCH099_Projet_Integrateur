@@ -21,12 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('modifier-nom').addEventListener('click', function() {
     let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
     if (nouveauNom) {
-        let baseDonne = new baseDonne();
-        baseDonne.append('nouveauNom', nouveauNom); 
+      
 
         const donnees ={"nom" : nouveauNom};
 
-        fetch("http://localhost:3333/profil.php/modifier_nom", { // Envoie une requête POST au serveur
+        fetch("http://localhost:3333/profil_stats/profil.php", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -50,6 +49,7 @@ document.getElementById('modifier-Photo').addEventListener('click', function() {
     document.getElementById('inputPhotoProfil').click(); 
 });
 
+/*
 document.getElementById('inputPhotoProfil').addEventListener('change', function(event) {
     // je récupère le fichier sélectionné
      let fichier = event.target.files[0]; 
@@ -79,4 +79,4 @@ document.getElementById('inputPhotoProfil').addEventListener('change', function(
         })
         .catch(error => console.error('Erreur:', error));
     }
-});
+});*/
