@@ -136,6 +136,8 @@ $(document).ready(function() {
 
     for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
+      const reunionConsulter = $("<div class=consulter-reunion-calendrier></div>");
+      journee.append(reunionConsulter);
   
       journee.text(index);
   
@@ -258,6 +260,10 @@ $(document).ready(function() {
     
     $("#calendrier  .jour").on("click", function() {
       $("#calendrier  .jour").css("border", "1px solid black");
+
+     
+      $(this).children("div").addClass("ouvrir-reunion");
+
 
       $(this).css("border", "3px solid #7eccff");
     })

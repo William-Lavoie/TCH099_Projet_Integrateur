@@ -8,7 +8,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
-
         if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'])) {
 
         require("connexion.php");

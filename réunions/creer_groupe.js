@@ -47,7 +47,7 @@ $(document).ready(function() {
     });
 
     // Valider les champs avant de procéder avec le bouton "Confirmer"
-    btnConfirmer.click(function() {
+    btnConfirmer.click(function(event) {
         event.preventDefault(); // Prévient le reload (Besoin API)
 
         // Conserver les informations des champs
@@ -83,6 +83,43 @@ $(document).ready(function() {
         }
 
         // Si tous les champs sont valides, procéder à la soumission du formulaire
+
+        /* TODO
+
+        const donnees = {"nom": nomGroupe,
+                        "description": description,
+                        "participants": participantsText};
+
+        console.log(donnees);
+
+        fetch("http://localhost:3333/réunions/reunions.php", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        console.log(response);
+        if (response.ok) {
+
+        // Fermer les formulaires
+        fermerFormulaires();
+        window.location.reload();
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+        console.log(data); 
+        })
+        .catch(error => {
+        console.log(error);
+        });
+
+        */
 
         // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
         const nouveauGroupe = $("<button>").text(nomGroupe); // Changer le nom
