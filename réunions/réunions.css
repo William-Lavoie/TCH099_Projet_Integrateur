@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    height: 100vh;
+    height: 200vh;
     width: 100vw;
     overflow-x: hidden;
 }
@@ -438,32 +438,43 @@ input:checked + .slider:before {
 
 content {
     display: flex;
+    width: 100%;
     color: white;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-grow: 1;
-    margin-left: 8em;
     margin-right: 1vmin;
     margin-bottom: 5vmin;
     transition: margin-left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
 }
 
+#horloge{
+    border: 1px black solid;
+    height: 10vmin;
+    width: 50%;
+    position: sticky;
+}
 
+#area_public{
+    margin-top: 5vmin;
+}
+/*******************************
 /*footer */
+/********************************/
 
 footer {
     display: flex;
     flex-direction: column;
-    background-color:  rgba(3, 4, 94, 1);
+    background-color: rgba(3, 4, 94, 1);
     color: white;
     text-align: center;
-    margin-top: max(auto, 100vh);
     padding: 2vmin;
+    left: 0;
     bottom: 0;
-    width: 100%;
-    z-index: -1;
+    width: 100%;    
+    position: fixed; 
 }
+
+
 
 footer h5 {
     margin: 0;
@@ -471,11 +482,104 @@ footer h5 {
 }
 
 footer h4{
-    margin-top: 0;
     margin-bottom: 0;
     color: #1399d8;
         font-size: 2.5em;
         font-weight: 700;
         font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
         font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Stylinf for clock */
+
+
+
+/* general styling */
+:root {
+    --smaller: .75;
+}
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    align-items: center;
+    background-color: #ffd54f;
+    display: flex;
+    font-family: -apple-system, 
+    BlinkMacSystemFont, 
+    "Segoe UI", 
+    Roboto, 
+    Oxygen-Sans, 
+    Ubuntu, 
+    Cantarell, 
+    "Helvetica Neue", 
+    sans-serif;
+}
+
+.container {
+    color: #333;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-weight: normal;
+    letter-spacing: .125rem;
+    text-transform: uppercase;
+}
+
+li {
+    display: inline-block;
+    font-size: 1.5em;
+    list-style-type: none;
+    padding: 1em;
+    text-transform: uppercase;
+}
+
+li span {
+    display: block;
+    font-size: 4.5rem;
+}
+
+.emoji {
+    display: none;
+    padding: 1rem;
+}
+
+.emoji span {
+    font-size: 4rem;
+    padding: 0 .5rem;
+}
+
+@media all and (max-width: 768px) {
+    h1 {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    li {
+      font-size: calc(1.125rem * var(--smaller));
+    }
+    
+    li span {
+      font-size: calc(3.375rem * var(--smaller));
+    }
 }
