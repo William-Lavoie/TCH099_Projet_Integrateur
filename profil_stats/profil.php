@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //  connexion à la base de données
             require("connexionP.php");
 
-            $query = $conn->prepare("UPDATE Profils SET nom = :nom WHERE courriel = 'bbb@.hotmail.com'");
+            $query = $conn->prepare("UPDATE profils SET nom = :nom WHERE courriel = 'bbb@.hotmail.com'");
             $query->bindParam(":nom", $nouveauNom,  PDO::PARAM_STR);
 
         
