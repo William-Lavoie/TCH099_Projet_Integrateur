@@ -8,7 +8,8 @@ body {
 
 header {
     width: 100vw;
-    height: 20vmin;
+    min-height: 10vmin;
+    max-height: 18vmax;
     position: sticky;
     top: 0;
     background-color: #03045e;
@@ -18,6 +19,7 @@ header {
     grid-template-columns: 20% 40% 40%;
     grid-template-rows: 70% 30%;
     z-index: 1;
+    overflow: hidden;
 }
 
 #logo_conteneur {
@@ -31,11 +33,10 @@ header {
 #text_conteneur {
     grid-area: b;
     border: 0;
-    font-size: 1.5rem;
+    font-size: 2vw;
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;    font-weight: 700;
     color: #ffffff;
     text-align: left;
-    line-height: normal;
     display: flex;
     align-items: end;
 }
@@ -96,25 +97,27 @@ header {
 
 #bouton1 {
     width: 19%;
-    height: 2rem;
+    height: 90%;
     background-color: #00509d;
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
     font-weight: 700;
+    font-size: 100%;
     color: #ffffff;
     text-align: center;
     line-height: normal;
     border: 0;
+    box-sizing: border-box;
 }
 
 #bouton2 {
     width: 19%;
-    height: 2rem;
+    height: 90%;
     background-color: #003f88;
     font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
     font-weight: 700;
+    font-size: 100%;
     color: #ffffff;
     text-align: center;
-    line-height: normal;
     border: 0;
 }
 
@@ -135,7 +138,7 @@ header {
     justify-content: center;
 }
 
-#bouton, #login {
+#inscrire, #connecter {
     width: 45%;
     height: 60%;
     background-color: #0077b6;
