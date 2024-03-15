@@ -169,49 +169,56 @@ document.addEventListener('DOMContentLoaded', function () {
             hour = minute * 60,
             day = hour * 24;
 
-
         // Set the start and end dates and time
         const meetingStart = "03/14/2024 20:14"; 
-        let meetingEnd = "03/16/2024 20:25"; 
+        let meetingEnd = new Date("03/16/2024 20:25"); // Convert to Date object
 
-        let btnHorlogeUn = document.getElementById("btn_horloge");
-        let minutesARajouter = 5;
+        let btnHorloge = document.getElementById("btn_horloge");
+        let minutesAAjouter = parseInt(document.getElementById("minutesAAjouter").value);
 
-        btnHorlogeUn.addEventListener('click', function() {
-            meetingEnd.setTime(date.getTime() + minutesARajouter * 60000);
+        document.getElementById("minutesAAjouter").addEventListener('change', function() {
+            minutesAAjouter = parseInt(this.value);
         });
-        
+
+        btnHorloge.addEventListener('click', function() {
+            meetingEnd.setTime(meetingEnd.getTime() + minutesAAjouter * 60000);
+
+            // Update countdown display immediately after adding minutes
+            updateCountdown();
+        });
+
         const countDownStart = new Date(meetingStart).getTime(),
-        countDownEnd = new Date(meetingEnd).getTime(),
-        x = setInterval(function () {
+            x = setInterval(updateCountdown, 1000); // Set interval to 1000 milliseconds (1 second)
+
+        function updateCountdown() {
             const now = new Date().getTime();
 
-            //countdown until meeting starts and than countdown until meeting ends
+            // Countdown until meeting starts and then countdown until meeting ends
             let distance;
-            if (now < countDownStart) {  //countdown to meeting start
+            if (now < countDownStart) {  // Countdown to meeting start
                 distance = countDownStart - now;
-            } else if (now > countDownEnd) { //if done, show 0
+            } else if (now > meetingEnd.getTime()) { // If done, show 0
                 distance = 0;
             } else {
-                distance = countDownEnd - now; //countdown to meeting end
+                distance = meetingEnd.getTime() - now; // Countdown to meeting end
             }
 
-            document.getElementById("days").innerText = Math.floor(distance / day),
-            document.getElementById("hours").innerText = Math.floor((distance % day) / hour),
-            document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute),
+            document.getElementById("days").innerText = Math.floor(distance / day);
+            document.getElementById("hours").innerText = Math.floor((distance % day) / hour);
+            document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute);
             document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
 
             let horloge = document.getElementById("horloge");
-            // do something when time is almost reached 
+            // Do something when time is almost reached 
             if (distance <= 600000 && distance > 0) {
                 horloge.style.color = "red";
             }
 
-            // do something  when time is reached
+            // Do something when time is reached
             if (distance <= 0) {
                 horloge.style.color = "red";
                 clearInterval(x);
             }
-        }, 0);
+        }
     })();
 });
