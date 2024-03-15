@@ -90,7 +90,9 @@ header {
 }
 
 .header_boutons:hover, .profil-boutons:hover {
-    background-color: #161782;
+    background-color: white;
+    color: #020c41;
+    border: 0.1rem solid #020c41;
 }
 
 #nom_et_pf {
