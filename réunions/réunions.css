@@ -17,7 +17,7 @@ header {
 }
 
 #logo {
-    background-color: #8182AF;
+    background-color: #020c41;
     width: 12rem;
     height: 10vmin;
     min-height: 80px;
@@ -33,7 +33,7 @@ header {
     z-index: -5;
     width: 100%;
     height: 50%;
-    background-color: rgba(3, 4, 94, 1);
+    background-color: #020c41;
 }
 
 #decorative_line_header {
@@ -52,7 +52,7 @@ header {
 }
 
 #logo_acronyme {
-    color: #1399d8;
+    color: rgb(0, 196, 245);
     font-size: 2.5em;
     font-weight: 700;
     font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
@@ -60,7 +60,7 @@ header {
 }
 
 #logo_nom {
-    color: #7eccff;
+    color: white;
     font-size: 1.5em;
     font-weight: 700;
     font-family: "Poppins Bold", "Poppins", sans-serif;
@@ -82,7 +82,7 @@ header {
     height: 5vmin;
     min-height: 40px;
     color: white;
-    background-color: rgba(3, 4, 94, 1);
+    background-color: #020c41;
     border: 0.1rem solid white;
     border-radius: 0.5em;
     font-size: 0.9rem;
@@ -209,8 +209,9 @@ main {
 #to_do{
     display: flex;
     flex-direction: column;
-    background-color: #3c3744;
-    color: white;
+    background-color: white;
+    color: black;
+    border: rgba(3, 4, 94, 1) 2px solid;
     width: 12em; 
     font-size: 1.2rem;
     position: fixed;
@@ -303,7 +304,7 @@ main {
 #presence button, 
 #to_do button {
     border: 1px solid #322e38;
-    background-color: #3c3744;
+    background-color: rgba(3, 4, 94, 1);
     color: white;
     font-size: 1em;
     padding: 10px;
@@ -487,7 +488,7 @@ content {
     color: white;
     margin: 0 auto;
     text-align: center;
-    background-color:  rgba(3, 4, 94, 1);
+    background-color: #020c41;
 }
 
 h1 {
