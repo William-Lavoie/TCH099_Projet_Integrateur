@@ -161,16 +161,26 @@ document.addEventListener('DOMContentLoaded', function () {
 //****************************** */
 //timer
 //******************************* */
-(function () {
-    const second = 1000,
-        minute = second * 60,
-        hour = minute * 60,
-        day = hour * 24;
+document.addEventListener('DOMContentLoaded', function () {
 
-    // Set the start and end dates and time
-    const meetingStart = "03/14/2024 20:14"; 
-    const meetingEnd = "03/14/2024 20:25"; 
+    (function () {
+        const second = 1000,
+            minute = second * 60,
+            hour = minute * 60,
+            day = hour * 24;
 
+
+        // Set the start and end dates and time
+        const meetingStart = "03/14/2024 20:14"; 
+        let meetingEnd = "03/16/2024 20:25"; 
+
+        let btnHorlogeUn = document.getElementById("btn_horloge1");
+        let minutesARajouter = 5;
+
+        btnHorlogeUn.addEventListener('click', function() {
+            meetingEnd.setTime(date.getTime() + minutesARajouter * 60000);
+        });
+        
         const countDownStart = new Date(meetingStart).getTime(),
         countDownEnd = new Date(meetingEnd).getTime(),
         x = setInterval(function () {
@@ -192,17 +202,16 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
 
             let horloge = document.getElementById("horloge");
-                // do something when time is almost reached 
-                if (distance <= 600000 && distance > 0) {
-                    horloge.style.color = "red";
-                }
+            // do something when time is almost reached 
+            if (distance <= 600000 && distance > 0) {
+                horloge.style.color = "red";
+            }
 
             // do something  when time is reached
-                if (distance <= 0) {
-                    horloge.style.color = "red";
-                    clearInterval(x);
-                }
-
+            if (distance <= 0) {
+                horloge.style.color = "red";
+                clearInterval(x);
+            }
         }, 0);
-
-})();
+    })();
+});

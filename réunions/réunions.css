@@ -454,6 +454,31 @@ content {
 /************************************/
 /* Styling for clock */
 /************************************/
+#boite_horloge{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+}
+
+#boite_btn_horloge{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#btn_horloge1{
+    background-color: black;
+    color: white;
+    height: 5vmin;
+}
+
+#btn_horloge2{
+    background-color: black;
+    color: white;
+    height: 5vmin;
+}
+
 #horloge{
     border: 1px black solid;
     height: fit-content;
