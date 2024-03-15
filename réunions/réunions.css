@@ -230,9 +230,20 @@ main {
 }
 
 #presence_conteneur{
-    height: 75%;
     overflow: auto;
+    flex-grow: 1;
 }
+
+.boite_nom_presence{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 11em;
+    padding: 1em;
+}
+
+
 .presence_radio{
     font-size: 0.5em;
 }

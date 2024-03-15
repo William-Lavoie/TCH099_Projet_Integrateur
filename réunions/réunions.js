@@ -87,48 +87,58 @@ function updateSliderValue() {
 document.addEventListener('DOMContentLoaded', function () {
     const testbtn = document.getElementById('testButton');
     testbtn.addEventListener('click', function() {
-        addRowsToTable(5);
+        addRowsToContainer(5);
     });
 
-function addRowsToTable(numRows) {
-    var table = document.getElementById("presence_table");
+    function addRowsToContainer(numRows) {
+        var container = document.getElementById("presence_conteneur");
 
-    for (var i = 1; i <= numRows; i++) {
-        var row = table.insertRow(-1);
+        for (var i = 1; i <= numRows; i++) {
+            // Create div for each row
+            var rowDiv = document.createElement("div");
+            rowDiv.classList.add("hide-text", "boite_nom_presence");
 
-        //will add the name per user from the data base
-        var cell1 = row.insertCell(0);
-        cell1.colSpan = 2; //can't add it through html
-        cell1.innerHTML = '<td id="nom' + i + '" class="nomPresence">Name</td>';
+            // Name
+            var nameDiv = document.createElement("div");
+            nameDiv.classList.add("nomPresence");
+            nameDiv.textContent = "Name"; 
+            rowDiv.appendChild(nameDiv);
 
-        
-        var cell3 = row.insertCell(1);
-        cell3.innerHTML = '<form class="presence_form">' +
-            '<label class="switch_presence">' +
-            '<input type="checkbox" id="present' + i + '" class="Present" name="Presence">' +
-            '<span class="slider round"></span>' +
-            '</label>' +
-            '</form>';
+            // Form
+            var form = document.createElement("form");
+            form.classList.add("presence_form");
 
-            
-        var row2 = table.insertRow(-1);
-        var spaceCell = row2.insertCell(0);
-        spaceCell.innerHTML = '<td><br></td>';
+            // Checkbox
+            var label = document.createElement("label");
+            label.classList.add("switch_presence");
+            var input = document.createElement("input");
+            input.setAttribute("type", "checkbox");
+            input.id = "present" + i;
+            input.classList.add("Present");
+            input.setAttribute("name", "Presence");
+            var span = document.createElement("span");
+            span.classList.add("slider", "round");
+            label.appendChild(input);
+            label.appendChild(span);
+            form.appendChild(label);
 
+            rowDiv.appendChild(form);
 
-          // Add event listener to toggle color when checkbox is changed
-    var checkbox = document.getElementById('present' + i);
-    checkbox.addEventListener('change', function() {
-        var nameElement = document.getElementById('name' + i);
-        if (this.checked) {
-            nameElement.style.color = 'green';
-        } else {
-             nameElement.style.color = ''; // Reset to default color
+            container.appendChild(rowDiv);
+
+            // Add event listener to toggle color when checkbox is changed
+            input.addEventListener('change', function() {
+                var nameElement = this.parentElement.parentElement.previousElementSibling;
+                if (this.checked) {
+                    nameElement.style.color = 'green';
+                } else {
+                    nameElement.style.color = 'red'; // Reset to red when user un toggles
+                }
+            });
         }
-    });
     }
-}
 });
+
 
 //************************************* */
 //couleur de noms pour les presence
