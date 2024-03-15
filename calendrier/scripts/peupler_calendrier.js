@@ -1,7 +1,28 @@
 $(document).ready(function() {
 
+  let joursMoisDernier;
+  let joursMoisCourant;
 
-  /**** Worth it to write full date? */
+  function trouverJourneeSemaine(index) {
+    switch(index % 7) {
+      case 0:
+        return "Lundi";
+      case 1:
+        return "Mardi";
+      case 2:
+        return "Mercredi";
+      case 3:
+         return "Jeudi";
+      case 4:
+        return "Vendredi";
+      case 5:
+        return "Samedi";
+      case 6:
+        return "Dimanche";
+      default:
+        return null;
+    }
+  }
 
   // Remplit dynamiquement le calendrier 
   function afficherCalendrier(mois) {
@@ -39,6 +60,8 @@ $(document).ready(function() {
     //Premier jour du mois courant
     const premierDuMois = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth(), 1);
     const premierJour = premierDuMois.getDay();
+
+    joursMoisDernier = premierJour;
   
     // Remplir les derniers jours du mois passé 
     const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
@@ -316,7 +339,12 @@ $(document).ready(function() {
 
 
       // Remplir la case 
-      $("#consulter-reunion-calendrier span").text($(event.target).text() + " " + $("#journee-du-mois").text());
+      console.log($(event.target).index());
+      let journeeSemaine = trouverJourneeSemaine($(event.target).index())
+      
+      if (journeeSemaine != null) {
+        $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + $("#journee-du-mois").text());
+      }
     }
 })
 
