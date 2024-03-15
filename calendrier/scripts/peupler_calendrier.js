@@ -379,9 +379,14 @@ console.log(joursMoisDernier);
           $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + moisActuel);
 
         }
-
-
       }
+
+      else {
+        console.log("erreur");
+      }
+
+
+      
     }
 })
 
