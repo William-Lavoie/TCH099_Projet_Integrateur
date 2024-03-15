@@ -11,7 +11,7 @@ $(document).ready(function() {
     function fermerFormulaires() {
 
         $("form").removeClass("reunion-visible");
-        $("header, main, footer").css("opacity", "100%");
+        $("header, main, footer, #creer-reunion").css("opacity", "100%");
 
         // Rend le bouton créer réunion fonctionnel
         $("#creer-reunion").prop("disabled", false);
@@ -24,6 +24,9 @@ $(document).ready(function() {
         $("#description-reunion").val("");
 
         $("#liste-participants").text("");
+
+        $("main, header, footer, #creer-reunion").removeClass("hors-focus");
+
         
         // Réinitialiser les variables
         titre = null;
@@ -108,9 +111,11 @@ $(document).ready(function() {
     $("#creer-reunion").on("click", function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
     
-        $("header, main, footer").css("opacity", "50%");
+        $("header, main, footer, #creer-reunion").css("opacity", "50%");
         $("#nouvelle-reunion").css("opacity", "1");
         $(this).prop("disabled", true);
+        $("main, header, footer, #creer-reunion").addClass("hors-focus");
+
     }) 
 
     // Fermer le formulaire de création d'une réunion en appuyant sur retour
@@ -127,9 +132,7 @@ $(document).ready(function() {
              $("#nouvelle-reunion").hasClass("reunion-visible") &&
              !$(event.target).is("#creer-reunion")) {
 
-            $("header, main, footer").css("opacity", "100%");
-            $("#creer-reunion").prop("disabled", false);
-            $("#nouvelle-reunion").removeClass("reunion-visible");
+            fermerFormulaires();
             $("#messages-erreur").text("");
         }
     })

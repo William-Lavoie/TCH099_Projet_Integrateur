@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
 
+  /**** Worth it to write full date? */
+
   // Remplit dynamiquement le calendrier 
   function afficherCalendrier(mois) {
    
@@ -299,7 +301,6 @@ $(document).ready(function() {
     console.log($(event.target).is(".jour"));
     if (!$(event.target).closest("#consulter-reunion-calendrier").length &&
          $("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
-          console.log("here is it");
          $("header, main, footer, #creer-reunion").css("opacity", "100%");
          $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
          $("main, header, footer, #creer-reunion").removeClass("hors-focus");
@@ -307,12 +308,15 @@ $(document).ready(function() {
     }
 
     else if (!$("#consulter-reunion-calendrier").hasClass("ouvrir-reunion") && $(event.target).is(".jour")) {
-      console.log("the style is not applied");
       $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
       $("#consulter-reunion-calendrier").text();
       $("header, main, footer, #creer-reunion").css("opacity", "50%");
       $("main, header, footer, #creer-reunion").addClass("hors-focus");
 
+
+
+      // Remplir la case 
+      $("#consulter-reunion-calendrier span").text($(event.target).text() + " " + $("#journee-du-mois").text());
     }
 })
 
