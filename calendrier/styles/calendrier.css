@@ -279,15 +279,20 @@ border: 2px solid black;
   #panneau-reunions {
     margin-top: 5%;
     height: 80%;
+    width: 100%;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     padding: 1%;
+    overflow-x: hidden;
+    align-items: center;
+
   }
 
   .reunion-pour-panneau {
     flex-shrink: 0;
     height: 18%;
+    width: 90%;
     border: 2px solid black;
     border-radius: 1em;
     margin-bottom: 5%;
@@ -297,17 +302,19 @@ border: 2px solid black;
     padding-left: 2%;
     padding-right: 4%;
     font-size: 1em;
+    
   }
 
   #boutons-pour-panneau {
     height: 50%;
     display: flex;
     align-items: flex-end;
+    width: 100%;
   }
 
   #btn-panneau-reunion {
     height: 30%;
-    width: 100%;
+    width: 200%;
     display: flex;
     justify-content: space-around;
   }
@@ -320,6 +327,10 @@ border: 2px solid black;
     font-size: 1.2em;
   }
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   #btn-panneau-reunion button:hover, #creer-reunion:hover, form button:hover {
     background-color: #6a628d !important;
   }
@@ -330,14 +341,17 @@ border: 2px solid black;
     display: flex !important;
     border: 2px solid black;
     padding: 2%;
+    align-items: center;
+    overflow: hidden;
 
   }
 
-  #reunion-test:active {
+  #reunion-test:hover {
     position: absolute;
-    height: 60%;
-    width: 80%;
+    height: 50%;
     background-color: white;
+    margin: 0;
+    padding: 0;
   }
 
   #journee-mois {
