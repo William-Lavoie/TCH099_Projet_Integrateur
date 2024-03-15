@@ -46,18 +46,38 @@ auth0.createAuth0Client({
   const isAuthenticated = await auth0Client.isAuthenticated();
   const userProfile = await auth0Client.getUser();
 
-  const userId = userProfile.user_id; //****************************************** */
+  //const userId = userProfile.user_id; //****************************************** */
 
       // profile de Auth0
       const profileElement = document.getElementById("profile");
   
       if (userProfile) {
-        profileElement.innerHTML = `<p>${userProfile.name}</p>`;
+        console.log("ok");
+      //  profileElement.innerHTML = `<p>${userProfile.name}</p>`;
       } else {
         profileElement.style.display = "none";
       }
+
+      // Envoie de l'identifiant de l'utilisateur 
+      const identifiants = {"courriel": userProfile.name};
+
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/envoyer_identifiant", {
+       method: 'POST',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify(identifiants)
+       })
+       .then(response => {
+   
+       if (response.ok) {
+            console.log("Succès");
+       }
+       else {
+           console.log("La requête n'a pas fonctionnée");
+       }
+       });
     
   });
 
-  });
+ 
+});
   //<img src="${userProfile.picture}" />

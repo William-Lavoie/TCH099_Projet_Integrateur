@@ -126,6 +126,14 @@ ALTER TABLE `reunions`
   ADD PRIMARY KEY (`id_reunions`);
 
 --
+-- AUTO_INCREMENT for table `reunions`
+--
+ALTER TABLE `reunions`
+  MODIFY `id_reunions` int(10) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+--
 -- Indexes for table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
