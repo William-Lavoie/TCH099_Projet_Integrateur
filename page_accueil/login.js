@@ -46,6 +46,7 @@ auth0.createAuth0Client({
   const isAuthenticated = await auth0Client.isAuthenticated();
   const userProfile = await auth0Client.getUser();
 
+  const userId = userProfile.user_id; //****************************************** */
 
       // profile de Auth0
       const profileElement = document.getElementById("profile");
