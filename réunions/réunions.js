@@ -163,44 +163,46 @@ document.addEventListener('DOMContentLoaded', function () {
 //******************************* */
 (function () {
     const second = 1000,
-          minute = second * 60,
-          hour = minute * 60,
-          day = hour * 24;
-  
-    //I'm adding this section so I don't have to keep updating this pen every year :-)
-    //remove this if you don't need it
-    let today = new Date(),
-        dd = String(today.getDate()).padStart(2, "0"),
-        mm = String(today.getMonth() + 1).padStart(2, "0"),
-        yyyy = today.getFullYear(),
-        nextYear = yyyy + 1,
-        dayMonth = "09/30/",
-        birthday = dayMonth + yyyy;
-    
-    today = mm + "/" + dd + "/" + yyyy;
-    if (today > birthday) {
-      birthday = dayMonth + nextYear;
-    }
-    //end
-    
-    const countDown = new Date(birthday).getTime(),
-        x = setInterval(function() {    
-  
-          const now = new Date().getTime(),
-                distance = countDown - now;
-  
-          document.getElementById("days").innerText = Math.floor(distance / (day)),
-            document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
-            document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
-            document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
-  
-          //do something later when date is reached
-          if (distance < 0) {
-            document.getElementById("headline").innerText = "It's my birthday!";
-            document.getElementById("countdown").style.display = "none";
-            document.getElementById("content").style.display = "block";
-            clearInterval(x);
-          }
-          //seconds
-        }, 0)
-    }());
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+    // Set the start and end dates and time
+    const meetingStart = "03/14/2024 20:14"; 
+    const meetingEnd = "03/14/2024 20:25"; 
+
+        const countDownStart = new Date(meetingStart).getTime(),
+        countDownEnd = new Date(meetingEnd).getTime(),
+        x = setInterval(function () {
+            const now = new Date().getTime();
+
+            //countdown until meeting starts and than countdown until meeting ends
+            let distance;
+            if (now < countDownStart) {  //countdown to meeting start
+                distance = countDownStart - now;
+            } else if (now > countDownEnd) { //if done, show 0
+                distance = 0;
+            } else {
+                distance = countDownEnd - now; //countdown to meeting end
+            }
+
+            document.getElementById("days").innerText = Math.floor(distance / day),
+            document.getElementById("hours").innerText = Math.floor((distance % day) / hour),
+            document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute),
+            document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
+
+            let horloge = document.getElementById("horloge");
+                // do something when time is almost reached 
+                if (distance <= 600000 && distance > 0) {
+                    horloge.style.color = "red";
+                }
+
+            // do something  when time is reached
+                if (distance <= 0) {
+                    horloge.style.color = "red";
+                    clearInterval(x);
+                }
+
+        }, 0);
+
+})();
