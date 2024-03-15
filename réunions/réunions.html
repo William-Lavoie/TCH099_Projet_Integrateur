@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réunion</title>
 
-    <link rel="stylesheet" href="./centre_de_réunions.css">
-    <script src="./centre_de_réunions.js"></script>
+   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="creer_groupe.js"></script>
 
     <link href="./réunions.css" rel="stylesheet">
     <script src="./réunions.js"></script>
@@ -63,43 +61,42 @@
     <main>
         <aside id="presence">
             <div id="presence_conteneur"> 
-            <table class="hide-text" id="presence_table" >
-                <tr>
-                    <th colspan="3">Présence</th>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <p>Pas d'abscence</p>
-                    </td>
-                    <td>
-                        <!-- Rounded switch -->
-                        <label class="switch_presence">
-                            <input type="checkbox">
-                            <span class="slider round"></span> 
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
+                <table class="hide-text" id="presence_table" >
                     <tr>
-                        <td class="nomPresence" colspan="2"><div id="profile"> </div></td> 
+                        <th colspan="3">Présence</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p>Pas d'abscence</p>
+                        </td>
                         <td>
-                            <form class="presence_form">
-                                <label class="switch_presence">
-                                    <input type="checkbox" id="present1" class="Present" name="Presence">
-                                    <span class="slider round"></span> 
-                                </label>
-                            </form>
+                            <!-- Rounded switch -->
+                            <label class="switch_presence">
+                                <input type="checkbox">
+                                <span class="slider round"></span> 
+                            </label>
                         </td>
                     </tr>
                     <tr>
                         <td><br></td>
                     </tr>
-            </table>
-        </div>
-
+                    <tr>
+                        <tr>
+                            <td class="nomPresence" colspan="2"><div id="profile"> </div></td> 
+                            <td>
+                                <form class="presence_form">
+                                    <label class="switch_presence">
+                                        <input type="checkbox" id="present1" class="Present" name="Presence">
+                                        <span class="slider round"></span> 
+                                    </label>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                </table>
+            </div>
 
         
             <table class="hide-text" id="table_satisfaction">
@@ -112,6 +109,7 @@
                 </tr>
             </table>
         </aside>
+        
         <div class="BtnPliableGauche">
             <button id="BtnPliableGauche">⪓</button>
             <button id="testButton">Add</button>
@@ -129,9 +127,17 @@
                         <li><span id="seconds"></span>Seconds</li>
                     </ul>
                 </div>
+
                 <div id="boite_btn_horloge">
-                    <button id="btn_horloge1">Test</button>
-                    <button id="btn_horloge2">Test</button>
+                        <select id="minutes" name="minutes">
+                        <option value="1">1 minute</option>
+                        <option value="2">2 minutes</option>
+                        <option value="3">3 minutes</option>
+                        <option value="58">58 minutes</option>
+                        <option value="59">59 minutes</option>
+                        <option value="60">60 minutes</option>
+                        </select>
+                    <button id="btn_horloge">Test</button>
                 </div>
             </div>
 
@@ -158,6 +164,7 @@
         <div class="BtnPliableDroite">
             <button id="BtnPliableDroite">⪓</button>
         </div>
+        
         <aside id="to_do">
             <table class="hide-text">
                 <tr>
