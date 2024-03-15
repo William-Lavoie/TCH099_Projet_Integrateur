@@ -459,9 +459,10 @@ content {
     height: fit-content;
     width: fit-content;
     position: sticky;
-    color: black;
+    color: white;
     margin: 0 auto;
     text-align: center;
+    background-color:  rgba(3, 4, 94, 1);
 }
 
 h1 {
