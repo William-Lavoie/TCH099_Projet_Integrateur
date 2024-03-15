@@ -1,24 +1,26 @@
 $(document).ready(function() {
 
-  let joursMoisDernier;
+  var joursMoisDernier;
   let joursMoisCourant;
+  let nbJoursMoisDernier;
+
 
   function trouverJourneeSemaine(index) {
     switch(index % 7) {
       case 0:
-        return "Lundi";
-      case 1:
-        return "Mardi";
-      case 2:
-        return "Mercredi";
-      case 3:
-         return "Jeudi";
-      case 4:
-        return "Vendredi";
-      case 5:
-        return "Samedi";
-      case 6:
         return "Dimanche";
+      case 1:
+        return "Lundi";
+      case 2:
+        return "Mardi";
+      case 3:
+         return "Mercredi";
+      case 4:
+        return "Jeudi";
+      case 5:
+        return "Vendredi";
+      case 6:
+        return "Samedi";
       default:
         return null;
     }
@@ -34,6 +36,7 @@ $(document).ready(function() {
 
     // Jour courant 
     const nouveauMois = new Date(jourCourant.getFullYear(), mois);
+    joursMoisCourant = nouveauMois;
   
     // Écrire la date 
     const options = {month: 'long'};
@@ -61,7 +64,7 @@ $(document).ready(function() {
     const premierDuMois = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth(), 1);
     const premierJour = premierDuMois.getDay();
 
-    joursMoisDernier = premierJour;
+    nbJoursMoisDernier = premierJour;
   
     // Remplir les derniers jours du mois passé 
     const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
@@ -146,6 +149,9 @@ $(document).ready(function() {
   
     const moisProchainPremierJour = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth()+1, 1);
     const finDuMois = (new Date(moisProchainPremierJour -1).getDate());
+
+    joursMoisDernier = finDuMois;
+    console.log(joursMoisDernier);
 
     for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
@@ -296,7 +302,8 @@ $(document).ready(function() {
 
   
 
-    
+console.log(joursMoisDernier);
+
   // Jour courant 
   let jourCourant = new Date()
 
@@ -339,11 +346,41 @@ $(document).ready(function() {
 
 
       // Remplir la case 
-      console.log($(event.target).index());
       let journeeSemaine = trouverJourneeSemaine($(event.target).index())
       
+      console.log($(event.target).index() > joursMoisDernier);
+      
+
+
       if (journeeSemaine != null) {
-        $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + $("#journee-du-mois").text());
+
+        // La journée appartient au mois précédent
+        if ($(event.target).index() < nbJoursMoisDernier) {
+
+          console.log(joursMoisDernier);
+          const options = {month: 'long', year: 'numeric'};
+          let nouveauMois = new Date(joursMoisCourant.getFullYear(), joursMoisCourant.getMonth() -1);
+          let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
+
+          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + moisActuel);
+
+        }
+
+        else if ($(event.target).index() >= nbJoursMoisDernier-1 && $(event.target).index() < nbJoursMoisDernier + joursMoisDernier) {
+          console.log("test");
+          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + $("#journee-du-mois").text());
+        }
+
+        else {
+          const options = {month: 'long', year: 'numeric'};
+          let nouveauMois = new Date(joursMoisCourant.getFullYear(), joursMoisCourant.getMonth() + 1);
+          let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
+          console.log(moisActuel);
+          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + moisActuel);
+
+        }
+
+
       }
     }
 })
