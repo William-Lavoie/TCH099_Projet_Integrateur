@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const meetingStart = "03/14/2024 20:14"; 
         let meetingEnd = "03/16/2024 20:25"; 
 
-        let btnHorlogeUn = document.getElementById("btn_horloge1");
+        let btnHorlogeUn = document.getElementById("btn_horloge");
         let minutesARajouter = 5;
 
         btnHorlogeUn.addEventListener('click', function() {
