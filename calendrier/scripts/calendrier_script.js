@@ -1,16 +1,19 @@
 $(document).ready(function() {
 
+    // Informations par rapport à une réunion
     let titre;
     let dateReunion;
     let debutReunion;
     let finReunion;
     let description;
 
-    // Vider tous les champs et fermer les formulaires
+    // Vide tous les champs et ferme les formulaires de création d'une réunion
     function fermerFormulaires() {
 
         $("form").removeClass("reunion-visible");
         $("header, main, footer").css("opacity", "100%");
+
+        // Rend le bouton créer réunion fonctionnel
         $("#creer-reunion").prop("disabled", false);
 
         // Vider les formulaires
@@ -30,19 +33,23 @@ $(document).ready(function() {
         description = null;
     }
 
-    // Vérifier que les heures et la date choisies sont valides
+    // Vérifier que les heures et la date choisie sont valides
     function heureDateValides() {
 
+        // Sépare les heures et les minutes (par exemple 13:47 = [13,47])
         const [heureDebut, minuteDebut] = debutReunion.split(':').map(Number);
         const [heureFin, minuteFin] = finReunion.split(':').map(Number);
 
+        // Remplace tous les '-' dans la date par '/' (exemple: 2024-12-10 = 2024/12/10)
         const dateFormate = dateReunion.replace(/-/g, '/'); 
+
+        // Date de la réunion
         const date = new Date(dateFormate);
 
+        // Date courante
         const dateActuelle = new Date();
-        console.log(date);
-        console.log(dateActuelle);
     
+        // Vérifie si l'heure de fin de la réunion est après son début
         if (heureFin < heureDebut) {
 
             $("#messages-erreur").text("L'heure de fin ne peut précéder l'heure de début");
@@ -55,6 +62,7 @@ $(document).ready(function() {
             return false;
         }
 
+        // Vérifie que la date de la réunion ne soit pas déjà passée
         else if (date.getFullYear() < dateActuelle.getFullYear() ||
                  date.getMonth() < dateActuelle.getMonth()  ||
                  date.getDate() < dateActuelle.getDate()) {
@@ -63,6 +71,7 @@ $(document).ready(function() {
             return false;
         }
 
+        // Vérifie que l'heure de la réunion ne soit pas déjà passée, si la date est la date courante
         else if (date.getDay() == dateActuelle.getDay() && date.getMonth() == dateActuelle.getMonth() 
                 && date.getFullYear() == dateActuelle.getFullYear() 
                 && (heureDebut < dateActuelle.getHours() || minuteDebut < dateActuelle.getMinutes())) {
@@ -74,6 +83,7 @@ $(document).ready(function() {
         return true;
     }
 
+    // Retourne true si le courriel passé en paramètre a été ajouté à la liste des participants dans le formulaire de création d'une réunion
     function courrrielPresent(courriel) {
 
         const listeParticipants = $("#liste-participants p");
@@ -89,6 +99,7 @@ $(document).ready(function() {
     }
 
 
+    // Prévient le comportement par défaut des boutons (sauf ceux de type 'reset')
     $("form button[type != 'reset']").on("click", function(event) {
         event.preventDefault();
     })
@@ -98,22 +109,24 @@ $(document).ready(function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
     
         $("header, main, footer").css("opacity", "50%");
-        $("#nouvelle-reunion").css("opacity", "2");
+        $("#nouvelle-reunion").css("opacity", "1");
         $(this).prop("disabled", true);
     }) 
 
-    // Fermer le formulaire de création d'une réunion
+    // Fermer le formulaire de création d'une réunion en appuyant sur retour
     $("#reunion-retour").on("click", function() {
        $("#messages-erreur").text("");
        fermerFormulaires();
     }) 
 
-    // TODO: make it so clicking the "créer réunion" button also closes the form properly
+    // Fermer le formulaire de création d'une réunion en appuyant n'importe ou ailleurs sur la page
     $("body").on("click", function(event) {
 
+        // Le formulaire est actif, l'utilisateur ne clique par dessus ni sur le bouton
         if (!$(event.target).closest("#formulaires-reunion").length &&
              $("#nouvelle-reunion").hasClass("reunion-visible") &&
              !$(event.target).is("#creer-reunion")) {
+
             $("header, main, footer").css("opacity", "100%");
             $("#creer-reunion").prop("disabled", false);
             $("#nouvelle-reunion").removeClass("reunion-visible");
@@ -204,18 +217,22 @@ $(document).ready(function() {
 
         let texte = $("#nouveau-participant").val();
 
+        // Contenant pour le participant
         const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
         const boutonSupprimer = $("<button class='supprimer-participant'>X</button>");
 
+        // Le même participant ne doit pas être ajouté plus d'une fois
         if (courrrielPresent(texte)) {
             $("#nouveau-participant").val("");
             $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
         }
 
+        // Le courriel du participant doit être valide
         else if (texte != "" && texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
 
             const courriel = {"courriel": texte};
     
+            // Le participant doit avoir un compte dans la base de données
             fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -228,20 +245,22 @@ $(document).ready(function() {
             }
     
             else {
-                console.log("error");
+                console.log("La requête n'a pas fonctionnée");
             }
             })
             .then(data => {
                 
+               // Un utilisateur a été trouvé
                if (data["existe"]) {
 
+                // Le participant est ajouté à la liste
                 $("#nouveau-participant").val("");
 
                     boutonSupprimer.on("click", function() {
                     nouveauParticipant.remove();
                 });
  
- 
+                
                  nouveauParticipant.children("p").text(texte);
                  nouveauParticipant.append(boutonSupprimer);
  
@@ -267,11 +286,12 @@ $(document).ready(function() {
 
 
 
-    // Soumission de la création d'une réunion côté participants
+   // Soumission de la création d'une réunion côté participants
    $("#btn-confirmer-participants").on("click", function(event) {
 
     event.preventDefault();
 
+    // Les informations de la réunions sont ajoutées à la base de données
         const donnees = {"titre": titre,
                          "debutReunion": debutReunion,
                          "finReunion": finReunion,
@@ -289,7 +309,7 @@ $(document).ready(function() {
             console.log(response);
             if (response.ok) {
 
-                // Fermer les formulaires
+                // Fermer les formulaires et rafraîchir la page
                 fermerFormulaires();
                 window.location.reload();
                 return response.json();
@@ -298,9 +318,6 @@ $(document).ready(function() {
             else {
                 console.log("error");
             }
-        })
-        .then(data => {
-            console.log(data); 
         })
         .catch(error => {
             console.log(error);

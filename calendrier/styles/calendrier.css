@@ -245,12 +245,11 @@ border: 2px solid black;
 
   .jour:hover {
       background-color: rgb(246, 246, 246);  
-    }
+  }
   
   #consulter-reunion-calendrier {
     height: 0;
     width: 0;
-    border: 1px solid black;
     border-radius: 0.5em;
     display: flex;
     position: absolute;
@@ -273,6 +272,8 @@ border: 2px solid black;
     height: max(60vmin,400px) !important;
     width: max(45vmin, 300px) !important;
     display: flex !important;
+    border: 2px solid black;
+
   }
 
   #journee-mois {
@@ -349,6 +350,10 @@ border: 2px solid black;
     font-size: 1em;
     min-width: 70px;
     z-index: 2;
+  }
+
+  .hors-focus {
+    pointer-events: none;
   }
 
   /*footer */

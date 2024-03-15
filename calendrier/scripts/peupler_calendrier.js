@@ -1,39 +1,36 @@
 $(document).ready(function() {
 
 
+  // Remplit dynamiquement le calendrier 
   function afficherCalendrier(mois) {
    
+    // Vider le calendrier
     $("#calendrier").html("");
   
     let compteur = 0;
+
     // Jour courant 
     const nouveauMois = new Date(jourCourant.getFullYear(), mois);
-    console.log(nouveauMois);
   
-    const options = {month: 'long'};
     // Écrire la date 
+    const options = {month: 'long'};
     let anneeActuel = jourCourant.getFullYear();
     let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
 
+    // Formattage de la date
     let moisFormatte = "";
     for (let i = 0; i < moisActuel.length; i++) {
       if (i ==0) {
         moisFormatte += moisActuel[0].toUpperCase();
       }
 
-      
       else {
         moisFormatte += moisActuel[i];
       }
 
     }
-    console.log(anneeActuel);
-    console.log(moisActuel);
     $("#journee-du-mois").text(moisFormatte + " " + anneeActuel);
     
-
-  // Thing to append when there are meetings
-
 
     /***  Peupler le calendrier ***/
   
@@ -42,12 +39,8 @@ $(document).ready(function() {
     const premierJour = premierDuMois.getDay();
   
     // Remplir les derniers jours du mois passé 
-    // TODO: Case where month is january (change year)
     const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
     let debutCalendrier = moisDernier.getDate();
-
-    //Remplir les réunions
-    //chercherReunions(moisDernier, premierJour-1);
 
 
     let i = 0;
@@ -56,8 +49,6 @@ $(document).ready(function() {
       journee.text(debutCalendrier);
       journee.css("background-color", "lightgray");
       
-      
-  
       $("#calendrier").append(journee);
       debutCalendrier++;
       compteur++;
@@ -84,6 +75,7 @@ $(document).ready(function() {
                    "dateFin": dateFinFormatte};
 
 
+    // Chercher les réunions du mois passé
     fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -166,6 +158,7 @@ $(document).ready(function() {
                    "dateFin": dateFinFormatte};
 
 
+    // Chercher les réunions du mois courant
     fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -202,20 +195,6 @@ $(document).ready(function() {
     console.log(error);
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
     chercherReunions(new Date(jourCourant.getFullYear(),jourCourant.getMonth()+1, 1), 41-(finDuMois+premierJour));
 
     index = 1;
@@ -228,19 +207,6 @@ $(document).ready(function() {
       $("#calendrier").append(journee);
       index++;
     }
-
-    
-    $(".jour").on("click", function() {
-      $("#calendrier  .jour").css("border", "1px solid black");
-      $(this).css("border", "3px solid #7eccff");
-
-      $("#consulter-reunion-calendrier").text("");
-      $("header, main, footer, #creer-reunion").css("opacity", "50%");
-
-      $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
-
-    })
-
 
     $("#calendrier").children().eq(0).text("Lundi");
 
@@ -312,25 +278,43 @@ $(document).ready(function() {
   // Remplir le calendrier au mois courant
   afficherCalendrier(jourCourant.getMonth());
  
+  // Passer au mois dernier
   $("#btn-dernier-mois").on("click", function() {
 
     afficherCalendrier(jourCourant.getMonth()-1);
     jourCourant = new Date(jourCourant.getFullYear(), jourCourant.getMonth()-1);
   })
 
+  // Passer au mois suivant
   $("#btn-prochain-mois").on("click", function() {
 
     afficherCalendrier(jourCourant.getMonth()+1);
     jourCourant = new Date(jourCourant.getFullYear(), jourCourant.getMonth()+1);
   })
 
-  //$("#btn-confirmer-participants").on("click", function() {
-  //  afficherCalendrier(jourCourant.getMonth());
-  //})
 
+  // Afficher et supprimer les réunions d'une journée lorsqu'on clique dessus
+  $("body").on("click", function(event) {
 
+    console.log($(event.target).is(".jour"));
+    if (!$(event.target).closest("#consulter-reunion-calendrier").length &&
+         $("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
+          console.log("here is it");
+         $("header, main, footer, #creer-reunion").css("opacity", "100%");
+         $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
+         $("main, header, footer, #creer-reunion").removeClass("hors-focus");
 
+    }
 
+    else if (!$("#consulter-reunion-calendrier").hasClass("ouvrir-reunion") && $(event.target).is(".jour")) {
+      console.log("the style is not applied");
+      $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
+      $("#consulter-reunion-calendrier").text();
+      $("header, main, footer, #creer-reunion").css("opacity", "50%");
+      $("main, header, footer, #creer-reunion").addClass("hors-focus");
+
+    }
+})
 
 
 })
