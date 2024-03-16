@@ -308,9 +308,33 @@ console.log(joursMoisDernier);
   let jourCourant = new Date()
 
   // Remplir le calendrier au mois courant
- // setTimeout(function() {
-    afficherCalendrier(jourCourant.getMonth());
- // }, 500);
+  afficherCalendrier(jourCourant.getMonth());
+
+
+  // Afficher photo de profil
+  fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.blob();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+      const img = document.createElement('img');
+
+      // Set the src attribute of the img element to the URL of the blob object
+      img.src = URL.createObjectURL(data)
+      $("#photo-profil-conteneur").append(img);
+    })
+    .catch(error => {
+    console.log(error);
+    });
 
   // Passer au mois dernier
   $("#btn-dernier-mois").on("click", function() {

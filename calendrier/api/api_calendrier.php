@@ -147,4 +147,26 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 }
 
+// WORK IN PROGRESS
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT photo FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        echo $resultat[0];
+        if ($resultat) {
+            echo json_encode($resultat);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+
+    };
+
+
 ?>

@@ -119,6 +119,7 @@ so it does not stay centered when vh gets skwished a lot. */
 #photo-profil-conteneur{
     margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
     width: 5vmin;
+    height: 1%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,6 +133,7 @@ so it does not stay centered when vh gets skwished a lot. */
     border-radius: 50%;
     border: 0.1em solid black;
 }
+
 
 #menu-profil {
     display: flex;
