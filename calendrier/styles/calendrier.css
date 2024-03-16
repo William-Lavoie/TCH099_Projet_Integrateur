@@ -302,18 +302,16 @@ border: 2px solid black;
     padding-left: 2%;
     padding-right: 4%;
     font-size: 1em;
-    
   }
 
   #boutons-pour-panneau {
-    height: 50%;
+    height: 30%;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
   }
 
   #btn-panneau-reunion {
-    height: 30%;
     width: 200%;
     display: flex;
     justify-content: space-around;
@@ -324,7 +322,7 @@ border: 2px solid black;
     color: white;
     border-radius: 0.5em;
     width: 40%;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   ::-webkit-scrollbar {
@@ -346,12 +344,71 @@ border: 2px solid black;
 
   }
 
+  /* Removed hover for testing purposes*/
   #reunion-test:hover {
     position: absolute;
-    height: 50%;
+    height: 70%;
     background-color: white;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #reunion-test p {
+    height: 10%;
+    font-size: 1.4em;
+  }
+
+  .heure-debut-fin {
+    position: relative;
+    bottom: 7%;
+  }
+
+  #informations-reunion {
+    width: 90%;
+    height: 70%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .participant-pour-reunion {
+    border: 1px solid black;
+    height: 21%;
+    display: flex;
+    align-items: center;
+    padding-left: 4%;
+    font-size: 1.2em;
+    flex-shrink: 0;
+    margin-bottom: 2%;
+    border-radius: 1em;
+  }
+
+  #btn-nouvelle-reunion {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 10%;
+    padding: 2%;
+    
+  }
+
+  #btn-ajouter-reunion {
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background-color: rgba(3, 4, 94, 1);
+    position: relative;
+    top: 15%;
+    color: white;
+  }
+
+  .participant-pour-reunion img {
+    margin-right: 2%;
+    border-radius: 50%;
   }
 
   #journee-mois {
