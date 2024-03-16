@@ -102,6 +102,15 @@ $(document).ready(function() {
         return false;
     }
 
+    // Vérifie si un formulaire est vide
+    function formulaireEstRempli() {
+     return ($("#titre-reunion").val() != "" ||
+             $("#debut-reunion").val() != "" ||
+             $("#fin-reunion").val() != ""   ||
+             $("#date-reunion").val() != ""  ||
+             $("#description-reunion").val() != "");        
+    }
+
 
     // Prévient le comportement par défaut des boutons (sauf ceux de type 'reset')
     $("form button[type != 'reset']").on("click", function(event) {
@@ -121,8 +130,22 @@ $(document).ready(function() {
 
     // Fermer le formulaire de création d'une réunion en appuyant sur retour
     $("#reunion-retour").on("click", function() {
-       $("#messages-erreur").text("");
-       fermerFormulaires();
+
+        console.log(formulaireEstRempli());
+        if (formulaireEstRempli()) {
+
+            //TODO: annoying bug where alert deletes the meeting info
+            if (confirm("Vos modifications ne seront pas sauvegardées, êtes-vous sûr de vouloir continuer?")) {
+                $("#messages-erreur").text("");
+                fermerFormulaires();
+            }
+
+        }
+        else {
+            $("#messages-erreur").text("");
+            fermerFormulaires();
+        }
+      
     }) 
 
     // Fermer le formulaire de création d'une réunion en appuyant n'importe ou ailleurs sur la page
