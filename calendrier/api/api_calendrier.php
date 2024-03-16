@@ -53,6 +53,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         //id de la réunion venant d'être créée
         $id_reunion = $conn->lastInsertId();
 
+        // Ajout du créateur dans la table de jointure 
+        $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+
         // Création d'une entrée dans la table de jointure pour chaque utilisateur
         for ($i = 0; $i < count($participants); $i++) {
 
