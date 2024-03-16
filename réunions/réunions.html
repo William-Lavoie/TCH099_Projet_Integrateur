@@ -60,58 +60,43 @@
         
     <main>
         <aside id="presence">
-            <div id="presence_conteneur"> 
-                
-                <div class="hide-text, boite_nom_presence">
-                    <h3>Présence</h3>
-                </div>
+            <div id="on_top_presence_conteneur">
+                <div id="blue_line_aside">
 
-                <div class="hide-text, boite_nom_presence">
+                </div>
+                <div class="hide-text, boite_nom_presence" id="header_aside_presence">
+                    <h3>Présence</h3>
+    
+                <div class="hide-text" id="boite_pas_dabscence">
                     <p>Pas d'abscence</p>
                     <label class="switch_presence">
-                        <input type="checkbox">
+                        <input type="checkbox" id="switch_pas_dabscence">
                         <span class="slider round"></span> 
                     </label>
                 </div>
+            </div>
 
-                <div class="hide-text, boite_nom_presence">
-                    <p class="nomPresence">superduperlongnamethatdoesnot fit properly</p>
-                    <form class="presence_form">
-                        <label class="switch_presence">
-                            <input type="checkbox" id="present2" class="Present" name="Presence">
-                            <span class="slider round"></span> 
-                        </label>
-                    </form>
-                </div>
+            </div>
+            
 
-                <div class="hide-text, boite_nom_presence">
-                    <p class="nomPresence">superduperlongnamethatdoesnot fit properly</p>
-                    <form class="presence_form">
-                        <label class="switch_presence">
-                            <input type="checkbox" id="present3" class="Present" name="Presence">
-                            <span class="slider round"></span> 
-                        </label>
-                    </form>
-                </div>
+            <!--Appending the names in this container-->
+            <div id="presence_conteneur"> 
 
                 
             </div>
 
         
-            <table class="hide-text" id="table_satisfaction">
-                <tr>
-                    <td>
-                        <label for="satisfaction">Niveau de satisfaction</label>
-                        <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="50" onchange="updateSliderValue()">
-                        <p id="valeurSatisfaction">50</p>
-                    </td>
-                </tr>
-            </table>
+            <div lass="hide-text" id="satisfaction_conteneur">
+                <label for="satisfaction">Niveau de satisfaction</label>
+                    <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="50" onchange="updateSliderValue()">
+                    <p id="valeurSatisfaction">50</p>
+            </div>
+            
         </aside>
         
         <div class="BtnPliableGauche">
             <button id="BtnPliableGauche">⪓</button>
-            <button id="testButton">Add</button>
+            <button id="testButton">Add</button> <!--To delete *********************-->
         </div>
 
         
@@ -165,14 +150,17 @@
         </div>
         
         <aside id="to_do">
-            <table class="hide-text">
-                <tr>
-                    <th colspan="2">To-Do</th>
-                </tr>
-            </table>
-            <table class="hide-text" id="table_to_do">
-                
-            </table>
+            <div id="top_to_do" style="height: 10%;">
+
+            </div>
+
+            <div id="toDo_conteneur" style="height: 70%;">
+
+            </div>
+            <div lass="hide-text" id="toDo_bottom_conteneur">
+
+                <p>To do side of things</p>
+            </div>
         </aside>
 
     </main>
