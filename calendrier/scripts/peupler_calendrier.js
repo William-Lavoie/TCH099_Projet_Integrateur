@@ -3,6 +3,8 @@ $(document).ready(function() {
   var joursMoisDernier;
   let joursMoisCourant;
   let nbJoursMoisDernier;
+  let reunionsDuJour;
+
 
 
   function trouverJourneeSemaine(index) {
@@ -122,24 +124,30 @@ $(document).ready(function() {
     }
     })
     .then(data => {
-    console.log(data[0]['date']); 
-    console.log("ok");
+    console.log(data[0]['id_reunions']); 
 
     for (let i = 0; i < premierJour; i++) {
+
+      let listeReunionsJournee = [];
 
       for (let j = 0; j < data.length; j++) {
         
         let dateNombre = data[j]['date'].slice(8);
-        console.log(dateNombre);
+        
+        //Mettre un fond rouge si une réunion a étée trouvée
         if (dateNombre == $("#calendrier").children().eq(i).text()) {
-          let reunion_journee = $("<div class='autre-reunion'></div>");
-          reunion_journee.text("Voir réunions");
 
-          $("#calendrier").children().eq(i).append(reunion_journee);
+          listeReunionsJournee.push(data[j]);
+          $("#calendrier").children().eq(i).css("background-color", "red");
+
+          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
+          $("#calendrier").children().eq(i).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
         }
       }
-
     }
+
+    
+    console.log(JSON.parse($("#calendrier").children().eq(3).data("listeReunionsJournee")));
     })
     .catch(error => {
     console.log(error);
@@ -359,12 +367,16 @@ console.log(joursMoisDernier);
   // Afficher et supprimer les réunions d'une journée lorsqu'on clique dessus
   $("body").on("click", function(event) {
 
+
     console.log($(event.target).is(".jour"));
     if (!$(event.target).closest("#consulter-reunion-calendrier").length &&
          $("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
+
          $("header, main, footer, #creer-reunion").css("opacity", "100%");
          $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
          $("main, header, footer, #creer-reunion").removeClass("hors-focus");
+
+         reunionsDuJour = "";
 
     }
 
@@ -376,7 +388,7 @@ console.log(joursMoisDernier);
 
 
 
-      // Remplir la case 
+      // Écrire la date 
       let journeeSemaine = trouverJourneeSemaine($(event.target).index())
       
       console.log($(event.target).index() > joursMoisDernier);
@@ -417,7 +429,35 @@ console.log(joursMoisDernier);
       }
 
 
-      
+      $("#panneau-reunions").html("");
+     // Afficher les réunions de la journée
+     reunionsDuJour = JSON.parse($(event.target).data("listeReunionsJournee"));
+     console.log(reunionsDuJour);
+
+     for (let i = 0; i < reunionsDuJour.length; i++) {
+
+      const reunion = $("<div class='reunion-pour-panneau'></div>");
+      reunion.append("<p>" + reunionsDuJour[i]['titre'] + "</p>");
+      reunion.append("<p>" + reunionsDuJour[i]['heure_debut'] + "-" + reunionsDuJour[i]['heure_fin'] + "</p>");
+
+
+      $("#panneau-reunions").append(reunion);
+
+     } 
+
+    // Évènement lorsque l'utilisateur clique sur une de ces réunions
+    $(event.target).find(".reunion-pour-panneau").on("click", function() {
+      alert("test");
+    })
+
+
+    }
+
+    else if ($(event.target).is(".reunion-pour-panneau")) {
+
+      $(event.target).addClass("reunion-visible-panneau")
+      console.log(reunionsDuJour);
+      console.log(reunionsDuJour[$(event.target).index()]['titre']);
     }
 })
 

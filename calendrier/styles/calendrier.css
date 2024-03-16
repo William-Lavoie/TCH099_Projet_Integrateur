@@ -345,7 +345,7 @@ border: 2px solid black;
   }
 
   /* Removed hover for testing purposes*/
-  #reunion-test:hover {
+  .reunion-visible-panneau {
     position: absolute;
     height: 70%;
     background-color: white;
