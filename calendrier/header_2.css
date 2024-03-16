@@ -107,8 +107,8 @@ a {
     width: 16vmin;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -118,17 +118,14 @@ for it's child rather than what it would need to be centeres
 so it does not stay centered when vh gets skwished a lot. */
 #photo-profil-conteneur{
     margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
-    width: 5vmin;
+    width: 7vmin;
     height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 1vmin;
     flex-direction: column;
-    background-color: red;
-    object-fit: contain;
     border-radius: 50%;
-    overflow: hidden;
 }
 
 #photo-profil-conteneur img {
@@ -139,6 +136,7 @@ so it does not stay centered when vh gets skwished a lot. */
     display: block; /* Ensures proper layout */
     margin: auto; /* Centers the image horizontally */
     object-fit: contain; /* Scales the image to fit inside the container while preserving aspect ratio */
+    border-radius: 50%;
 }
 
 

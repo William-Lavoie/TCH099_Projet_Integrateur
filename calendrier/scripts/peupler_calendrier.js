@@ -328,10 +328,14 @@ console.log(joursMoisDernier);
     .then(data => {
       const img = document.createElement('img');
 
-      img.src = URL.createObjectURL(data)
-     // img.width = 50;
-     // img.length = 50;
-      $("#photo-profil-conteneur").append(img);
+      if (data != undefined) {
+        img.src = URL.createObjectURL(data)
+        // img.width = 50;
+        // img.length = 50;
+        $("#photo-profil-conteneur").html("");
+        $("#photo-profil-conteneur").append(img);
+      }
+  
     })
     .catch(error => {
     console.log(error);
