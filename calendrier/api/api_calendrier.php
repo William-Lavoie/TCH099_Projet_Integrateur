@@ -1,18 +1,11 @@
 <?php
 
-// Allow requests from any origin
 header("Access-Control-Allow-Origin: http://127.0.0.1:3000");
-
-// Allow the following methods
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-// Allow the following headers
 header("Access-Control-Allow-Headers: Content-Type");
-
-// Specify the maximum age for preflight requests (in seconds)
 header("Access-Control-Max-Age: 3600");
 
-
+session_start();
 
 // WORK IN PROGRESS
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,26 +34,41 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
-        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'])) {
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['listeParticipants'])) {
 
         require("connexion.php");
-    
+
+        $participants = $donnees['listeParticipants'];
         $titre = $donnees['titre'];
         $debut = $donnees['debutReunion'];
         $fin = $donnees['finReunion'];
         $date = $donnees['dateReunion'];
         $description = $donnees['description'];
 
-        $query = $conn->prepare("INSERT INTO reunion (id_réunions, courriel_createur, Titre, heure_debut, heure_fin, date, Description) VALUES ('1', 'william100@hotmail.com', '$titre', '$debut', '$fin', '$date', '$description')");
-
+        // Création de la réunion
+        $query = $conn->prepare("INSERT INTO reunions (courriel_createur, titre, heure_debut, heure_fin, date, description) VALUES (:courriel, '$titre', '$debut', '$fin', '$date', '$description')");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
 
-        $query = $conn->prepare("INSERT INTO étudiants_réunions VALUES ('william100@hotmail.com','2')");
-        $query->execute();
+        //id de la réunion venant d'être créée
+        $id_reunion = $conn->lastInsertId();
+
+        // Ajout du créateur dans la table de jointure 
+        $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+
+        // Création d'une entrée dans la table de jointure pour chaque utilisateur
+        for ($i = 0; $i < count($participants); $i++) {
+
+            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
+            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+        }
 
         echo json_encode(["error" => "succes"]);
-
-
 
         }
         else {
@@ -84,7 +92,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             $courriel = $donnees['courriel'];
            
-            $query = $conn->prepare("SELECT * FROM étudiants WHERE courriel = :courriel");
+            $query = $conn->prepare("SELECT * FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
             $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
     
             $query->execute();
@@ -118,9 +126,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $dateDebut = $donnees['dateDebut'];
             $dateFin = $donnees['dateFin'];
            
-            $query = $conn->prepare("SELECT * FROM reunion WHERE date BETWEEN :dateDebut AND :dateFin");
+            $query = $conn->prepare("SELECT * FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE r.courriel_createur = :courriel AND date BETWEEN :dateDebut AND :dateFin");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
             $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+
 
     
             $query->execute();

@@ -104,7 +104,7 @@ $(document).ready(function() {
 
 
     // Chercher les réunions du mois passé
-    fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(debut)
@@ -190,7 +190,7 @@ $(document).ready(function() {
 
 
     // Chercher les réunions du mois courant
-    fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
+    fetch("http://localhost:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(debut)
@@ -271,7 +271,7 @@ $(document).ready(function() {
                    "dateFin": dateFinFormatte};
 
 
-    fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_reunions", {
+    fetch("http://localhost:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(debut)
