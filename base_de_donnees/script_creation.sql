@@ -84,7 +84,8 @@ CREATE TABLE `reunions` (
 CREATE TABLE `utilisateurs` (
   `courriel_utilisateurs` text NOT NULL,
   `nom` varchar(25) NOT NULL DEFAULT 'Nom d''utilisateur',
-  `photo` blob DEFAULT NULL
+  `photo` longblob DEFAULT NULL,
+  `type` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
