@@ -147,20 +147,42 @@
         
         <div class="BtnPliableDroite">
             <button id="BtnPliableDroite">⪓</button>
+            <button id="testButton2">Add</button> <!--To delete *********************-->
         </div>
         
         <aside id="to_do">
-            <div id="top_to_do" style="height: 10%;">
+            <div id="on_top_toDo_conteneur">
+                <div id="blue_line_aside">
+                </div>
 
+                <div class="hide-text, boite_toDo" id="header_aside_toDo">
+                    <h3>Objectif</h3>
+                    <div class="hide-text" id="boite_toDo_complete">
+                        <p>Completé</p>
+                        <label class="switch_toDo">
+                            <input type="checkbox" id="switch_toDo_complete">
+                            <span class="slider round"></span> 
+                        </label>
+                    </div>
+                </div>
+                
+            </div>
+            
+
+            <!--Appending the objectives in this container-->
+            <div id="toDo_conteneur"> 
+                    <div>
+                        <p>test</p>
+                    </div>                
             </div>
 
-            <div id="toDo_conteneur" style="height: 70%;">
-
+        
+            <div lass="hide-text" id="complete_conteneur">
+                <label for="satisfaction">Niveau de satisfaction</label>
+                    <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="50" onchange="updateSliderValue()">
+                    <p id="valeurSatisfaction">50</p>
             </div>
-            <div lass="hide-text" id="toDo_bottom_conteneur">
 
-                <p>To do side of things</p>
-            </div>
         </aside>
 
     </main>
