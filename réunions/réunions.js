@@ -90,6 +90,16 @@ document.addEventListener('DOMContentLoaded', function () {
         addRowsToContainer(5);
     });
 
+    // pas d'abscence toggle tous les checkbox
+    const mainCheckbox = document.getElementById('switch_pas_dabscence');
+    mainCheckbox.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.boite_nom_presence input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = mainCheckbox.checked;
+                checkbox.dispatchEvent(new Event('change')); 
+            });
+        });
+
     function addRowsToContainer(numRows) {
         var container = document.getElementById("presence_conteneur");
 
@@ -126,7 +136,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             container.appendChild(rowDiv);
 
-            // Add event listener to toggle color when checkbox is changed
+//************************* */
+//changer la couleur des nom quand un checkbox est cheked
+//************************* */
             input.addEventListener('change', function() {
                 var nameElement = this.parentElement.parentElement.previousElementSibling;
                 if (this.checked) {
@@ -139,34 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
-//************************************* */
-//couleur de noms pour les presence
-//************************************* */
-document.addEventListener('DOMContentLoaded', function () {
-    
-    const forms = document.querySelectorAll('.presence_form');
-
-    forms.forEach(function (form) {
-        form.addEventListener('change', function (event) {
-            const sliderSelectioné = event.target;
-            updateNomDeCouleur(sliderSelectioné);
-        });
-    });
-
-    function updateNomDeCouleur(sliderSelectioné) {
-        const nomClass = sliderSelectioné.value.toLowerCase() + '_selecté';
-        const nomElement = sliderSelectioné.closest('tr').querySelector('.nomPresence');
-
-        // Enlever toutes les classes de couleur
-        nomElement.classList.remove('present_selecté', 'absent_selecté');
-
-        // Ajouter la class de couleur
-        if (sliderSelectioné.checked) {
-            nomElement.classList.add(nomClass);
-        }
-    }
-});
 
 //****************************** */
 //timer
