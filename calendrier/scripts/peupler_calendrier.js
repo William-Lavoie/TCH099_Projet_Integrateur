@@ -328,8 +328,9 @@ console.log(joursMoisDernier);
     .then(data => {
       const img = document.createElement('img');
 
-      // Set the src attribute of the img element to the URL of the blob object
       img.src = URL.createObjectURL(data)
+     // img.width = 50;
+     // img.length = 50;
       $("#photo-profil-conteneur").append(img);
     })
     .catch(error => {

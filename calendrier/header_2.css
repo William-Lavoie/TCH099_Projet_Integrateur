@@ -119,12 +119,26 @@ so it does not stay centered when vh gets skwished a lot. */
 #photo-profil-conteneur{
     margin-top: max(2.5vmin, 20px);        /*This is what centers the profile pic, and so it has to be adjusted if the pp is changed */
     width: 5vmin;
-    height: 1%;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 1vmin;
     flex-direction: column;
+    background-color: red;
+    object-fit: contain;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#photo-profil-conteneur img {
+    max-width: 100%; /* Ensures the image doesn't exceed the container's width */
+    max-height: 100%; /* Ensures the image doesn't exceed the container's height */
+    width: auto; /* Allows the image to adjust its width while maintaining aspect ratio */
+    height: auto; /* Allows the image to adjust its height while maintaining aspect ratio */
+    display: block; /* Ensures proper layout */
+    margin: auto; /* Centers the image horizontally */
+    object-fit: contain; /* Scales the image to fit inside the container while preserving aspect ratio */
 }
 
 
