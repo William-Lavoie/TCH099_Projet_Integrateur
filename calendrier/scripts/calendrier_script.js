@@ -68,8 +68,8 @@ $(document).ready(function() {
 
         // Vérifie que la date de la réunion ne soit pas déjà passée
         else if (date.getFullYear() < dateActuelle.getFullYear() ||
-                 date.getMonth() < dateActuelle.getMonth()  ||
-                 date.getDate() < dateActuelle.getDate()) {
+                 date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() < dateActuelle.getMonth()  ||
+                 date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() == dateActuelle.getMonth() && date.getDate() < dateActuelle.getDate()) {
 
             $("#messages-erreur").text("La date ne peut pas déjà être passée");
             return false;
@@ -319,7 +319,7 @@ $(document).ready(function() {
 
                 // Fermer les formulaires et rafraîchir la page
                 fermerFormulaires();
-               // window.location.reload();
+                window.location.reload();
                 return response.json();
             }
 
