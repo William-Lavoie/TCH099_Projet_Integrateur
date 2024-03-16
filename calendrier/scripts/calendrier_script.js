@@ -6,6 +6,7 @@ $(document).ready(function() {
     let debutReunion;
     let finReunion;
     let description;
+    let participantsReunion = [];
 
     // Vide tous les champs et ferme les formulaires de création d'une réunion
     function fermerFormulaires() {
@@ -236,7 +237,7 @@ $(document).ready(function() {
             const courriel = {"courriel": texte};
     
             // Le participant doit avoir un compte dans la base de données
-            fetch("http://localhost:3333/calendrier/api/api_calendrier.php/chercher_participants", {
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(courriel)
@@ -266,6 +267,9 @@ $(document).ready(function() {
                 
                  nouveauParticipant.children("p").text(texte);
                  nouveauParticipant.append(boutonSupprimer);
+
+                 // Ajouter au tableau de participants
+                 participantsReunion.push(texte);
  
                  $("#liste-participants").append(nouveauParticipant);
                }
@@ -299,10 +303,11 @@ $(document).ready(function() {
                          "debutReunion": debutReunion,
                          "finReunion": finReunion,
                          "dateReunion": dateReunion,
-                         "description": description};
+                         "description": description,
+                         "listeParticipants": participantsReunion};
            
                          console.log(donnees);
-        fetch("http://localhost:3333/calendrier/api/api_calendrier.php/creer_reunion", {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -314,7 +319,7 @@ $(document).ready(function() {
 
                 // Fermer les formulaires et rafraîchir la page
                 fermerFormulaires();
-                window.location.reload();
+               // window.location.reload();
                 return response.json();
             }
 
