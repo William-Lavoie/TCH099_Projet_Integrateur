@@ -158,11 +158,11 @@
                 <div class="hide-text, boite_toDo" id="header_aside_toDo">
                     <h3>Objectif</h3>
                     <div class="hide-text" id="boite_toDo_complete">
-                        <p>Completé</p>
                         <label class="switch_toDo">
                             <input type="checkbox" id="switch_toDo_complete">
                             <span class="slider round"></span> 
                         </label>
+                        <p>Completé</p>
                     </div>
                 </div>
                 
@@ -171,16 +171,14 @@
 
             <!--Appending the objectives in this container-->
             <div id="toDo_conteneur"> 
-                    <div>
-                        <p>test</p>
-                    </div>                
+                                
             </div>
 
         
-            <div lass="hide-text" id="complete_conteneur">
-                <label for="satisfaction">Niveau de satisfaction</label>
-                    <input type="range" id="satisfaction" name="satisfaction" min="0" max="100" value="50" onchange="updateSliderValue()">
-                    <p id="valeurSatisfaction">50</p>
+            <div class="hide-text" id="complete_conteneur">
+                <label for="completion">Niveau de complétion</label>
+                <progress id="completion" max="100" value="0"></progress>
+                <p id="valeurCompletion">0%</p>
             </div>
 
         </aside>
