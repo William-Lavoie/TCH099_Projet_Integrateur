@@ -229,15 +229,6 @@ main {
     z-index: 1;
 }
 
-#on_top_presence_conteneur{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    height: 10%;
-    margin-top: 1vmin;
-}
-
 #blue_line_aside {
     position: absolute;
     top: 0;
@@ -247,11 +238,23 @@ main {
     background-color: #04071d;
 }
 
-#on_top_presence_conteneur h3{
+#on_top_presence_conteneur,
+#on_top_toDo_conteneur{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 10%;
+    margin-top: 1vmin;
+}
+
+#on_top_presence_conteneur h3,
+#on_top_toDo_conteneur h3{
     color: #00c1f3;
 }
 
-#boite_pas_dabscence{
+#boite_pas_dabscence,
+#boite_toDo_complete{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -260,19 +263,22 @@ main {
     margin-bottom: 2vmin;
 }
 
-#presence_conteneur{
+#presence_conteneur,
+#toDo_conteneur{
     overflow: auto;
     height: 70%;
 }
 
-#header_aside_presence{
+#header_aside_presence,
+#header_aside_toDo{
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 
-.boite_nom_presence{
+.boite_nom_presence,
+.boite_toDo{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -283,7 +289,8 @@ main {
 
 }
 
-.nomPresence{
+.nomPresence,
+.nomObjectif{
     overflow:hidden
 }
 
@@ -298,7 +305,7 @@ main {
 }
 
 #satisfaction_conteneur,
-#toDo_bottom_conteneur {
+#complete_conteneur {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -309,14 +316,25 @@ main {
     height: 10%;
 }
 
-
-#satisfaction_conteneur button:hover,
-#toDo_bottom_conteneur button:hover{
-    background-color: white;
-    color: black;
+/*******************************************/
+/*Changing the colour of the progress bar*/
+/*******************************************/
+progress {
+    background: white;
+    height: 10px;
 }
 
+progress::-moz-progress-bar {
+    background: white;
+}
 
+progress::-webkit-progress-value {
+    background: #00c1f3;
+}
+
+progress::-webkit-progress-bar {
+    background: white;
+}
 
 /*******************************************/
 /*Changing the colour of the slider*/
@@ -329,13 +347,13 @@ main {
         width: 15vmin;
         -webkit-appearance: none;
         appearance: none;
-        background-color: #00c1f3;
+        background-color: white;
     }
     
     input[type='range']::-webkit-slider-runnable-track {
         height: 10px;
         -webkit-appearance: none;
-        color: #13bba4;
+        color: #00c1f3;
         margin-top: -1px;
     }
     
@@ -433,7 +451,8 @@ switch styling
 ***********************************************************/
 
 /* The switch - the box around the slider */
-.switch_presence {
+.switch_presence,
+.switch_toDo {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -441,7 +460,8 @@ switch styling
 }
 
   /* Hide default HTML checkbox */
-.switch_presence input {
+.switch_presence input,
+.switch_toDo input {
     opacity: 0;
     width: 0;
     height: 0;
