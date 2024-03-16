@@ -52,7 +52,7 @@ auth0.createAuth0Client({
       const profileElement = document.getElementById("profile");
   
       if (userProfile) {
-        console.log("ok");
+        console.log(userProfile.name);
       //  profileElement.innerHTML = `<p>${userProfile.name}</p>`;
       } else {
         profileElement.style.display = "none";

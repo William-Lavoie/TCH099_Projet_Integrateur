@@ -6,6 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Max-Age: 3600");
 
 session_start();
+$courrielUtilisateur;
 
 // WORK IN PROGRESS
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,7 +21,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     
         $_SESSION['courriel'] = $donnees['courriel'];
-        echo json_encode(["error" => "succes"]);
+        $courrielUtilisateur = $donnees['courriel'];
+        echo json_encode($_SESSION['courriel']);
         }
         else {
             echo json_encode(["error" => "erreur"]);
@@ -126,23 +128,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $dateDebut = $donnees['dateDebut'];
             $dateFin = $donnees['dateFin'];
            
-            $query = $conn->prepare("SELECT * FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE r.courriel_createur = :courriel AND date BETWEEN :dateDebut AND :dateFin");
+            $query = $conn->prepare("SELECT * FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE ur.courriel_utilisateurs = :courriel AND date BETWEEN :dateDebut AND :dateFin");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
             $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
 
-
-    
             $query->execute();
     
             $resultat = $query->fetchAll();
 
             echo json_encode($resultat);
-            }
+        }
     
-            else {
-                echo json_encode(["error" => "erreur"]);
-            }
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
     
     }
 }

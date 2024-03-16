@@ -190,7 +190,7 @@ $(document).ready(function() {
 
 
     // Chercher les réunions du mois courant
-    fetch("http://localhost:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(debut)
@@ -271,7 +271,7 @@ $(document).ready(function() {
                    "dateFin": dateFinFormatte};
 
 
-    fetch("http://localhost:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(debut)
@@ -308,8 +308,10 @@ console.log(joursMoisDernier);
   let jourCourant = new Date()
 
   // Remplir le calendrier au mois courant
-  afficherCalendrier(jourCourant.getMonth());
- 
+ // setTimeout(function() {
+    afficherCalendrier(jourCourant.getMonth());
+ // }, 500);
+
   // Passer au mois dernier
   $("#btn-dernier-mois").on("click", function() {
 
