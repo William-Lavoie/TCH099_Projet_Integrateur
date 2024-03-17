@@ -286,7 +286,7 @@ $(document).ready(function() {
                 // Le participant est ajouté à la liste
                 $("#nouveau-participant").val("");
 
-                    boutonSupprimer.on("click", function() {
+                boutonSupprimer.on("click", function() {
                     nouveauParticipant.remove();
                 });
  

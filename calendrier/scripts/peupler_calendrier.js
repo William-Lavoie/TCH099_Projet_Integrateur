@@ -544,7 +544,7 @@ $(document).ready(function() {
       $("#description-reunion").val(reunionsDuJour[$(event.target).index()-1]['description']);
 
       // Cocher la bonne case
-      if (reunionsDuJour[$(event.target).index()-1]['id_groupes'] == null) {
+      if (reunionsDuJour[$(event.target).index()]['id_groupes'] == null) {
          
         $("#groupes").prop("checked", true);
       }
@@ -554,7 +554,7 @@ $(document).ready(function() {
       }
 
       // Ajouter la liste des participants déjà invités
-            const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
+      const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
 
       fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
@@ -575,12 +575,24 @@ $(document).ready(function() {
       })
       .then(data => {
 
-        for (let i = 0; i < data.length; i++) {
+        
+        // Contenant pour le participant
+        const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
+        const boutonSupprimer = $("<button class='supprimer-participant'>X</button>");
 
-          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
-          infoReunions.append(participant);
+        boutonSupprimer.on("click", function() {
+          nouveauParticipant.remove();
+      });
 
-        }
+      
+       nouveauParticipant.children("p").text(data[0]['nom']);
+       nouveauParticipant.append(boutonSupprimer);
+
+       console.log(data[0]['nom']);
+
+
+       $("#liste-participants").append(nouveauParticipant);
+
       console.log(data); 
       console.log("ok");
       })

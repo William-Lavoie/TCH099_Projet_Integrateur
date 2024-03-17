@@ -376,7 +376,6 @@ border: 2px solid black;
   }
 
   .participant-pour-reunion {
-    border: 1px solid black;
     height: 21%;
     display: flex;
     align-items: center;
@@ -384,7 +383,10 @@ border: 2px solid black;
     font-size: 1.2em;
     flex-shrink: 0;
     margin-bottom: 2%;
-    border-radius: 1em;
+  }
+
+  .participant-pour-reunion:hover {
+    background-color: lightgray;
   }
 
   #btn-nouvelle-reunion {
