@@ -145,9 +145,40 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     
     }
+
+
+    // Chercher les participants pour une réunion donnée
+    if (preg_match("~chercher_liste_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+    
+            $idReunions = $donnees['idReunions'];
+           
+            $query = $conn->prepare("SELECT nom FROM utilisateurs AS u INNER JOIN utilisateurs_reunions AS ur ON u.courriel_utilisateurs = ur.courriel_utilisateurs WHERE id_reunions = :id");
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
 }
 
 // WORK IN PROGRESS
+// Chercher la photo de profil de l'utilisateur
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
