@@ -218,12 +218,22 @@ $(document).ready(function() {
     .then(data => {
   
     for (k = 0; k < finDuMois; k++) {
+ 
+       let listeReunionsJournee = [];
 
       for (let j = 0; j < data.length; j++) {
         
         let dateNombre = data[j]['date'].slice(8);
         if (dateNombre == $("#calendrier").children().eq(compteur-finDuMois+k).text()) {
+
+          listeReunionsJournee.push(data[j]);
+
           $("#calendrier").children().eq(compteur-finDuMois+k).css("background-color", "red");
+
+          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
+          $("#calendrier").children().eq(compteur-finDuMois+k).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
+
+
 
         }
       }
@@ -234,7 +244,7 @@ $(document).ready(function() {
     console.log(error);
     });
 
-    chercherReunions(new Date(jourCourant.getFullYear(),jourCourant.getMonth()+1, 1), 41-(finDuMois+premierJour));
+    //chercherReunions(new Date(jourCourant.getFullYear(),jourCourant.getMonth()+1, 1), 41-(finDuMois+premierJour));
 
     index = 1;
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
@@ -247,35 +257,26 @@ $(document).ready(function() {
       index++;
     }
 
-    $("#calendrier").children().eq(0).text("Lundi");
 
-  }
+    // Chercher les réunions du mois prochain 
+    dateDebutFormatte = "";
 
-
-  // Mettre les réunions dans le calendrier
-  function chercherReunions(dateDebut, nbJours) {
-
-    const reunions = new Array();
-
-    console.log(dateDebut);
-    let dateDebutFormatte = "";
-
-    dateDebutFormatte += dateDebut.getFullYear() + "/";
-    dateDebutFormatte += dateDebut.getMonth()+1 + "/";
-    dateDebutFormatte += dateDebut.getDate();
+    dateDebutFormatte += premierDuMois.getFullYear() + "/";
+    dateDebutFormatte += premierDuMois.getMonth()+2 + "/";
+    dateDebutFormatte += premierDuMois.getDate();
 
     letDateFinFormatte = "";
-    if (dateDebut.getDate() > 9) {
+    if (premierDuMois.getDate() > 9) {
       dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-2);
     }
 
     else {
       dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
     }
-    dateFinFormatte += dateDebut.getDate() + nbJours;
-    console.log(dateDebutFormatte);
+    dateFinFormatte += premierDuMois.getDate() + 41 - (finDuMois+premierJour);
+    console.log(dateFinFormatte);
 
-    const debut = {"dateDebut": dateDebutFormatte,
+    debut = {"dateDebut": dateDebutFormatte,
                    "dateFin": dateFinFormatte};
 
 
@@ -297,20 +298,40 @@ $(document).ready(function() {
     }
     })
     .then(data => {
-    console.log(data); 
-    console.log("ok");
-    $("calendrier").children().eq(0).text("test");
+  
+      console.log(compteur);
+
+    for (k = 0; k < 41-compteur; k++) {
+ 
+       let listeReunionsJournee = [];
+
+       console.log(data.length);
+      for (let j = 0; j < data.length; j++) {
+        
+        let dateNombre = data[j]['date'].slice(9);
+        console.log(dateNombre);
+        if (dateNombre == $("#calendrier").children().eq(compteur+k).text()) {
+
+          listeReunionsJournee.push(data[j]);
+
+          $("#calendrier").children().eq(compteur+k).css("background-color", "red");
+
+          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
+          $("#calendrier").children().eq(compteur+k).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
+
+
+
+        }
+      }
+
+    }
     })
     .catch(error => {
     console.log(error);
     });
 
-    return reunions;
-}
 
-  
-
-console.log(joursMoisDernier);
+  }
 
   // Jour courant 
   let jourCourant = new Date()
@@ -453,11 +474,51 @@ console.log(joursMoisDernier);
 
     }
 
-    else if ($(event.target).is(".reunion-pour-panneau")) {
+    else if ($(event.target).is(".reunion-pour-panneau") && !$(event.target).hasClass("reunion-visible-panneau")) {
 
       $(event.target).addClass("reunion-visible-panneau")
-      console.log(reunionsDuJour);
-      console.log(reunionsDuJour[$(event.target).index()]['titre']);
+
+      const infoReunions = $("<div id=informations-reunion></div>");
+
+      const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
+      // Ajouter la liste des participants
+      console.log(reunionsDuJour[$(event.target).index()]['id_reunions']);
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donnees)
+      })
+      .then(response => {
+
+      console.log(response);
+      if (response.ok) {
+
+      return response.json();
+      }
+
+      else {
+      console.log("error");
+      }
+      })
+      .then(data => {
+
+        for (let i = 0; i < data.length; i++) {
+
+          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
+          infoReunions.append(participant);
+
+        }
+      console.log(data); 
+      console.log("ok");
+      })
+      .catch(error => {
+      console.log(error);
+      });
+
+      $(event.target).append(infoReunions);
+      $(event.target).append("<div id='boutons-pour-panneau'>" +
+      "<div id='btn-panneau-reunion'><button id='consulter-reunion-panneau'>Joindre</button>" +
+          "<button id='modifier-reunion-panneau'>Modifier</button></div></div>");
     }
 })
 
