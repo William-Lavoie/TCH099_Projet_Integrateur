@@ -22,7 +22,7 @@ header {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 4;
     overflow: hidden;
     background-color: white;
     color: black;
@@ -373,7 +373,6 @@ border: 2px solid black;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    background-color: red;
   }
 
   .participant-pour-reunion {

@@ -12,7 +12,6 @@ $(document).ready(function() {
     function fermerFormulaires() {
 
         $("form").removeClass("reunion-visible");
-        $("header, main, footer, #creer-reunion").css("opacity", "100%");
 
         // Rend le bouton créer réunion fonctionnel
         $("#creer-reunion").prop("disabled", false);
@@ -26,7 +25,12 @@ $(document).ready(function() {
 
         $("#liste-participants").text("");
 
-        $("main, header, footer, #creer-reunion").removeClass("hors-focus");
+        // Ne change pas le focus si l'onglet d'une réunion est ouverte 
+        if (!$("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
+
+            $("header, main, footer, #creer-reunion").css("opacity", "100%");
+            $("main, header, footer, #creer-reunion").removeClass("hors-focus");
+        }
 
         
         // Réinitialiser les variables
@@ -131,7 +135,6 @@ $(document).ready(function() {
     // Fermer le formulaire de création d'une réunion en appuyant sur retour
     $("#reunion-retour").on("click", function() {
 
-        console.log(formulaireEstRempli());
         if (formulaireEstRempli()) {
 
             //TODO: annoying bug where alert deletes the meeting info
@@ -307,6 +310,10 @@ $(document).ready(function() {
             .catch(error => {
             console.log(error);
             });
+        }
+
+        else if (texte == "") {
+            $("#messages-erreur-participants").text("Vous devez entrer une adresse courriel");
         }
         
         else {

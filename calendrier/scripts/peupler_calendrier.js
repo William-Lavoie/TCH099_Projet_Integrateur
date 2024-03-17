@@ -5,8 +5,6 @@ $(document).ready(function() {
   let nbJoursMoisDernier;
   let reunionsDuJour;
 
-
-
   function trouverJourneeSemaine(index) {
     switch(index % 7) {
       case 0:
@@ -26,6 +24,12 @@ $(document).ready(function() {
       default:
         return null;
     }
+  }
+
+  // Formatte les heures retournées par la base de données du format hh:mm:ss au format '10h00'
+  function formatterHeure(heureNonFormatte) {
+    return heureNonFormatte.slice(0, 2) + ":" + heureNonFormatte.slice(3,5);
+
   }
 
   // Remplit dynamiquement le calendrier 
@@ -389,10 +393,11 @@ $(document).ready(function() {
   $("body").on("click", function(event) {
 
 
-    console.log($(event.target).is(".jour"));
     if (!$(event.target).closest("#consulter-reunion-calendrier").length &&
+        !$(event.target).closest("#formulaires-reunion").length &&
          $("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
 
+          console.log("test");
          $("header, main, footer, #creer-reunion").css("opacity", "100%");
          $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
          $("main, header, footer, #creer-reunion").removeClass("hors-focus");
@@ -411,10 +416,7 @@ $(document).ready(function() {
 
       // Écrire la date 
       let journeeSemaine = trouverJourneeSemaine($(event.target).index())
-      
-      console.log($(event.target).index() > joursMoisDernier);
-      
-
+  
 
       if (journeeSemaine != null) {
 
@@ -459,7 +461,9 @@ $(document).ready(function() {
 
       const reunion = $("<div class='reunion-pour-panneau'></div>");
       reunion.append("<p>" + reunionsDuJour[i]['titre'] + "</p>");
-      reunion.append("<p>" + reunionsDuJour[i]['heure_debut'] + "-" + reunionsDuJour[i]['heure_fin'] + "</p>");
+
+
+      reunion.append("<p>" + formatterHeure(reunionsDuJour[i]['heure_debut']) + "-" + formatterHeure(reunionsDuJour[i]['heure_fin']) + "</p>");
 
 
       $("#panneau-reunions").append(reunion);
@@ -481,6 +485,7 @@ $(document).ready(function() {
       const infoReunions = $("<div id=informations-reunion></div>");
 
       const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
+
       // Ajouter la liste des participants
       console.log(reunionsDuJour[$(event.target).index()]['id_reunions']);
       fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
@@ -519,6 +524,72 @@ $(document).ready(function() {
       $(event.target).append("<div id='boutons-pour-panneau'>" +
       "<div id='btn-panneau-reunion'><button id='consulter-reunion-panneau'>Joindre</button>" +
           "<button id='modifier-reunion-panneau'>Modifier</button></div></div>");
+    }
+
+    // Ouvrir l'onglet de modification de la réunion
+    else if ($(event.target).is("#modifier-reunion-panneau")) {
+      console.log("alright");
+
+      $("#nouvelle-reunion").addClass("reunion-visible");
+      
+      // Remplir le formulaire avec les données courantes
+      $("#formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+
+      console.log(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_fin']));
+
+      $("#titre-reunion").val(reunionsDuJour[$(event.target).index()-1]['titre']);
+      $("#debut-reunion").val(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_debut']));
+      $("#fin-reunion").val(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_fin']));
+      $("#date-reunion").val(reunionsDuJour[$(event.target).index()-1]['date']);
+      $("#description-reunion").val(reunionsDuJour[$(event.target).index()-1]['description']);
+
+      // Cocher la bonne case
+      if (reunionsDuJour[$(event.target).index()-1]['id_groupes'] == null) {
+         
+        $("#groupes").prop("checked", true);
+      }
+
+      else {
+        $("#btn-radio").prop("checked", true);
+      }
+
+      // Ajouter la liste des participants déjà invités
+            const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
+
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donnees)
+      })
+      .then(response => {
+
+      console.log(response);
+      if (response.ok) {
+
+      return response.json();
+      }
+
+      else {
+      console.log("error");
+      }
+      })
+      .then(data => {
+
+        for (let i = 0; i < data.length; i++) {
+
+          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
+          infoReunions.append(participant);
+
+        }
+      console.log(data); 
+      console.log("ok");
+      })
+      .catch(error => {
+      console.log(error);
+      });
+
+
+
     }
 })
 
