@@ -146,10 +146,6 @@ header {
     display: none;
 }
 
-#menu-profil:hover {
-    display: show;
-}
-
 #info {
     width: 100%;
     height: 100%;

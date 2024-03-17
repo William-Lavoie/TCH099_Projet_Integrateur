@@ -1,14 +1,33 @@
 $(document).ready(function() {
-    // Hide menu-profil initially
-    $('#menu-profil').hide();
+    // Initialiser menu-profil (déjà fait dans le CSS)
+    $('#menu-profil').css('display', 'none');
 
-    // Show menu-profil when mouse enters photo-profil
+    var surMenuProfil = false;
+
+    // Lorsque la souris entre dans photo-profil, afficher menu-profil
     $('#photo-profil').mouseenter(function() {
-        $('#menu-profil').show();
+        $('#menu-profil').css('display', 'flex');
     });
 
-    // Hide menu-profil when mouse leaves photo-profil
+    // Vérifier si la souris est sur le menu-profil
+    $('#menu-profil').mouseenter(function() {
+        surMenuProfil = true;
+    });
+
+    // Lorsque la souris quitte photo-profil
     $('#photo-profil').mouseleave(function() {
-        $('#menu-profil').hide();
+        // Lorsque la souris quitte conteneur-compte
+        $('#conteneur-compte').mouseleave(function() {
+            // Si la prochaine destination n'est pas le menu-profil
+            if (!surMenuProfil) {
+                $('#menu-profil').css('display', 'none');
+            }
+        });
+    });
+
+    // Lorsque la souris quitte le menu profil
+    $('#menu-profil').mouseleave(function() {
+        surMenuProfil = false;
+        $('#menu-profil').css('display', 'none');
     });
 });
