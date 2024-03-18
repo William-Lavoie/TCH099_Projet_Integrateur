@@ -373,7 +373,6 @@ $(document).ready(function() {
                          "description": description,
                          "listeParticipants": participantsReunion};
            
-                         console.log(donnees);
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -381,7 +380,6 @@ $(document).ready(function() {
         })
         .then(response => {
 
-            console.log(response);
             if (response.ok) {
 
                 // Fermer les formulaires et rafraîchir la page

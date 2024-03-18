@@ -1,10 +1,24 @@
 $(document).ready(function() {
 
+  // Information par rapport au mois courant
   var joursMoisDernier;
   let joursMoisCourant;
   let nbJoursMoisDernier;
+
+  // Réunions pour une journée
   let reunionsDuJour;
 
+  // Jour actuel (est modifé automatiquement chaque jour)
+  let jourCourant = new Date()
+
+
+  /**
+   * TROUVER_JOURNEE_SEMAINE
+   * Détermine le jour de le semaine associé à une position dans la grille
+   * en commençant par le dimanche 
+   * @param {number} index 
+   * @returns String: jour de la semaine
+   */
   function trouverJourneeSemaine(index) {
     switch(index % 7) {
       case 0:
@@ -26,67 +40,136 @@ $(document).ready(function() {
     }
   }
 
-  // Formatte les heures retournées par la base de données du format hh:mm:ss au format '10h00'
+  /**FORMATTER_HEURE 
+   * Transforme les heures fournies par la base de données au format hh:mm:ss
+   * en heures au format hh:mm
+   * @param {String} heureNonFormatte: heure fournie par la base de données
+   * @returns String: heure au format hh:mm
+   */
   function formatterHeure(heureNonFormatte) {
     return heureNonFormatte.slice(0, 2) + ":" + heureNonFormatte.slice(3,5);
 
   }
 
-  // Remplit dynamiquement le calendrier 
+
+  /**
+   * AFFICHER_DATE
+   * Affiche le mois et l'année dans l'en-tête. Par défaut le mois actuel 
+   * est affiché, et l'utilisateur utilise les flèches pour changer de mois
+   * @param {String} mois
+   */
+  function afficherDate(mois) {
+
+     // Obtient le premier jour du mois sélectionné
+     let moisAnnee = new Date(jourCourant.getFullYear(), mois);
+   
+     // Crée une chaîne de caractère correspond au mois et à l'année 
+     const options = {month: 'long', year: 'numeric'};
+     let moisAnneeActuel = moisAnnee.toLocaleDateString('fr-FR',options);
+ 
+     // Met la première lettre du mois en majuscule
+     let moisAnneeFormatte = "";
+     for (let i = 0; i < moisAnneeActuel.length; i++) {
+       if (i ==0) {
+         moisAnneeFormatte += moisAnneeActuel[0].toUpperCase();
+       }
+ 
+       else {
+         moisAnneeFormatte += moisAnneeActuel[i];
+       }
+ 
+     }
+ 
+     // Affiche le mois et l'année dans l'en-tête
+     $("#journee-du-mois").text(moisAnneeFormatte);
+     
+  }
+
+  /**
+   * CHERCHER_REUNIONS
+   * Fait une requête asynchroneà la base de données pour obtenir toutes les
+   *  réunions entre une date de début et une date de fin. Les retourne sous 
+   * forme de tableau
+   * @param {Date} debut 
+   * @param {*Date} fin 
+   */
+  async function chercherReunions(debut, fin) {
+    
+    try {
+
+      const dates = {'debut': debut, 'fin': fin}
+      const reponse = await fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dates)
+      });
+
+      if (!reponse.ok) {
+        throw new Error("Les réunions n'ont pas pu être cherchées");
+      }
+
+      const donnees = await reponse.json();
+      return donnees;
+    }
+
+    catch (error) {
+      throw error;
+    }
+    
+
+  }
+
+
+  /**
+   * AFFICHER_CALENDRIER
+   * Remplit le calendrier avec les dates lorsque la page est chargée et 
+   * lorsque l'utilisateur appuie sur les flèches pour changer de mois
+   * @param {String} mois
+   */ 
   function afficherCalendrier(mois) {
    
     // Vider le calendrier
     $("#calendrier").html("");
+
+     // Afficher la date 
+     afficherDate(mois);
   
+    // Compte le nombre de cases remplis
     let compteur = 0;
 
-    // Jour courant 
-    const nouveauMois = new Date(jourCourant.getFullYear(), mois);
-    joursMoisCourant = nouveauMois;
-  
-    // Écrire la date 
-    const options = {month: 'long'};
-    let anneeActuel = jourCourant.getFullYear();
-    let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
-
-    // Formattage de la date
-    let moisFormatte = "";
-    for (let i = 0; i < moisActuel.length; i++) {
-      if (i ==0) {
-        moisFormatte += moisActuel[0].toUpperCase();
-      }
-
-      else {
-        moisFormatte += moisActuel[i];
-      }
-
-    }
-    $("#journee-du-mois").text(moisFormatte + " " + anneeActuel);
+    //??
+    //joursMoisCourant = nouveauMois;
     
-
-    /***  Peupler le calendrier ***/
   
     //Premier jour du mois courant
-    const premierDuMois = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth(), 1);
+    const premierDuMois = new Date(jourCourant.getFullYear(), jourCourant.getMonth(), 1);
+
+    // Jour de la semaine où le mois commence
     const premierJour = premierDuMois.getDay();
 
-    nbJoursMoisDernier = premierJour;
+                    //nbJoursMoisDernier = premierJour;
   
-    // Remplir les derniers jours du mois passé 
-    const moisDernier = new Date(nouveauMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
+    // Premier jour du mois précédent devant être affiché
+    const moisDernier = new Date(premierDuMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
     let debutCalendrier = moisDernier.getDate();
 
+    // Affiche les jours appartenant au mois précédant
+    for (let i = compteur; i < premierJour; i++) {
 
-    let i = 0;
-    for (i; i < premierJour; i++) {
+      // Affiche la date et crée la case correspondante
       const journee = $("<div class='jour'></div>");
       journee.text(debutCalendrier);
       journee.css("background-color", "lightgray");
       
+      // Ajoute la case contenant la date au calendrier
       $("#calendrier").append(journee);
+
+      // Incrémente la date et le nombre de jours remplis
       debutCalendrier++;
       compteur++;
     }
+
+    
 
     let dateDebutFormatte = "";
 
@@ -105,6 +188,18 @@ $(document).ready(function() {
     dateFinFormatte += moisDernier.getDate() + premierJour;
     console.log(dateDebutFormatte);
 
+    chercherReunions(dateDebutFormatte, dateFinFormatte)
+  .then(donnees => {
+    if (Array.isArray(donnees)) {
+      console.log(donnees[0]['id_reunions']);
+    } else {
+      console.log(donnees);
+      console.log("No data found.");
+    }
+  })
+  .catch(error => {
+    console.log("Error:", error);
+  });
     let debut = {"dateDebut": dateDebutFormatte,
                    "dateFin": dateFinFormatte};
 
@@ -337,8 +432,7 @@ $(document).ready(function() {
 
   }
 
-  // Jour courant 
-  let jourCourant = new Date()
+  
 
   // Remplir le calendrier au mois courant
   afficherCalendrier(jourCourant.getMonth());
