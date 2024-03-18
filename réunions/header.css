@@ -40,13 +40,13 @@ header {
     height: 10vh;
     display: flex;
     align-items: center;
-    gap: 1vw;
+    gap: 5vw;
     padding-left: 1vw;
     box-sizing: border-box;
     z-index: 1;
 }
 
-.header-boutons {
+.en-tete-boutons {
     min-width: 5.5em;
     width: 20vw;
     max-width: 15em;
@@ -65,6 +65,7 @@ header {
     width: 30vw;
     min-height: 4em;
     height: 10vh;
+    margin-right: 1em;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -90,7 +91,7 @@ header {
     z-index: 1;
 }
 
-#header-background {
+#fond-en-tete {
     position: absolute;
     width: 100vw;
     min-height: 4em;
@@ -152,6 +153,8 @@ header {
     border-bottom: 1px solid #04071d35;
     padding: 0.6em;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 #page-profil {
@@ -186,7 +189,7 @@ header {
     flex-wrap: nowrap;
 }
 
-.header-boutons:hover {
+.en-tete-boutons:hover {
     color: #04071d;
     background-color: white;
     border: 3px solid #04071d;
