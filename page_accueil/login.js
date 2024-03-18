@@ -36,7 +36,7 @@ auth0.createAuth0Client({
   
 
     // Assumes a button with id "logout" in the DOM
-    const logoutButton = document.getElementById("logout");
+    const logoutButton = document.getElementById("deconnexion");
   
     logoutButton.addEventListener("click", (e) => {
       e.preventDefault();
