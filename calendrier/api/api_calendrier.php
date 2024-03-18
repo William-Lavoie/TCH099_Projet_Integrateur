@@ -183,12 +183,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $donnees_json = file_get_contents('php://input');
             $donnees = json_decode($donnees_json, true);
     
-            if (isset($donnees['nom'], $donnees['tableauParticipants'])) {
+            if (isset($donnees['nom'], $donnees['participants'])) {
     
             require("connexion.php");
     
             $nom = $donnees['nom'];
-            $participants = $donnees['tableauParticipants'];
+            $participants = $donnees['participants'];
          
             // Création du groupe
             $query = $conn->prepare("INSERT INTO groupes (courriel_enseignant, nom) VALUES (:courriel, :nom)");

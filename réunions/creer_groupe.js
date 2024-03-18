@@ -103,7 +103,6 @@ $(document).ready(function() {
 
                 //window.location.reload();
                 console.log(response.json());
-                return response.json();
             }
 
             else {
