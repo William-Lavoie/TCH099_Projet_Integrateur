@@ -489,6 +489,7 @@ border: 2px solid black;
   }
 
   .hors-focus {
+    opacity: 50%;
     pointer-events: none;
   }
 
