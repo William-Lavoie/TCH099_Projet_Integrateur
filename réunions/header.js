@@ -1,5 +1,6 @@
 $(document).ready(function() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Afficher le menu-profil sur mobile si on clique sur photo-profil
         $('#photo-profil').on('click', function() {
             if ($('#menu-profil').css('display') === 'none') {
                 $('#menu-profil').css('display', 'flex');
