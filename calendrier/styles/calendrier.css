@@ -217,7 +217,7 @@ border: 2px solid black;
     margin: 0;
     width: calc(100%/7);
     height: calc(100%/6);
-    border: 1px solid black;
+    border: 1px solid rgb(245, 245, 245);
     box-sizing: border-box;
     padding: 0.8%;
     min-height: 40px;

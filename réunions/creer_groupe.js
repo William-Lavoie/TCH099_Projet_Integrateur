@@ -9,6 +9,8 @@ $(document).ready(function() {
     const erreurs = $("#erreurs-creer-groupe");
     const groupesTable = $("#groupes");
 
+    let tableauParticipants = [];
+
     // Ouvrir le formulaire qui crée un groupe
     btnCreerGroupe.click(function() {
         formulaireCreerGroupe.css("visibility", "visible");
@@ -24,7 +26,7 @@ $(document).ready(function() {
         event.preventDefault();
 
         const participant = $("#ajouter-participants").val().trim();
-        
+        console.log(tableauParticipants);
         // Vérifier si le champ participant est valide
         if (participant === "") { // Si vide
             erreurs.text("Veuillez saisir une adresse e-mail.");
@@ -32,13 +34,24 @@ $(document).ready(function() {
         } else if (!validerAdresse(participant)) {
             erreurs.text("L'adresse e-mail est invalide.");
             return false;
-        } else {
+        } 
+          else if (tableauParticipants.includes(participant)) {
+            erreurs.text("Le participant est déjà dans la liste.");
+            return false;
+        }  
+        else {
             // Vérifier s'il y a déjà des participants
             if (listeParticipants.text() === "") {
                 listeParticipants.text(participant);
+
+                 // Ajouter à la liste des participants
+                 tableauParticipants.push(participant);
             } else {
                 // Ajouter le participant à la liste en séparant par une virgule et un espace
                 listeParticipants.text(listeParticipants.text() + ", " + participant);
+
+                // Ajouter à la liste des participants
+                tableauParticipants.push(participant);
             }
             
             erreurs.text(""); // Vider les erreurs
@@ -55,71 +68,54 @@ $(document).ready(function() {
         const description = $("#description").val().trim();
         const participantsText = listeParticipants.text().trim(); // Obtenir le texte au complèt
         const nbParticipants = participantsText ? participantsText.split(", ").length : 0; // Nombre de participants
+
+        console.log(nomGroupe.length);
         // Vérifier si le champ nom du groupe est valide
         if (nomGroupe.length < 1) {
+            console.log("test");
             erreurs.text("Le nom du groupe doit contenir au moins un caractère.");
-            return false; // Ne plus continuer le code
-        } else {
-            erreurs.text(""); // Vider les erreurs
-        }
+        } 
 
         // Vérifier si le champ des participants est valide
-        if (nbParticipants < 1) {
+        else if (nbParticipants < 1) {
             erreurs.text("Il doit y avoir au moins un participant.");
-            return false;
-        } else {
+        } 
+        
+        else {
             erreurs.text(""); // Vider les erreurs
-        }
-
-        // Vérifier si la description est valide
-        if (description.length < 1) {
-            erreurs.text("Il doit y avoir une description.");
-            return false;
-        } else if (description.length < 10) {
-            erreurs.text("Votre description est trop courte.");
-            return false;
-        } else {
-            erreurs.text(""); // Vider les erreurs
-        }
+        
 
         // Si tous les champs sont valides, procéder à la soumission du formulaire
-
-        /* TODO
-
         const donnees = {"nom": nomGroupe,
-                        "description": description,
-                        "participants": participantsText};
+                        "participants": tableauParticipants};
 
         console.log(donnees);
 
-        fetch("http://localhost:3333/réunions/reunions.php", {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_reunion", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
         })
         .then(response => {
 
-        console.log(response);
-        if (response.ok) {
+            console.log(response);
+            if (response.ok) {
 
-        // Fermer les formulaires
-        fermerFormulaires();
-        window.location.reload();
-        return response.json();
-        }
+                //window.location.reload();
+                console.log(response.json());
+                return response.json();
+            }
 
-        else {
-        console.log("error");
-        }
-        })
-        .then(data => {
-        console.log(data); 
+            else {
+                console.log("error");
+            }
         })
         .catch(error => {
-        console.log(error);
+            console.log(error);
         });
 
-        */
+
+    
 
         // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
         const nouveauGroupe = $("<button>").text(nomGroupe); // Changer le nom
@@ -134,6 +130,7 @@ $(document).ready(function() {
         $("#description").val('');
         listeParticipants.text('');
         erreurs.text('');
+    }
     });
 
     // Fonction pour valider le format d'une adresse e-mail
