@@ -1,0 +1,108 @@
+body {
+    /* a revoir */
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .profil {
+    background-color: #FFFFFF;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .photo {
+    background-image: url('image_profil_vide.png'); 
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background-color: #CCCCCC; 
+  }
+  
+  .profil-info h2 {
+    margin: 0;
+    color: #333333;
+    font-size: 22px;
+  }
+  
+  .profil-info p {
+    color: #666666;
+    margin: 5px 0 20px;
+  }
+  
+  .edit-button {
+    background-color: #800080;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+  }
+  
+  .edit-button:hover {
+    background-color: #5c007a;
+  }
+
+.modifier-onglet {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.modifier-onglet {
+    position: absolute;
+    bottom: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white; 
+    color: #ffffff; 
+    border: 1px solid #0056b3; 
+    padding: 10px 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    display: none; 
+    width: auto; 
+    text-align: center; 
+}
+
+.modifier-onglet button {
+    background-color: #0056b3; 
+    color: #ffffff; 
+    border: none; 
+    padding: 8px 16px; 
+    margin: 5px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.modifier-onglet button:hover {
+    background-color: #003875; 
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+  }
+  
+  .grid-item {
+    border: 1px solid black;
+    height: 50px; 
+    background-color: white;
+  }
+  
+  .grid-item.filled {
+    background-color: #8FBC8F; 
+  }

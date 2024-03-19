@@ -25,7 +25,7 @@ document.getElementById('modifier-nom').addEventListener('click', function() {
 
         const donnees ={"nom" : nouveauNom};
 
-        fetch("http://localhost:3333/profil_stats/profil.php", { // Envoie une requête POST au serveur
+        fetch("http://localhost:3333/profil_stats/api/profil.php", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -51,7 +51,7 @@ document.getElementById('modifier-Photo').addEventListener('modifier-Photo', fun
     if (fichier) {
           const donneesP ={"photo" : fichier};
 
-        fetch("http://localhost:3333/profil_stats/profil.php", { // Envoie une requête POST au serveur
+        fetch("http://localhost:3333/profil_stats/api/profil.php", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donneesP)
