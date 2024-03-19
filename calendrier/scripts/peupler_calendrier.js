@@ -324,7 +324,12 @@ $(document).ready(function() {
   }
 
 
-
+  /**
+   * OUVRIR_REUNION
+   * Lorsque l'utilisateur appuie sur une journée dans le calendrier, ouvre 
+   * le menu présentant les différentes réunions de cette journée
+   * @param {div} journee 
+   */
   function ouvrirReunion(journee) {
 
       // Désactiver tous les boutons et rendre le fond moins opaque
@@ -349,6 +354,9 @@ $(document).ready(function() {
         // Afficher l'heure
         reunion.append("<p>" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_debut']) + "-" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_fin']) + "</p>");
  
+        // Insérer les informations dans la réunion 
+        reunion.data("listeReunionsJournee", journee.data("listeReunionsJournee")[i]);
+
         // Ajouter la réunion
         $("#panneau-reunions").append(reunion);
 
@@ -360,50 +368,110 @@ $(document).ready(function() {
   }  
 
 
+  /**
+   * CONSULTER_REUNION
+   * Lorsque l'utilisateur appuie sur une réunion parmis le menu des réunions
+   * d'une journée, ouvre son onglet et lui offre l'option de la joindre 
+   * ou de la modifier
+   * @param {div} reunion 
+   */
   function consulterReunion(reunion) {
 
-    reunion.addClass("reunion-visible-panneau");
-    const infoReunions = $("<div id=informations-reunion></div>");
-console.log(reunion.parent().data("listeReunionsJournee"));
-    const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
-console.log(donnees);
-    // Ajouter la liste des participants
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(donnees)
-    })
-    .then(response => {
+    if (!reunion.hasClass("reunion-visible-panneau")) {
 
-    console.log(response);
-    if (response.ok) {
+      reunion.addClass("reunion-visible-panneau");
+      const infoReunions = $("<div id=informations-reunion></div>");
+      const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
-    return response.json();
+      // Ajouter la liste des participants
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donnees)
+      })
+      .then(response => {
+
+      console.log(response);
+      if (response.ok) {
+
+      return response.json();
+      }
+
+      else {
+      console.log("error");
+      }
+      })
+      .then(data => {
+
+        // Ajouter les participants
+        for (let i = 0; i < data.length; i++) {
+
+          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
+          infoReunions.append(participant);
+
+        }
+      })
+      .catch(error => {
+      console.log(error);
+      });
+
+      reunion.append(infoReunions);
+
+      // Ajouter les boutons pour joindre ou modifier la réunion
+      reunion.append("<div id='boutons-pour-panneau'><div id='btn-panneau-reunion'></div></div>");
+
+      // Créer des écouteurs d'évènements pour les boutons
+      let boutonJoindre = $("<button id='consulter-reunion-panneau'>Joindre</button>"); 
+      boutonJoindre.on("click", function() {
+        console.log("temporary");
+      //  joindreReunion($(this));
+      });
+
+      let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
+      boutonModifier.on("click", function() {
+      modifierReunion(reunion);
+       console.log("temporary");
+
+      });
+
+      $(reunion).find("#btn-panneau-reunion").append(boutonJoindre);
+      $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
+
+    }
+    
+  }
+
+  /**
+   * MODIFIER_REUNION
+   * Permet de modifier une réunion pour tous les participants. Les nouvelles
+   * valeurs doivent être valides
+   * Note: Toute la vérification est faite dans calendrier_script.js
+   * @param {div} reunion 
+   */
+  function modifierReunion(reunion) {
+
+    $("#nouvelle-reunion").addClass("reunion-visible");
+
+    // Remplir le formulaire avec les données courantes
+    $("#formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+
+    $("#titre-reunion").val(reunion.data("listeReunionsJournee")['titre']);
+    $("#debut-reunion").val(formatterHeure(reunion.data("listeReunionsJournee")['heure_debut']));
+    $("#fin-reunion").val(formatterHeure(reunion.data("listeReunionsJournee")['heure_fin']));    
+    $("#date-reunion").val(reunion.data("listeReunionsJournee")['date']);
+    $("#description-reunion").val(reunion.data("listeReunionsJournee")['description']);
+
+    // Cocher la case "Participants" ou "Groupe"
+    if (reunion.data("listeReunionsJournee")['id_groupes'] == null) {
+         
+      $("#groupes").prop("checked", true);
     }
 
     else {
-    console.log("error");
+      $("#btn-radio").prop("checked", true);
     }
-    })
-    .then(data => {
 
-      for (let i = 0; i < data.length; i++) {
 
-        let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
-        infoReunions.append(participant);
-
-      }
-    console.log(data); 
-    console.log("ok");
-    })
-    .catch(error => {
-    console.log(error);
-    });
-
-    reunion.append(infoReunions);
-    reunion.append("<div id='boutons-pour-panneau'>" +
-    "<div id='btn-panneau-reunion'><button id='consulter-reunion-panneau'>Joindre</button>" +
-        "<button id='modifier-reunion-panneau'>Modifier</button></div></div>");
   }
 
   
@@ -467,136 +535,7 @@ console.log(donnees);
       $("main, header, footer, #creer-reunion").addClass("hors-focus");
 
 
-
-      // Écrire la date 
-      let journeeSemaine = trouverJourneeSemaine($(event.target).index())
-  
-
-      if (journeeSemaine != null) {
-
-        // La journée appartient au mois précédent
-        if ($(event.target).index() < nbJoursMoisDernier) {
-
-          console.log(joursMoisDernier);
-          const options = {month: 'long', year: 'numeric'};
-          let nouveauMois = new Date(joursMoisCourant.getFullYear(), joursMoisCourant.getMonth() -1);
-          let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
-
-          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + moisActuel);
-
-        }
-
-        else if ($(event.target).index() >= nbJoursMoisDernier-1 && $(event.target).index() < nbJoursMoisDernier + joursMoisDernier) {
-          console.log("test");
-          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + $("#journee-du-mois").text());
-        }
-
-        else {
-          const options = {month: 'long', year: 'numeric'};
-          let nouveauMois = new Date(joursMoisCourant.getFullYear(), joursMoisCourant.getMonth() + 1);
-          let moisActuel = nouveauMois.toLocaleDateString('fr-FR',options);
-          console.log(moisActuel);
-          $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + $(event.target).text() + " " + moisActuel);
-
-        }
-      }
-
-      else {
-        console.log("erreur");
-      }
-
-
-      $("#panneau-reunions").html("");
-     // Afficher les réunions de la journée
-     reunionsDuJour = JSON.parse($(event.target).data("listeReunionsJournee"));
-     console.log(reunionsDuJour);
-
-     for (let i = 0; i < reunionsDuJour.length; i++) {
-
-      const reunion = $("<div class='reunion-pour-panneau'></div>");
-      reunion.append("<p>" + reunionsDuJour[i]['titre'] + "</p>");
-
-
-      reunion.append("<p>" + formatterHeure(reunionsDuJour[i]['heure_debut']) + "-" + formatterHeure(reunionsDuJour[i]['heure_fin']) + "</p>");
-
-
-      $("#panneau-reunions").append(reunion);
-
-     } 
-
-    // Évènement lorsque l'utilisateur clique sur une de ces réunions
-    $(event.target).find(".reunion-pour-panneau").on("click", function() {
-      alert("test");
-    })
-
-
-    }
-
-    else if ($(event.target).is(".reunion-pour-panneau") && !$(event.target).hasClass("reunion-visible-panneau")) {
-
-      $(event.target).addClass("reunion-visible-panneau")
-
-      const infoReunions = $("<div id=informations-reunion></div>");
-
-      const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
-
-      // Ajouter la liste des participants
-      console.log(reunionsDuJour[$(event.target).index()]['id_reunions']);
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(donnees)
-      })
-      .then(response => {
-
-      console.log(response);
-      if (response.ok) {
-
-      return response.json();
-      }
-
-      else {
-      console.log("error");
-      }
-      })
-      .then(data => {
-
-        for (let i = 0; i < data.length; i++) {
-
-          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
-          infoReunions.append(participant);
-
-        }
-      console.log(data); 
-      console.log("ok");
-      })
-      .catch(error => {
-      console.log(error);
-      });
-
-      $(event.target).append(infoReunions);
-      $(event.target).append("<div id='boutons-pour-panneau'>" +
-      "<div id='btn-panneau-reunion'><button id='consulter-reunion-panneau'>Joindre</button>" +
-          "<button id='modifier-reunion-panneau'>Modifier</button></div></div>");
-    }
-
-    // Ouvrir l'onglet de modification de la réunion
-    else if ($(event.target).is("#modifier-reunion-panneau")) {
-      console.log("alright");
-
-      $("#nouvelle-reunion").addClass("reunion-visible");
-      
-      // Remplir le formulaire avec les données courantes
-      $("#formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
-
-      console.log(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_fin']));
-
-      $("#titre-reunion").val(reunionsDuJour[$(event.target).index()-1]['titre']);
-      $("#debut-reunion").val(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_debut']));
-      $("#fin-reunion").val(formatterHeure(reunionsDuJour[$(event.target).index()-1]['heure_fin']));
-      $("#date-reunion").val(reunionsDuJour[$(event.target).index()-1]['date']);
-      $("#description-reunion").val(reunionsDuJour[$(event.target).index()-1]['description']);
-
+   
       // Cocher la bonne case
       if (reunionsDuJour[$(event.target).index()]['id_groupes'] == null) {
          

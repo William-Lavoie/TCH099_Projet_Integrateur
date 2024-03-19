@@ -181,10 +181,11 @@ $(document).ready(function() {
      */
     $("body").on("click", function(event) {
 
-        // Le formulaire est actif et l'utilisateur ne clique pas dessus
+        // Le formulaire est actif et l'utilisateur ne clique pas dessus ni sur "Modifier"
         if ($("#formulaires-reunion").has(event.target).length <= 0 &&
              // Empêche le formulaire de fermer dès son ouverture
-             !$(event.target).is("#creer-reunion")) {
+             !$(event.target).is("#creer-reunion") &&
+             !$(event.target).is("#modifier-reunion-panneau")) {
 
             fermerFormulaires();
             enleverFocus();
