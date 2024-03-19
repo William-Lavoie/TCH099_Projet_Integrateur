@@ -1,4 +1,6 @@
 body {
+  height: 100vmin; /*this is what sets the dimension of your cells */
+
   min-height: 100vh;
   min-width: 100vw;
   display: flex;
