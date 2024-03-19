@@ -10,54 +10,54 @@
 
     <link href="./réunions.css" rel="stylesheet">
     <script src="./réunions.js"></script>
+    <!--Header-->
+    <link rel="stylesheet" href="/structure/header.css">
+    <script src="/structure/header.js"></script>
+
 </head>
 <body>
-    
-    <header>
-        <button id="logo">
-            <a href="../calendrier/calendrier.html">
-                <span id="logo_acronyme">HH</span> 
-                <span id="logo_nom">HuddleHarbor</span>
-            </a>
-        </button>
-        <div id="blue_line_header"></div>
-        <div id="decorative_line_header"></div>
-        <div id="decorative_line_header2"></div>
-        
-        <div id="button_container">
-            <a href="../calendrier/calendrier.html">
-                <button class="header_boutons">Calendrier</button>
-            </a>
-            <a href="../réunions/réunions.html">
-                <button class="header_boutons">Réunions</button>
-            </a>
-        </div>
+ <header>
+    <div id="logo-header"></div>
 
-        <div id="nom_et_pf">
-            <div id="header_nom">
-                <h1>Prénom Nom</h1>
+    <!--Conteneur des boutons-->
+    <div id="conteneur-boutons-header">
+        <a href="../calendrier/calendrier.html"><button class="en-tete-boutons">Calendrier</button></a>
+        <a href="../réunions/réunions.html"><button class="en-tete-boutons">Réunions</button></a>
+
+        <a href="../calendrier/calendrier.html"><button class="en-tete-petit-boutons">Calendrier</button></a>
+        <a href="../réunions/réunions.html"><button class="en-tete-petit-boutons">Réunions</button></a>
+    </div>
+
+    <!--Elements unique a la page-->
+    <div id="conteneur-header-variable"> 
+
+    </div>
+
+
+    <!--Le profile de l'utilisateur-->
+    <div id="conteneur-compte-header">
+        <div id="photo-profil-header" alt="Photo de profil"></div>
+        <div id="menu-profil-header">
+            <div id="info-header">
+                <label>Nom Prénom</label>
             </div>
-            <div id="conteneur_profil">
-                <button id="conteneur_photo_profil">
-                    <div id="photo_profil" alt="Photo de profil par défaut"></div>
-                </button>
-                <div id="menu_profil">
-                    <button class="profil_boutons">
-                        <a href="../profil_stats/profil.html">Compte et Statistiques</a>
-                    </button>
-                    <button id="profil_deconnecter">
-                        <a href="../page_accueil/page_accueil.html">Se déconnecter</a>
-                    </button>
-                </div>
-            </div>
+            <a href="../profil_stats/profil.html" id="compte-boutons-header"><button id="page-profil-header">Compte et Statistiques</button></a>
+            <a href="../page_accueil/page_accueil.html" id="compte-boutons"><button id="deconnexion">Se déconnecter</button></a>
         </div>
+    </div>
+
+    <!--Decoration du header-->
+    <div id="fond-en-tete">
+        <div id="ligne-bleu-header"></div>
+        <div id="ligne-blanche-header">
+            <div id="lignes-decoratives-header"></div>
+        </div>
+    </div>
+</header>
         <div id="connecter" style="visibility: hidden;"></div>
         <div id="inscrire" style="visibility: hidden;"></div> <!--stupid solution for login, but will delete late-->
         <div id="logout" style="visibility: hidden;"></div>
 
-    </header>
-    
-        
     <main>
         <aside id="presence">
             <div id="on_top_presence_conteneur">
