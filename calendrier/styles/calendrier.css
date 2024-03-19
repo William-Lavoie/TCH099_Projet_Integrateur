@@ -488,7 +488,7 @@ border: 2px solid black;
     z-index: 2;
   }
 
-  .hors-focus {
+  .focus {
     opacity: 50%;
     pointer-events: none;
   }

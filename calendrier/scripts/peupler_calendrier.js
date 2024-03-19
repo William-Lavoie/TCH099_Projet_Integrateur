@@ -135,6 +135,11 @@ $(document).ready(function() {
       // Pour les cases entre la date de début et de fin 
       for (let i = premierJour; i < dernierJour; i++) {
 
+        // Ajout d'un écouteur d'évènement
+        $("#calendrier").children().eq(i).on('click', function() {
+            ouvrirReunion($(this));
+        });
+
         // Liste des réunions pour une journée
         let listeReunionsJournee = [];
   
@@ -144,18 +149,18 @@ $(document).ready(function() {
           // Date de la réunion
           let dateNombre = donnees[j]['date'].slice(8);
           
-         // console.log(dateNombre.toString().padStart(2,'0'));
-         // console.log($("#calendrier").children().eq(i).text());
+         
           //Mettre un fond rouge si une réunion a été trouvée pour une certaine date
           if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).text()) {
   
             $("#calendrier").children().eq(i).css("background-color", "red");
-            console.log(i);
+
             // Stocke les informations de la réunion dans un tableau
             listeReunionsJournee.push(donnees[j]);
   
             // Mettre le tableau dans la case de la journée pour y accéder ailleurs
-            $("#calendrier").children().eq(i).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
+            $("#calendrier").children().eq(i).data("listeReunionsJournee",listeReunionsJournee);
+
           }
         }
     } 
@@ -174,30 +179,24 @@ $(document).ready(function() {
    * AFFICHER_CALENDRIER
    * Remplit le calendrier avec les dates lorsque la page est chargée et 
    * lorsque l'utilisateur appuie sur les flèches pour changer de mois
-   * @param {String} mois
+   * @param {Date} jour: premier jour du mois choisi
    */ 
-  function afficherCalendrier(mois) {
+  function afficherCalendrier(jour) {
    
     // Vider le calendrier
     $("#calendrier").html("");
 
      // Afficher la date 
-     afficherDate(mois);
+     afficherDate(jour.getMonth());
   
     // Compte le nombre de cases remplis
     let compteur = 0;
-
-    //??
-    //joursMoisCourant = nouveauMois;
-    
   
     //Premier jour du mois courant
-    const premierDuMois = new Date(jourCourant.getFullYear(), jourCourant.getMonth(), 1);
+    const premierDuMois = new Date(jour.getFullYear(), jour.getMonth(), 1);
 
     // Jour de la semaine où le mois commence
     const premierJour = premierDuMois.getDay();
-
-                    //nbJoursMoisDernier = premierJour;
   
     // Premier jour du mois précédent devant être affiché
     const moisDernier = new Date(premierDuMois.getFullYear(), premierDuMois.getMonth(), 1-premierJour);
@@ -227,13 +226,10 @@ $(document).ready(function() {
     chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
  
     // Premier jour du mois courant
-    const moisCourantPremierJour = new Date(jourCourant.getFullYear(), jourCourant.getMonth(), 1);
+    const moisCourantPremierJour = new Date(jour.getFullYear(), jour.getMonth(), 1);
 
     // Dernier jour du mois courant
-    const finDuMois = (new Date(jourCourant.getFullYear(), jourCourant.getMonth()+1, -1).getDate());
-
-    //joursMoisDernier = finDuMois;
-    //console.log(joursMoisDernier);
+    const finDuMois = (new Date(jour.getFullYear(), jour.getMonth()+1, 0).getDate());
 
     // Compteur des jours du mois
     let index = 1;
@@ -244,8 +240,9 @@ $(document).ready(function() {
       const journee = $("<div class='jour'></div>");
       journee.text(index);
   
+      
       // Met une bordure spéciale sur la journée courante
-      if (i == new Date().getDate()+premierJour-1) {
+      if (i == new Date().getDate()+premierJour-1 && jour.getFullYear() === new Date().getFullYear() && jour.getMonth() === new Date().getMonth()) {
           journee.css("border", "3px solid #7eccff");
       }
 
@@ -279,17 +276,22 @@ $(document).ready(function() {
     dateFinFormatte = formatterDate(new Date(premierDuMois.getFullYear(), premierDuMois.getMonth()+1, premierDuMois.getDate() + 41 - (finDuMois+premierJour)))
 
     // Affiche les réunions du mois suivant
-    chercherReunions(dateDebutFormatte, dateFinFormatte, compteur, 41);
+    chercherReunions(dateDebutFormatte, dateFinFormatte, compteur, 42);
   }
 
   
 
   // Remplir le calendrier au mois courant
-  afficherCalendrier(jourCourant.getMonth());
+  afficherCalendrier(jourCourant);
 
 
-  // Afficher photo de profil
-  fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
+  /**
+   * AFFICHER_PHOTO
+   * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
+   */
+  async function afficherPhoto() {
+
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
     })
     .then(response => {
 
@@ -307,9 +309,11 @@ $(document).ready(function() {
 
       if (data != undefined) {
         img.src = URL.createObjectURL(data)
-        // img.width = 50;
-        // img.length = 50;
+       
+        // Effacer la photo par défaut
         $("#photo-profil-conteneur").html("");
+
+        // Ajouter la photo
         $("#photo-profil-conteneur").append(img);
       }
   
@@ -317,22 +321,128 @@ $(document).ready(function() {
     .catch(error => {
     console.log(error);
     });
+  }
 
-  // Passer au mois dernier
+
+
+  function ouvrirReunion(journee) {
+
+      // Désactiver tous les boutons et rendre le fond moins opaque
+      $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
+      $("#consulter-reunion-calendrier").text();
+      $("main, header, footer, #creer-reunion").addClass("focus"); 
+
+      // Écrire la date 
+      let journeeSemaine = trouverJourneeSemaine(journee.index())
+      $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + journee.text() + " ");
+
+      // Représenter les différentes réunions dans l'onglet
+      $("#panneau-reunions").html("");
+
+      // Afficher les réunions de la journée
+      for (let i = 0; i < journee.data("listeReunionsJournee").length; i++) {
+ 
+        // Affichage des réunions
+        const reunion = $("<div class='reunion-pour-panneau'></div>");
+        reunion.append("<p>" + journee.data("listeReunionsJournee")[i]['titre'] + "</p>");
+
+        // Afficher l'heure
+        reunion.append("<p>" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_debut']) + "-" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_fin']) + "</p>");
+ 
+        // Ajouter la réunion
+        $("#panneau-reunions").append(reunion);
+
+        $("#panneau-reunions").children().eq(i).on("click", function() {
+           consulterReunion($(this));
+        })
+
+      }
+  }  
+
+
+  function consulterReunion(reunion) {
+
+    reunion.addClass("reunion-visible-panneau");
+    const infoReunions = $("<div id=informations-reunion></div>");
+console.log(reunion.parent().data("listeReunionsJournee"));
+    const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
+console.log(donnees);
+    // Ajouter la liste des participants
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(donnees)
+    })
+    .then(response => {
+
+    console.log(response);
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+
+      for (let i = 0; i < data.length; i++) {
+
+        let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
+        infoReunions.append(participant);
+
+      }
+    console.log(data); 
+    console.log("ok");
+    })
+    .catch(error => {
+    console.log(error);
+    });
+
+    reunion.append(infoReunions);
+    reunion.append("<div id='boutons-pour-panneau'>" +
+    "<div id='btn-panneau-reunion'><button id='consulter-reunion-panneau'>Joindre</button>" +
+        "<button id='modifier-reunion-panneau'>Modifier</button></div></div>");
+  }
+
+  
+
+
+
+  //TODO: fermer l'onglet
+   /* $("body").on("click", function(event) {
+
+      if (!($(event.target)).is("#consulter-reunion-calendrier") && 
+          $("main, header, footer, #creer-reunion").hasClass("focus") &&
+          $(!($(event.target)).hasClass(".jour"))) {
+        $("main, header, footer, #creer-reunion").removeClass("focus"); 
+        console.log("test");
+
+      }
+    })*/
+  
+  afficherPhoto();
+
+  /**
+   * Permet de passer au mois précédant
+   */
   $("#btn-dernier-mois").on("click", function() {
 
-    afficherCalendrier(jourCourant.getMonth()-1);
     jourCourant = new Date(jourCourant.getFullYear(), jourCourant.getMonth()-1);
+    afficherCalendrier(jourCourant);
   })
 
-  // Passer au mois suivant
+  /**
+   * Permet de passer au mois suivant
+   */
   $("#btn-prochain-mois").on("click", function() {
 
-    afficherCalendrier(jourCourant.getMonth()+1);
     jourCourant = new Date(jourCourant.getFullYear(), jourCourant.getMonth()+1);
+    afficherCalendrier(jourCourant);
   })
 
-
+/*
   // Afficher et supprimer les réunions d'une journée lorsqu'on clique dessus
   $("body").on("click", function(event) {
 
@@ -548,6 +658,6 @@ $(document).ready(function() {
 
     }
 })
-
+*/
 
 })
