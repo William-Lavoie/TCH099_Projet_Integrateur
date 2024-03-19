@@ -1,8 +1,11 @@
-/*if body does not have margin 0, the header is off to the right */
 /* 
  * EN-TÊTE
  */
 
+ body{
+    height: 200vmin;
+    margin: 0;
+ }
 
 header {
     position: sticky;
@@ -196,6 +199,13 @@ header {
     cursor: pointer;
 }
 
+header a {
+    all: unset;
+}
+
+header button, header a {
+    cursor: pointer;
+}
 
 /* Media query for smaller screens */
 @media screen and (max-width: 1000px) {
@@ -239,6 +249,96 @@ header {
   */
 
 
+/*******************************
+/*footer *//*
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+    padding: 2vmin;
+}
+/********************************/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #04071d;
+    color: lightgray;
+    text-align: center;
+    left: 0;
+    width: 100%;   
+    bottom: 0; 
+    height: 8em;
+    margin-top: auto;
+}
+
+
+footer h5 {
+    margin: 0;
+    font-size: .8rem;
+}
+
+footer h4{
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #00c1f3;
+        font-size: 2.5em;
+        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+        font-style: italic;
+}
+
+#terms-policy-footer{
+    display: flex;
+    justify-content: space-around;
+    width: 20em;
+}
+
+#politique-de-confidentialite-footer{
+    display: flex;
+    justify-content: flex-end;
+    width: 15em;
+}
+
+#espace-footer{
+    display: flex;
+    justify-content: center;
+    width: 2em;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+#conditions-generales-footer{
+    display: flex;
+    justify-content: flex-start;
+    width: 15em;
+}
+
+
+
+footer a {
+    all: unset;
+}
+
+footer a {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Personnalisation de la barre de défilement */
 
 
@@ -259,10 +359,3 @@ html:hover {
  * AUTRES
  */
 
-header a {
-    all: unset;
-}
-
-header button, header a {
-    cursor: pointer;
-}
