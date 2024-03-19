@@ -5,55 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
     <link rel="stylesheet" href="profil.css">
-    <link href="../calendrier/header_2.css" rel="stylesheet">
+
+    <!--Header-->
+    <link rel="stylesheet" href="/structure/header.css">
+    <script src="/structure/header.js"></script>
+    
 </head>
 <body>
+
+    <!--Something with the js is broken-->
     <header>
-        <div id="blue_line_header"> </div>
+        <div id="logo-header"></div>
+
+        <!--Conteneur des boutons-->
+        <div id="conteneur-boutons-header">
+            <a href="../calendrier/calendrier.html"><button class="en-tete-boutons">Calendrier</button></a>
+            <a href="../réunions/réunions.html"><button class="en-tete-boutons">Réunions</button></a>
+
+            <a href="../calendrier/calendrier.html"><button class="en-tete-petit-boutons">Calendrier</button></a>
+            <a href="../réunions/réunions.html"><button class="en-tete-petit-boutons">Réunions</button></a>
+        </div>
+
+        <!--Elements unique a la page-->
+        <div id="conteneur-header-variable"> 
+
+        </div>
 
 
-            <div id="logo">
-                <span id="logo_acronyme">HH</span> 
-                <span id="logo_nom">HuddleHarbor</span>
-            </div>
-
-
-            <div id="button_container">
-                <button class="header_boutons">Calendrier</button>
-                <button class="header_boutons">Réunions</button>
-            </div> 
-
-
-            <div id="nom_et_pf">
-
-                <div id="header_nom">
-                    <h1>Prénom nom</h1>
+        <!--Le profile de l'utilisateur-->
+        <div id="conteneur-compte-header">
+            <div id="photo-profil-header" alt="Photo de profil"></div>
+            <div id="menu-profil-header">
+                <div id="info-header">
+                    <label>Nom Prénom</label>
                 </div>
-
-
-                <div id="conteneur_profile">
-                    <div id="photo-profil-conteneur">
-                        <img src="../images/image_profil_vide.png" alt="Photo de profil par défaut" id="photo-profil">
-                    </div>
-
-                    <div id="menu-profil">
-                        <button class="profil-boutons">Compte</button>
-                        <button class="profil-boutons">Statistiques</button>
-                        <button class="profil-boutons">Se déconnecter</button>
-                    </div>
-
-                </div>
+                <a href="/profil_stats/profil.html" id="compte-boutons-header"><button id="page-profil-header">Compte et Statistiques</button></a>
+                <a href="/page_accueil/page_accueil.html" id="compte-boutons"><button id="deconnexion">Se déconnecter</button></a>
             </div>
-            <div class="modifier-onglet" id="modifier-onglet" style="display:none;">
-                <input id="modifier-Photo" type="file" accept="image/png, image/jpeg">Modifier photo de profil</button>
-                <button id="modifier-nom">Modifier nom</button>
-            </div>
-            
-            <script src="statistique.js"></script>
+        </div>
 
-            
+        <!--Decoration du header-->
+        <div id="fond-en-tete">
+            <div id="ligne-bleu-header"></div>
+            <div id="ligne-blanche-header">
+                <div id="lignes-decoratives-header"></div>
+            </div>
+        </div>
 
     </header>
+
+
+            
+
 
     <div class="profil">
         <img class="photo" src="/images/image_profil_vide.png" alt="Photo de profil"> 
@@ -64,6 +67,8 @@
     <div id="grid-container" class="grid-container">
     </div>
 
-    <script src="profil.js"></script>
+    
+    <script src="./statistique.js"></script>
+    <script src="./profil.js"></script>
 </body>
 </html>
