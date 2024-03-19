@@ -5,7 +5,10 @@ body {
     overflow-x: hidden;
 }
 
+header{
+    margin-left: 3.85em; /*jank solution to fight the margin in the body*/
 
+}
 
 /***********************
  * Menu groupes
@@ -26,12 +29,12 @@ main {
     height: 100%;
     transition: margin-left 0.5s;
     background-color: white;
-    margin-left: 12em;
     position: relative;
     z-index: 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    margin-left: 12em;
 }
 
 aside {

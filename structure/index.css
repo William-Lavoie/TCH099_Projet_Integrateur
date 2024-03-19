@@ -13,6 +13,7 @@ header {
     flex-direction: row;
     box-sizing: border-box;
     justify-content: space-around;
+    z-index: 1000;
 }
 
 #logo-header {
