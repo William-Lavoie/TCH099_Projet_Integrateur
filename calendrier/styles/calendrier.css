@@ -506,30 +506,3 @@ border: 2px solid black;
     opacity: 50%;
     pointer-events: none;
   }
-
-  /*footer */
-
-  footer {
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(3, 4, 94, 1);
-    color: white;
-    text-align: center;
-    padding: 2vmin;
-  }
-
-
-footer h5 {
-  margin: 0;
-  font-size: .8rem;
-}
-
-footer h4{
-  margin-top: 0;
-  margin-bottom: 0;
-  color: #1399d8;
-  font-size: 2.5em;
-  font-weight: 700;
-  font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-  font-style: italic;
-}
