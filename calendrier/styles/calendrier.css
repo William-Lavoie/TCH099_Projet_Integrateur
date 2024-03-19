@@ -113,6 +113,18 @@ textarea {
   padding: 2%
 }
 
+.reunion-journee {
+  height: 50px;
+  width: 100%;
+  background-color: #04071d;
+  color: white;
+  border-radius: 10px;
+}
+
+.reunion-journee:hover {
+  background-color: #00c1f3;
+}
+
 
 #ajouter-participants {
   height: 100%;
@@ -224,6 +236,7 @@ border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: scroll;
   }
 
   .autre-reunion {

@@ -132,37 +132,56 @@ $(document).ready(function() {
       }
 
       const donnees = await reponse.json();
+      console.log(donnees.length);
       // Pour les cases entre la date de début et de fin 
       for (let i = premierJour; i < dernierJour; i++) {
 
-        // Ajout d'un écouteur d'évènement
-        $("#calendrier").children().eq(i).on('click', function() {
-            ouvrirReunion($(this));
-        });
+          // Ajout d'un écouteur d'évènement
+          $("#calendrier").children().eq(i).on('click', function() {
 
+            // Appeler la fonction seulement quand le parent est cliqué
+            if (this === event.target) {
+              ouvrirReunion($(this));
+            }
+        });
+  
         // Liste des réunions pour une journée
         let listeReunionsJournee = [];
-  
+
         // Liste des réunions
         for (let j = 0; j < donnees.length; j++) {
-          
+
           // Date de la réunion
-          let dateNombre = donnees[j]['date'].slice(8);
-          
-         
+          let dateNombre = donnees[j]['date'].slice(8);          
+          console.log($("#calendrier").children().eq(i).text());
           //Mettre un fond rouge si une réunion a été trouvée pour une certaine date
-          if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).text()) {
+          if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).clone().children().remove().end().text()) {
   
-            $("#calendrier").children().eq(i).css("background-color", "red");
+            // Afficher la réunion dans la case
+            let reunionJournee = $("<div class='reunion-journee'></div>");
+            reunionJournee.text(donnees[j]['titre']);
+            $("#calendrier").children().eq(i).append(reunionJournee);
 
             // Stocke les informations de la réunion dans un tableau
             listeReunionsJournee.push(donnees[j]);
-  
-            // Mettre le tableau dans la case de la journée pour y accéder ailleurs
-            $("#calendrier").children().eq(i).data("listeReunionsJournee",listeReunionsJournee);
+            console.log(listeReunionsJournee);
+
+        
+            // Mettre un écouteur d'évènement qui ouvre la réunion
+               reunionJournee.on("click", function() {
+               consulterReunionSpecifique($("#calendrier").children().eq(i), listeReunionsJournee.length-1);
+            })
 
           }
         }
+
+            // Mettre le tableau dans la case de la journée pour y accéder ailleurs
+            $("#calendrier").children().eq(i).data("listeReunionsJournee",listeReunionsJournee);
+
+
+          
+
+       
     } 
       return donnees;
     }
@@ -339,11 +358,15 @@ $(document).ready(function() {
 
       // Écrire la date 
       let journeeSemaine = trouverJourneeSemaine(journee.index())
-      $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + journee.text() + " ");
+      
+      // Seulement prendre le texte du parent et non les enfants
+      let date = journee[0].firstChild.nodeValue;
+      $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + date + " ");
 
       // Représenter les différentes réunions dans l'onglet
       $("#panneau-reunions").html("");
 
+      console.log(journee.data("listeReunionsJournee"));
       // Afficher les réunions de la journée
       for (let i = 0; i < journee.data("listeReunionsJournee").length; i++) {
  
@@ -365,6 +388,7 @@ $(document).ready(function() {
         })
 
       }
+      
   }  
 
 
@@ -391,7 +415,6 @@ $(document).ready(function() {
       })
       .then(response => {
 
-      console.log(response);
       if (response.ok) {
 
       return response.json();
@@ -439,6 +462,25 @@ $(document).ready(function() {
 
     }
     
+  }
+
+
+  function consulterReunionSpecifique(journee, index) {
+
+    ouvrirReunion(journee);
+    console.log(index);
+    consulterReunion($("#panneau-reunions").children().eq(index));
+    // Désactiver tous les boutons et rendre le fond moins opaque
+   /* $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
+    $("#consulter-reunion-calendrier").text();
+    $("main, header, footer, #creer-reunion").addClass("focus"); 
+
+    // Écrire la date 
+    let journeeSemaine = trouverJourneeSemaine(journee.index())
+    
+    // Seulement prendre le texte du parent et non les enfants
+    let date = journee[0].firstChild.nodeValue;
+    $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + date + " ");*/
   }
 
   /**
