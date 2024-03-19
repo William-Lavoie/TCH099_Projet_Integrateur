@@ -52,14 +52,25 @@ $(document).ready(function() {
   }
 
    /**FORMATTER_DATE 
-   * Transforme les dates fournies par les "input" de type "Date" au format
-   * requis par la base de données: aaaa/mm/jj
-   * @param {String} date: date au format 
+   * Transforme les dates fournies par les objets de type Date() 
+   * en format requis par la base de données: aaaa/mm/jj
+   * @param {Date} date
    * @returns String: heure au format hh:mm
    */
-   function formatterHeure(heureNonFormatte) {
-    return heureNonFormatte.slice(0, 2) + ":" + heureNonFormatte.slice(3,5);
+   function formatterDate(date) {
+    
+    let dateFormatte = "";
 
+    // Ajouter l'année
+    dateFormatte += date.getFullYear() + "/";
+
+    // Ajouter le mois (+1 car commence à 0)
+    dateFormatte += date.getMonth()+1 + "/";
+
+    // Ajouter la date
+    dateFormatte += date.getDate();
+
+    return dateFormatte;
   }
 
 
@@ -209,29 +220,12 @@ $(document).ready(function() {
     }
 
     
-console.log(moisDernier);
-    let dateDebutFormatte = "";
+    let dateDebutFormatte = formatterDate(moisDernier);
+    let dateFinFormatte = formatterDate(new Date(moisDernier.getFullYear(), moisDernier.getMonth(), moisDernier.getDate()+premierJour-1));
+    
 
-    dateDebutFormatte += moisDernier.getFullYear() + "/";
-    dateDebutFormatte += moisDernier.getMonth()+1 + "/";
-    dateDebutFormatte += moisDernier.getDate();
-
-    letDateFinFormatte = "";
-    if (moisDernier.getDate() > 9) {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-2);
-    }
-
-    else {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
-    }
-    dateFinFormatte += moisDernier.getDate() + premierJour;
-    console.log(dateDebutFormatte);
-
-  chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
+    chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
  
-
-
-  
     // Premier jour du mois courant
     const moisCourantPremierJour = new Date(jourCourant.getFullYear(), jourCourant.getMonth(), 1);
 
@@ -260,21 +254,8 @@ console.log(moisDernier);
       compteur++;
     }
 
-    dateDebutFormatte = "";
-
-    dateDebutFormatte += premierDuMois.getFullYear() + "/";
-    dateDebutFormatte += premierDuMois.getMonth()+1 + "/";
-    dateDebutFormatte += premierDuMois.getDate();
-
-    letDateFinFormatte = "";
-    if (premierDuMois.getDate() > 9) {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-2);
-    }
-
-    else {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
-    }
-    dateFinFormatte += premierDuMois.getDate() + finDuMois-1;
+    dateDebutFormatte = formatterDate(premierDuMois);
+    dateFinFormatte = formatterDate(new Date(premierDuMois.getFullYear(), premierDuMois.getMonth(), premierDuMois.getDate()+finDuMois-1));
 
     // Afficher les réunions du mois courant
     chercherReunions(dateDebutFormatte, dateFinFormatte, premierJour, compteur);
@@ -294,25 +275,10 @@ console.log(moisDernier);
 
 
     // Chercher les réunions du mois prochain 
-    dateDebutFormatte = "";
-
-    dateDebutFormatte += premierDuMois.getFullYear() + "/";
-    dateDebutFormatte += premierDuMois.getMonth()+2 + "/";
-    dateDebutFormatte += premierDuMois.getDate();
-
-    letDateFinFormatte = "";
-    if (premierDuMois.getDate() > 9) {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-2);
-    }
-
-    else {
-      dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
-    }
-    dateFinFormatte += premierDuMois.getDate() + 41 - (finDuMois+premierJour);
-    console.log(dateFinFormatte);
+    dateDebutFormatte = formatterDate(new Date(premierDuMois.getFullYear(), premierDuMois.getMonth()+1, 1))
+    dateFinFormatte = formatterDate(new Date(premierDuMois.getFullYear(), premierDuMois.getMonth()+1, premierDuMois.getDate() + 41 - (finDuMois+premierJour)))
 
     // Affiche les réunions du mois suivant
-    console.log(compteur);
     chercherReunions(dateDebutFormatte, dateFinFormatte, compteur, 41);
   }
 
