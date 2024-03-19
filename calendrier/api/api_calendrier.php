@@ -121,12 +121,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
     
     
-        if (isset($donnees['dateDebut']) && isset($donnees['dateFin'])) {
+        if (isset($donnees['debut']) && isset($donnees['fin']) && isset($_SESSION['courriel'])) {
     
             require("connexion.php");
     
-            $dateDebut = $donnees['dateDebut'];
-            $dateFin = $donnees['dateFin'];
+            $dateDebut = $donnees['debut'];
+            $dateFin = $donnees['fin'];
            
             $query = $conn->prepare("SELECT * FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE ur.courriel_utilisateurs = :courriel AND date BETWEEN :dateDebut AND :dateFin");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);

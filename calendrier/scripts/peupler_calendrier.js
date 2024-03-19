@@ -51,6 +51,17 @@ $(document).ready(function() {
 
   }
 
+   /**FORMATTER_DATE 
+   * Transforme les dates fournies par les "input" de type "Date" au format
+   * requis par la base de données: aaaa/mm/jj
+   * @param {String} date: date au format 
+   * @returns String: heure au format hh:mm
+   */
+   function formatterHeure(heureNonFormatte) {
+    return heureNonFormatte.slice(0, 2) + ":" + heureNonFormatte.slice(3,5);
+
+  }
+
 
   /**
    * AFFICHER_DATE
@@ -87,13 +98,14 @@ $(document).ready(function() {
 
   /**
    * CHERCHER_REUNIONS
-   * Fait une requête asynchroneà la base de données pour obtenir toutes les
-   *  réunions entre une date de début et une date de fin. Les retourne sous 
-   * forme de tableau
+   * Fait une requête asynchrone à la base de données pour obtenir toutes les
+   * réunions entre une date de début et une date de fin. Marque les cases
+   * ayant des réunions et y insèreles informations concernant celles-ci
    * @param {Date} debut 
-   * @param {*Date} fin 
+   * @param {Date} fin 
+   * @param {int} : indice de la case correspondant au premier et dernier jour à remplir, respectivement
    */
-  async function chercherReunions(debut, fin) {
+  async function chercherReunions(debut, fin, premierJour, dernierJour) {
     
     try {
 
@@ -109,6 +121,33 @@ $(document).ready(function() {
       }
 
       const donnees = await reponse.json();
+      // Pour les cases entre la date de début et de fin 
+      for (let i = premierJour; i < dernierJour; i++) {
+
+        // Liste des réunions pour une journée
+        let listeReunionsJournee = [];
+  
+        // Liste des réunions
+        for (let j = 0; j < donnees.length; j++) {
+          
+          // Date de la réunion
+          let dateNombre = donnees[j]['date'].slice(8);
+          
+         // console.log(dateNombre.toString().padStart(2,'0'));
+         // console.log($("#calendrier").children().eq(i).text());
+          //Mettre un fond rouge si une réunion a été trouvée pour une certaine date
+          if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).text()) {
+  
+            $("#calendrier").children().eq(i).css("background-color", "red");
+            console.log(i);
+            // Stocke les informations de la réunion dans un tableau
+            listeReunionsJournee.push(donnees[j]);
+  
+            // Mettre le tableau dans la case de la journée pour y accéder ailleurs
+            $("#calendrier").children().eq(i).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
+          }
+        }
+    } 
       return donnees;
     }
 
@@ -170,7 +209,7 @@ $(document).ready(function() {
     }
 
     
-
+console.log(moisDernier);
     let dateDebutFormatte = "";
 
     dateDebutFormatte += moisDernier.getFullYear() + "/";
@@ -188,85 +227,31 @@ $(document).ready(function() {
     dateFinFormatte += moisDernier.getDate() + premierJour;
     console.log(dateDebutFormatte);
 
-    chercherReunions(dateDebutFormatte, dateFinFormatte)
-  .then(donnees => {
-    if (Array.isArray(donnees)) {
-      console.log(donnees[0]['id_reunions']);
-    } else {
-      console.log(donnees);
-      console.log("No data found.");
-    }
-  })
-  .catch(error => {
-    console.log("Error:", error);
-  });
-    let debut = {"dateDebut": dateDebutFormatte,
-                   "dateFin": dateFinFormatte};
+  chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
+ 
 
 
-    // Chercher les réunions du mois passé
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(debut)
-    })
-    .then(response => {
+  
+    // Premier jour du mois courant
+    const moisCourantPremierJour = new Date(jourCourant.getFullYear(), jourCourant.getMonth(), 1);
 
-    console.log(response);
-    if (response.ok) {
+    // Dernier jour du mois courant
+    const finDuMois = (new Date(jourCourant.getFullYear(), jourCourant.getMonth()+1, -1).getDate());
 
-    return response.json();
-    }
+    //joursMoisDernier = finDuMois;
+    //console.log(joursMoisDernier);
 
-    else {
-    console.log("error");
-    }
-    })
-    .then(data => {
-    console.log(data[0]['id_reunions']); 
-
-    for (let i = 0; i < premierJour; i++) {
-
-      let listeReunionsJournee = [];
-
-      for (let j = 0; j < data.length; j++) {
-        
-        let dateNombre = data[j]['date'].slice(8);
-        
-        //Mettre un fond rouge si une réunion a étée trouvée
-        if (dateNombre == $("#calendrier").children().eq(i).text()) {
-
-          listeReunionsJournee.push(data[j]);
-          $("#calendrier").children().eq(i).css("background-color", "red");
-
-          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
-          $("#calendrier").children().eq(i).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
-        }
-      }
-    }
-
-    
-    console.log(JSON.parse($("#calendrier").children().eq(3).data("listeReunionsJournee")));
-    })
-    .catch(error => {
-    console.log(error);
-    });
-
+    // Compteur des jours du mois
     let index = 1;
-  
-    const moisProchainPremierJour = new Date(nouveauMois.getFullYear(), nouveauMois.getMonth()+1, 1);
-    const finDuMois = (new Date(moisProchainPremierJour -1).getDate());
 
-    joursMoisDernier = finDuMois;
-    console.log(joursMoisDernier);
+    // Affiche les jours appartenant au mois courant
+    for (let i = compteur; i < premierJour +finDuMois; i++) {
 
-    for (let i = premierJour; i < finDuMois+premierJour; i++) {
       const journee = $("<div class='jour'></div>");
-  
       journee.text(index);
   
-    
-      if (nouveauMois.getFullYear() == new Date().getFullYear() && nouveauMois.getMonth() == new Date().getMonth() && i == new Date().getDate()+premierJour-1) {
+      // Met une bordure spéciale sur la journée courante
+      if (i == new Date().getDate()+premierJour-1) {
           journee.css("border", "3px solid #7eccff");
       }
 
@@ -290,61 +275,12 @@ $(document).ready(function() {
       dateFinFormatte = dateDebutFormatte.slice(0,dateDebutFormatte.length-1);
     }
     dateFinFormatte += premierDuMois.getDate() + finDuMois-1;
-    console.log(dateDebutFormatte);
 
-    debut = {"dateDebut": dateDebutFormatte,
-                   "dateFin": dateFinFormatte};
+    // Afficher les réunions du mois courant
+    chercherReunions(dateDebutFormatte, dateFinFormatte, premierJour, compteur);
+    
 
-
-    // Chercher les réunions du mois courant
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(debut)
-    })
-    .then(response => {
-
-    console.log(response);
-    if (response.ok) {
-
-    return response.json();
-    }
-
-    else {
-    console.log("error");
-    }
-    })
-    .then(data => {
-  
-    for (k = 0; k < finDuMois; k++) {
- 
-       let listeReunionsJournee = [];
-
-      for (let j = 0; j < data.length; j++) {
-        
-        let dateNombre = data[j]['date'].slice(8);
-        if (dateNombre == $("#calendrier").children().eq(compteur-finDuMois+k).text()) {
-
-          listeReunionsJournee.push(data[j]);
-
-          $("#calendrier").children().eq(compteur-finDuMois+k).css("background-color", "red");
-
-          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
-          $("#calendrier").children().eq(compteur-finDuMois+k).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
-
-
-
-        }
-      }
-
-    }
-    })
-    .catch(error => {
-    console.log(error);
-    });
-
-    //chercherReunions(new Date(jourCourant.getFullYear(),jourCourant.getMonth()+1, 1), 41-(finDuMois+premierJour));
-
+    // Affiche les jours appartenant au mois suivant
     index = 1;
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
   
@@ -375,61 +311,9 @@ $(document).ready(function() {
     dateFinFormatte += premierDuMois.getDate() + 41 - (finDuMois+premierJour);
     console.log(dateFinFormatte);
 
-    debut = {"dateDebut": dateDebutFormatte,
-                   "dateFin": dateFinFormatte};
-
-
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(debut)
-    })
-    .then(response => {
-
-    console.log(response);
-    if (response.ok) {
-
-    return response.json();
-    }
-
-    else {
-    console.log("error");
-    }
-    })
-    .then(data => {
-  
-      console.log(compteur);
-
-    for (k = 0; k < 41-compteur; k++) {
- 
-       let listeReunionsJournee = [];
-
-       console.log(data.length);
-      for (let j = 0; j < data.length; j++) {
-        
-        let dateNombre = data[j]['date'].slice(9);
-        console.log(dateNombre);
-        if (dateNombre == $("#calendrier").children().eq(compteur+k).text()) {
-
-          listeReunionsJournee.push(data[j]);
-
-          $("#calendrier").children().eq(compteur+k).css("background-color", "red");
-
-          // Mettre le tableau dans la case de la journée pour y accéder ailleurs
-          $("#calendrier").children().eq(compteur+k).data("listeReunionsJournee", JSON.stringify(listeReunionsJournee));
-
-
-
-        }
-      }
-
-    }
-    })
-    .catch(error => {
-    console.log(error);
-    });
-
-
+    // Affiche les réunions du mois suivant
+    console.log(compteur);
+    chercherReunions(dateDebutFormatte, dateFinFormatte, compteur, 41);
   }
 
   
