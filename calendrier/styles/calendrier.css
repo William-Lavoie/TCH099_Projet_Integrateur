@@ -496,6 +496,7 @@ border: 2px solid black;
     background-color: rgba(3, 4, 94, 1);
     color: white;
     height: max(10%, 70px);
+    max-height: 6em;
     aspect-ratio: 1/1;
     font-size: 1em;
     min-width: 70px;
