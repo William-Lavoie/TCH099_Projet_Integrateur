@@ -329,46 +329,6 @@ $(document).ready(function() {
   // Remplir le calendrier au mois courant
   afficherCalendrier(jourCourant);
 
-
-  /**
-   * AFFICHER_PHOTO
-   * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
-   */
-  async function afficherPhoto() {
-
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
-    })
-    .then(response => {
-
-    if (response.ok) {
-
-    return response.blob();
-    }
-
-    else {
-    console.log("error");
-    }
-    })
-    .then(data => {
-      const img = document.createElement('img');
-
-      if (data != undefined) {
-        img.src = URL.createObjectURL(data)
-       
-        // Effacer la photo par défaut
-        $("#photo-profil-conteneur").html("");
-
-        // Ajouter la photo
-        $("#photo-profil-conteneur").append(img);
-      }
-  
-    })
-    .catch(error => {
-    console.log(error);
-    });
-  }
-
-
   /**
    * OUVRIR_REUNION
    * Lorsque l'utilisateur appuie sur une journée dans le calendrier, ouvre 
@@ -540,21 +500,7 @@ $(document).ready(function() {
 
   }
 
-  
 
-
-
-  //TODO: fermer l'onglet
-   /* $("body").on("click", function(event) {
-
-      if (!($(event.target)).is("#consulter-reunion-calendrier") && 
-          $("main, header, footer, #creer-reunion").hasClass("focus") &&
-          $(!($(event.target)).hasClass(".jour"))) {
-        $("main, header, footer, #creer-reunion").removeClass("focus"); 
-        console.log("test");
-
-      }
-    })*/
   
   afficherPhoto();
 
@@ -576,93 +522,5 @@ $(document).ready(function() {
     afficherCalendrier(jourCourant);
   })
 
-/*
-  // Afficher et supprimer les réunions d'une journée lorsqu'on clique dessus
-  $("body").on("click", function(event) {
-
-
-    if (!$(event.target).closest("#consulter-reunion-calendrier").length &&
-        !$(event.target).closest("#formulaires-reunion").length &&
-         $("#consulter-reunion-calendrier").hasClass("ouvrir-reunion")) {
-
-          console.log("test");
-         $("header, main, footer, #creer-reunion").css("opacity", "100%");
-         $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
-         $("main, header, footer, #creer-reunion").removeClass("hors-focus");
-
-         reunionsDuJour = "";
-
-    }
-
-    else if (!$("#consulter-reunion-calendrier").hasClass("ouvrir-reunion") && $(event.target).is(".jour")) {
-      $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
-      $("#consulter-reunion-calendrier").text();
-      $("header, main, footer, #creer-reunion").css("opacity", "50%");
-      $("main, header, footer, #creer-reunion").addClass("hors-focus");
-
-
-   
-      // Cocher la bonne case
-      if (reunionsDuJour[$(event.target).index()]['id_groupes'] == null) {
-         
-        $("#groupes").prop("checked", true);
-      }
-
-      else {
-        $("#btn-radio").prop("checked", true);
-      }
-
-      // Ajouter la liste des participants déjà invités
-      const donnees = {"idReunions": reunionsDuJour[$(event.target).index()]['id_reunions']};
-
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(donnees)
-      })
-      .then(response => {
-
-      console.log(response);
-      if (response.ok) {
-
-      return response.json();
-      }
-
-      else {
-      console.log("error");
-      }
-      })
-      .then(data => {
-
-        
-        // Contenant pour le participant
-        const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
-        const boutonSupprimer = $("<button class='supprimer-participant'>X</button>");
-
-        boutonSupprimer.on("click", function() {
-          nouveauParticipant.remove();
-      });
-
-      
-       nouveauParticipant.children("p").text(data[0]['nom']);
-       nouveauParticipant.append(boutonSupprimer);
-
-       console.log(data[0]['nom']);
-
-
-       $("#liste-participants").append(nouveauParticipant);
-
-      console.log(data); 
-      console.log("ok");
-      })
-      .catch(error => {
-      console.log(error);
-      });
-
-
-
-    }
-})
-*/
 
 })

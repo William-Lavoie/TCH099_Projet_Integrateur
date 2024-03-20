@@ -84,8 +84,10 @@ header {
     border: 3px solid #04071d;
     border-radius: 100%;
     background-image: url("/structure/image_structure/image_profil_vide.png");
-    background-size: cover;
     box-sizing: border-box;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #fond-en-tete {

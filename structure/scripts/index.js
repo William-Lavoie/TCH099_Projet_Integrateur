@@ -41,4 +41,37 @@ $(document).ready(function() {
             $('#menu-profil-header').css('display', 'none');
         });
     }
-});
+
+    /**
+   * AFFICHER_PHOTO
+   * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
+   */
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.blob();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+      const img = document.createElement('img');
+
+      if (data != undefined) {
+       
+        $("#photo-profil-header").css({
+          'background-image': 'url(' + URL.createObjectURL(data) + ')',
+
+        });
+  
+    }})
+    .catch(error => {
+    console.log(error);
+    });
+  }
+);
