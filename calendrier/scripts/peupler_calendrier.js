@@ -144,6 +144,16 @@ $(document).ready(function() {
               ouvrirReunion($(this));
             }
         });
+
+           // Ajout de l'écouteur d'évènement aux enfants
+           $("#calendrier").children().eq(i).children().on('click', function() {
+
+            // Appeler la fonction seulement quand le parent est cliqué
+            if (this === event.target) {
+              ouvrirReunion($("#calendrier").children().eq(i));
+            }
+        });
+  
   
         // Liste des réunions pour une journée
         let listeReunionsJournee = [];
@@ -169,7 +179,7 @@ $(document).ready(function() {
         
             // Mettre un écouteur d'évènement qui ouvre la réunion
                reunionJournee.on("click", function() {
-                  consulterReunionSpecifique($("#calendrier").children().eq(i), listeReunionsJournee.length-1);
+                  consulterReunionSpecifique($("#calendrier").children().eq(i), reunionJournee.index());
             })
 
           }
@@ -374,9 +384,10 @@ $(document).ready(function() {
 
       // Écrire la date 
       let journeeSemaine = trouverJourneeSemaine(journee.index())
-      
-      // Seulement prendre le texte du parent et non les enfants
-      let date = journee[0].firstChild.nodeValue;
+      console.log(journeeSemaine);
+
+      // Prendre la date dans la case
+      let date = journee.find("p").text();
       $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + date + " ");
 
       // Représenter les différentes réunions dans l'onglet
