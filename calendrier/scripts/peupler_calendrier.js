@@ -491,24 +491,21 @@ $(document).ready(function() {
     
   }
 
-
+/**
+ * Permet d'afficher directement une réunion spécifique en appuyant 
+ * dessus sur la calendrier
+ * @param {div} journee 
+ * @param {int} index 
+ */
   function consulterReunionSpecifique(journee, index) {
 
     ouvrirReunion(journee);
     console.log(index);
     consulterReunion($("#panneau-reunions").children().eq(index));
-    // Désactiver tous les boutons et rendre le fond moins opaque
-   /* $("#consulter-reunion-calendrier").addClass("ouvrir-reunion");
-    $("#consulter-reunion-calendrier").text();
-    $("main, header, footer, #creer-reunion").addClass("focus"); 
-
-    // Écrire la date 
-    let journeeSemaine = trouverJourneeSemaine(journee.index())
-    
-    // Seulement prendre le texte du parent et non les enfants
-    let date = journee[0].firstChild.nodeValue;
-    $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + date + " ");*/
   }
+
+
+
 
   /**
    * MODIFIER_REUNION

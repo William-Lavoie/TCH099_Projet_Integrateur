@@ -92,6 +92,7 @@ $(document).ready(function() {
                 && date.getFullYear() == dateActuelle.getFullYear() 
                 && (heureDebut < dateActuelle.getHours() || minuteDebut < dateActuelle.getMinutes())) {
 
+                    console.log(date.getDay());
                 $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
                 return false;
         }
@@ -149,7 +150,7 @@ $(document).ready(function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
 
         // Réduit l'opacité et désactive toutes les fonctionalités de tout l'écran sauf le formulaire
-        $("main, header, footer, #creer-reunion").addClass("hors-focus");
+        $("main, header, footer, #creer-reunion").addClass("focus");
     }) 
 
 
@@ -163,6 +164,8 @@ $(document).ready(function() {
             if (confirm("Vos modifications ne seront pas sauvegardées, êtes-vous sûr de vouloir continuer?")) {
                 
                 fermerFormulaires();
+                $("main, header, footer, #creer-reunion").removeClass("focus");
+
                 enleverFocus();
             }
 
@@ -170,6 +173,8 @@ $(document).ready(function() {
         // Le formulaire est vide
         else {
             fermerFormulaires();
+            $("main, header, footer, #creer-reunion").removeClass("focus");
+
             enleverFocus();
         }
       
@@ -189,6 +194,8 @@ $(document).ready(function() {
 
             fermerFormulaires();
             enleverFocus();
+            $("main, header, footer, #creer-reunion").removeClass("focus");
+
         }
     })
 

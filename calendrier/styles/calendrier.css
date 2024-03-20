@@ -455,7 +455,7 @@ border: 2px solid black;
 
 
   #journee-mois button {
-    background-color: white;
+    background-color: transparent;
     border: 0;
     height: fit-content;
     width: fit-content;
