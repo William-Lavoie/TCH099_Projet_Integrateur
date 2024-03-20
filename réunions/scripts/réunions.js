@@ -217,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
             //changer la couleur des nom et le compte des elements checked quand un checkbox est checked
             //************************* */
 
-            
             input.addEventListener('change', function () {
                 var nameElement = this.parentElement.parentElement.nextElementSibling;
                 if (this.checked) {
@@ -227,16 +226,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     nameElement.style.color = 'red'; // Reset to red when user un toggles
                     totalCheckboxesChecked--; // Decrement total checked checkboxes
                 }
-
-                if(mainCheckbox.checked){
-                    totalCheckboxesChecked = nbObjectifAAjouter;
-
-                    mainCheckbox.addEventListener('change', function () {
-                        totalCheckboxesChecked = 0;
-                    });
-                }
-                
                 // Update completion bar
+                updateCompletion(totalCheckboxesChecked, numRows);
+            });
+
+                // Listen for changes on the mainCheckbox
+            mainCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                    totalCheckboxesChecked = nbObjectifAAjouter;
+                } else {
+                    totalCheckboxesChecked = 0;
+                }
                 updateCompletion(totalCheckboxesChecked, numRows);
             });
         }
