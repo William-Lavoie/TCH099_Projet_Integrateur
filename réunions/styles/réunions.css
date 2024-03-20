@@ -45,7 +45,7 @@ main {
     top: 0;
     z-index: -5;
     width: 100%;
-    height: 5%;
+    height: 2.5em;
     background-color: #04071d;
 }
 
@@ -55,8 +55,15 @@ main {
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    height: 10vh;
+    height: 5em;
     margin-top: 1vmin;
+}
+
+@media screen and (max-height: 500px) {
+    #on_top_presence_conteneur,
+    #on_top_toDo_conteneur{
+        display: none;
+    }
 }
 
 #on_top_presence_conteneur h3,
@@ -123,13 +130,21 @@ main {
     align-items: center;
     background-color: #04071d;
     color: white;
-    height: min(10vh, 150px);
+    height: 5em;
     margin-top: auto;
 }
+
 
 #valeurCompletion,
 #valeurSatisfaction{
     height: 1vh;
+}
+
+@media screen and (max-height: 300px) {
+    #satisfaction_conteneur,
+    #complete_conteneur {
+        display: none;
+    }
 }
 
 /*******************************************/
@@ -139,7 +154,7 @@ progress {
     background: white;
     height: max(1vh, 10px);
     max-height: 15px;
-    width: 14vmin;
+    width: 8em;
 }
 
 progress::-moz-progress-bar {
@@ -162,7 +177,7 @@ progress::-webkit-progress-bar {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     input[type='range'] {
         overflow: hidden;
-        width: 14vmin;
+        width: 12em;
         -webkit-appearance: none;
         appearance: none;
         background-color: white;
@@ -439,6 +454,23 @@ li span {
     }
 }
 
+@media all and (max-height: 900px) {
+    h1 {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    li {
+        font-size: 0.7rem;
+    }
+    
+    li span {
+        font-size: 1rem;
+    }
+    #boite_btn_horloge > *{
+        font-size: 0.75rem;
+    }
+}
+
 @media all and (max-width: 800px) {
     h1 {
       font-size: calc(1.5rem * var(--smaller));
@@ -456,6 +488,22 @@ li span {
     }
 }
 
+@media all and (max-height: 600px) {
+    h1 {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    li {
+        font-size: 0.5rem;
+    }
+    
+    li span {
+        font-size: 0.75rem;
+    }
+    #boite_btn_horloge > *{
+        font-size: 0.45rem;
+    }
+}
 #area_public,
 #area_privee{
     display: flex;
@@ -471,5 +519,4 @@ li span {
     width: 100%;
     height: 100%;
 }
-
 
