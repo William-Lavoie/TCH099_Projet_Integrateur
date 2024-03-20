@@ -30,12 +30,16 @@ $(document).ready(function() {
         })
         .then(data => {
     
-          console.log(data);
-          // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
-            const nouveauGroupe = $("<button>").text(data[0]['nom']); // Changer le nom
+          // Ajouter les groupes à la liste des groupes dans la sidebar
+
+          for (let i = 0; i < data.length; i++) {
+
+            const nouveauGroupe = $("<button>").text(data[i]['nom']); // Changer le nom
             const nouvelleCellule = $("<td>").append(nouveauGroupe);
             groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
       
+          }
+            
         })
         .catch(error => {
     
