@@ -116,11 +116,14 @@ textarea {
 }
 
 .reunion-journee {
-  height: 50px;
+  height: 24%;
   width: 100%;
   background-color: #04071d;
   color: white;
   border-radius: 10px;
+  margin-bottom: 2%;
+  padding-left: 3%;
+  border: 1px solid lightgray;
 }
 
 .reunion-journee:hover {
@@ -239,6 +242,10 @@ border: 2px solid black;
     flex-direction: column;
     justify-content: space-between;
     overflow: scroll;
+  }
+
+  .jour p {
+    margin: 0;
   }
 
   .autre-reunion {
