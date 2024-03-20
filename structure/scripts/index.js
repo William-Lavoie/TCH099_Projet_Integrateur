@@ -62,7 +62,7 @@ $(document).ready(function() {
     .then(data => {
       const img = document.createElement('img');
 
-      if (data != undefined) {
+      if (data != undefined && data != null) {
        
         $("#photo-profil-header").css({
           'background-image': 'url(' + URL.createObjectURL(data) + ')',
