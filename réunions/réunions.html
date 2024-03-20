@@ -31,7 +31,28 @@
 
     <!--Elements unique a la page-->
     <div id="conteneur-header-variable"> 
+        <div id="boite_horloge">
+            <div id="horloge">
+                <ul>
+                    <li><span id="days"></span>days</li>
+                    <li><span id="hours"></span>Hours</li>
+                    <li><span id="minutes"></span>Minutes</li>
+                    <li><span id="seconds"></span>Seconds</li>
+                </ul>
+            </div>
 
+            <div id="boite_btn_horloge">
+                <select id="minutesAAjouter" name="minutesAAjouter">
+                    <option value="1">1 minute</option>
+                    <option value="2">2 minutes</option>
+                    <option value="3">3 minutes</option>
+                    <option value="5">5 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="60">60 minutes</option>
+                </select>
+                <button id="btn_horloge">Ajouter Temps</button>
+            </div>
+        </div>      
     </div>
 
 
@@ -67,7 +88,7 @@
                     <h3>Présence</h3>
     
                 <div class="hide-text" id="boite_pas_dabscence">
-                    <p>Pas d'abscence</p>
+                    <p>Complet</p>
                     <label class="switch_presence">
                         <input type="checkbox" id="switch_pas_dabscence">
                         <span class="slider round"></span> 
@@ -101,32 +122,7 @@
         
         <content >
 
-            <div id="boite_horloge">
-                <div id="horloge">
-                    <ul>
-                        <li><span id="days"></span>days</li>
-                        <li><span id="hours"></span>Hours</li>
-                        <li><span id="minutes"></span>Minutes</li>
-                        <li><span id="seconds"></span>Seconds</li>
-                    </ul>
-                </div>
-
-                <div id="boite_btn_horloge">
-                        <select id="minutesAAjouter" name="minutesAAjouter">
-                        <option value="1">1 minute</option>
-                        <option value="2">2 minutes</option>
-                        <option value="3">3 minutes</option>
-                        <option value="5">5 minutes</option>
-                        <option value="30">30 minutes</option>
-                        <option value="60">60 minutes</option>
-                        </select>
-                    <button id="btn_horloge">Ajouter Temps</button>
-                </div>
-            </div>
-
-
-            </div>
-            
+      
 
 
             <div id="area_public">

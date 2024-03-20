@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    min-height: 100vh;
     overflow-x: hidden;
     color: white;
 }
@@ -14,7 +13,8 @@ main {
     flex-direction: row;
     transition: margin-left 0.5s, margin-right 0.5s;
     background-color: white;
-    height: 150vmin; /* Height is just there to display or test scrolability*/
+    height: 100vh; 
+    margin: 0;
 }
 
 /* start of aside code */
@@ -31,12 +31,12 @@ main {
     background-color: white;
     color: black;
     border: rgba(3, 4, 94, 1) 2px solid;
-    width: 12em; 
+    width: 10em; 
     font-size: 1.2rem;
     position: fixed;
     text-decoration: none;
     transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease 0.1s;
-    height: 90vh;
+    height: calc(100% - 10vmin);
     z-index: 1;
 }
 
@@ -95,7 +95,7 @@ main {
     justify-content: space-between;
     align-items: center;
     max-width: 11em;
-    padding: 1em;
+    padding: .5em;
     gap: 0.5em;
 
 }
@@ -110,9 +110,9 @@ main {
 }
 
 .nomPresence {
-    max-width: 75%; /* Adjust this according to your needs */
+    max-width: 75%; 
     overflow-x: auto;
-    white-space: nowrap; /* Prevents text from wrapping */
+    white-space: nowrap; 
 }
 
 #satisfaction_conteneur,
@@ -138,6 +138,8 @@ main {
 progress {
     background: white;
     height: max(1vh, 10px);
+    max-height: 15px;
+    width: 14vmin;
 }
 
 progress::-moz-progress-bar {
@@ -153,14 +155,14 @@ progress::-webkit-progress-bar {
 }
 
 /*******************************************/
-/*Changing the colour of the slider*/
+/*Changing the satisfaction slider*/
 /*******************************************/
 
 /*Chrome*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     input[type='range'] {
         overflow: hidden;
-        width: 15vh;
+        width: 14vmin;
         -webkit-appearance: none;
         appearance: none;
         background-color: white;
@@ -168,6 +170,7 @@ progress::-webkit-progress-bar {
     
     input[type='range']::-webkit-slider-runnable-track {
         height: max(1vh, 10px);
+        max-height: 15px;
         -webkit-appearance: none;
         color: #00c1f3;
         margin-top: -1px;
@@ -245,13 +248,13 @@ input[type="range"]::-ms-fill-upper {
 
 .BtnPliableGauche{
     position:fixed;
-    left: 13em;
+    left: 11em;
     transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
 }
 
 .BtnPliableDroite{
     position:fixed;
-    right: 13em;
+    right: 11em;
     transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), background 0s, color 0s;
 }
 .BtnPliableGauche.collapsed {
@@ -264,18 +267,18 @@ input[type="range"]::-ms-fill-upper {
 
 /************************************************************
 switch styling 
-***********************************************************/
+/***********************************************************/
 
 /* The switch - the box around the slider */
 .switch_presence,
 .switch_toDo {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 70px; 
+    height: 28px; 
 }
 
-  /* Hide default HTML checkbox */
+/* Hide default HTML checkbox */
 .switch_presence input,
 .switch_toDo input {
     opacity: 0;
@@ -283,7 +286,7 @@ switch styling
     height: 0;
 }
 
-  /* The slider */
+/* The slider */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -291,7 +294,8 @@ switch styling
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #04071d; 
+    border-radius: 16px; 
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -299,33 +303,34 @@ switch styling
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    height: 24px; 
+    width: 24px; 
+    left: 2px; 
+    bottom: 2px; 
+    background-color: #ffffff; 
+    border-radius: 50%; 
     -webkit-transition: .4s;
     transition: .4s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
-
 input:checked + .slider {
-    background-color: green;
+    background-color: #4CAF50; 
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #4CAF50; 
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(42px); 
+    -ms-transform: translateX(42px); 
+    transform: translateX(42px); 
 }
 
-  /* Rounded sliders */
+/* Rounded sliders */
 .slider.round {
-    border-radius: 34px;
+    border-radius: 28px; 
 }
 
 .slider.round:before {
@@ -389,11 +394,15 @@ content {
     width: fit-content;
     position: sticky;
     color: white;
-    margin: 0 auto;
+    margin: 0 ;
     text-align: center;
     background-color: #04071d;
 }
 
+ul{
+    margin:0;
+    padding-inline-start: 0;
+}
 h1 {
     font-weight: normal;
     letter-spacing: .125rem;
@@ -402,7 +411,7 @@ h1 {
 
 li {
     display: inline-block;
-    font-size: 1em;
+    font-size: .75em;
     list-style-type: none;
     padding: .5em;
     text-transform: uppercase;
@@ -410,24 +419,42 @@ li {
 
 li span {
     display: block;
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 900px) {
     h1 {
       font-size: calc(1.5rem * var(--smaller));
     }
     
     li {
-      font-size: calc(1.125rem * var(--smaller));
+        font-size: 0.75rem;
     }
     
     li span {
-      font-size: calc(3.375rem * var(--smaller));
+        font-size: 1.15rem;
+    }
+    #boite_btn_horloge > *{
+        font-size: 0.75rem;
     }
 }
 
-
+@media all and (max-width: 800px) {
+    h1 {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    li {
+        font-size: 0.5rem;
+    }
+    
+    li span {
+        font-size: 0.8rem;
+    }
+    #boite_btn_horloge > *{
+        font-size: 0.5rem;
+    }
+}
 
 #area_public,
 #area_privee{

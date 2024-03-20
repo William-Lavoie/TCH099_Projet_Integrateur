@@ -2,9 +2,9 @@
  * EN-TÊTE
  */
 
- body{
+body{
     margin: 0;
- }
+}
 
 header {
     position: sticky;
@@ -271,7 +271,7 @@ footer {
     color: lightgray;
     text-align: center;
     left: 0;
-    width: 100%;   
+    width: 100vw;   
     bottom: 0; 
     height: 8em;
 }
