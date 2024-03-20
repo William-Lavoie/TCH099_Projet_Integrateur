@@ -11,6 +11,41 @@ $(document).ready(function() {
 
     let tableauParticipants = [];
 
+    /**
+     * Affiche les groupes dans le "aside"
+     */
+    function afficherGroupes() {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
+        })
+        .then(response => {
+    
+        if (response.ok) {
+    
+        return response.json();
+        }
+    
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+    
+          console.log(data);
+          // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
+            const nouveauGroupe = $("<button>").text(data[0]['nom']); // Changer le nom
+            const nouvelleCellule = $("<td>").append(nouveauGroupe);
+            groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
+      
+        })
+        .catch(error => {
+    
+          console.log("erreur");
+        });
+    }
+
+    afficherGroupes();
+
+
     // Ouvrir le formulaire qui crée un groupe
     btnCreerGroupe.click(function() {
         formulaireCreerGroupe.css("visibility", "visible");
@@ -99,8 +134,7 @@ $(document).ready(function() {
         .then(response => {
 
             if (response.ok) {
-                //return response.json();
-                //window.location.reload();
+                window.location.reload();
             }
 
             else {
@@ -111,22 +145,15 @@ $(document).ready(function() {
             console.log(error);
         });
 
-
-    
-
-        // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
-        const nouveauGroupe = $("<button>").text(nomGroupe); // Changer le nom
-        const nouvelleCellule = $("<td>").append(nouveauGroupe);
-        groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
-
         // Cacher le formulaire (fin)
         formulaireCreerGroupe.css("visibility", "hidden");
 
-        // Réinitialiser les champs du formulaire
-        $("#nom-groupe").val('');
-        $("#description").val('');
-        listeParticipants.text('');
-        erreurs.text('');
+           // Réinitialiser les champs du formulaire
+           $("#nom-groupe").val('');
+           $("#description").val('');
+           listeParticipants.text('');
+           erreurs.text('');
+
     }
     });
 

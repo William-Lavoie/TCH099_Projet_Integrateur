@@ -221,8 +221,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 }
 
 // WORK IN PROGRESS
-// Chercher la photo de profil de l'utilisateur
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    // Chercher la photo de profil de l'utilisateur
+    if (preg_match("~afficher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -239,6 +241,28 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         else {
             echo json_encode(["error" => "erreur"]);
         }
+    }
+
+
+    // Afficher les groupes associés à un utilisateur
+    if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT nom FROM groupes g INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes WHERE courriel_etudiants = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+        
 
     };
 
