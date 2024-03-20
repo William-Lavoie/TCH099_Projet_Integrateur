@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addRowsToContainer(nbObjectifAAjouter);
     });
 
-    // pas d'abscence toggle tous les checkbox
+    // slider completé change toute les slider
     const mainCheckbox = document.getElementById('switch_toDo_complete');
     mainCheckbox.addEventListener('change', function () {
         const checkboxes = document.querySelectorAll('.boite_toDo input[type="checkbox"]');
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addRowsToContainer(numRows) {
         var container = document.getElementById("toDo_conteneur");
-        var totalCheckboxes = 0; // Variable to track total checked checkboxes
+        var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
 
         for (var i = 1; i <= numRows; i++) {
             // Create div for each row
@@ -214,30 +214,42 @@ document.addEventListener('DOMContentLoaded', function () {
             rowDiv.appendChild(nameDiv);
 
             //************************* */
-            //changer la couleur des nom quand un checkbox est cheked
+            //changer la couleur des nom et le compte des elements checked quand un checkbox est checked
             //************************* */
+
+            
             input.addEventListener('change', function () {
                 var nameElement = this.parentElement.parentElement.nextElementSibling;
                 if (this.checked) {
                     nameElement.style.color = 'green';
-                    totalCheckboxes++; // Increment total checked checkboxes
+                    totalCheckboxesChecked++; // Increment total checked checkboxes
                 } else {
                     nameElement.style.color = 'red'; // Reset to red when user un toggles
-                    totalCheckboxes--; // Decrement total checked checkboxes
+                    totalCheckboxesChecked--; // Decrement total checked checkboxes
                 }
 
+                if(mainCheckbox.checked){
+                    totalCheckboxesChecked = nbObjectifAAjouter;
+
+                    mainCheckbox.addEventListener('change', function () {
+                        totalCheckboxesChecked = 0;
+                    });
+                }
+                
                 // Update completion bar
-                updateCompletion(totalCheckboxes, numRows);
+                updateCompletion(totalCheckboxesChecked, numRows);
             });
         }
     }
 
+    //**************************************** */
     // Update la bar de progression
+    //**************************************** */
     function updateCompletion(checkedCount, totalCount) {
-        var completionPercentage = (checkedCount / totalCount) * 100;
         var progressBar = document.getElementById('completion');
         var valueElement = document.getElementById('valeurCompletion');
-
+        var completionPercentage = (checkedCount / totalCount) * 100;
+        
         progressBar.value = completionPercentage;
         valueElement.textContent = completionPercentage.toFixed(2) + "%";
     }
