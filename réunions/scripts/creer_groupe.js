@@ -91,22 +91,20 @@ $(document).ready(function() {
 
         console.log(donnees);
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_reunion", {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_groupe", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
         })
         .then(response => {
 
-            console.log(response);
             if (response.ok) {
-
+                //return response.json();
                 //window.location.reload();
-                console.log(response.json());
             }
 
             else {
-                console.log("error");
+                throw new Error("La création de la réunion n'a pas fonctionnée");
             }
         })
         .catch(error => {
