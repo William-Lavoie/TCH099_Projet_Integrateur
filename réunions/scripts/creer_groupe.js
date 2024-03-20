@@ -11,6 +11,45 @@ $(document).ready(function() {
 
     let tableauParticipants = [];
 
+    /**
+     * Affiche les groupes dans le "aside"
+     */
+    function afficherGroupes() {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
+        })
+        .then(response => {
+    
+        if (response.ok) {
+    
+        return response.json();
+        }
+    
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+    
+          // Ajouter les groupes à la liste des groupes dans la sidebar
+
+          for (let i = 0; i < data.length; i++) {
+
+            const nouveauGroupe = $("<button>").text(data[i]['nom']); // Changer le nom
+            const nouvelleCellule = $("<td>").append(nouveauGroupe);
+            groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
+      
+          }
+            
+        })
+        .catch(error => {
+    
+          console.log("erreur");
+        });
+    }
+
+    afficherGroupes();
+
+
     // Ouvrir le formulaire qui crée un groupe
     btnCreerGroupe.click(function() {
         formulaireCreerGroupe.css("visibility", "visible");
@@ -91,44 +130,34 @@ $(document).ready(function() {
 
         console.log(donnees);
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_reunion", {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_groupe", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
         })
         .then(response => {
 
-            console.log(response);
             if (response.ok) {
-
-                //window.location.reload();
-                console.log(response.json());
+                window.location.reload();
             }
 
             else {
-                console.log("error");
+                throw new Error("La création de la réunion n'a pas fonctionnée");
             }
         })
         .catch(error => {
             console.log(error);
         });
 
-
-    
-
-        // Ajouter le nouveau groupe à la liste des groupes dans la sidebar
-        const nouveauGroupe = $("<button>").text(nomGroupe); // Changer le nom
-        const nouvelleCellule = $("<td>").append(nouveauGroupe);
-        groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
-
         // Cacher le formulaire (fin)
         formulaireCreerGroupe.css("visibility", "hidden");
 
-        // Réinitialiser les champs du formulaire
-        $("#nom-groupe").val('');
-        $("#description").val('');
-        listeParticipants.text('');
-        erreurs.text('');
+           // Réinitialiser les champs du formulaire
+           $("#nom-groupe").val('');
+           $("#description").val('');
+           listeParticipants.text('');
+           erreurs.text('');
+
     }
     });
 

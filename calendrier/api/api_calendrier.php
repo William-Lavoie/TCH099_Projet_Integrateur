@@ -178,21 +178,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
         // Création d'un GROUPE
-        if (preg_match("~ajouter-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+        if (preg_match("~ajouter_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
     
             $donnees_json = file_get_contents('php://input');
             $donnees = json_decode($donnees_json, true);
-    
+
             if (isset($donnees['nom'], $donnees['participants'])) {
     
             require("connexion.php");
     
             $nom = $donnees['nom'];
             $participants = $donnees['participants'];
-         
+
             // Création du groupe
             $query = $conn->prepare("INSERT INTO groupes (courriel_enseignant, nom) VALUES (:courriel, :nom)");
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'] ,  PDO::PARAM_STR);
             $query->bindParam(":nom", $nom,  PDO::PARAM_STR);
     
             $query->execute();
@@ -221,8 +221,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 }
 
 // WORK IN PROGRESS
-// Chercher la photo de profil de l'utilisateur
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    // Chercher la photo de profil de l'utilisateur
+    if (preg_match("~afficher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -239,6 +241,28 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         else {
             echo json_encode(["error" => "erreur"]);
         }
+    }
+
+
+    // Afficher les groupes associés à un utilisateur
+    if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT nom FROM groupes g INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes WHERE courriel_etudiants = :courriel UNION SELECT nom FROM groupes WHERE courriel_enseignant = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+        
 
     };
 

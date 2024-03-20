@@ -46,7 +46,7 @@ $(document).ready(function() {
    * AFFICHER_PHOTO
    * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
    */
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php", {
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_photo", {
     })
     .then(response => {
 
@@ -62,7 +62,7 @@ $(document).ready(function() {
     .then(data => {
       const img = document.createElement('img');
 
-      if (data != undefined) {
+      if (data != undefined && data != null) {
        
         $("#photo-profil-header").css({
           'background-image': 'url(' + URL.createObjectURL(data) + ')',

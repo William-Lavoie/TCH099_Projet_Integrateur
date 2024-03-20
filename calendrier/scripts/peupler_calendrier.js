@@ -500,10 +500,6 @@ $(document).ready(function() {
 
   }
 
-
-  
-  afficherPhoto();
-
   /**
    * Permet de passer au mois précédant
    */
