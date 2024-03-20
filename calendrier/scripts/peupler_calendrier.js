@@ -153,14 +153,14 @@ $(document).ready(function() {
 
           // Date de la réunion
           let dateNombre = donnees[j]['date'].slice(8);          
-          console.log($("#calendrier").children().eq(i).text());
+         // console.log($("#calendrier").children().eq(i).find("p").text());
           //Mettre un fond rouge si une réunion a été trouvée pour une certaine date
-          if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).clone().children().remove().end().text()) {
+          if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).find("p").text()) {
   
             // Afficher la réunion dans la case
             let reunionJournee = $("<div class='reunion-journee'></div>");
             reunionJournee.text(donnees[j]['titre']);
-            $("#calendrier").children().eq(i).append(reunionJournee);
+            $("#calendrier").children().eq(i).find(".reunions-date").append(reunionJournee);
 
             // Stocke les informations de la réunion dans un tableau
             listeReunionsJournee.push(donnees[j]);
@@ -169,7 +169,7 @@ $(document).ready(function() {
         
             // Mettre un écouteur d'évènement qui ouvre la réunion
                reunionJournee.on("click", function() {
-               consulterReunionSpecifique($("#calendrier").children().eq(i), listeReunionsJournee.length-1);
+                  consulterReunionSpecifique($("#calendrier").children().eq(i), listeReunionsJournee.length-1);
             })
 
           }
@@ -226,7 +226,13 @@ $(document).ready(function() {
 
       // Affiche la date et crée la case correspondante
       const journee = $("<div class='jour'></div>");
-      journee.text(debutCalendrier);
+      let dateJournee = $("<p>" + debutCalendrier + "</p>");
+
+      journee.append(dateJournee);
+
+      // Espace pour les réunions 
+      let reunionDate = $("<div class=reunions-date></div>")
+      journee.append(reunionDate);
       journee.css("background-color", "lightgray");
       
       // Ajoute la case contenant la date au calendrier
@@ -257,7 +263,12 @@ $(document).ready(function() {
     for (let i = compteur; i < premierJour +finDuMois; i++) {
 
       const journee = $("<div class='jour'></div>");
-      journee.text(index);
+      let dateJournee = $("<p>" + index + "</p>");
+      journee.append(dateJournee);
+
+      // Espace pour les réunions 
+      let reunionDate = $("<div class=reunions-date></div>")
+      journee.append(reunionDate);
   
       
       // Met une bordure spéciale sur la journée courante
@@ -282,7 +293,12 @@ $(document).ready(function() {
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
   
       const journee = $("<div class='jour'></div>");
-      journee.text(index);
+      let dateJournee = $("<p>" + index + "</p>");
+      journee.append(dateJournee);
+
+      // Espace pour les réunions 
+      let reunionDate = $("<div class=reunions-date></div>")
+      journee.append(reunionDate);
       journee.css("background-color", "lightgray");
   
       $("#calendrier").append(journee);
