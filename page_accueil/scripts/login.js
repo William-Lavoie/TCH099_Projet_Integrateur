@@ -7,13 +7,12 @@ auth0.createAuth0Client({
         redirect_uri: "http://127.0.0.1:3000/calendrier/calendrier.html" // Specify your desired redirect URL
     }
   }).then(async (auth0Client) => {
-    // Assumes a button with id "login" in the DOM
+
     const loginButton = document.getElementById("connecter");
     const inscriptionButton = document.getElementById("inscrire");
     
-
-
-    //bouton d'authentification
+    if(loginButton && inscriptionButton){
+ //bouton d'authentification
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
       auth0Client.loginWithRedirect();
@@ -26,6 +25,8 @@ auth0.createAuth0Client({
         screen_hint: "signup",
       }})
     });
+    }else{
+
 
     if (location.search.includes("state=") && 
         (location.search.includes("code=") || 
@@ -44,6 +45,16 @@ auth0.createAuth0Client({
     });
 
   const isAuthenticated = await auth0Client.isAuthenticated();
+
+
+  //verifie si l'utilisateur est authentifie, si il ne l'ai pas, redirect to landing page
+  if (!isAuthenticated) {
+    // Redirect to the login page if the user is not authenticated
+    window.location.href = 'http://127.0.0.1:3000/page_accueil/page_accueil.html';
+    return;
+  }
+
+  //Si l'utilisateur est authentifier, utuliser les info
   const userProfile = await auth0Client.getUser();
 
   //const userId = userProfile.user_id; //****************************************** */
@@ -62,22 +73,24 @@ auth0.createAuth0Client({
       const identifiants = {"courriel": userProfile.name};
 
       fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/envoyer_identifiant", {
-       method: 'POST',
-       headers: {'Content-Type': 'application/json'},
-       body: JSON.stringify(identifiants)
-       })
-       .then(response => {
-   
-       if (response.ok) {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(identifiants)
+      })
+      .then(response => {
+  
+      if (response.ok) {
             console.log("Succès");
-       }
-       else {
-           console.log("La requête n'a pas fonctionnée");
-       }
-       });
-    
+      }
+      else {
+          console.log("La requête n'a pas fonctionnée");
+      }
+      });
+    }
+
+  }).catch(error => {
+    console.log("Erreur avec Auth0");
   });
 
- 
 });
   //<img src="${userProfile.picture}" />
