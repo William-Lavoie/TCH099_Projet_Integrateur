@@ -71,7 +71,11 @@ $(document).ready(function() {
   
     }})
     .catch(error => {
-    console.log(error);
+
+       
+        $("#photo-profil-header").css({
+          'background-image': 'url("/structure/image_structure/image_profil_vide.png")',
+        });
     });
   }
 );
