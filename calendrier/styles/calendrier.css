@@ -93,6 +93,7 @@ textarea {
     opacity: 100%;
 }
 
+
 #messages-erreur, #messages-erreur-participants {
   height: 20%;
   display: flex;
@@ -197,6 +198,26 @@ border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#choix-groupe {
+  width: 60%;
+  height: 20%;
+}
+
+#champs-groupes {
+  padding-top: 10%;
+height: 30%;
+display: flex;
+justify-content: center;
+}
+
+#espace-vide {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 5%;
 }
 
  /* main */

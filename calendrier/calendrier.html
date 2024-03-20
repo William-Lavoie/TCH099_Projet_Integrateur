@@ -158,14 +158,22 @@
 
     <!-- Deuxième page de création de réunion pour un groupe -->
     <form id="creer-reunion-groupe">
-        <label for="groupes">Choisir un groupe:</label>
+        <div id="formulaire-header">
+            Créer une nouvelle réunion<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆
+        </div>
+        <div id="champs-groupes">
 
-        <select name="groupes" id="choix-groupe">
-        <option value="groupe1">Groupe1</option>
-        </select> 
+            <select name="groupes" id="choix-groupe">
+                <option>Veuillez choisir un groupe</option>
+            </select> 
+        </div>
+        <div id="espace-vide">
+            <div class="btn-reunion">
+                <button id="btn-retour-groupes" type="reset">Retour</button>
+                <button id="btn-confirmer-groupes">Confirmer</button>  
+            </div>
+        </div>
         
-        <button id="btn-retour-groupe" type="reset">Retour</button>
-        <button id="btn-confirmer-groupe" type="submit">Confirmer</button>
     </form>
 
     <!-- Deuxième page de création de réunion pour des participants (hors groupe) -->

@@ -130,6 +130,39 @@ $(document).ready(function() {
              $("#description-reunion").val() != "");        
     }
 
+    function afficherListeGroupes() {
+        console.log("ok");
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
+        })
+        .then(response => {
+    
+        if (response.ok) {
+    
+        return response.json();
+        }
+    
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+    
+          // Ajouter les groupes à la liste des groupes dans la sidebar
+          for (let i = 0; i < data.length; i++) {
+
+            // Mettre comme valeur l'identifiant de la réunion
+            const nouvelleValeur = $("<option value='" + data[i]['id_groupes'] + "'>" + data[i]['nom'] +"</option>");
+            $("#choix-groupe").append(nouvelleValeur);
+          }
+            
+        })
+        .catch(error => {
+    
+          console.log("erreur");
+        });
+    }
+
+
 
     /**
      * Prévient le comportement par défaut des boutons dans les formulaires
@@ -220,6 +253,8 @@ $(document).ready(function() {
                 // Passer à la page suivante selon l'option choisie (groupe ou participants)
                 if ($("#btn-radio")[0].checked) {
                     $("#creer-reunion-groupe").addClass("reunion-visible");
+                    afficherListeGroupes();
+
                 }
 
                 if ($("#groupes")[0].checked) {
