@@ -39,6 +39,8 @@ $(document).ready(function() {
         finReunion = null;
         dateReunion = null;
         description = null;
+        listeTaches = [];
+        participantsReunion = [];
     }
 
 
@@ -370,7 +372,8 @@ $(document).ready(function() {
                 $("#nouveau-participant").val("");
 
                 // Bouton pour supprimer le participant 
-                boutonSupprimer.on("click", function() {
+                boutonSupprimer.on("click", function(event) {
+                    event.stopPropagation();
                     nouveauParticipant.remove();
                 });
  
@@ -378,9 +381,6 @@ $(document).ready(function() {
                  nouveauParticipant.children("p").text(texte);
                  nouveauParticipant.append(boutonSupprimer);
                  $("#liste-participants").append(nouveauParticipant);
-
-                 // Ajouter au tableau de participants
-                 participantsReunion.push(texte);
  
                }
 
@@ -424,9 +424,9 @@ $(document).ready(function() {
          // Bouton pour supprimer le participant 
          boutonSupprimer.on("click", function(event) {
 
-        // Évite de supprimer les parents également
-        event.stopPropagation(); 
-        $(this).parent().remove();
+            // Évite de supprimer les parents également
+            event.stopPropagation(); 
+            $(this).parent().remove();
         });
 
          // Création du participant dans le formulaire 
@@ -434,8 +434,6 @@ $(document).ready(function() {
           nouvelleTache.append(boutonSupprimer);
           $("#liste-taches").append(nouvelleTache);
 
-        // Ajouter au tableau de tâches
-        listeTaches.push(texte);
     })
 
     // Revenir en arrière à partir du formulaire de création des tâches
@@ -472,6 +470,11 @@ $(document).ready(function() {
 
 function envoyerFormulaireGroupe() {
     let groupe = $("#choix-groupe").val();
+    
+    for (let i = 0; i < $("#liste-taches").children().length; i++) {
+        listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
+    }
+
     if (groupe != null) {
          // Les informations de la réunions sont ajoutées à la base de données
          const donnees = {"titre": titre,
@@ -510,6 +513,15 @@ function envoyerFormulaireGroupe() {
     
 
 function envoyerFormulaireParticipants() {
+
+    for (let i = 0; i < $("#liste-taches").children().length; i++) {
+        listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
+    }
+
+    for (let i = 0; i < $("#liste-participants").children().length; i++) {
+        listeParticipants.push($("#liste-taches").children().eq(i).find("p").text());
+    }
+
     // Les informations de la réunions sont ajoutées à la base de données
     const donnees = {"titre": titre,
     "debutReunion": debutReunion,
