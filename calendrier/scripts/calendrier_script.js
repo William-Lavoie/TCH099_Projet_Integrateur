@@ -444,19 +444,38 @@ $(document).ready(function() {
 
     // Accéder à la liste des tâches à partir du formulaire des groupes
     $("#btn-continuer-groupes").on("click", function() {
-        $("#creer-liste-taches").addClass("reunion-visible");
-        $("#creer-liste-taches").children().find(".btn-reunion").append("<button id='btn-confirmer-groupes'>Confirmer</button>");
 
-        $("#creer-liste-taches").children().find("#btn-confirmer-groupes").on("click", function(event) {
-            event.preventDefault();
-            envoyerFormulaireGroupe();
-        });
+        let groupe = $("#choix-groupe").val();
+
+        //TODO ??
+        if (groupe === 23 || groupe === null || groupe === undefined) {
+            console.log("ok");
+            $("#espace-vide").text("Vous devez choisir un groupe");
+        }
+        else {
+            $("#creer-liste-taches").addClass("reunion-visible");
+
+            // Empêche de mettre plusieurs boutons
+            $("#creer-liste-taches").children().find("#btn-confirmer-participants, #btn-confirmer-groupes").remove();
+
+            $("#creer-liste-taches").children().find(".btn-reunion").append("<button id='btn-confirmer-groupes'>Confirmer</button>");
+    
+            $("#creer-liste-taches").children().find("#btn-confirmer-groupes").on("click", function(event) {
+                event.preventDefault();
+                envoyerFormulaireGroupe();
+            });
+        }
+        
 
     })
 
     // Accéder à la liste des tâches à partir du formulaire des participants
     $("#btn-continuer-participants").on("click", function() {
         $("#creer-liste-taches").addClass("reunion-visible");
+
+        // Empêche de mettre plusieurs boutons
+        $("#creer-liste-taches").children().find("#btn-confirmer-participants, #btn-confirmer-groupes").remove();
+
         $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
 
         $("#creer-liste-taches").children().find("#btn-confirmer-participants").on("click", function(event) {
@@ -471,44 +490,52 @@ $(document).ready(function() {
 function envoyerFormulaireGroupe() {
     let groupe = $("#choix-groupe").val();
     
-    for (let i = 0; i < $("#liste-taches").children().length; i++) {
-        listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
+    if (groupe == null) {
+        $("#espace-vide").text("Vous devez choisir un groupe");
     }
 
-    if (groupe != null) {
-         // Les informations de la réunions sont ajoutées à la base de données
-         const donnees = {"titre": titre,
-         "debutReunion": debutReunion,
-         "finReunion": finReunion,
-         "dateReunion": dateReunion,
-         "description": description,
-         "groupe": groupe,
-         "taches": listeTaches};
+    else {
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(donnees)
-        })
-        .then(response => {
-
-        if (response.ok) {
-
-            // Fermer les formulaires et rafraîchir la page
-            fermerFormulaires();
-            window.location.reload();
-            return response.json();
+        for (let i = 0; i < $("#liste-taches").children().length; i++) {
+            listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
         }
-
-        else {
-            console.log("error");
-        }
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-        };
+    
+        if (groupe != null) {
+             // Les informations de la réunions sont ajoutées à la base de données
+             const donnees = {"titre": titre,
+             "debutReunion": debutReunion,
+             "finReunion": finReunion,
+             "dateReunion": dateReunion,
+             "description": description,
+             "groupe": groupe,
+             "taches": listeTaches};
+    
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+    
+            if (response.ok) {
+    
+                // Fermer les formulaires et rafraîchir la page
+                fermerFormulaires();
+                window.location.reload();
+                return response.json();
+            }
+    
+            else {
+                console.log("error");
+            }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    
+            };
+    }
+    
 }
     
 
