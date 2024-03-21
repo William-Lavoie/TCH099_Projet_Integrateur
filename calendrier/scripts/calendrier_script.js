@@ -404,7 +404,49 @@ $(document).ready(function() {
 
 
    // Soumission de la création d'une réunion côté participants
-   $("#btn-confirmer-participants").on("click", function(event) {
+   $("#btn-confirmer-groupes").on("click", function(event) {
+
+    event.preventDefault();
+
+    let groupe = $("#choix-groupe").val();
+    if (groupe != null) {
+         // Les informations de la réunions sont ajoutées à la base de données
+         const donnees = {"titre": titre,
+         "debutReunion": debutReunion,
+         "finReunion": finReunion,
+         "dateReunion": dateReunion,
+         "description": description,
+         "groupe": groupe};
+
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+            // Fermer les formulaires et rafraîchir la page
+            fermerFormulaires();
+            window.location.reload();
+            return response.json();
+        }
+
+        else {
+            console.log("error");
+        }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+        };
+    });
+
+
+// Soumission de la création d'une réunion côté participants
+$("#btn-confirmer-participants").on("click", function(event) {
 
     event.preventDefault();
 
@@ -416,7 +458,7 @@ $(document).ready(function() {
                          "description": description,
                          "listeParticipants": participantsReunion};
            
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion", {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -439,6 +481,6 @@ $(document).ready(function() {
             console.log(error);
         });
 
-   })
+    })
+});
       
-})
