@@ -343,7 +343,7 @@ $(document).ready(function() {
 
       // Prendre la date dans la case
       let date = journee.find("p").text();
-      $("#consulter-reunion-calendrier span").text(journeeSemaine + " " + date + " ");
+      $("#consulter-reunion-calendrier span").html(journeeSemaine + " " + date + "<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
 
       // Représenter les différentes réunions dans l'onglet
       $("#panneau-reunions").html("");
@@ -429,7 +429,7 @@ $(document).ready(function() {
       let boutonJoindre = $("<button id='consulter-reunion-panneau'>Joindre</button>"); 
       boutonJoindre.on("click", function() {
         console.log("temporary");
-      //  joindreReunion($(this));
+        joindreReunion($(this));
       });
 
       let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
@@ -459,6 +459,15 @@ $(document).ready(function() {
     consulterReunion($("#panneau-reunions").children().eq(index));
   }
 
+
+
+  /**
+   * Permet à un utilisateur d'accéder à une de ses réunions en appuyant sur "Joindre"
+   * @param {div} reunion 
+   */
+  function joindreReunion(reunion) {
+
+  }
 
 
 
