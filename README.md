@@ -1,8 +1,8 @@
-# TCH099_Projet_Integrateur
+# TCH099_Projet_Integrateur : HuddleHarbor
 
-Optimisez vos réunions d'entreprise grâce à HuddleHarbor, une plateforme dédiée à augmenter la productivité de votre entreprise. HuddleHarbor analyse les compétences des participants pour une intégration harmonieuse des talents, facilite des structures de réunion claires en virtuel ou en personne et permet une planification optimale et un support en temps réel pour une productivité accrue. 
+HuddleHarbor vise à améliorer l'organisation des étudiants, à favoriser une participation équitable dans les travaux d'équipe et à permettre aux enseignants de mieux gérer leurs classes. En encourageant la collaboration et la responsabilisation, cette application contribue à un environnement éducatif plus productif et équilibré.
 
 Projet réalisé dans le cadre du cours TCH099 Projet Intégrateur à l'École de Technologie Supérieure, Montréal, Québec, Canada. 
 
 
-**Si l'utilisateur n'est pas authentifié, il va être redirigé vers la page d'accueil.**
+**Si l'utilisateur n'est pas authentifié, il sera redirigé vers la page d'accueil.**
