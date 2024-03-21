@@ -429,7 +429,7 @@ $(document).ready(function() {
       let boutonJoindre = $("<button id='consulter-reunion-panneau'>Joindre</button>"); 
       boutonJoindre.on("click", function() {
         console.log("temporary");
-        joindreReunion($(this));
+        joindreReunion(reunion);
       });
 
       let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
@@ -467,6 +467,8 @@ $(document).ready(function() {
    */
   function joindreReunion(reunion) {
 
+    let idReunion = reunion.data("listeReunionsJournee")['id_reunions'];
+    window.location.href = "../../réunions/réunions.html?info=" + encodeURIComponent(idReunion);
   }
 
 

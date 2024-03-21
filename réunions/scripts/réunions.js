@@ -2,6 +2,13 @@
 // Fonction pour aside pliable gauche
 //************************************** */
 document.addEventListener('DOMContentLoaded', function () {
+
+    const pageAppelante = window.location.search;
+    const parametre = new URLSearchParams(pageAppelante);
+    const idReunion = parametre.get('info');
+    console.log(idReunion); // Outputs: Hello World
+
+
     // Sélectionner les éléments nécessaires pour la transition
     var btnPliableGauche = document.querySelector('#BtnPliableGauche');
 
