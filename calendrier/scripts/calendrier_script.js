@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    //TODO: if the user is a prof, do nothing, else when creating meeting add user to utilisateurs_reunions
+    
     // Informations par rapport à une réunion
     let titre;
     let dateReunion;
