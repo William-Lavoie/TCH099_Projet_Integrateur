@@ -191,10 +191,7 @@ border: 2px solid black;
 }
 
 .supprimer-participant, .supprimer-tache {
-  height: 70%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  background-color: red;
+  
   display: flex;
   justify-content: center;
   align-items: center;

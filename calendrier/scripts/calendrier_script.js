@@ -331,7 +331,7 @@ $(document).ready(function() {
 
         // Contenant pour le participant
         const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
-        const boutonSupprimer = $("<button class='supprimer-participant'>X</button>");
+        const boutonSupprimer = $("<button class='supprimer-participant'>🗑</button>");
 
         // Le même participant ne doit pas être ajouté plus d'une fois
         if (courrrielPresent(texte)) {
@@ -419,7 +419,7 @@ $(document).ready(function() {
          $("#nouvelle-tache").val("");
 
          const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
-         const boutonSupprimer = $("<button class='supprimer-tache'>X</button>");
+         const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
 
          // Bouton pour supprimer le participant 
          boutonSupprimer.on("click", function(event) {
@@ -460,6 +460,11 @@ $(document).ready(function() {
     $("#btn-continuer-participants").on("click", function() {
         $("#creer-liste-taches").addClass("reunion-visible");
         $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
+
+        $("#creer-liste-taches").children().find("#btn-confirmer-participants").on("click", function(event) {
+            event.preventDefault();
+            envoyerFormulaireParticipants();
+        });
 
     })
 
@@ -504,44 +509,41 @@ function envoyerFormulaireGroupe() {
 }
     
 
-
-// Soumission de la création d'une réunion côté participants
-$("#btn-confirmer-participants").on("click", function(event) {
-
-    event.preventDefault();
-
+function envoyerFormulaireParticipants() {
     // Les informations de la réunions sont ajoutées à la base de données
-        const donnees = {"titre": titre,
-                         "debutReunion": debutReunion,
-                         "finReunion": finReunion,
-                         "dateReunion": dateReunion,
-                         "description": description,
-                         "listeParticipants": participantsReunion,
-                         "taches": listeTaches};
-           
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-        })
-        .then(response => {
+    const donnees = {"titre": titre,
+    "debutReunion": debutReunion,
+    "finReunion": finReunion,
+    "dateReunion": dateReunion,
+    "description": description,
+    "listeParticipants": participantsReunion,
+    "taches": listeTaches};
 
-            if (response.ok) {
-
-                // Fermer les formulaires et rafraîchir la page
-                fermerFormulaires();
-                window.location.reload();
-                return response.json();
-            }
-
-            else {
-                console.log("error");
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(donnees)
     })
+    .then(response => {
+
+    if (response.ok) {
+
+    // Fermer les formulaires et rafraîchir la page
+    fermerFormulaires();
+    //window.location.reload();
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .catch(error => {
+    console.log(error);
+    });
+
+    }
 });
+
+
       

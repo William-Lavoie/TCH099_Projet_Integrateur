@@ -36,7 +36,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
-        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['listeParticipants'], $donnes['taches'])) {
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['listeParticipants'], $donnees['taches'])) {
 
         require("connexion.php");
 
@@ -82,9 +82,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         // Ajout des tâches 
         for ($i = 0; $i < count($taches); $i++) {
 
-            $query = $conn->prepare("INSERT INTO taches (titre, id_reunions) VALUES (:titre, :id_reunion)");
+            $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :id_liste)");
             $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
-            $query->bindParam(":id_reunion", $id_reunion,  PDO::PARAM_STR);
+            $query->bindParam(":id_liste", $id_liste,  PDO::PARAM_STR);
             $query->execute();
         }
 
@@ -135,7 +135,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
-        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['groupe'])) {
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['groupe'], $donnees['taches'])) {
 
             require("connexion.php");
 
@@ -189,9 +189,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             // Ajout des tâches 
             for ($i = 0; $i < count($taches); $i++) {
 
-                $query = $conn->prepare("INSERT INTO taches (titre, id_reunions) VALUES (:titre, :id_reunion)");
+                $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :id_liste)");
                 $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
-                $query->bindParam(":id_reunion", $id_reunion,  PDO::PARAM_STR);
+                $query->bindParam(":id_liste", $id_liste,  PDO::PARAM_STR);
                 $query->execute();
             }
 
