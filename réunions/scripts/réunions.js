@@ -1,12 +1,16 @@
 //************************************** */
 // Fonction pour aside pliable gauche
 //************************************** */
+
+// identifiant de la réunion
+var idReunion;
+
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
     const pageAppelante = window.location.search;
     const parametre = new URLSearchParams(pageAppelante);
-    const idReunion = parametre.get('info');
-    console.log(idReunion); // Outputs: Hello World
+    idReunion = parametre.get('info');
 
 
     // Sélectionner les éléments nécessaires pour la transition
@@ -93,47 +97,64 @@ function updateSliderValue() {
 //************************* */
 document.addEventListener('DOMContentLoaded', function () {
 
-    let nbNomAAjouter = 15;
+    // Chercher la liste des participants
+    donnees = {'idReunions': idReunion};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+  
+        if (response.ok) {
+  
+        return response.json();
+        }
+  
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+  
+          let nbNomAAjouter = data.length;
 
-    const testbtn = document.getElementById('testButton');
-    testbtn.addEventListener('click', function() {
-        addRowsToContainer(nbNomAAjouter);
-    });
+          for (let i = 0; i < nbNomAAjouter; i++) {
+            addRowsToContainer(data[i]['nom']);
+          }
 
-    // pas d'abscence toggle tous les checkbox
-    const mainCheckbox = document.getElementById('switch_pas_dabscence');
-    mainCheckbox.addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('.boite_nom_presence input[type="checkbox"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = mainCheckbox.checked;
-                checkbox.dispatchEvent(new Event('change')); 
-            });
+        })
+        .catch(error => {
+        console.log(error);
         });
+  
 
-    function addRowsToContainer(numRows) {
-        var container = document.getElementById("presence_conteneur");
-
-        for (var i = 1; i <= numRows; i++) {
-            // Create div for each row
+        function addRowsToContainer(nom) {
+            var container = document.getElementById("presence_conteneur");
+    
+           
             var rowDiv = document.createElement("div");
             rowDiv.classList.add("hide-text", "boite_nom_presence");
-
+    
             // Name
             var nameDiv = document.createElement("div");
             nameDiv.classList.add("nomPresence");
-            nameDiv.textContent = "Name"; 
+            nameDiv.textContent = nom;             
             rowDiv.appendChild(nameDiv);
-
+    
             // Form
             var form = document.createElement("form");
             form.classList.add("presence_form");
-
+    
             // Checkbox
-            var label = document.createElement("label");
+            var label = document.createElement("label");            
             label.classList.add("switch_presence");
             var input = document.createElement("input");
             input.setAttribute("type", "checkbox");
-            input.id = "present" + i;
+    
+            // L'identifiant incrémente avec le nombre de participants
+            input.id = document.getElementById("presence_conteneur").getElementsByTagName("input").length;
+    
             input.classList.add("Present");
             input.setAttribute("name", "Presence");
             var span = document.createElement("span");
@@ -141,25 +162,38 @@ document.addEventListener('DOMContentLoaded', function () {
             label.appendChild(input);
             label.appendChild(span);
             form.appendChild(label);
-
+    
             rowDiv.appendChild(form);
-
+    
             container.appendChild(rowDiv);
+    
+                //************************* */
+                //changer la couleur des nom quand un checkbox est cheked
+                //************************* */
+                input.addEventListener('change', function() {
+                    var nameElement = this.parentElement.parentElement.previousElementSibling;
+                    if (this.checked) {
+                        nameElement.style.color = 'green';
+                    } else {
+                        nameElement.style.color = 'red'; // Reset to red when user un toggles
+                    }
+                });
+            }
+    
+            // pas d'abscence toggle tous les checkbox
+        const mainCheckbox = document.getElementById('switch_pas_dabscence');
+        mainCheckbox.addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('.boite_nom_presence input[type="checkbox"]');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = mainCheckbox.checked;
+                    checkbox.dispatchEvent(new Event('change')); 
+                });
+            });  
 
-            //************************* */
-            //changer la couleur des nom quand un checkbox est cheked
-            //************************* */
-            input.addEventListener('change', function() {
-                var nameElement = this.parentElement.parentElement.previousElementSibling;
-                if (this.checked) {
-                    nameElement.style.color = 'green';
-                } else {
-                    nameElement.style.color = 'red'; // Reset to red when user un toggles
-                }
-            });
-        }
-    }
-});
+
+
+  
+    });
 
 //************************* */
 //ajouter objectifs dans la tables d'objectif
