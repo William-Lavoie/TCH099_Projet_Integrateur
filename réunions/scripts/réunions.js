@@ -4,6 +4,8 @@
 
 // identifiant de la réunion
 var idReunion;
+var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -206,12 +208,38 @@ document.addEventListener('DOMContentLoaded', function () {
 //************************* */
 document.addEventListener('DOMContentLoaded', function () {
 
-    let nbObjectifAAjouter = 10; 
+    // Chercher la liste des tâches
+    donnees = {'idReunions': idReunion};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_taches", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
 
-    const testbtn = document.getElementById('testButton2');
-    testbtn.addEventListener('click', function () {
-        addRowsToContainer(nbObjectifAAjouter);
-    });
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+
+            
+
+            let nbObjectifAAjouter = data.length; 
+
+        for (let i = 0; i < nbObjectifAAjouter; i++) {
+            addTasksToContainer(data[i]['titre']);
+        }
+
+        })
+        .catch(error => {
+        console.log(error);
+        });
 
     // slider completé change toute les slider
     const mainCheckbox = document.getElementById('switch_toDo_complete');
@@ -223,11 +251,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    function addRowsToContainer(numRows) {
+    function addTasksToContainer(titre) {
         var container = document.getElementById("toDo_conteneur");
-        var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
 
-        for (var i = 1; i <= numRows; i++) {
             // Create div for each row
             var rowDiv = document.createElement("div");
             rowDiv.classList.add("hide-text", "boite_toDo");
@@ -241,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
             label.classList.add("switch_toDo");
             var input = document.createElement("input");
             input.setAttribute("type", "checkbox");
-            input.id = "Objectif" + i;
+            input.id = document.getElementById("toDo_conteneur").getElementsByTagName("input").length;
             input.classList.add("Objectif");
             input.setAttribute("name", "Objectif");
             var span = document.createElement("span");
@@ -257,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Objectif
             var nameDiv = document.createElement("div");
             nameDiv.classList.add("nomObjectif");
-            nameDiv.textContent = "Objectif";
+            nameDiv.textContent = titre;
             rowDiv.appendChild(nameDiv);
 
             //************************* */
@@ -274,20 +300,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     totalCheckboxesChecked--; // Decrement total checked checkboxes
                 }
                 // Update completion bar
-                updateCompletion(totalCheckboxesChecked, numRows);
+                updateCompletion(totalCheckboxesChecked, document.getElementById("toDo_conteneur").getElementsByTagName("input").length);
             });
 
                 // Listen for changes on the mainCheckbox
             mainCheckbox.addEventListener('change', function () {
                 if (this.checked) {
-                    totalCheckboxesChecked = nbObjectifAAjouter;
+                    totalCheckboxesChecked = document.getElementById("toDo_conteneur").getElementsByTagName("input").length;
                 } else {
                     totalCheckboxesChecked = 0;
                 }
-                updateCompletion(totalCheckboxesChecked, numRows);
+                updateCompletion(totalCheckboxesChecked, document.getElementById("toDo_conteneur").getElementsByTagName("input").length);
             });
-        }
-    }
+    
 
     //**************************************** */
     // Update la bar de progression
@@ -300,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.value = completionPercentage;
         valueElement.textContent = completionPercentage.toFixed(2) + "%";
     }
+}
 });
 
 

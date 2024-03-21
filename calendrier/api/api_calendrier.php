@@ -312,6 +312,37 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         }
 
+
+    // Chercher les tâches pour une réunion donnée
+    if (preg_match("~chercher_liste_taches$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+    
+            $idReunions = $donnees['idReunions'];
+           
+            $query = $conn->prepare("SELECT titre, completee FROM taches AS t INNER JOIN liste_taches AS lt ON t.id_liste_taches = lt.id_listes_taches WHERE lt.id_reunions = :id");
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
+
 }
 
 // WORK IN PROGRESS

@@ -493,7 +493,7 @@ function envoyerFormulaireGroupe() {
 
             // Fermer les formulaires et rafraîchir la page
             fermerFormulaires();
-           // window.location.reload();
+            window.location.reload();
             return response.json();
         }
 
@@ -530,7 +530,7 @@ function envoyerFormulaireParticipants() {
 
     // Fermer les formulaires et rafraîchir la page
     fermerFormulaires();
-    //window.location.reload();
+    window.location.reload();
     return response.json();
     }
 
