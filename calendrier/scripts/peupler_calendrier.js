@@ -132,8 +132,7 @@ $(document).ready(function() {
       }
 
       const donnees = await reponse.json();
-      console.log(donnees.length);
-      console.log("premier" + premierJour + "    dernier" + dernierJour)
+   
       // Pour les cases entre la date de début et de fin 
       for (let i = premierJour; i < dernierJour; i++) {
 
@@ -164,9 +163,7 @@ $(document).ready(function() {
 
           // Date de la réunion
           let dateNombre = donnees[j]['date'].slice(8);  
-          console.log(dateNombre);        
-         // console.log($("#calendrier").children().eq(i).find("p").text());
-          //Mettre un fond rouge si une réunion a été trouvée pour une certaine date
+
           if (dateNombre.toString().padStart(2,'0') == $("#calendrier").children().eq(i).find("p").text().padStart(2,'0')) {
   
             // Afficher la réunion dans la case

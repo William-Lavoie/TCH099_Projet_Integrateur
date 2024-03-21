@@ -119,51 +119,51 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['groupe'])) {
 
-        require("connexion.php");
+            require("connexion.php");
 
-        $groupe = $donnees['groupe'];
-        $titre = $donnees['titre'];
-        $debut = $donnees['debutReunion'];
-        $fin = $donnees['finReunion'];
-        $date = $donnees['dateReunion'];
-        $description = $donnees['description'];
+            $groupe = $donnees['groupe'];
+            $titre = $donnees['titre'];
+            $debut = $donnees['debutReunion'];
+            $fin = $donnees['finReunion'];
+            $date = $donnees['dateReunion'];
+            $description = $donnees['description'];
 
-        // Création de la réunion
-        $query = $conn->prepare("INSERT INTO reunions (id_groupes, courriel_createur, titre, heure_debut, heure_fin, date, description) VALUES ('$groupe', :courriel, '$titre', '$debut', '$fin', '$date', '$description')");
-        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-        $query->execute();
+            // Création de la réunion
+            $query = $conn->prepare("INSERT INTO reunions (id_groupes, courriel_createur, titre, heure_debut, heure_fin, date, description) VALUES ('$groupe', :courriel, '$titre', '$debut', '$fin', '$date', '$description')");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->execute();
 
-        //id de la réunion venant d'être créée
-        $id_reunion = $conn->lastInsertId();
+            //id de la réunion venant d'être créée
+            $id_reunion = $conn->lastInsertId();
 
-        // Ajout du créateur dans la table de jointure 
-        $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            // Ajout du créateur dans la table de jointure 
+            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
             $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
             $query->execute();
 
 
-        // Recherche de tous les participants dans le groupe
-        $query = $conn->prepare("SELECT courriel_etudiants FROM utilisateurs_groupes ug INNER JOIN groupes g ON ug.id_groupes = g.id_groupes  WHERE g.id_groupes = '$groupe'");
-        $query->execute();
-
-        $resultat = $query->fetchAll(PDO::FETCH_ASSOC);
-
-        // Création d'une entrée dans la table de jointure pour chaque utilisateur
-        for ($i = 0; $i < count($resultat); $i++) {
-
-            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
-            $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
-            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            // Recherche de tous les participants dans le groupe
+            $query = $conn->prepare("SELECT courriel_etudiants FROM utilisateurs_groupes ug INNER JOIN groupes g ON ug.id_groupes = g.id_groupes  WHERE g.id_groupes = '$groupe'");
             $query->execute();
-        }
 
-        echo json_encode(["error" => "succes"]);
+            $resultat = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        }
-        else {
-            echo json_encode(["error" => "erreur"]);
-        }
+            // Création d'une entrée dans la table de jointure pour chaque utilisateur
+            for ($i = 0; $i < count($resultat); $i++) {
+
+                $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+                $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            echo json_encode(["error" => "succes"]);
+
+            }
+            else {
+                echo json_encode(["error" => "erreur"]);
+            }
 
     }
 
@@ -319,6 +319,29 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["error" => "erreur"]);
         }
     }
+
+
+     // Chercher le nom de l'utilisateur
+     if (preg_match("~afficher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT nom FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+    
         
 
     };

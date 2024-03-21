@@ -77,5 +77,32 @@ $(document).ready(function() {
           'background-image': 'url("/structure/image_structure/image_profil_vide.png")',
         });
     });
-  }
-);
+
+     /**
+   * AFFICHER_NOM
+   * Permet d'afficher dans l'en-tête le nom de l'utilisateur connecté
+   */
+     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+     
+        $("#info-header label").text(data['nom']);        
+
+    })
+    .catch(error => {
+
+    });
+
+});
+  
