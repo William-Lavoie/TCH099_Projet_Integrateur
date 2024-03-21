@@ -36,7 +36,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
-        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['listeParticipants'])) {
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['listeParticipants'], $donnes['taches'])) {
 
         require("connexion.php");
 
@@ -46,6 +46,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $fin = $donnees['finReunion'];
         $date = $donnees['dateReunion'];
         $description = $donnees['description'];
+        $taches = $donnees['taches'];
 
         // Création de la réunion
         $query = $conn->prepare("INSERT INTO reunions (courriel_createur, titre, heure_debut, heure_fin, date, description) VALUES (:courriel, '$titre', '$debut', '$fin', '$date', '$description')");
@@ -67,6 +68,23 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
             $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
             $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+        }
+
+        // Création de la liste des tâches 
+        $query = $conn->prepare("INSERT INTO liste_taches (id_reunions) VALUES (:id)");
+        $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+        $query->execute();
+
+        $id_liste= $conn->lastInsertId();
+
+
+        // Ajout des tâches 
+        for ($i = 0; $i < count($taches); $i++) {
+
+            $query = $conn->prepare("INSERT INTO taches (titre, id_reunions) VALUES (:titre, :id_reunion)");
+            $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
+            $query->bindParam(":id_reunion", $id_reunion,  PDO::PARAM_STR);
             $query->execute();
         }
 
@@ -127,6 +145,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $fin = $donnees['finReunion'];
             $date = $donnees['dateReunion'];
             $description = $donnees['description'];
+            $taches = $donnees['taches'];
+
 
             // Création de la réunion
             $query = $conn->prepare("INSERT INTO reunions (id_groupes, courriel_createur, titre, heure_debut, heure_fin, date, description) VALUES ('$groupe', :courriel, '$titre', '$debut', '$fin', '$date', '$description')");
@@ -155,6 +175,23 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
                 $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+             // Création de la liste des tâches 
+            $query = $conn->prepare("INSERT INTO liste_taches (id_reunions) VALUES (:id)");
+            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+
+            $id_liste= $conn->lastInsertId();
+
+
+            // Ajout des tâches 
+            for ($i = 0; $i < count($taches); $i++) {
+
+                $query = $conn->prepare("INSERT INTO taches (titre, id_reunions) VALUES (:titre, :id_reunion)");
+                $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
+                $query->bindParam(":id_reunion", $id_reunion,  PDO::PARAM_STR);
                 $query->execute();
             }
 

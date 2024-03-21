@@ -12,6 +12,9 @@ $(document).ready(function() {
     // Liste des participants à ajouter à une réunion
     let participantsReunion = [];
 
+    // Liste des tâches à ajouter à une réunion
+    let listeTaches = [];
+
     /**
      * Vide tous les champs et ferme les formulaires de création d'une réunion
      */ 
@@ -225,7 +228,8 @@ $(document).ready(function() {
         if ($("#formulaires-reunion").has(event.target).length <= 0 &&
              // Empêche le formulaire de fermer dès son ouverture
              !$(event.target).is("#creer-reunion") &&
-             !$(event.target).is("#modifier-reunion-panneau")) {
+             !$(event.target).is("#modifier-reunion-panneau") &&
+             !$(event.target).is("#btn-creer-tache")) {
 
             fermerFormulaires();
             enleverFocus();
@@ -299,7 +303,7 @@ $(document).ready(function() {
      /**
       * Retour vers la première page du formulaire depuis la page des groupes
       */
-     $("#btn-retour-groupe").on("click", function(event) {
+     $("#btn-retour-groupes").on("click", function(event) {
        
         $("#creer-reunion-groupe").removeClass("reunion-visible");
      })
@@ -405,11 +409,63 @@ $(document).ready(function() {
 
 
 
-   // Soumission de la création d'une réunion côté participants
-   $("#btn-confirmer-groupes").on("click", function(event) {
+    // Ajout d'une tâche
+    $("#btn-creer-tache").on("click", function() {
 
-    event.preventDefault();
+         // Tâche entrée par l'utilisateur
+         let texte = $("#nouvelle-tache").val();
 
+         // La tâche est ajoutée à la liste
+         $("#nouvelle-tache").val("");
+
+         const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
+         const boutonSupprimer = $("<button class='supprimer-tache'>X</button>");
+
+         // Bouton pour supprimer le participant 
+         boutonSupprimer.on("click", function(event) {
+
+        // Évite de supprimer les parents également
+        event.stopPropagation(); 
+        $(this).parent().remove();
+        });
+
+         // Création du participant dans le formulaire 
+          nouvelleTache.children("p").text(texte);
+          nouvelleTache.append(boutonSupprimer);
+          $("#liste-taches").append(nouvelleTache);
+
+        // Ajouter au tableau de tâches
+        listeTaches.push(texte);
+    })
+
+    // Revenir en arrière à partir du formulaire de création des tâches
+    $("#btn-retour-liste").on("click", function() {
+        event.preventDefault();
+        $("#creer-liste-taches").removeClass("reunion-visible");
+    })
+
+    // Accéder à la liste des tâches à partir du formulaire des groupes
+    $("#btn-continuer-groupes").on("click", function() {
+        $("#creer-liste-taches").addClass("reunion-visible");
+        $("#creer-liste-taches").children().find(".btn-reunion").append("<button id='btn-confirmer-groupes'>Confirmer</button>");
+
+        $("#creer-liste-taches").children().find("#btn-confirmer-groupes").on("click", function(event) {
+            event.preventDefault();
+            envoyerFormulaireGroupe();
+        });
+
+    })
+
+    // Accéder à la liste des tâches à partir du formulaire des participants
+    $("#btn-continuer-participants").on("click", function() {
+        $("#creer-liste-taches").addClass("reunion-visible");
+        $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
+
+    })
+
+   
+
+function envoyerFormulaireGroupe() {
     let groupe = $("#choix-groupe").val();
     if (groupe != null) {
          // Les informations de la réunions sont ajoutées à la base de données
@@ -418,7 +474,8 @@ $(document).ready(function() {
          "finReunion": finReunion,
          "dateReunion": dateReunion,
          "description": description,
-         "groupe": groupe};
+         "groupe": groupe,
+         "taches": listeTaches};
 
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
         method: 'POST',
@@ -431,7 +488,7 @@ $(document).ready(function() {
 
             // Fermer les formulaires et rafraîchir la page
             fermerFormulaires();
-            window.location.reload();
+           // window.location.reload();
             return response.json();
         }
 
@@ -444,7 +501,8 @@ $(document).ready(function() {
         });
 
         };
-    });
+}
+    
 
 
 // Soumission de la création d'une réunion côté participants
@@ -458,7 +516,8 @@ $("#btn-confirmer-participants").on("click", function(event) {
                          "finReunion": finReunion,
                          "dateReunion": dateReunion,
                          "description": description,
-                         "listeParticipants": participantsReunion};
+                         "listeParticipants": participantsReunion,
+                         "taches": listeTaches};
            
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
             method: 'POST',

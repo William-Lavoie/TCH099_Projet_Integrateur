@@ -117,6 +117,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
   
+            /* Vérifier que la réunion est en cours
+            if (data['date'] != new Date() || ) {
+                $("input").prop("disabled", true);
+
+            }*/
+
           let nbNomAAjouter = data.length;
 
           for (let i = 0; i < nbNomAAjouter; i++) {
