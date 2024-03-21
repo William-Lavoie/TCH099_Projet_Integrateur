@@ -42,7 +42,7 @@ header {
   height: 20%;
   font-size: 1.5rem;
   text-align: center;
-  background-color: rgba(3, 4, 94, 1);
+  background-color: #04071d;
 
 }
 
@@ -109,7 +109,7 @@ textarea {
 }
 
 .btn-reunion button{
-  background-color: rgba(3, 4, 94, 1);
+  background-color: #04071d;
   color: white;
   border-radius: 0.5em;
   width: 40%;
@@ -142,7 +142,7 @@ textarea {
 }
 
 #btn-creer-participant, #btn-creer-tache {
-  background-color: rgba(3, 4, 94, 1);
+  background-color: #04071d;
   border-radius: 50%;
   height: 2.5em;
   width: 2.5em;
@@ -195,6 +195,14 @@ border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: 1.8em;
+}
+
+.supprimer-participant:hover, .supprimer-tache:hover {
+  background-color: transparent;
+  font-size: 2.1em;
 }
 
 #choix-groupe {
@@ -385,7 +393,7 @@ justify-content: center;
   }
 
   #btn-panneau-reunion button:hover, #creer-reunion:hover, form button:hover {
-    background-color: #00c1f3 !important;
+    background-color: #00c1f3;
   }
 
   .ouvrir-reunion {
@@ -457,7 +465,7 @@ justify-content: center;
   #btn-ajouter-reunion {
     aspect-ratio: 1/1;
     border-radius: 100%;
-    background-color: rgba(3, 4, 94, 1);
+    background-color: #04071d;
     position: relative;
     top: 15%;
     color: white;
