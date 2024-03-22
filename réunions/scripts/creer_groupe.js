@@ -122,7 +122,7 @@ $(document).ready(function() {
             erreurs.text("L'adresse e-mail est invalide.");
             return false;
         } 
-          else if (tableauParticipants.includes(participant)) {
+        else if (tableauParticipants.includes(participant)) {
             erreurs.text("Le participant est déjà dans la liste.");
             return false;
         }  
@@ -132,7 +132,7 @@ $(document).ready(function() {
                 listeParticipants.text(participant);
 
                  // Ajouter à la liste des participants
-                 tableauParticipants.push(participant);
+                tableauParticipants.push(participant);
             } else {
                 // Ajouter le participant à la liste en séparant par une virgule et un espace
                 listeParticipants.text(listeParticipants.text() + ", " + participant);
@@ -200,11 +200,11 @@ $(document).ready(function() {
         // Cacher le formulaire (fin)
         formulaireCreerGroupe.css("visibility", "hidden");
 
-           // Réinitialiser les champs du formulaire
-           $("#nom-groupe").val('');
-           $("#description").val('');
-           listeParticipants.text('');
-           erreurs.text('');
+        // Réinitialiser les champs du formulaire
+        $("#nom-groupe").val('');
+        $("#description").val('');
+        listeParticipants.text('');
+        erreurs.text('');
 
     }
     });
