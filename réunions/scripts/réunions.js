@@ -78,6 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             // Ajouter des boutons pour supprimer ou modifier un message 
+            const boutonSupprimer = $("<button id='supprimer-message'>🗑</button>");
+            const boutonModifier = $("<button id='modifier-message'>⚙</button>");
+            message.children("#heure-message").append(boutonSupprimer);
+            message.children("#heure-message").append(boutonModifier);
+
+            boutonSupprimer.on("click", function() {
+                console.log(data[i]['id_message']);
+                supprimerMessage(data[i]['id_message']);
+            })
 
             $("#notes-publiques").append(message);
             $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
@@ -92,6 +101,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    /**
+     * Supprime le message choisi par l'utilisateur. Ceci est uniquement 
+     * possible si le message a été écrit par l'utilisateur
+     * @param {int} id_message 
+     */
+    function supprimerMessage(id_message) {
+
+        let donnees = {'id_message': id_message};
+
+        //Supprimer le message avec identifiant id_message 
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/supprimer-message", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+  
+        if (response.ok) {
+            console.log("ok");
+        }
+  
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+  
+            window.location.reload();
+        })
+        .catch(error => {
+        console.log(error);
+        });
+  
+
+    }
 
     /**
      * Créer un nouveau message

@@ -461,7 +461,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             require("connexion.php");
 
             // Obtenir la liste des tâches de la réunion
-            $query = $conn->prepare("SELECT DISTINCT m.auteur, m.contenu, m.heure, u.nom FROM message AS m INNER JOIN forum AS f ON m.id_forum = f.id_forum INNER JOIN reunions AS r ON f.id_reunions= r.id_reunions INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions INNER JOIN utilisateurs AS u on m.auteur = u.courriel_utilisateurs WHERE f.id_reunions = :id");
+            $query = $conn->prepare("SELECT DISTINCT m.id_message, m.auteur, m.contenu, m.heure, u.nom FROM message AS m INNER JOIN forum AS f ON m.id_forum = f.id_forum INNER JOIN reunions AS r ON f.id_reunions= r.id_reunions INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions INNER JOIN utilisateurs AS u on m.auteur = u.courriel_utilisateurs WHERE f.id_reunions = :id");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetchAll();
@@ -475,6 +475,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         else {
             echo json_encode(["error" => "erreur"]);
         }
+       }
+    }
+
+    // Obtenir les messages pour une réunion donnée
+    if (preg_match("~supprimer-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['id_message'])) {
+
+            require("connexion.php");
+
+            // Obtenir la liste des tâches de la réunion
+            $query = $conn->prepare("DELETE FROM message WHERE id_message = :id");
+            $query->bindParam(":id", $donnees['id_message'],  PDO::PARAM_STR);
+            $query->execute();            
+      
        }
     }
 

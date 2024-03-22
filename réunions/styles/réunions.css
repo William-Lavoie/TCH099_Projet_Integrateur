@@ -64,6 +64,16 @@ main {
     color: black;
 }
 
+#supprimer-message, #modifier-message {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+}
+
+#supprimer-message:hover, #modifier-message:hover {
+    font-size: 1.8em;
+}
+
 #contenu-message {
     overflow-y:scroll;
 }
@@ -75,8 +85,9 @@ main {
   #heure-message {
     width: 10%;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
     color: black;
     padding-top: 1%;
   }
