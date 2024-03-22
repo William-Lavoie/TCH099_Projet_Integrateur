@@ -4,49 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'accueil</title>
+
     <link href="/page_accueil/styles/page_accueil.css" rel="stylesheet">
+
 </head>
 <body>
-    <header>
-        <div id="logo_conteneur">
-            <div id="logo_plan">
-                <span id="logo_acronyme">HH</span>
-                <span id="logo_nom">HuddleHarbor</span>
-                <span id="logo_slogan">Travillez avec efficacité!</span>
-            </div>
-        </div>
-        <div id="text_conteneur">Créez des réunions rapidement
-        <br> Joignez-vous avec les autres
-        </div>
-        <div id="boutons_conteneur">
-            <button id="bouton1">À propos</button>
-            <button id="bouton2">Fonctionnalités</button>
-            <button id="bouton1">FAQ</button>
-            <button id="bouton2">Nous contacter</button>
-            <button id="bouton1">Conditions</button>
-        </div>
-        <div id="compte_conteneur">
-            <div id="compte_ligne">
-                <button id="connecter">
-                    <img id="image_bouton" src="account_icon.svg" alt="Icône utilisateur">
-                    <span id="bouton-text">  Se connecter</span>
-                </button>
-                <button id="inscrire">
-                    <img id="image_bouton" src="account_icon.svg" alt="Icône utilisateur" height="70%">
-                    <span id="bouton-text">  Créer un compte</span>
-                    </button>
-            </div>
-        </div>
-        
-    </header>
-    <img id="arriere_plan" src="imgAccueil.jpg" alt="Image arrière plan de la page d'accueil" width="100%" height="100%"></img>
-    <footer>
-        <h5>Privacy policy &nbsp | &nbsp Terms and condition</h5>
-        <h4>HH</h4>
-        <h5>© 2024 All rights reserved</h5>
-    </footer>
+<header>
 
-    <div id="logout" style="visibility: hidden;"></div>
+    <div id="logo-header"></div>
+
+    <!--Conteneur des boutons-->
+    <div id="conteneur-boutons-header">
+        <button id="connecter" class="boutons-connecter">Connexion</button>
+        <button id="inscrire" class="boutons-inscrire">Inscription</button>
+    </div>
+
+    <!--Decoration du header-->
+    <div id="fond-en-tete">
+        <div id="ligne-bleu-header"></div>
+        <div id="ligne-blanche-header">
+            <div id="lignes-decoratives-header"></div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <img id="arriere_plan" src="imgAccueil.jpg" alt="Image arrière plan de la page d'accueil" width="100%" height="100%"></img>
+
+</main>
+    
+
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="/page_accueil/scripts/login.js"></script>
 </body>

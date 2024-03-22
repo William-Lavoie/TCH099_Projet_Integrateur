@@ -1,176 +1,9 @@
 body {
     margin: 0;
     width: 100vw;
-    height: min(100vh);
-    overflow-x: hidden;
-    background-color:  rgba(3, 4, 94, 1);
-}
-
-header {
-    width: 100vw;
-    min-height: 10vmin;
-    max-height: 18vmax;
-    position: sticky;
-    top: 0;
-    background-color: #03045e;
-    display: grid;
-    grid-template-areas: "a b c"
-                         "a d d";
-    grid-template-columns: 20% 40% 40%;
-    grid-template-rows: 70% 30%;
-    z-index: 1;
+    height: 100vh;
     overflow: hidden;
-}
-
-#logo_conteneur {
-    grid-area: a;
-    border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#text_conteneur {
-    grid-area: b;
-    border: 0;
-    font-size: 2vw;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;    font-weight: 700;
-    color: #ffffff;
-    text-align: left;
-    display: flex;
-    align-items: end;
-}
-
-#boutons_conteneur {
-    grid-area: d;
-    border: 0;
-    text-wrap: nowrap;
-    font-size: max(1.8vw);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-right: 2%;
-}
-
-#compte_conteneur {
-    grid-area: c;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
-
-#logo_plan {
-    width: 90%;
-    height: 90%;
-    border: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#logo_acronyme {
-    width: 100%;
-    height: 4vw;
-    font-size: max(4vw);
-    color: #1399d8;
-    font-weight: 700;
-    font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-    font-style: italic;
-    box-sizing: border-box;
-    text-align: center;
-    border: 2px solid transparent;
-}
-
-#logo_nom {
-    width: 100%;
-    height: 3vw;
-    font-size: max(2.5vw);
-    color: #7eccff;
-    font-weight: 700;
-    font-family: "Poppins Bold", "Poppins", sans-serif;
-    box-sizing: border-box;
-    text-align: center;
-    border: 2px solid transparent;
-}
-
-#logo_slogan {
-    width: 100%;
-    height: 5vw;
-    font-size: max(1.8vw);
-    background-color: rgba(255, 255, 255, 0);
-    font-family: "Script MT Bold", "Script MT", sans-serif;
-    font-weight: 700;
-    text-wrap: nowrap;
-    color: #a7a8ab;
-    box-sizing: border-box;
-    text-align: center;
-    border: 2px solid transparent;
-}
-
-#bouton1 {
-    width: 19%;
-    height: 90%;
-    background-color: #00509d;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-    font-weight: 700;
-    font-size: 100%;
-    color: #ffffff;
-    text-align: center;
-    line-height: normal;
-    border: 0;
-    box-sizing: border-box;
-}
-
-#bouton2 {
-    width: 19%;
-    height: 90%;
-    background-color: #003f88;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-    font-weight: 700;
-    font-size: 100%;
-    color: #ffffff;
-    text-align: center;
-    border: 0;
-}
-
-#compte_ligne {
-    width: 100%;
-    height: 80%;
-    border: 2px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-left: 3%;
-    padding-right: 5%;
-}
-
-#inscrire, #connecter {
-    width: 18vmax;
-    height: 4vmax;
-    background-color: #0077b6;
-    border: 2px solid #006ba7;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 1%;
-    margin: 2%;
-}
-
-#image_bouton {
-    height: 70%;
-    box-sizing: border-box;
-    align-self: center;
-}
-
-#bouton-text {
-    color: white;
-    font-family: "Arial Bold", "Arial Normal", "Arial", sans-serif;
-    font-weight: bold;
-    font-size: max(1.5vw);
-    text-wrap: nowrap;
-    align-self: center;
+    background-color:  #04071d;
 }
 
 #arriere_plan {
@@ -178,34 +11,144 @@ header {
     opacity: 0.85;
 }
 
-footer {
+
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 14vmin;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+#logo-header {
+    width: 16vw;
+    min-width: 7em;
+    min-height: 4em;
+    height: 14vmin;
+    box-sizing: border-box;
+    background-image: url("/structure/image_structure/logo2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#conteneur-boutons-header {
+    flex-grow: 1;
+    min-width: 10em;
+    min-height: 4em;
+    height: 14vmin;
+    display: flex;
+    align-items: center;
+    margin-top: 1.5em;
+    justify-content: flex-end;
+    gap: 2.5vw;
+    padding-right: 2vw;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+}
+
+.boutons-connecter,
+.boutons-inscrire{
+    width: 12vmin;
+    min-width: 7em;
+    max-width: 16em;
+    height: 4vmin;
+    min-height: 2em;
+    color: white;
+    background-color: #04071d;
+    border: 0.1rem solid white;
+    border-radius: 0.5em;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.boutons-inscrire{
+    background-color: white;
+    color: #04071d;
+    border: 0.1rem solid #04071d;
+}
+
+.boutons-connecter:hover,
+.boutons-inscrire:hover {
+    color: #04071d;
+    background-color: white;
+    border: 3px solid #04071d;
+    cursor: pointer;
+}
+
+.boutons-inscrire:hover{
+    background-color: #04071d;
+    border: 0.1rem solid white;
+    color: white;
+}
+
+#conteneur-header-variable {
+    min-height: 4em;
+    height: 14vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+
+#fond-en-tete {
+    position: absolute;
+    width: 100vw;
+    min-height: 4em;
+    height: 14vmin;
     display: flex;
     flex-direction: column;
-    background-color:  rgba(3, 4, 94, 1);
-    color: white;
-    text-align: center;
-    margin-top: max(auto, 100vh);
-    padding: 2vmin;
-    bottom: 0;
-    width: 100%;
+    box-sizing: border-box;
     z-index: -1;
 }
 
-footer h5 {
-    margin: 0;
-    font-size: .8rem;
+#ligne-bleu-header {
+    width: 100vw;
+    min-height: 2em;
+    height: 7vh;
+    background-color: #04071d;
+    box-sizing: border-box;
+    z-index: -1;
 }
 
-footer h4 {
-    margin-top: 0;
-    margin-bottom: 0;
-    color: #1399d8;
-        font-size: 2.5em;
-        font-weight: 700;
-        font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-        font-style: italic;
+#ligne-blanche-header {
+    width: 100vw;
+    min-height: 2em;
+    height: 7vh;
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    z-index: -1;
 }
 
-button:hover {
-    opacity: 80%;
+#lignes-decoratives-header {
+    width: 100vw;
+    border-bottom: 5px double #04071d;
+    box-sizing: border-box;
 }
+
+header a {
+    all: unset;
+}
+
+header button, header a {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
