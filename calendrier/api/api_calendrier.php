@@ -667,6 +667,20 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
 
+    // Chercher le courriel de l'utilisateur courant
+    if (preg_match("~chercher-courriel$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        if (isset($_SESSION['courriel'])) {
+            echo json_encode($_SESSION['courriel']);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
 
     
         

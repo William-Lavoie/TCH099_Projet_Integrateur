@@ -77,30 +77,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            // Ajouter des boutons pour supprimer ou modifier un message 
-            const boutonSupprimer = $("<button id='supprimer-message'>🗑</button>");
-            const boutonModifier = $("<button id='modifier-message'>⚙</button>");
-            message.children("#heure-message").append(boutonSupprimer);
-            message.children("#heure-message").append(boutonModifier);
+            // Vérifier si le message a été écrit par l'utilisateur connecté
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+                })
+                .then(response => {
+        
+                if (response.ok) {
+        
+                return response.json();
+                }
+        
+                else {
+                }
+                })
+                .then(reponse => {
+        
+                    console.log(reponse);
+                    
+                 if (reponse == data[i]['auteur']) {
+                    // Ajouter des boutons pour supprimer ou modifier un message 
+                    const boutonSupprimer = $("<button id='supprimer-message'>🗑</button>");
+                    const boutonModifier = $("<button id='modifier-message'>⚙</button>");
+                    message.children("#heure-message").append(boutonSupprimer);
+                    message.children("#heure-message").append(boutonModifier);
 
-            boutonSupprimer.on("click", function() {
-                supprimerMessage(data[i]['id_message']);
-            })
+                    boutonSupprimer.on("click", function() {
+                        supprimerMessage(data[i]['id_message']);
+                    })
 
-            boutonModifier.on("click", function() {
-                modifierMessage(data[i]['id_message'], data[i]['contenu'], message);
-            })
+                    boutonModifier.on("click", function() {
+                        modifierMessage(data[i]['id_message'], data[i]['contenu'], message);
+                    })
 
-            $("#notes-publiques").append(message);
-            $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
-
+                   
+                 }  
+        
+        
+                })
+                .catch(error => {
+                console.log(error);
+                });  
+                
+                console.log(message);
+        $("#notes-publiques").append(message);
+        $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
         }
     
-    
+        
+
     
     })
     .catch(error => {
-
+        console.log("Erreur");
     });
 
 

@@ -33,6 +33,7 @@ main {
     min-height: 15%;
     display: flex;
     padding-left: 2%;
+    padding-top: 1%;
     margin-bottom: 2%;
 }
 
@@ -105,6 +106,7 @@ main {
 
   #modifier-message-textarea {
     height: 100%;
+    border-radius: 1em;
   }
 
 /* start of aside code */
