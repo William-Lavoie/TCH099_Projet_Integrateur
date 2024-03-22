@@ -156,8 +156,9 @@ titre de la page
 
 #conteneur-titre-page-accueil {
     text-align: center;
-    height: 100vh;
+    height: 60vh;
     background-color: #04071d;
+    margin-top: 1vh;
 }
 
 #conteneur-titre-page-accueil h1 {
