@@ -230,7 +230,7 @@ $(document).ready(function() {
     for (let i = compteur; i < premierJour; i++) {
 
       // Affiche la date et crée la case correspondante
-      const journee = $("<div class='jour'></div>");
+      const journee = $("<div class='jour' id='pas-mois-courant'></div>");
       let dateJournee = $("<p>" + debutCalendrier + "</p>");
 
       journee.append(dateJournee);
@@ -297,7 +297,7 @@ $(document).ready(function() {
     index = 1;
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
   
-      const journee = $("<div class='jour'></div>");
+      const journee = $("<div class='jour' id='pas-mois-courant'></div>");
       let dateJournee = $("<p>" + index + "</p>");
       journee.append(dateJournee);
 
