@@ -137,15 +137,16 @@ main {
 #conteneur-ajouter-tache{
     display: flex;
     flex-direction: column;
-    height: 3.4em;
+    height: 1.5em;
 }
 
 #boite-nouvelle-tache{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content:space-between;
     background-color: #04071d;
-    padding: 0.25em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
 }
 
 
@@ -234,8 +235,9 @@ input[type="range"]::-ms-fill-upper {
 #to_do button {
     color: white;
     background-color: #04071d;
-    font-size: 1em;
-    padding: 5px;
+    font-size: 0.5em;
+    width: 1em;
+    padding: 2px;
     text-align: center;
     width: 100%;
     cursor: pointer;
