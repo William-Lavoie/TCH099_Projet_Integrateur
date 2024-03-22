@@ -411,9 +411,10 @@ $(document).ready(function() {
         // Ajouter les participants
         for (let i = 0; i < data.length; i++) {
 
-          let participant = $("<div class='participant-pour-reunion'><img src='../images/image_profil_vide.png' width='25px' height='25px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
+          let participant = $("<div class='participant-pour-reunion'><img width='35px' height='35px'><div class='nom-participant-reunion'>" + data[i]['nom'] + "</div></div>");
           infoReunions.append(participant);
 
+          chercherPhoto(data[i]['courriel_utilisateurs'],i, reunion);
         }
       })
       .catch(error => {
@@ -457,6 +458,49 @@ $(document).ready(function() {
     ouvrirReunion(journee);
     console.log(index);
     consulterReunion($("#panneau-reunions").children().eq(index));
+  }
+
+  /**
+   * Permet d'afficher la photo d'un utilisateur pour une réunion
+   * L'index correspond à sa position dans la liste  
+   * @param {String} courriel 
+   * @param {int} index
+   */
+  async function chercherPhoto(courriel, index, reunion) {
+
+    const donnees = {"courriel": courriel};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_photo", {
+    method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donnees)
+      })
+    .then(response => {
+
+    if (response.ok) {
+    return response.blob();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+      const img = document.createElement('img');
+      
+
+      if (data != undefined && data != null) {
+
+       reunion.children().eq(2).children().eq(index).children().eq(0).css({
+          'background-image': 'url(' + URL.createObjectURL(data) + ')',
+
+        });
+  
+    }})
+    .catch(error => {
+
+       console.log("Erreur")
+      
+    });
   }
 
 

@@ -254,7 +254,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             $idReunions = $donnees['idReunions'];
            
-            $query = $conn->prepare("SELECT nom FROM utilisateurs AS u INNER JOIN utilisateurs_reunions AS ur ON u.courriel_utilisateurs = ur.courriel_utilisateurs WHERE id_reunions = :id");
+            $query = $conn->prepare("SELECT nom, u.courriel_utilisateurs FROM utilisateurs AS u INNER JOIN utilisateurs_reunions AS ur ON u.courriel_utilisateurs = ur.courriel_utilisateurs WHERE id_reunions = :id");
             $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
 
             $query->execute();
@@ -341,6 +341,36 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     
     }
+
+    // Chercher la photo de profil des participants à une réunion
+    if (preg_match("~chercher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['courriel'])) {
+            require("connexion.php");
+
+
+            $query = $conn->prepare("SELECT photo FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+            echo $resultat[0];
+
+            if ($resultat) {
+                echo json_encode($resultat);
+            }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+        }
+
+        
 
 
 }

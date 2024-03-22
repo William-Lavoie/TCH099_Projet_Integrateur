@@ -546,7 +546,7 @@ function envoyerFormulaireParticipants() {
     }
 
     for (let i = 0; i < $("#liste-participants").children().length; i++) {
-        listeParticipants.push($("#liste-taches").children().eq(i).find("p").text());
+        participantsReunion.push($("#liste-participants").children().eq(i).find("p").text());
     }
 
     // Les informations de la réunions sont ajoutées à la base de données
