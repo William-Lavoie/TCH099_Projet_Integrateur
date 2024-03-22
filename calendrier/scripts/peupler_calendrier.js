@@ -345,6 +345,16 @@ $(document).ready(function() {
       let date = journee.find("p").text();
       $("#consulter-reunion-calendrier span").html(journeeSemaine + " " + date + "<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
 
+      // Bouton pour quitter l'onglet
+      let boutonQuitter = $("<button id='quitter-reunion'></button>");
+      $("#consulter-reunion-calendrier span").append(boutonQuitter);
+
+      $("#quitter-reunion").on("click", function(event) {
+        event.preventDefault();
+        $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
+
+      })
+
       // Représenter les différentes réunions dans l'onglet
       $("#panneau-reunions").html("");
 
@@ -386,7 +396,7 @@ $(document).ready(function() {
     if (!reunion.hasClass("reunion-visible-panneau")) {
 
       reunion.addClass("reunion-visible-panneau");
-      const infoReunions = $("<div id=informations-reunion></div>");
+      const infoReunions = $("<div id='informations-reunion'></div>");
       const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
       // Ajouter la liste des participants
@@ -442,6 +452,35 @@ $(document).ready(function() {
 
       $(reunion).find("#btn-panneau-reunion").append(boutonJoindre);
       $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
+
+
+      reunion.find("#quitter-reunion").remove();
+
+      // Bouton pour revenir en arrière
+      let boutonQuitter = $("<button id='retour-reunion'></button>");
+      $("#consulter-reunion-calendrier span").append(boutonQuitter);
+
+      $("#retour-reunion").on("click", function(event) {
+        event.preventDefault();
+
+        $("#consulter-reunion-calendrier span").find("button").remove();
+        $(reunion).find("#informations-reunion").remove();
+        $(reunion).find("#btn-panneau-reunion").remove();
+
+        $(reunion).removeClass("reunion-visible-panneau");
+
+         // Bouton pour quitter l'onglet
+        let boutonQuitter = $("<button id='quitter-reunion'></button>");
+        $("#consulter-reunion-calendrier span").append(boutonQuitter);
+
+        $("#quitter-reunion").on("click", function(event) {
+        event.preventDefault();
+        $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
+
+      })
+
+      })
+
 
     }
     
