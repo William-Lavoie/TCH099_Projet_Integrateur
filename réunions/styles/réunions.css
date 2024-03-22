@@ -24,6 +24,11 @@ main {
  ***********************/
 
 
+#ajouter-tache {
+    background-color: red;
+    height: 400px;
+}
+
 #presence,
 #to_do{
     display: flex;

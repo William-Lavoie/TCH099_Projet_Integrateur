@@ -9,10 +9,47 @@ var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
-    const pageAppelante = window.location.search;
-    const parametre = new URLSearchParams(pageAppelante);
-    idReunion = parametre.get('info');
+
+      // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
+      const pageAppelante = window.location.search;
+      const parametre = new URLSearchParams(pageAppelante);
+      idReunion = parametre.get('info');
+  
+
+    $("#ajouter-tache").on("click", function() {
+
+        let texte = $("#titre-nouvelle-tache").val();
+
+        if (texte != null && texte != "") {
+
+            let donnees = {'titre': texte,
+                           'idReunion': idReunion};
+
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouvelle-tache", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+
+            if (response.ok) {
+
+            return response.json();
+            }
+
+            else {
+            console.log("error");
+            }
+            })
+            .then(data => {
+
+                window.location.reload();
+            })
+            .catch(error => {
+            console.log(error);
+            });
+            }
+        })
 
 
     // Sélectionner les éléments nécessaires pour la transition
@@ -52,6 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
 // Fonction pour aside pliable droite
 //*********************************** */
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
+
+
+
     // Sélectionner les éléments nécessaires pour la transition
     var btnPliableDroite = document.querySelector('#BtnPliableDroite');
 

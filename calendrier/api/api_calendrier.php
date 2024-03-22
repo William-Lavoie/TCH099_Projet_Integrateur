@@ -8,7 +8,6 @@ header("Access-Control-Max-Age: 3600");
 session_start();
 $courrielUtilisateur;
 
-// WORK IN PROGRESS
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mettre l'adresse de l'utilisateur dans la variable de session
@@ -370,12 +369,49 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
         }
 
+
+        // Ajouter une nouvelle tâche à une réunion
+    if (preg_match("~ajouter-nouvelle-tache$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['titre'], $donnees['idReunion'])) {
+            require("connexion.php");
+
+            // Obtenir la liste des tâches de la réunion
+            $query = $conn->prepare("SELECT id_listes_taches FROM liste_taches WHERE id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+           
+            $query->execute();
+           
+            if ($resultat) {
+
+                $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :liste)");
+                $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
+                $query->bindParam(":liste", $resultat['id_listes_taches'],  PDO::PARAM_STR);
+
+                $query->execute();
+
+    
+                echo json_encode($resultat);
+            }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+       }
+    }
+
         
 
 
 }
 
-// WORK IN PROGRESS
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
     // Chercher la photo de profil de l'utilisateur
