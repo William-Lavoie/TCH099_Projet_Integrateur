@@ -449,6 +449,32 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
        }
     }
 
+
+    // Modifier un message donné 
+    if (preg_match("~modifier-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['idMessage'], $donnees['contenu'])) {
+
+            require("connexion.php");
+
+            // Obtenir la liste des tâches de la réunion
+            $query = $conn->prepare("UPDATE message SET contenu = :contenu WHERE id_message = :id");
+            $query->bindParam(":contenu", $donnees['contenu'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $donnees['idMessage'],  PDO::PARAM_STR);
+            $query->execute();
+           
+    
+            }
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+       }
+    
+
     // Obtenir les messages pour une réunion donnée
     if (preg_match("~obtenir-messages-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 

@@ -84,8 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
             message.children("#heure-message").append(boutonModifier);
 
             boutonSupprimer.on("click", function() {
-                console.log(data[i]['id_message']);
                 supprimerMessage(data[i]['id_message']);
+            })
+
+            boutonModifier.on("click", function() {
+                modifierMessage(data[i]['id_message'], data[i]['contenu'], message);
             })
 
             $("#notes-publiques").append(message);
@@ -120,20 +123,64 @@ document.addEventListener('DOMContentLoaded', function () {
   
         if (response.ok) {
             console.log("ok");
+            window.location.reload();
         }
   
         else {
         console.log("error");
         }
-        })
-        .then(data => {
-  
+        });
+       
+    }
+
+
+    /**
+     * Permet à l'utilisateur de modifier ses messages
+     */
+    function modifierMessage(id_message, contenu, message) {
+
+        console.log("test");
+        let textarea = $("<textarea maxlength='500' id='modifier-message-textarea'></textarea>");
+        textarea.val(contenu);
+        message.find("#contenu-message").replaceWith(textarea);
+
+        let boutonRetour = $("<button id='btn-retour-message'>Retour</button>");
+        message.find("#supprimer-message").replaceWith(boutonRetour);
+
+        let boutonConfirmer = $("<button id='btn-confirmer-modification'>Ok</button>");
+        message.find("#modifier-message").replaceWith(boutonConfirmer);
+
+        // Retour en arrière
+        boutonRetour.on("click", function() {
             window.location.reload();
         })
-        .catch(error => {
-        console.log(error);
-        });
-  
+
+        // Modifier le message 
+        boutonConfirmer.on("click", function() {
+
+            let texte = textarea.val();
+            let donnees = {"contenu": texte,
+                        "idMessage": id_message};
+
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier-message", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+
+            if (response.ok) {
+                window.location.reload();
+            }
+
+            else {
+            console.log("error");
+            }
+            })
+
+        })
+
+
 
     }
 

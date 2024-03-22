@@ -92,6 +92,21 @@ main {
     padding-top: 1%;
   }
 
+  #btn-retour-message, #btn-confirmer-modification {
+    background-color: transparent;
+    border: none;
+    height: 30%;
+    width: 80%;
+  }
+
+  #btn-retour-message:hover, #btn-confirmer-modification:hover {
+    background-color: grey;
+  }
+
+  #modifier-message-textarea {
+    height: 100%;
+  }
+
 /* start of aside code */
 
 /***********************
