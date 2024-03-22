@@ -304,6 +304,10 @@ justify-content: center;
   .jour:hover {
       background-color: rgb(246, 246, 246);  
   }
+
+  #pas-mois-courant:hover {
+    background-color: rgb(206, 206, 206) !important;
+  }
   
   #consulter-reunion-calendrier {
     height: 0;

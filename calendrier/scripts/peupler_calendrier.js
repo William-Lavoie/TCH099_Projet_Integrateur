@@ -230,7 +230,7 @@ $(document).ready(function() {
     for (let i = compteur; i < premierJour; i++) {
 
       // Affiche la date et crée la case correspondante
-      const journee = $("<div class='jour'></div>");
+      const journee = $("<div class='jour' id='pas-mois-courant'></div>");
       let dateJournee = $("<p>" + debutCalendrier + "</p>");
 
       journee.append(dateJournee);
@@ -297,7 +297,7 @@ $(document).ready(function() {
     index = 1;
     for (let j = finDuMois+premierJour -1; j < 41; j++) {
   
-      const journee = $("<div class='jour'></div>");
+      const journee = $("<div class='jour' id='pas-mois-courant'></div>");
       let dateJournee = $("<p>" + index + "</p>");
       journee.append(dateJournee);
 
@@ -582,11 +582,69 @@ $(document).ready(function() {
     if (reunion.data("listeReunionsJournee")['id_groupes'] == null) {
          
       $("#groupes").prop("checked", true);
+
+      donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
+      // Ajouter la liste des participants déjà invités à la réunion
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donnees)
+      })
+      .then(response => {
+
+      if (response.ok) {
+
+      return response.json();
+      }
+
+      else {
+      console.log("error");
+      }
+      })
+      .then(data => {
+
+        // Ajouter les participants
+        for (let i = 0; i < data.length; i++) {
+
+          if (reunion.data("listeReunionsJournee")['courriel_createur'] != data[i]['courriel_utilisateurs']) {
+
+            // Contenant pour le participant
+            const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
+            const boutonSupprimer = $("<button class='supprimer-participant'>🗑</button>");
+
+            // Le participant est ajouté à la liste
+            $("#nouveau-participant").val("");
+
+            // Bouton pour supprimer le participant 
+            boutonSupprimer.on("click", function(event) {
+                event.stopPropagation();
+                nouveauParticipant.remove();
+            });
+
+            // Création du participant dans le formulaire 
+            nouveauParticipant.children("p").text(data[i]['courriel_utilisateurs']);
+            nouveauParticipant.append(boutonSupprimer);
+            $("#liste-participants").append(nouveauParticipant);
+            }
+          
+        }
+      })
+      .catch(error => {
+      console.log(error);
+      });
+      
     }
+
+
+    //else {
+
+    //}
 
     else {
       $("#btn-radio").prop("checked", true);
     }
+
+
 
 
   }

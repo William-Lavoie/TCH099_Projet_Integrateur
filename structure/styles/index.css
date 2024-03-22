@@ -160,6 +160,9 @@ header {
     display: flex;
     flex-direction: column;
     color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #page-profil-header {

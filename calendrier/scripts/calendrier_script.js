@@ -471,17 +471,29 @@ $(document).ready(function() {
 
     // Accéder à la liste des tâches à partir du formulaire des participants
     $("#btn-continuer-participants").on("click", function() {
-        $("#creer-liste-taches").addClass("reunion-visible");
 
-        // Empêche de mettre plusieurs boutons
-        $("#creer-liste-taches").children().find("#btn-confirmer-participants, #btn-confirmer-groupes").remove();
+        if ($("#liste-participants").children().length != 0) {
 
-        $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
+            $("#creer-liste-taches").addClass("reunion-visible");
 
-        $("#creer-liste-taches").children().find("#btn-confirmer-participants").on("click", function(event) {
-            event.preventDefault();
-            envoyerFormulaireParticipants();
-        });
+            // Empêche de mettre plusieurs boutons
+            $("#creer-liste-taches").children().find("#btn-confirmer-participants, #btn-confirmer-groupes").remove();
+    
+            $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
+    
+            $("#creer-liste-taches").children().find("#btn-confirmer-participants").on("click", function(event) {
+                event.preventDefault();
+                envoyerFormulaireParticipants();
+            });
+        }
+
+        else {
+            $("#messages-erreur-participants").text("Vous devez ajouter au moins un participant");
+
+        }
+      
+
+    
 
     })
 

@@ -30,7 +30,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
         // Création d'une réunion côté participants
-    if (preg_match("~creer_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+        if (preg_match("~creer_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -405,6 +405,36 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(["error" => "erreur"]);
         }
        }
+    }
+
+
+     // Chercher les réunions pour un groupe donné
+     if (preg_match("~obtenir_reunions_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idGroupe'])) {
+    
+            require("connexion.php");
+    
+            $idGroupe = $donnees['idGroupe'];
+           
+            $query = $conn->prepare("SELECT titre, description FROM reunions WHERE id_groupes = :id");
+            $query->bindParam(":id", $idGroupe,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
     }
 
         

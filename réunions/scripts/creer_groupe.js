@@ -34,9 +34,16 @@ $(document).ready(function() {
 
           for (let i = 0; i < data.length; i++) {
 
-            const nouveauGroupe = $("<button>").text(data[i]['nom']); // Changer le nom
+            const nouveauGroupe = $("<button class='groupe'>").text(data[i]['nom']); // Changer le nom
             const nouvelleCellule = $("<td>").append(nouveauGroupe);
             groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
+
+            nouveauGroupe.on("click", function(event) {
+                event.preventDefault()
+                $("button").removeClass("groupe-choisi");
+                $(this).addClass("groupe-choisi");
+                afficherReunionsGroupe(data[i]['id_groupes']);
+            })
       
           }
             
@@ -44,6 +51,47 @@ $(document).ready(function() {
         .catch(error => {
     
           console.log("erreur");
+        });
+    }
+
+
+    /**
+     * Affiche les réunions spécifiques à un groupe
+     */
+    function afficherReunionsGroupe(groupe) {
+
+        $("#conteneur_reunions").html("");
+
+        let donnees = {'idGroupe': groupe};
+        // Afficher les réunions pour un groupe
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir_reunions_groupes", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+        
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                $("#conteneur_reunions").append("<div class='conteneur-reunion'><div class='reunion_header'><div id='titre_reunion'>" +  data[i]['titre'] + "</div> <button id='reglage_reunion'>⚙</button></div><div id='description_reunion'>" + data[i]['description'] + "</div></div></div>");
+            }
+        
+        
+        
+        })
+        .catch(error => {
+
         });
     }
 
