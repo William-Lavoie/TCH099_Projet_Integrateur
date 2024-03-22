@@ -438,6 +438,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
 
+    // Obtenir toutes les réunions de l'utilisateur courant
+    if (preg_match("~obtenir_reunions_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT r.titre, r.description FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
 
     
         

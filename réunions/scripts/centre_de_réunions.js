@@ -32,4 +32,33 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleButton.addEventListener('mouseleave', function () {
         toggleButton.style.color = ''; // Revenir à la couleur par défaut
     });
+
+
+
+    // Afficher les réunions 
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir_reunions_utilisateur", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+     
+        for (let i = 0; i < data.length; i++) {
+            $("#conteneur_reunions").append("<div class='reunion_header'><div id='titre_reunion'>" +  data[i]['titre'] + "</div> <button id='reglage_reunion'>⚙</button></div><div id='description_reunion'>" + data[i]['description'] + "</div></div>");
+        }
+       
+       
+       
+    })
+    .catch(error => {
+
+    });
 });
