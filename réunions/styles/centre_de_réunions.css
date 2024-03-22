@@ -5,11 +5,6 @@ body {
     overflow-x: hidden;
 }
 
-header{
-    margin-left: 3.85em; /*jank solution to fight the margin in the body*/
-
-}
-
 /***********************
  * Menu groupes
  ***********************/
@@ -42,7 +37,7 @@ aside {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #3c3744;
+    background-color: #04071d;
     color: white;
     position: fixed;
     width: 10em;
@@ -95,7 +90,7 @@ aside button {
 
 aside button {
     border: 1px solid #322e38;
-    background-color: #3c3744;
+    background-color: #04071d;
     color: white;
     font-size: 1em;
     padding: 10px;
@@ -165,6 +160,15 @@ aside.collapsed {
     line-height: normal;
 }
 
+.groupe-choisi {
+    background-color: white;
+    color: black;
+}
+
+.groupe-choisi:hover {
+    background-color: white;
+    color: black;
+}
 #conteneur_reunions {
     width: min(80%);
     height: min(35rem);

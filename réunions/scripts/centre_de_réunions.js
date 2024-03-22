@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(data => {
      
         for (let i = 0; i < data.length; i++) {
-            $("#conteneur_reunions").append("<div class='reunion_header'><div id='titre_reunion'>" +  data[i]['titre'] + "</div> <button id='reglage_reunion'>⚙</button></div><div id='description_reunion'>" + data[i]['description'] + "</div></div>");
+            console.log(data[i]);
+            $("#conteneur_reunions").append("<div class='conteneur-reunion'><div class='reunion_header'><div id='titre_reunion'>" +  data[i]['titre'] + "</div> <button id='reglage_reunion'>⚙</button></div><div id='description_reunion'>" + data[i]['description'] + "</div></div></div>");
         }
        
        
