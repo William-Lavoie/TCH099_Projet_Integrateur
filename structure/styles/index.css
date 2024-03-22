@@ -212,7 +212,7 @@ header button, header a {
     cursor: pointer;
 }
 
-/* Media query for smaller screens */
+/*Requête media pour les écrans plus petits. */
 @media screen and (max-width: 1000px) {
     
     #conteneur-boutons-header {
@@ -227,7 +227,7 @@ header button, header a {
     }
 
     .en-tete-boutons {
-        display: none; /* Hide individual buttons */
+        display: none; 
     }
     .en-tete-petit-boutons{
         display:flex;
@@ -247,22 +247,9 @@ header button, header a {
 }
 
 
-
-
-/*
-  * PIED DE PAGE
-  */
-
-
 /*******************************
-/*footer *//*
-footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    margin-top: auto;
-    padding: 2vmin;
-}
+/*PIED DE PAGE
+
 /********************************/
 
 footer {
@@ -330,36 +317,4 @@ footer a {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Personnalisation de la barre de défilement */
-
-
-/* Barre de défilement 
-html {
-    scrollbar-width: thin;
-/* Piste de la barre de défilement 
-    scrollbar-color: #ffffff transparent;
-/* Poignée de la barre de défilement 
-    scrollbar-color: #04071d transparent;
-}
-/* Poignée de la barre de défilement au survol 
-html:hover {
-    scrollbar-color: #04071d transparent;
-}
-*/
-/*
- * AUTRES
- */
 

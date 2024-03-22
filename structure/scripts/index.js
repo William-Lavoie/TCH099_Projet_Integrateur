@@ -60,29 +60,29 @@ $(document).ready(function() {
     }
     })
     .then(data => {
-      const img = document.createElement('img');
+    const img = document.createElement('img');
 
-      if (data != undefined && data != null) {
-       
+    if (data != undefined && data != null) {
+
         $("#photo-profil-header").css({
-          'background-image': 'url(' + URL.createObjectURL(data) + ')',
+        'background-image': 'url(' + URL.createObjectURL(data) + ')',
 
         });
-  
+
     }})
     .catch(error => {
 
-       
+    
         $("#photo-profil-header").css({
-          'background-image': 'url("/structure/image_structure/image_profil_vide.png")',
+            'background-image': 'url("/structure/image_structure/image_profil_vide.png")',
         });
     });
 
-     /**
+    /**
    * AFFICHER_NOM
    * Permet d'afficher dans l'en-tête le nom de l'utilisateur connecté
    */
-     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
     })
     .then(response => {
 
@@ -96,7 +96,7 @@ $(document).ready(function() {
     }
     })
     .then(data => {
-     
+    
         $("#info-header label").text(data['nom']);        
 
     })
@@ -105,4 +105,3 @@ $(document).ready(function() {
     });
 
 });
-  
