@@ -449,6 +449,35 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
        }
     }
 
+    // obtenir les messages pour une réunion donnée
+    if (preg_match("~obtenir-messages-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['idReunion'])) {
+
+            require("connexion.php");
+
+            // Obtenir la liste des tâches de la réunion
+            $query = $conn->prepare("SELECT DISTINCT m.contenu, m.heure, u.nom FROM message AS m INNER JOIN forum AS f ON m.id_forum = f.id_forum INNER JOIN reunions AS r ON f.id_reunions= r.id_reunions INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions INNER JOIN utilisateurs AS u on m.auteur = u.courriel_utilisateurs WHERE f.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetchAll();
+
+
+           
+            if ($resultat) {
+    
+                echo json_encode($resultat);
+            }
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+       }
+    }
+
 
      // Chercher les réunions pour un groupe donné
      if (preg_match("~obtenir_reunions_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {

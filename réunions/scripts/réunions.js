@@ -15,6 +15,46 @@ document.addEventListener('DOMContentLoaded', function () {
     const parametre = new URLSearchParams(pageAppelante);
     idReunion = parametre.get('info');
 
+
+    // Afficher la liste des messages
+    let donnees = {'idReunion': idReunion};
+
+    // Afficher les réunions pour un groupe
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir-messages-reunion", {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(donnees)
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+    
+        for (let i = 0; i < data.length; i++) {
+            let message = $("<div id='message-publique'><div id='utilisateur-photo'></div><div id='utilisateur-nom-contenu'><div id='nom-utilisateur'>" + data[i]['nom'] + "</div><div id='contenu-message'>" + data[i]['contenu'] + "</div></div><div id='heure-message'>" + data[i]['heure'] + "</div></div>");
+
+            
+            $("#notes-publiques").append(message);
+
+        }
+    
+    
+    
+    })
+    .catch(error => {
+
+    });
+
+
+
     /**
      * Créer un nouveau message
      */
@@ -53,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
 
+    // Créer une nouvelle tâche
     $("#ajouter-tache").on("click", function() {
 
         let texte = $("#titre-nouvelle-tache").val();

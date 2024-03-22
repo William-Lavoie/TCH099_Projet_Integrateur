@@ -30,14 +30,18 @@ main {
 
 #message-publique {
     width: 90%;
-    border-radius: 50px;
+    min-height: 15%;
     display: flex;
     padding-left: 2%;
     margin-bottom: 2%;
 }
 
+#message-publique:hover {
+    background-color: lightgray;
+}
+
 #utilisateur-photo {
-    height: 50%;
+    height: 3rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     background-size: contain;
@@ -56,7 +60,6 @@ main {
     }
 
 #nom-utilisateur {
-    background-color: white;
     padding-left: 2%;
     font-weight: bold;
     color: black;
@@ -74,8 +77,9 @@ main {
     width: 10%;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     color: black;
+    padding-top: 1%;
   }
 
 /* start of aside code */
