@@ -345,6 +345,8 @@ $(document).ready(function() {
       let date = journee.find("p").text();
       $("#consulter-reunion-calendrier span").html(journeeSemaine + " " + date + "<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
 
+      $("#consulter-reunion-calendrier span").find("button").remove();
+
       // Bouton pour quitter l'onglet
       let boutonQuitter = $("<button id='quitter-reunion'></button>");
       $("#consulter-reunion-calendrier span").append(boutonQuitter);
@@ -456,7 +458,7 @@ $(document).ready(function() {
 
       reunion.find("#quitter-reunion").remove();
 
-      // Bouton pour revenir en arrière
+      /* Bouton pour revenir en arrière
       let boutonQuitter = $("<button id='retour-reunion'></button>");
       $("#consulter-reunion-calendrier span").append(boutonQuitter);
 
@@ -479,7 +481,7 @@ $(document).ready(function() {
 
       })
 
-      })
+      })*/
 
 
     }
