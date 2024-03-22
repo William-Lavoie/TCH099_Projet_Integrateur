@@ -29,7 +29,7 @@ main {
     flex-direction: column;
     background-color: white;
     color: black;
-    border: rgba(3, 4, 94, 1) 2px solid;
+    border: #04071d 2px solid;
     width: 10em; 
     font-size: 1.2rem;
     position: fixed;
@@ -115,7 +115,8 @@ main {
     right:0;
 }
 
-.nomPresence {
+.nomPresence,
+.nomObjectif {
     max-width: 75%; 
     overflow-x: auto;
     white-space: nowrap; 
@@ -136,7 +137,7 @@ main {
 #conteneur-ajouter-tache{
     display: flex;
     flex-direction: column;
-    height: 3em;
+    height: 3.4em;
 }
 
 #boite-nouvelle-tache{
@@ -144,7 +145,7 @@ main {
     flex-direction: row;
     justify-content: center;
     background-color: #04071d;
-    padding-top: 0.25em;
+    padding: 0.25em;
 }
 
 
@@ -238,7 +239,7 @@ input[type="range"]::-ms-fill-upper {
     text-align: center;
     width: 100%;
     cursor: pointer;
-    border: none;
+    border: 1px white solid;
 }
 
 #titre-nouvelle-tache{
