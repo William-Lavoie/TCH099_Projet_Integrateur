@@ -15,6 +15,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const parametre = new URLSearchParams(pageAppelante);
     idReunion = parametre.get('info');
 
+    /**
+     * Créer un nouveau message
+     */
+    $("#creer-message").on("click", function(event) {
+        event.preventDefault();
+
+        let texte = $("#nouveau-message").val();
+
+        let donnees = {"contenu": texte,
+                       "idReunion": idReunion};
+
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+
+            if (response.ok) {
+
+            return response.json();
+            }
+
+            else {
+            console.log("error");
+            }
+            })
+            .then(data => {
+
+                window.location.reload();
+            })
+            .catch(error => {
+            console.log(error);
+            });
+    });
+        
+
 
     $("#ajouter-tache").on("click", function() {
 

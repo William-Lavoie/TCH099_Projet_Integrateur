@@ -87,6 +87,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
         }
 
+        // Création du forum
+        $query = $conn->prepare("INSERT INTO forum (id_reunions) VALUES (:id)");
+        $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+        $query->execute();
+
+
         echo json_encode(["error" => "succes"]);
 
         }
@@ -394,6 +400,42 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :liste)");
                 $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
                 $query->bindParam(":liste", $resultat['id_listes_taches'],  PDO::PARAM_STR);
+
+                $query->execute();
+
+    
+                echo json_encode($resultat);
+            }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+       }
+    }
+
+    // Ajouter un nouveau message pour une réunion donnée
+    if (preg_match("~ajouter-nouveau-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['contenu'], $donnees['idReunion'])) {
+
+            require("connexion.php");
+
+            // Obtenir la liste des tâches de la réunion
+            $query = $conn->prepare("SELECT id_forum FROM forum WHERE id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+           
+            if ($resultat) {
+
+                $query = $conn->prepare("INSERT INTO message (contenu, auteur, heure, id_forum) VALUES (:contenu, :auteur, NOW(), :id)");
+                $query->bindParam(":contenu", $donnees['contenu'],  PDO::PARAM_STR);
+                $query->bindParam(":auteur", $_SESSION['courriel'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $resultat['id_forum'],  PDO::PARAM_STR);
 
                 $query->execute();
 
