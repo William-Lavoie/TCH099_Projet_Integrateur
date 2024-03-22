@@ -10,7 +10,7 @@ var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
 document.addEventListener('DOMContentLoaded', function () {
 
 
-      // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
+    // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
     const pageAppelante = window.location.search;
     const parametre = new URLSearchParams(pageAppelante);
     idReunion = parametre.get('info');
@@ -41,8 +41,48 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < data.length; i++) {
             let message = $("<div id='message-publique'><div id='utilisateur-photo'></div><div id='utilisateur-nom-contenu'><div id='nom-utilisateur'>" + data[i]['nom'] + "</div><div id='contenu-message'>" + data[i]['contenu'] + "</div></div><div id='heure-message'>" + data[i]['heure'] + "</div></div>");
 
+            donnees = {'courriel': data[i]['auteur']};
+
+            // Mettre la photo de profil de l'utilisateur
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir-photo-profil", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+
+                if (response.ok) {
+                return response.blob();
+                }
             
+                else {
+                console.log("error");
+                }
+                })
+                .then(photo => {
+                  const img = document.createElement('img');
+                  
+            
+                  if (photo != undefined && photo != null) {
+            
+                   message.children("#utilisateur-photo").css({
+                      'background-image': 'url(' + URL.createObjectURL(photo) + ')',
+            
+                    });
+              
+                }})
+                .catch(error => {
+            
+                   console.log("Erreur")
+                  
+                });
+
+
+
+            // Ajouter des boutons pour supprimer ou modifier un message 
+
             $("#notes-publiques").append(message);
+            $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
 
         }
     
