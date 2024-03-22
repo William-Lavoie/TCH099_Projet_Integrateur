@@ -17,6 +17,67 @@ main {
     margin: 0;
 }
 
+#notes-publiques {
+    height: 80%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    padding: 2%;
+
+}
+
+#message-publique {
+    width: 90%;
+    border-radius: 50px;
+    display: flex;
+    padding-left: 2%;
+    margin-bottom: 2%;
+}
+
+#utilisateur-photo {
+    height: 50%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../../structure/image_structure/logo2.png");
+    margin-right: 1%;
+}
+
+#utilisateur-nom-contenu {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    }
+
+#nom-utilisateur {
+    background-color: white;
+    padding-left: 2%;
+    font-weight: bold;
+    color: black;
+}
+
+#contenu-message {
+    overflow-y:scroll;
+}
+
+#contenu-message::-webkit-scrollbar {
+    display: none;
+  }
+
+  #heure-message {
+    width: 10%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: black;
+  }
+
 /* start of aside code */
 
 /***********************
