@@ -4,7 +4,7 @@
 
 // identifiant de la réunion
 var idReunion;
-var totalCheckboxesChecked = 0; // Variable to track total checked checkboxes
+var totalCheckboxesChecked = 0; // Variable pour suivre le nombre total de cases cochées.
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -60,21 +60,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 })
                 .then(photo => {
-                  const img = document.createElement('img');
-                  
+                    const img = document.createElement('img');
             
-                  if (photo != undefined && photo != null) {
+                if (photo != undefined && photo != null) {
             
-                   message.children("#utilisateur-photo").css({
-                      'background-image': 'url(' + URL.createObjectURL(photo) + ')',
+                message.children("#utilisateur-photo").css({
+                        'background-image': 'url(' + URL.createObjectURL(photo) + ')',
             
                     });
-              
                 }})
                 .catch(error => {
             
-                   console.log("Erreur")
-                  
+                    console.log("Erreur")
+                
                 });
 
 
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let texte = $("#nouveau-message").val();
 
         let donnees = {"contenu": texte,
-                       "idReunion": idReunion};
+                        "idReunion": idReunion};
 
             fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
             method: 'POST',
@@ -344,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (this.checked) {
                         nameElement.style.color = 'green';
                     } else {
-                        nameElement.style.color = 'red'; // Reset to red when user un toggles
+                        nameElement.style.color = 'red'; // Réinitialiser en rouge lorsque l'utilisateur désactive le basculement.
                     }
                 });
             }
@@ -409,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function addTasksToContainer(titre) {
         var container = document.getElementById("toDo_conteneur");
 
-            // Create div for each row
+            // Créer un div pour chaque ligne.
             var rowDiv = document.createElement("div");
             rowDiv.classList.add("hide-text", "boite_toDo");
 
@@ -449,16 +447,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 var nameElement = this.parentElement.parentElement.nextElementSibling;
                 if (this.checked) {
                     nameElement.style.color = 'green';
-                    totalCheckboxesChecked++; // Increment total checked checkboxes
+                    totalCheckboxesChecked++; // Incrémenter le nombre total de cases cochées.
                 } else {
-                    nameElement.style.color = 'red'; // Reset to red when user un toggles
-                    totalCheckboxesChecked--; // Decrement total checked checkboxes
+                    nameElement.style.color = 'red'; // Réinitialiser en rouge lorsque l'utilisateur désactive la bascule.
+                    totalCheckboxesChecked--; // Decrementer le nombre total de cases cochées.
                 }
                 // Update completion bar
                 updateCompletion(totalCheckboxesChecked, document.getElementById("toDo_conteneur").getElementsByTagName("input").length);
             });
 
-                // Listen for changes on the mainCheckbox
+                // Écouter les changements sur la case à cocher principale
             mainCheckbox.addEventListener('change', function () {
                 if (this.checked) {
                     totalCheckboxesChecked = document.getElementById("toDo_conteneur").getElementsByTagName("input").length;
@@ -496,9 +494,9 @@ document.addEventListener('DOMContentLoaded', function () {
             hour = minute * 60,
             day = hour * 24;
 
-        // Set the start and end dates and time
+        // Définir les dates et heures de début et de fin.
         const meetingStart = "03/14/2024 20:14"; 
-        let meetingEnd = new Date("03/30/2024 20:25"); // Convert to Date object
+        let meetingEnd = new Date("03/30/2024 20:25"); // Convertir en objet Date
 
         let btnHorloge = document.getElementById("btn_horloge");
         let minutesAAjouter = parseInt(document.getElementById("minutesAAjouter").value);
@@ -510,24 +508,24 @@ document.addEventListener('DOMContentLoaded', function () {
         btnHorloge.addEventListener('click', function() {
             meetingEnd.setTime(meetingEnd.getTime() + minutesAAjouter * 60000);
 
-            // Update countdown display immediately after adding minutes
+            // Mettre à jour l'affichage du compte à rebours immédiatement après l'ajout de minutes
             updateCountdown();
         });
 
         const countDownStart = new Date(meetingStart).getTime(),
-            x = setInterval(updateCountdown, 1000); // Set interval to 1000 milliseconds (1 second)
+            x = setInterval(updateCountdown, 1000); // Définir l'intervalle à 1000 millisecondes (1 seconde)
 
         function updateCountdown() {
             const now = new Date().getTime();
 
-            // Countdown until meeting starts and then countdown until meeting ends
+            // Compte à rebours jusqu'au début de la réunion, puis compte à rebours jusqu'à la fin de la réunion
             let distance;
-            if (now < countDownStart) {  // Countdown to meeting start
+            if (now < countDownStart) {  // Compte à rebours jusqu'au début de la réunion
                 distance = countDownStart - now;
-            } else if (now > meetingEnd.getTime()) { // If done, show 0
+            } else if (now > meetingEnd.getTime()) { // Si terminé, afficher 0
                 distance = 0;
             } else {
-                distance = meetingEnd.getTime() - now; // Countdown to meeting end
+                distance = meetingEnd.getTime() - now; // Compte à rebours jusqu'à la fin de la réunion
             }
 
             document.getElementById("days").innerText = Math.floor(distance / day);
@@ -536,12 +534,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
 
             let horloge = document.getElementById("horloge");
-            // Do something when time is almost reached 
+            // Fais quelque chose lorsque le temps est presque atteint.
             if (distance <= 600000 && distance > 0) {
                 horloge.style.color = "red";
             }
 
-            // Do something when time is reached
+            // Fais quelque chose lorsque le temps est atteint.
             if (distance <= 0) {
                 horloge.style.color = "red";
                 clearInterval(x);
