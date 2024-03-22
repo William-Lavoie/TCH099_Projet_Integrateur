@@ -133,6 +133,20 @@ main {
     margin-top: auto;
 }
 
+#conteneur-ajouter-tache{
+    display: flex;
+    flex-direction: column;
+    height: 3em;
+}
+
+#boite-nouvelle-tache{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #04071d;
+    padding-top: 0.25em;
+}
+
 
 #valeurCompletion,
 #valeurSatisfaction{
@@ -218,18 +232,23 @@ input[type="range"]::-ms-fill-upper {
 #presence button, 
 #to_do button {
     color: white;
+    background-color: #04071d;
     font-size: 1em;
-    padding: 10px;
-    text-align: left;
+    padding: 5px;
+    text-align: center;
     width: 100%;
-    border-bottom: 1px white solid;
+    cursor: pointer;
+    border: none;
 }
 
+#titre-nouvelle-tache{
+    width: 10em; 
+}
 
 #presence button:hover,
 #to_do button:hover {
     background-color: white;
-    color: black;
+    color: #04071d;
 }
 
 #presence.collapsed,

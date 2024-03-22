@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
-      const pageAppelante = window.location.search;
-      const parametre = new URLSearchParams(pageAppelante);
-      idReunion = parametre.get('info');
-  
+    const pageAppelante = window.location.search;
+    const parametre = new URLSearchParams(pageAppelante);
+    idReunion = parametre.get('info');
+
 
     $("#ajouter-tache").on("click", function() {
 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (texte != null && texte != "") {
 
             let donnees = {'titre': texte,
-                           'idReunion': idReunion};
+                            'idReunion': idReunion};
 
             fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouvelle-tache", {
             method: 'POST',
@@ -150,40 +150,40 @@ document.addEventListener('DOMContentLoaded', function () {
         body: JSON.stringify(donnees)
         })
         .then(response => {
-  
+
         if (response.ok) {
-  
+
         return response.json();
         }
-  
+
         else {
         console.log("error");
         }
         })
         .then(data => {
-  
+
             /* Vérifier que la réunion est en cours
             if (data['date'] != new Date() || ) {
                 $("input").prop("disabled", true);
 
             }*/
 
-          let nbNomAAjouter = data.length;
+        let nbNomAAjouter = data.length;
 
-          for (let i = 0; i < nbNomAAjouter; i++) {
+        for (let i = 0; i < nbNomAAjouter; i++) {
             addRowsToContainer(data[i]['nom']);
-          }
+        }
 
         })
         .catch(error => {
         console.log(error);
         });
-  
+
 
         function addRowsToContainer(nom) {
             var container = document.getElementById("presence_conteneur");
     
-           
+        
             var rowDiv = document.createElement("div");
             rowDiv.classList.add("hide-text", "boite_nom_presence");
     
@@ -240,10 +240,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     checkbox.dispatchEvent(new Event('change')); 
                 });
             });  
-
-
-
-  
     });
 
 //************************* */
@@ -270,8 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         })
         .then(data => {
-
-            
 
             let nbObjectifAAjouter = data.length; 
 
@@ -386,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Set the start and end dates and time
         const meetingStart = "03/14/2024 20:14"; 
-        let meetingEnd = new Date("03/16/2024 20:25"); // Convert to Date object
+        let meetingEnd = new Date("03/30/2024 20:25"); // Convert to Date object
 
         let btnHorloge = document.getElementById("btn_horloge");
         let minutesAAjouter = parseInt(document.getElementById("minutesAAjouter").value);
