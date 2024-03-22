@@ -1,7 +1,7 @@
 body {
     margin: 0;
     width: 100vw;
-    height: 100vh;
+    height: 1000vh;
     overflow: hidden;
     background-color:  white;
 }
@@ -27,7 +27,7 @@ header {
     width: 16vw;
     min-width: 7em;
     min-height: 4em;
-    height: 14vmin;
+    height: 13.5vmin;
     box-sizing: border-box;
     background-image: url("/structure/image_structure/logo2.png");
     background-size: cover;
@@ -156,9 +156,8 @@ titre de la page
 
 #conteneur-titre-page-accueil {
     text-align: center;
-    height: 60vh;
+    height: 60vmin;
     background-color: #04071d;
-    margin-top: 1vh;
 }
 
 #conteneur-titre-page-accueil h1 {
@@ -175,9 +174,9 @@ titre de la page
 
 }
 
-#deuxieme-slide-accueil{
-    margin-top: 100vh;
-}
+/*******************************
+Coffee
+*******************************/
 
 
 .container-coffee {
@@ -185,7 +184,7 @@ titre de la page
     height: 280px;
     position: absolute;
     top: calc(50vh + 140px);
-    left: 50px; /* Adjust this value as needed */
+    left: 50px; 
 }
 .coffee-header {
     width: 100%;
@@ -437,3 +436,5 @@ titre de la page
     left: -8px;
     background-color: #000;
 }
+
+
