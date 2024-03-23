@@ -13,9 +13,12 @@ body {
     text-align: center;
     margin: 20px;
   }
+
+  .onglet-visible {
+    display: block !important;
+  }
   
   .photo {
-    background-image: url('image_profil_vide.png'); 
     background-size: cover;
     height: 100px;
     width: 100px;
@@ -58,6 +61,7 @@ body {
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     border-radius: 5px;
+    display: none;
 }
 
 .modifier-onglet {
