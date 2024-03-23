@@ -1,6 +1,84 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Afficher la photo de profil 
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_photo", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.blob();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+
+    if (data != undefined && data != null) {
+
+        
+        $("#photo").css({
+        'background-image': 'url(' + URL.createObjectURL(data) + ')',
+
+        });
+
+    }})
+    .catch(error => {
+
+    
+        $("#photo").css({
+            'background-image': 'url("/structure/image_structure/image_profil_vide.png")',
+        });
+    });
+
+    // Afficher le nom 
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+    
+        $("#nom-prenom").text(data['nom']);        
+
+    })
+    .catch(error => {
+
+    });
+
+    // Afficher le courriel
+     // Vérifier si le message a été écrit par l'utilisateur connecté
+     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    }
+    })
+    .then(reponse => {
+
+        $("#courriel-utilisateur").text(reponse);
+    })
+    .catch(error => {
+    console.log(error);
+    });  
+
     // Cibler l'onglet de modification grâce à son id
     const modifierOnglet = document.getElementById('modifier-onglet');
 
