@@ -187,24 +187,29 @@ document.addEventListener('DOMContentLoaded', function () {
         boutonConfirmer.on("click", function() {
 
             let texte = textarea.val();
-            let donnees = {"contenu": texte,
-                        "idMessage": id_message};
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier-message", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-            })
-            .then(response => {
+            if (texte != "") {
+                
+                let donnees = {"contenu": texte,
+                "idMessage": id_message};
 
-            if (response.ok) {
-                window.location.reload();
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier-message", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+
+                else {
+                console.log("error");
+                }
+                })
             }
-
-            else {
-            console.log("error");
-            }
-            })
+          
 
         })
 
@@ -215,37 +220,51 @@ document.addEventListener('DOMContentLoaded', function () {
     /**
      * Créer un nouveau message
      */
-    $("#creer-message").on("click", function(event) {
-        event.preventDefault();
+    $("#nouveau-message").on("keydown", function(event) {
+        //event.preventDefault();
 
-        let texte = $("#nouveau-message").val();
+        console.log(event.key);
+        // Si la touche 'Enter' est appuyée
+        if (event.key === "Enter") {
 
-        let donnees = {"contenu": texte,
-                        "idReunion": idReunion};
+            let texte = $("#nouveau-message").val();
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-            })
-            .then(response => {
+            event.preventDefault();
+            
+            if (texte != "") {
 
-            if (response.ok) {
-
-            return response.json();
+                let donnees = {"contenu": texte,
+                "idReunion": idReunion};
+    
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+    
+                if (response.ok) {
+    
+                return response.json();
+                }
+    
+                else {
+                console.log("error");
+                }
+                })
+                .then(data => {
+    
+                    window.location.reload();
+                })
+                .catch(error => {
+                console.log(error);
+                });
             }
+           
 
-            else {
-            console.log("error");
-            }
-            })
-            .then(data => {
+        }
 
-                window.location.reload();
-            })
-            .catch(error => {
-            console.log(error);
-            });
+       
     });
         
 

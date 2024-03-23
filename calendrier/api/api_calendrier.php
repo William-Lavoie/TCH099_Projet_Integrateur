@@ -487,7 +487,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             require("connexion.php");
 
             // Obtenir la liste des tâches de la réunion
-            $query = $conn->prepare("SELECT DISTINCT m.id_message, m.auteur, m.contenu, m.heure, u.nom FROM message AS m INNER JOIN forum AS f ON m.id_forum = f.id_forum INNER JOIN reunions AS r ON f.id_reunions= r.id_reunions INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions INNER JOIN utilisateurs AS u on m.auteur = u.courriel_utilisateurs WHERE f.id_reunions = :id");
+            $query = $conn->prepare("SELECT DISTINCT m.id_message, m.auteur, m.contenu, m.heure, u.nom FROM message AS m INNER JOIN forum AS f ON m.id_forum = f.id_forum INNER JOIN reunions AS r ON f.id_reunions= r.id_reunions INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions INNER JOIN utilisateurs AS u on m.auteur = u.courriel_utilisateurs WHERE f.id_reunions = :id ORDER BY m.heure");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetchAll();
