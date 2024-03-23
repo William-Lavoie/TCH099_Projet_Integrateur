@@ -65,7 +65,22 @@
 
             <h2 id="nom-prenom">test</h2>
             <p id="courriel-utilisateur"></p>
-            <button class="edit-button">Modifier </button>
+            <button id="edit-button">Modifier </button>
+
+            <form id="conteneur-boutons-modifications">
+
+                <div id="nouveau-nom">
+                    <input type="text" maxlength="30" id="nom-choisi" placeholder="Nouveau nom">
+                    <button id="modifier-nom">Modifier nom</button>
+                </div>
+               
+                <div id="nouvelle-photo">
+                    <input type="file" id="photo-choisie">
+                    <button id="modifier-photo">Modifier photo</button>    
+
+                </div>
+            </form>
+           
         </div>
         <div id="grid-container" class="grid-container">
         </div>

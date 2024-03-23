@@ -83,61 +83,76 @@ document.addEventListener('DOMContentLoaded', function() {
     const modifierOnglet = document.getElementById('modifier-onglet');
 
     // Ajouter un écouteur d'événement de clic au bouton "Modifier"
-    $('.edit-button').on('click', function() {
+    $('#edit-button').on('click', function() {
+
         // Alterner la visibilité de l'onglet de modification
-        $("#modifier-onglet").toggleClass("onglet-visible");
+        $("#conteneur-boutons-modifications").toggleClass("modifier-visible");
+
     });
 
 // pour la modification NOM
     $("#modifier-nom").on('click', function() {
-        let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
-        if (nouveauNom) {
-      
 
+        let nouveauNom = $("#nom-choisi").val(); 
+       
+      
         const donnees ={"nom" : nouveauNom};
 
-        fetch("http://localhost:3333/profil_stats/api/profil.php", { // Envoie une requête POST au serveur
+        fetch("http://127.0.0.1:3000/profil_stats/api/profil.php/modifier-nom", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                // Mettre à jour l'affichage du nom sur la page
-                document.getElementById('header_nom').querySelector('h1').textContent = nouveauNom;
-            } else {
-                alert("Erreur lors de la modification du nom.");
-            }
+            
+            window.location.reload();
         })
         .catch(error => console.error('Erreur:', error));
-    }
-});
+    });
 
 
-// pour la modification PHOTO 
-    $('#modifier-Photo').on('modifier-Photo', function(event) {
+   /* // pour la modification PHOTO 
+    $('#modifier-photo').on('click', function(event) {
+
+        event.preventDefault();
         // je récupère le fichier sélectionné
-        let fichier = event.target.files[0]; 
-        if (fichier) {
-          const donneesP ={"photo" : fichier};
+        let fichier = $("#photo-choisie")[0].files[0]; 
+        console.log(fichier);
+        if (fichier != null) {
 
-        fetch("http://localhost:3333/profil_stats/api/profil.php", { // Envoie une requête POST au serveur
+            let reader = new FileReader();
+
+            // Define a callback function to handle the loaded file data
+            reader.onload = function(event) {
+                // The result property contains the Blob data
+                let blobData = event.target.result;
+    
+                // Now you can do something with the Blob data, such as sending it to the server
+                sendBlobToServer(blobData);
+            let formData = new FormData();
+            formData.append('photo', blobData);
+            
+        fetch("http://127.0.0.1:3000/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donneesP)
+            body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Mettre à jour l'affichage du nom sur la page
-                document.getElementById('conteneur_profile').querySelector('h1').textContent = fichier;
-            } else {
-                alert("Erreur lors de la modification de la photo de profil.");
+        .then(response => {
+            if (response.ok) {
+                console.log("La photo a été modifiée avec succès")
+            }
+
+            else {
+                console.log("La photo n'a pas été modifiée");
             }
         })
         .catch(error => console.error('Erreur:', error));
-    }
-});
+            
+        }};
 
+        else {
+            alert("vous devez choisir une image");
+        }
+        });
+*/
 });
