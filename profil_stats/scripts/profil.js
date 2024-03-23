@@ -1,26 +1,19 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Cibler le bouton "Modifier" grâce à sa classe
-    const editButton = document.querySelector('.edit-button');
 
     // Cibler l'onglet de modification grâce à son id
     const modifierOnglet = document.getElementById('modifier-onglet');
 
     // Ajouter un écouteur d'événement de clic au bouton "Modifier"
-    editButton.addEventListener('click', function() {
+    $('.edit-button').on('click', function() {
         // Alterner la visibilité de l'onglet de modification
-        if (modifierOnglet.style.display === 'none') {
-            modifierOnglet.style.display = 'block';
-        } else {
-            modifierOnglet.style.display = 'none';
-        }
+        $("#modifier-onglet").toggleClass("onglet-visible");
     });
-});
 
 // pour la modification NOM
-document.getElementById('modifier-nom').addEventListener('click', function() {
-    let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
-    if (nouveauNom) {
+    $("#modifier-nom").on('click', function() {
+        let nouveauNom = prompt("Entrez votre nouveau nom :"); // Demande le nouveau nom à l'utilisateur
+        if (nouveauNom) {
       
 
         const donnees ={"nom" : nouveauNom};
@@ -45,10 +38,10 @@ document.getElementById('modifier-nom').addEventListener('click', function() {
 
 
 // pour la modification PHOTO 
-document.getElementById('modifier-Photo').addEventListener('modifier-Photo', function(event) {
-    // je récupère le fichier sélectionné
-    let fichier = event.target.files[0]; 
-    if (fichier) {
+    $('#modifier-Photo').on('modifier-Photo', function(event) {
+        // je récupère le fichier sélectionné
+        let fichier = event.target.files[0]; 
+        if (fichier) {
           const donneesP ={"photo" : fichier};
 
         fetch("http://localhost:3333/profil_stats/api/profil.php", { // Envoie une requête POST au serveur
@@ -69,3 +62,4 @@ document.getElementById('modifier-Photo').addEventListener('modifier-Photo', fun
     }
 });
 
+});
