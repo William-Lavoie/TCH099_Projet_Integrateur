@@ -77,27 +77,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            // Ajouter des boutons pour supprimer ou modifier un message 
-            const boutonSupprimer = $("<button id='supprimer-message'>🗑</button>");
-            const boutonModifier = $("<button id='modifier-message'>⚙</button>");
-            message.children("#heure-message").append(boutonSupprimer);
-            message.children("#heure-message").append(boutonModifier);
+            // Vérifier si le message a été écrit par l'utilisateur connecté
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+                })
+                .then(response => {
+        
+                if (response.ok) {
+        
+                return response.json();
+                }
+        
+                else {
+                }
+                })
+                .then(reponse => {
+        
+                    console.log(reponse);
+                    
+                 if (reponse == data[i]['auteur']) {
+                    // Ajouter des boutons pour supprimer ou modifier un message 
+                    const boutonSupprimer = $("<button id='supprimer-message'>🗑</button>");
+                    const boutonModifier = $("<button id='modifier-message'>⚙</button>");
+                    message.children("#heure-message").append(boutonSupprimer);
+                    message.children("#heure-message").append(boutonModifier);
 
-            boutonSupprimer.on("click", function() {
-                console.log(data[i]['id_message']);
-                supprimerMessage(data[i]['id_message']);
-            })
+                    boutonSupprimer.on("click", function() {
+                        supprimerMessage(data[i]['id_message']);
+                    })
 
-            $("#notes-publiques").append(message);
-            $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
+                    boutonModifier.on("click", function() {
+                        modifierMessage(data[i]['id_message'], data[i]['contenu'], message);
+                    })
 
+                   
+                 }  
+        
+        
+                })
+                .catch(error => {
+                console.log(error);
+                });  
+                
+                console.log(message);
+        $("#notes-publiques").append(message);
+        $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
         }
     
-    
+        
+
     
     })
     .catch(error => {
-
+        console.log("Erreur");
     });
 
 
@@ -120,57 +151,120 @@ document.addEventListener('DOMContentLoaded', function () {
   
         if (response.ok) {
             console.log("ok");
+            window.location.reload();
         }
   
         else {
         console.log("error");
         }
-        })
-        .then(data => {
-  
+        });
+       
+    }
+
+
+    /**
+     * Permet à l'utilisateur de modifier ses messages
+     */
+    function modifierMessage(id_message, contenu, message) {
+
+        console.log("test");
+        let textarea = $("<textarea maxlength='500' id='modifier-message-textarea'></textarea>");
+        textarea.val(contenu);
+        message.find("#contenu-message").replaceWith(textarea);
+
+        let boutonRetour = $("<button id='btn-retour-message'>Retour</button>");
+        message.find("#supprimer-message").replaceWith(boutonRetour);
+
+        let boutonConfirmer = $("<button id='btn-confirmer-modification'>Ok</button>");
+        message.find("#modifier-message").replaceWith(boutonConfirmer);
+
+        // Retour en arrière
+        boutonRetour.on("click", function() {
             window.location.reload();
         })
-        .catch(error => {
-        console.log(error);
-        });
-  
+
+        // Modifier le message 
+        boutonConfirmer.on("click", function() {
+
+            let texte = textarea.val();
+
+            if (texte != "") {
+                
+                let donnees = {"contenu": texte,
+                "idMessage": id_message};
+
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier-message", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+
+                else {
+                console.log("error");
+                }
+                })
+            }
+          
+
+        })
+
+
 
     }
 
     /**
      * Créer un nouveau message
      */
-    $("#creer-message").on("click", function(event) {
-        event.preventDefault();
+    $("#nouveau-message").on("keydown", function(event) {
+        //event.preventDefault();
 
-        let texte = $("#nouveau-message").val();
+        console.log(event.key);
+        // Si la touche 'Enter' est appuyée
+        if (event.key === "Enter") {
 
-        let donnees = {"contenu": texte,
-                        "idReunion": idReunion};
+            let texte = $("#nouveau-message").val();
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-            })
-            .then(response => {
+            event.preventDefault();
+            
+            if (texte != "") {
 
-            if (response.ok) {
-
-            return response.json();
+                let donnees = {"contenu": texte,
+                "idReunion": idReunion};
+    
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+    
+                if (response.ok) {
+    
+                return response.json();
+                }
+    
+                else {
+                console.log("error");
+                }
+                })
+                .then(data => {
+    
+                    window.location.reload();
+                })
+                .catch(error => {
+                console.log(error);
+                });
             }
+           
 
-            else {
-            console.log("error");
-            }
-            })
-            .then(data => {
+        }
 
-                window.location.reload();
-            })
-            .catch(error => {
-            console.log(error);
-            });
+       
     });
         
 
