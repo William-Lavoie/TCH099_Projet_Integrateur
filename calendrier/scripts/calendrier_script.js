@@ -345,6 +345,8 @@ $(document).ready(function() {
      */
     $("#btn-creer-participant").on("click", function() {
 
+        let erreur = false;
+
         // Réinitialise le message d'erreur
         $("#messages-erreur-participants").text("");
 
@@ -355,8 +357,38 @@ $(document).ready(function() {
         const nouveauParticipant = $("<div class='nom-participant'> <p></p> </div> ");
         const boutonSupprimer = $("<button class='supprimer-participant'>🗑</button>");
 
+
+        // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+        })
+        .then(response => {
+    
+        if (response.ok) {
+    
+        return response.json();
+        }
+    
+        else {
+        }
+        })
+        .then(reponse => {
+
+            if (texte == reponse) {
+                erreur = true;
+            }
+
+    
+        })
+        .catch(error => {
+        console.log(error);
+        });  
+
+        if (erreur == false) {
+            $("#messages-erreur-participants").text("Vous faites déjà parti de la réunion!");
+        }
+
         // Le même participant ne doit pas être ajouté plus d'une fois
-        if (courrrielPresent(texte)) {
+        else if (courrrielPresent(texte)) {
             $("#nouveau-participant").val("");
             $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
         }
@@ -425,7 +457,7 @@ $(document).ready(function() {
         else {
             $("#messages-erreur-participants").text(texte + " n'est pas une adresse valide!");
         }
-        }) 
+    }) 
 
 
 
