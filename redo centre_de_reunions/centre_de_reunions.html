@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre de réunions</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="centre_de_reunions.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div id="logo"></div>
+        <div id="conteneur-boutons">
+            <a href="../calendrier/calendrier.html"><button class="en-tete-boutons">Calendrier</button></a>
+            <a href="../réunions/réunions.html"><button class="en-tete-boutons">Réunions</button></a>
+        </div>
+        <div id="conteneur-compte">
+            <div id="photo-profil" alt="Photo de profil"></div>
+            <div id="menu-profil">
+                <div id="info">
+                    <label>Nom Prénom</label>
+                </div>
+                <a href="../profil_stats/profil.html" id="compte-boutons"><button id="page-profil">Compte et Statistiques</button></a>
+                <a href="../page_accueil/page_accueil.html" id="compte-boutons"><button id="deconnexion">Se déconnecter</button></a>
+            </div>
+        </div>
+        <div id="fond-en-tete">
+            <div id="ligne-bleu"></div>
+            <div id="ligne-blanche">
+                <div id="lignes-decoratives"></div>
+            </div>
+        </div>
+    </header>
+
+    <div id="conteneur-milieu">
+
+        <aside id="conteneur-groupes">
+            <h1 id="table-titre">Groupes</h1>
+            <div id="table-groupes">
+                <table>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 1</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 2</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 3</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 4</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 1</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 2</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 3</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 4</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 2</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 3</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="groupe">Groupe 4</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button id="table-creer-groupe">Créer groupe</button>
+        </aside>
+
+        <div id="conteneur-basculer">
+            <button id="basculer" onclick="basculerGroupes()">⪓</button>
+        </div>
+
+        <main>
+            <div id="conteneur-reunions">
+                
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre 2</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre 2</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+                <div class="conteneur-reunion">
+                    <div class="reunion-entete">
+                        <p class="reunion-titre">Titre 2</p>
+                        <p class="reunion-reglage">⚙️</p>
+                    </div>
+                    <div class="reunion-description"></div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <button id="bouton-flottant">Créer une nouvelle réunion</button>
+    
+    <footer>
+        <div id="terms-policy-footer">
+            <a href="/structure/html/politique_de_confidentialite.html"><h5 id="politique-de-confidentialite-footer">Politique de confidentialité</h5></a>
+            <h5 id="espace-footer">|</h5>
+            <a href="/structure/html/conditions-generales.html"><h5 id="conditions-generales-footer">Conditions générales</h5></a>
+        </div>
+        
+        <h4>HH</h4>
+
+        <h5>© 2024 Tous droits réservés</h5>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="centre_de_reunions.js"></script>
+</body>
+
+<div id="conteneur-creer-groupe">
+    <div id="formulaire-creer-groupe">
+        <div id="creer-groupe-header">Créer un groupe<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆</div>
+        <form id="creer-groupe-contenu">
+            <div id="conteneur-nom-groupe">
+                <label for="nom-groupe">Nom du groupe</label>
+                <input type="text" name="nom-groupe" id="nom-groupe">                    
+            </div>
+            <br>
+            <div id="conteneur-participants">
+                <label for="participants" id="participants">Participants</label><br>
+                <input type="text" name="participants" id="ajouter-participants" placeholder="adresse courriel">
+                <button id="ajouter-participant">+</button>                    
+            </div>
+            <br>
+            <div id="liste-participants"></div>
+            <br>
+            <div id="conteneur-description">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"></textarea>
+            </div>
+            <br>
+            <div id="erreurs-creer-groupe"></div>
+            <div id="boutons-creer-groupe">
+                <button id="retour-creer-groupe">Retourner</button>
+                <button id="confirmer-creer-groupe">Confirmer</button>                
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>

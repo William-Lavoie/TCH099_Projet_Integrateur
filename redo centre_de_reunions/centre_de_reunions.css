@@ -1,0 +1,678 @@
+body {
+    width: 100vw;
+    height: 200vh;
+    margin: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 
+ * EN-TÊTE
+ */
+
+header {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    box-sizing: content-box;
+    z-index: 2;
+}
+
+#logo {
+    min-width: 12em;
+    min-height: 4em;
+    height: 10vh;
+    background-image: url("logo2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#conteneur-boutons {
+    min-width: 10em;
+    width: 80vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    gap: 5vw;
+    padding-left: 1vw;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.en-tete-boutons {
+    min-width: 5.5em;
+    width: 20vw;
+    max-width: 15em;
+    min-height: 2.5em;
+    height: 6vh;
+    color: white;
+    background-color: #04071d;
+    border: 0.1rem solid white;
+    border-radius: 0.5em;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+#conteneur-compte {
+    min-width: 6em;
+    width: 30vw;
+    min-height: 4em;
+    height: 10vh;
+    margin-right: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1vw;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#photo-profil {
+    min-width: 3em;
+    min-height: 3em;
+    border: 3px solid #04071d;
+    border-radius: 100%;
+    background-image: url("./image_profil_vide.png");
+    background-size: cover;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#fond-en-tete {
+    position: absolute;
+    width: 100vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#ligne-bleu {
+    width: 100vw;
+    min-height: 2em;
+    height: 5vh;
+    background-color: #04071d;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#ligne-blanche {
+    width: 100vw;
+    min-height: 2em;
+    height: 5vh;
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#lignes-decoratives {
+    width: 100vw;
+    border-bottom: 5px double #04071d;
+    box-sizing: border-box;
+}
+
+#menu-profil {
+    position: absolute;
+    top: 0;
+    margin-right: 3.5em;
+    margin-top: 1em;
+    min-width: 10em;
+    width: 15vw;
+    min-height: 10em;
+    height: 12em;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px #04071d58;
+    border: 1px solid #04071d35;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+
+    display: none;
+}
+
+#info {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #04071d35;
+    padding: 0.6em;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#page-profil {
+    width: 100%;
+    height: 6em;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #04071d35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#deconnexion {
+    width: 100%;
+    height: 4em;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#compte-boutons {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.en-tete-boutons:hover {
+    color: #04071d;
+    background-color: white;
+    border: 3px solid #04071d;
+    cursor: pointer;
+}
+
+/*
+ * PRINCIPAL
+ */
+
+#conteneur-milieu {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100%;
+    box-sizing: border-box;
+    box-sizing: content-box;
+}
+
+main {
+    position: sticky;
+    top: 4em;
+    right: 0;
+    left: 14em;
+    width: calc(100vw - 14em);
+    height: 100%; 
+    display: flex;
+    box-sizing: border-box;
+}
+
+#conteneur-reunions {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    justify-content: space-around;
+    row-gap: 5vh;
+    height: 90%;
+    width: 90%;
+    content: 100px;
+    margin-top: 5%;
+    margin-left: 5%;
+    box-sizing: border-box;
+
+    transition: margin-left 0.5s;
+}
+
+#conteneur-groupes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 4em;
+    left: 0;
+    width: 12em;
+    height: calc(100% - 4em);
+    background-color: #04071d;
+    box-sizing: border-box;
+    box-sizing: content-box;
+
+    transition: 0.5s;
+    margin-left: 0;
+}
+
+#conteneur-basculer {
+    position: fixed;
+    top: 4em;
+    left: 12em;
+    width: 2em;
+    height: calc(100% - 4em);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    transition: margin-left 0.5s;
+}
+
+#basculer {
+    font-size: 2rem;
+    background-color: transparent;
+    color: #c5c5c5;
+    border: none;
+}
+
+#basculer:hover {
+    cursor: pointer;
+    color: #adabab;
+}
+
+#table-titre {
+    color: white;
+}
+
+#table-groupes {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 30em;
+    overflow-y: scroll;
+    box-sizing: border-box;
+}
+
+.groupe {
+    width: 10em;
+    height: 3em;
+    font-weight: bold;
+    font-size: 1em;
+    background-color: transparent;
+    color: #c7c7cb;
+    border: none;
+    text-align: start;
+}
+
+.groupe:hover {
+    color: white;
+    cursor: pointer;
+}
+
+#table-creer-groupe {
+    width: 70%;
+    min-height: 2em;
+    height: 8%;
+    margin: 1em;
+    box-shadow: 3px 3px 10px 0px #00000059;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    background-color: #04071d;
+    color: white;
+    font-size: large;
+    text-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#table-creer-groupe:hover {
+    cursor: pointer;
+    color: #04071d;
+    background-color: white;
+    border: 2px solid #04071d;
+}
+
+/*
+ * UNE RÉUNION EXEMPLE
+ */
+
+.conteneur-reunion {
+    display: flex;
+    flex-direction: column;
+    width: 12em;
+    height: 15em;
+    border: 1px solid #04071d1e;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.reunion-entete {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 12em;
+    height: 5em;
+    background-color: #04071d;
+    color: white;
+    border-radius: 5px;
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.reunion-entete:hover .reunion-titre,
+.reunion-entete:hover .reunion-reglage, .reunion-entete:hover {
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.reunion-titre {
+    align-self: center;
+    margin-left: 1em;
+    font-size: large;
+    color: #c7c7cb;
+    box-sizing: border-box;
+}
+
+.reunion-reglage {
+    align-self: center;
+    margin-right: 0.5em;
+    font-size: large;
+    box-sizing: border-box;
+}
+
+.reunion-description {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border-start-end-radius: 0;
+    border-start-start-radius: 0;
+    box-sizing: border-box;
+    box-sizing: content-box;
+}
+
+/*
+ * BOUTON FLOTANT
+ */
+
+#bouton-flottant {
+    position: sticky;
+    bottom: 1em;
+    align-self: end;
+    width: 10em;
+    height: 4em;
+    background-color: #04071d;
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
+    margin: 2em;
+    z-index: 1;
+}
+
+#bouton-flottant:hover {
+    cursor: pointer;
+    color: #04071d;
+    background-color: white;
+    border: 2px solid #04071d;
+}
+
+/*
+ * PIED DE PAGE
+ */
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #04071d;
+    color: lightgray;
+    text-align: center;
+    left: 0;
+    bottom: 0;;
+    width: 100vw;   
+    height: 8em;
+}
+
+footer h5 {
+    margin: 0;
+    font-size: .8rem;
+}
+
+footer h4 {
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #00c1f3;
+    font-size: 2.5em;
+    font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
+    font-style: italic;
+}
+
+#terms-policy-footer {
+    display: flex;
+    justify-content: space-around;
+    width: 20em;
+}
+
+#politique-de-confidentialite-footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 15em;
+}
+
+#espace-footer {
+    display: flex;
+    justify-content: center;
+    width: 2em;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+#conditions-generales-footer {
+    display: flex;
+    justify-content: flex-start;
+    width: 15em;
+}
+
+
+
+footer a {
+    all: unset;
+}
+
+footer a {
+    cursor: pointer;
+}
+
+/* Personnalisation de la barre de défilement */
+
+/* Barre de défilement */
+html {
+    scrollbar-width: thin;
+}
+
+/* Piste de la barre de défilement */
+html {
+    scrollbar-color: #ffffff transparent;
+}
+
+/* Poignée de la barre de défilement */
+html {
+    scrollbar-color: #04071d transparent;
+}
+
+/* Poignée de la barre de défilement au survol */
+html:hover {
+    scrollbar-color: #04071d transparent;
+}
+
+/*
+ * AUTRES
+ */
+
+#logo, .en-tete-boutons, #photo-profil, #compte-boutons, #page-profil, #deconnexion {
+    cursor: pointer;
+}
+
+#compte-boutons {
+    all: unset;
+}
+
+#table-groupes::-webkit-scrollbar {
+    display: none;
+}
+
+/*
+ * Fenêtre créer un groupe
+ */
+
+ #conteneur-creer-groupe {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    position: fixed;
+    background-color: #302f4b8c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+#formulaire-creer-groupe {
+    height: max(70vmin, 400px);
+    width: max(50vmin, 200px);
+    background-color: white;
+    border-radius: 10px;
+}
+
+#creer-groupe-header {
+    width: 100%;
+    height: 20%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #04071d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 20%;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#creer-groupe-contenu {
+    width: 100%;
+    height: 80%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: white;
+    padding: 3%;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    color: #5c5c5c;
+    text-align: left;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    display: flex;
+    flex-direction: column;
+}
+
+#conteneur-nom-groupe {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#conteneur-participants {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#participants {
+    margin-right: 10%;
+}
+
+input, textarea {
+    border-radius: 0.3em;
+    margin-right: 1em;
+    border: 1px solid lightgray;
+}
+
+#nom-groupe, #ajouter-participants {
+    height: 5%;
+    padding: 1em;
+    width: 40%;
+}
+
+#ajouter-participant {
+    background-color: #04071d;
+    border-radius: 50%;
+    height: 1.2em;
+    width: 1.2em;
+    color: white;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#liste-participants {
+    width: 100%;
+    overflow: scroll;
+    text-align: center;
+}
+
+#conteneur-description {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+#description {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#erreurs-creer-groupe {
+    width: 100%;
+    font-size: small;
+    color: red;
+    text-align: center;
+}
+
+#boutons-creer-groupe {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#confirmer-creer-groupe {
+    background-color: #04071d;
+    color: white;
+    border-radius: 0.5em;
+    width: 50%;
+    padding: 2%;
+    align-self: center;
+    bottom: 0;
+}
+
+#retour-creer-groupe {
+    background-color: #04071d;
+    color: white;
+    border-radius: 0.5em;
+    width: 50%;
+    padding: 2%;
+    align-self: center;
+    bottom: 0;
+}
