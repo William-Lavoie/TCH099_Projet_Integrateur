@@ -1,6 +1,5 @@
 body {
     width: 100vw;
-    height: 200vh;
     margin: 0;
     overflow-x: hidden;
     display: flex;
@@ -11,7 +10,189 @@ body {
  * EN-TÊTE
  */
 
+header {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    box-sizing: content-box;
+    z-index: 2;
+}
 
+#logo {
+    min-width: 12em;
+    min-height: 4em;
+    height: 10vh;
+    background-image: url("logo2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#conteneur-boutons {
+    min-width: 10em;
+    width: 80vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    gap: 5vw;
+    padding-left: 1vw;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.en-tete-boutons {
+    min-width: 5.5em;
+    width: 20vw;
+    max-width: 15em;
+    min-height: 2.5em;
+    height: 6vh;
+    color: white;
+    background-color: #04071d;
+    border: 0.1rem solid white;
+    border-radius: 0.5em;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+#conteneur-compte {
+    min-width: 6em;
+    width: 30vw;
+    min-height: 4em;
+    height: 10vh;
+    margin-right: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1vw;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#photo-profil {
+    min-width: 3em;
+    min-height: 3em;
+    border: 3px solid #04071d;
+    border-radius: 100%;
+    background-image: url("./image_profil_vide.png");
+    background-size: cover;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+#fond-en-tete {
+    position: absolute;
+    width: 100vw;
+    min-height: 4em;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#ligne-bleu {
+    width: 100vw;
+    min-height: 2em;
+    height: 5vh;
+    background-color: #04071d;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#ligne-blanche {
+    width: 100vw;
+    min-height: 2em;
+    height: 5vh;
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#lignes-decoratives {
+    width: 100vw;
+    border-bottom: 5px double #04071d;
+    box-sizing: border-box;
+}
+
+#menu-profil {
+    position: absolute;
+    top: 0;
+    margin-right: 3.5em;
+    margin-top: 1em;
+    min-width: 10em;
+    width: 15vw;
+    min-height: 10em;
+    height: 12em;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px #04071d58;
+    border: 1px solid #04071d35;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+
+    display: none;
+}
+
+#info {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #04071d35;
+    padding: 0.6em;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#page-profil {
+    width: 100%;
+    height: 6em;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #04071d35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#deconnexion {
+    width: 100%;
+    height: 4em;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#compte-boutons {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.en-tete-boutons:hover {
+    color: #04071d;
+    background-color: white;
+    border: 3px solid #04071d;
+    cursor: pointer;
+}
 
 /*
  * PRINCIPAL
@@ -41,8 +222,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
+    justify-content: space-around;
     row-gap: 5vh;
-    column-gap: 2%;
     height: 90%;
     width: 90%;
     content: 100px;
@@ -65,6 +246,7 @@ main {
     background-color: #04071d;
     box-sizing: border-box;
     box-sizing: content-box;
+    z-index: 2;
 
     transition: 0.5s;
     margin-left: 0;
@@ -103,6 +285,7 @@ main {
 #table-groupes {
     display: flex;
     justify-content: center;
+    align-items: start;
     width: 100%;
     height: 30em;
     overflow-y: scroll;
@@ -161,14 +344,9 @@ main {
     border: 1px solid #04071d1e;
     border-radius: 5px;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
-.conteneur-reunion:hover {
-    opacity: 80%;
-    cursor: pointer;
-
-    
-}
 .reunion-entete {
     display: flex;
     flex-direction: row;
@@ -184,8 +362,8 @@ main {
     z-index: 1;
 }
 
-
-.reunion-reglage:hover {
+.reunion-entete:hover .reunion-titre,
+.reunion-entete:hover .reunion-reglage, .reunion-entete:hover {
     cursor: pointer;
     color: white;
     font-weight: bold;
@@ -195,7 +373,7 @@ main {
     align-self: center;
     margin-left: 1em;
     font-size: large;
-    color: white;
+    color: #c7c7cb;
     box-sizing: border-box;
 }
 
@@ -210,17 +388,10 @@ main {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    padding: 3%;
     border-start-end-radius: 0;
     border-start-start-radius: 0;
+    box-sizing: border-box;
     box-sizing: content-box;
-    overflow-y: scroll;
-
-}
-
-.reunion-description::-webkit-scrollbar {
-    display: none;
-    scrollbar-color: white;
 }
 
 /*
@@ -264,6 +435,7 @@ footer {
     bottom: 0;;
     width: 100vw;   
     height: 8em;
+    margin-top: 1em;
 }
 
 footer h5 {
@@ -316,6 +488,27 @@ footer a {
     cursor: pointer;
 }
 
+/* Personnalisation de la barre de défilement */
+
+/* Barre de défilement */
+html {
+    scrollbar-width: thin;
+}
+
+/* Piste de la barre de défilement */
+html {
+    scrollbar-color: #ffffff transparent;
+}
+
+/* Poignée de la barre de défilement */
+html {
+    scrollbar-color: #04071d transparent;
+}
+
+/* Poignée de la barre de défilement au survol */
+html:hover {
+    scrollbar-color: #04071d transparent;
+}
 
 /*
  * AUTRES
@@ -333,6 +526,10 @@ footer a {
     display: none;
 }
 
+#conteneur-reunions::-webkit-scrollbar {
+    display: none;
+}
+
 /*
  * Fenêtre créer un groupe
  */
@@ -345,7 +542,7 @@ footer a {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 10;
+    z-index: 3;
     position: fixed;
     background-color: #302f4b8c;
     display: flex;
@@ -417,7 +614,7 @@ input, textarea {
     border: 1px solid lightgray;
 }
 
-#nom-groupe, #ajouter-participants {
+#nom-groupe, #ajouter-participants, #ajouter-participants-groupe {
     height: 5%;
     padding: 1em;
     width: 40%;
@@ -437,13 +634,18 @@ input, textarea {
 
 #liste-participants {
     width: 100%;
+    height: 40%;
     overflow: scroll;
     text-align: center;
 }
 
+#liste-participants::-webkit-scrollbar {
+    display: none;
+}
+
 #conteneur-description {
     width: 100%;
-    height: 40%;
+    height: 20%;
     display: flex;
     flex-direction: column;
 }
@@ -496,8 +698,6 @@ input, textarea {
     color: black;
 }
 
-
-
 #nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants, #creer-liste-taches {
     height: max(60vmin,400px);
     aspect-ratio: 3/4;
@@ -528,7 +728,6 @@ input, textarea {
   font-size: 1.5rem;
   text-align: center;
   background-color: #04071d;
-
 }
 
 .champs-a-remplir {
@@ -562,7 +761,6 @@ textarea {
   overflow: hidden;
 }
 
-
 #debut-reunion, #fin-reunion {
   width: 6em;
   font-size: 0.8rem;
@@ -578,7 +776,6 @@ textarea {
     opacity: 100%;
 }
 
-
 #messages-erreur, #messages-erreur-participants {
   height: 20%;
   display: flex;
@@ -593,7 +790,7 @@ textarea {
   justify-content: space-around;
 }
 
-.btn-reunion button{
+.btn-reunion button {
   background-color: #04071d;
   color: white;
   border-radius: 0.5em;
@@ -619,7 +816,12 @@ textarea {
 
 #ajouter-participants {
   height: 100%;
+  width: 90%;
 }
+
+#ajouter-participants-groupe {
+    width: 90%;
+  }
 
 #ajout-participant-label {
   padding-left: 0.5em;
@@ -651,7 +853,7 @@ textarea {
   margin-top: 0.4em;
 }
 
-#liste-participants, #liste-taches{
+#liste-participants, #liste-taches {
   height: 50%;
   max-height: 150px;
   margin-top: 0.5em;
@@ -729,4 +931,4 @@ justify-content: center;
 .focus {
     opacity: 50%;
     pointer-events: none;
-  }
+}
