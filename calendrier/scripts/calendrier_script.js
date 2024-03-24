@@ -175,6 +175,48 @@ $(document).ready(function() {
         });
     }
 
+/**
+ * A_CONFLIT_HORAIRE
+ * Détermine si un participant a une réunion de prévue à l'heure choisie lors de la création d'une nouvelle réunion
+ * @param {String} courriel 
+ * @param {heure} debut 
+ * @param {heure} fin 
+ * @param {Date} date 
+ */
+    function aConflitHoraire(courriel, debut, fin, date) {
+
+        const donnees = {'courriel': courriel,
+                         'debut': debut,
+                         'fin': fin,
+                         'date': date};
+
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_conflit", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+    
+            if (response.ok) {
+                 return response.json();
+            }
+    
+            else {
+                console.log("La requête n'a pas fonctionnée");
+            }
+            })
+            .then(data => {
+                
+              if (data.length > 0) {
+                alert(courriel + " a une réunion à " + data[0]['heure_debut']);
+              }
+            })
+            .catch(error => {
+            console.log(error);
+            });
+
+    }
+
 
 
     /**
@@ -411,6 +453,8 @@ $(document).ready(function() {
                // Un utilisateur a été trouvé
                if (data["existe"]) {
 
+                aConflitHoraire(texte, debutReunion, finReunion, dateReunion);
+                    
                 // Le participant est ajouté à la liste
                 $("#nouveau-participant").val("");
 

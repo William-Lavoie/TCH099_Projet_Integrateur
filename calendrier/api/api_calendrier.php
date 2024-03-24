@@ -792,6 +792,39 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     }
 
+    // Chercher si un utilisateur a une réunion entre deux heures données 
+    if (preg_match("~chercher_conflit$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['courriel'], $donnees['debut'], $donnees['fin'], $donnees['date'])) {
+    
+            require("connexion.php");
+               
+            $query = $conn->prepare("SELECT * FROM utilisateurs_reunions AS ur INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions WHERE ur.courriel_utilisateurs = :courriel AND r.date = :date AND r.heure_debut < :fin AND :debut < r.heure_fin");
+            $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":date", $donnees['date'],  PDO::PARAM_STR);
+            $query->bindParam(":debut", $donnees['debut'],  PDO::PARAM_STR);
+            $query->bindParam(":fin", $donnees['fin'],  PDO::PARAM_STR);
+
+            
+            $query->execute();
+            $resultat = $query->fetchAll();
+    
+            if ($resultat) {
+                echo json_encode($resultat);
+            }
+
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
         
 
 
