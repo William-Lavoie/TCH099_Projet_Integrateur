@@ -230,7 +230,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $idReunion = $donnees['id_reunions'];
 
 
-            // Création de la réunion
+            // Modification de la réunion
             $query = $conn->prepare(" UPDATE reunions 
             SET 
                 courriel_createur = :courriel,
@@ -265,6 +265,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $queryDelete = $conn->prepare("DELETE FROM utilisateurs_reunions WHERE id_reunions = :id");
             $queryDelete->bindParam(":id", $idReunion, PDO::PARAM_STR);
             $queryDelete->execute();
+
+            // Ajout du créateur dans la table de jointure 
+            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+            $query->execute();
 
             // Création d'une entrée dans la table de jointure pour chaque utilisateur
             for ($i = 0; $i < count($resultat); $i++) {
@@ -304,6 +310,102 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             }
 
     }
+
+
+     // Modification d'une réunion côté participants
+     if (preg_match("~modifier_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['taches'], $donnees['id_reunions'], $donnees['listeParticipants'])) {
+
+            require("connexion.php");
+
+            $titre = $donnees['titre'];
+            $debut = $donnees['debutReunion'];
+            $fin = $donnees['finReunion'];
+            $date = $donnees['dateReunion'];
+            $description = $donnees['description'];
+            $taches = $donnees['taches'];
+            $idReunion = $donnees['id_reunions'];
+            $participants = $donnees['listeParticipants'];
+
+
+
+            // Modification de la réunion
+            $query = $conn->prepare(" UPDATE reunions 
+            SET 
+                courriel_createur = :courriel,
+                titre = :titre,
+                heure_debut = :debut,
+                heure_fin = :fin,
+                date = :date,
+                description = :description
+            WHERE 
+                id_reunions = :reunion");
+
+            $query->bindParam(':courriel', $_SESSION['courriel']);
+            $query->bindParam(':titre', $titre);
+            $query->bindParam(':debut', $debut);
+            $query->bindParam(':fin', $fin);
+            $query->bindParam(':date', $date);
+            $query->bindParam(':description', $description);
+            $query->bindParam(':reunion', $idReunion);
+
+            $query->execute();
+
+      
+            // Vider la table de jointure pour enlever les participants n'étant plus inclus
+            $queryDelete = $conn->prepare("DELETE FROM utilisateurs_reunions WHERE id_reunions = :id");
+            $queryDelete->bindParam(":id", $idReunion, PDO::PARAM_STR);
+            $queryDelete->execute();
+
+            // Ajout du créateur dans la table de jointure 
+            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+            $query->execute();
+
+              // Création d'une entrée dans la table de jointure pour chaque utilisateur
+        for ($i = 0; $i < count($participants); $i++) {
+
+            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
+            $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+            $query->execute();
+        }
+
+            // Chercher l'id de la liste des tâches
+            $query = $conn->prepare("SELECT id_listes_taches FROM liste_taches WHERE id_reunions = :id");
+            $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+            $query->execute();
+
+            $idListe = $query->fetch();
+
+            // Vider la liste des tâches
+            $query = $conn->prepare("DELETE FROM taches WHERE id_liste_taches = :id");
+            $query->bindParam(":id", $idListe['id_listes_taches'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Ajout des tâches 
+            for ($i = 0; $i < count($taches); $i++) {
+
+                $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :id_liste)");
+                $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
+                $query->bindParam(":id_liste", $idListe['id_listes_taches'],  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            echo json_encode(["error" => "succes"]);
+
+            }
+            else {
+                echo json_encode(["error" => "erreur"]);
+            }
+
+    }
+
 
 
 
@@ -400,7 +502,14 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             //id du groupe venant d'être créée
             $id_groupe = $conn->lastInsertId();
-    
+
+             // Ajout du créateur dans la table de jointure 
+            $query = $conn->prepare("INSERT INTO utilisateurs_groupes (courriel_etudiants, id_groupes) VALUES (:courriel, :id)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
+            $query->execute();
+
+
             // Création d'une entrée dans la table de jointure pour chaque étudiant
             for ($i = 0; $i < count($participants); $i++) {
     

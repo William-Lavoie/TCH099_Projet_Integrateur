@@ -658,6 +658,7 @@ $(document).ready(function() {
             nouveauParticipant.children("p").text(data[i]['courriel_utilisateurs']);
             nouveauParticipant.append(boutonSupprimer);
             $("#liste-participants").append(nouveauParticipant);
+            console.log("ok");
             }
           
         }

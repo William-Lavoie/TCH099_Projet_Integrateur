@@ -270,7 +270,6 @@ $(document).ready(function() {
             // Vérifie que l'heure et la date sont valides
             if (heureDateValides()) {
 
-                console.log(localStorage.getItem('reunionEstModifiee'));
                 // Si la réunion est en cours de modification
                 if (localStorage.getItem('reunionEstModifiee') == true) {
                     console.log("ok");
@@ -609,7 +608,7 @@ function envoyerFormulaireGroupe() {
     }
     
 }
-    
+}    
 
 function envoyerFormulaireParticipants() {
 
@@ -621,41 +620,83 @@ function envoyerFormulaireParticipants() {
         participantsReunion.push($("#liste-participants").children().eq(i).find("p").text());
     }
 
-    // Les informations de la réunions sont ajoutées à la base de données
-    const donnees = {"titre": titre,
-    "debutReunion": debutReunion,
-    "finReunion": finReunion,
-    "dateReunion": dateReunion,
-    "description": description,
-    "listeParticipants": participantsReunion,
-    "taches": listeTaches};
+    if (!localStorage.getItem("reunionEstModifiee")) {
 
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(donnees)
-    })
-    .then(response => {
+        // Les informations de la réunions sont ajoutées à la base de données
+        const donnees = {"titre": titre,
+        "debutReunion": debutReunion,
+        "finReunion": finReunion,
+        "dateReunion": dateReunion,
+        "description": description,
+        "listeParticipants": participantsReunion,
+        "taches": listeTaches};
 
-    if (response.ok) {
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
 
-    // Fermer les formulaires et rafraîchir la page
-    fermerFormulaires();
-    window.location.reload();
-    return response.json();
+        if (response.ok) {
+
+        // Fermer les formulaires et rafraîchir la page
+        fermerFormulaires();
+        window.location.reload();
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .catch(error => {
+        console.log(error);
+        });
     }
+        // La réunion est modifiée
+        else {
 
-    else {
-    console.log("error");
-    }
-    })
-    .catch(error => {
-    console.log(error);
-    });
+                // Les informations de la réunions sont ajoutées à la base de données
+            const donnees = {"titre": titre,
+            "debutReunion": debutReunion,
+            "finReunion": finReunion,
+            "dateReunion": dateReunion,
+            "description": description,
+            "listeParticipants": participantsReunion,
+            "taches": listeTaches,
+            "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+
+            if (response.ok) {
+
+            // Fermer les formulaires et rafraîchir la page
+            fermerFormulaires();
+           // window.location.reload();
+            return response.json();
             }
+
+            else {
+            console.log("error");
+            }
+            })
+            .catch(error => {
+            console.log(error);
+            });
+        }
+
+
+  
+
+}
              
-    }
+    
 });
 
 
