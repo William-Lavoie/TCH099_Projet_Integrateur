@@ -163,6 +163,12 @@ main {
     box-sizing: border-box;
 }
 
+.conteneur-reunion:hover {
+    opacity: 80%;
+    cursor: pointer;
+
+    
+}
 .reunion-entete {
     display: flex;
     flex-direction: row;
@@ -479,6 +485,15 @@ input, textarea {
     padding: 2%;
     align-self: center;
     bottom: 0;
+}
+
+.groupe-choisi {
+    background-color: white;
+    color: black;
+}
+
+.groupe-choisi:hover {
+    color: black;
 }
 
 

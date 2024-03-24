@@ -537,7 +537,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             $idGroupe = $donnees['idGroupe'];
            
-            $query = $conn->prepare("SELECT titre, description FROM reunions WHERE id_groupes = :id");
+            $query = $conn->prepare("SELECT id_reunions, titre, description FROM reunions WHERE id_groupes = :id");
             $query->bindParam(":id", $idGroupe,  PDO::PARAM_STR);
 
             $query->execute();
@@ -653,7 +653,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT r.titre, r.description FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE courriel_utilisateurs = :courriel");
+        $query = $conn->prepare("SELECT r.id_reunions, r.titre, r.description FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE courriel_utilisateurs = :courriel");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();
