@@ -41,8 +41,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
-    justify-content: space-around;
     row-gap: 5vh;
+    column-gap: 2%;
     height: 90%;
     width: 90%;
     content: 100px;
@@ -178,8 +178,8 @@ main {
     z-index: 1;
 }
 
-.reunion-entete:hover .reunion-titre,
-.reunion-entete:hover .reunion-reglage, .reunion-entete:hover {
+
+.reunion-reglage:hover {
     cursor: pointer;
     color: white;
     font-weight: bold;
@@ -189,7 +189,7 @@ main {
     align-self: center;
     margin-left: 1em;
     font-size: large;
-    color: #c7c7cb;
+    color: white;
     box-sizing: border-box;
 }
 
@@ -204,10 +204,17 @@ main {
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    padding: 3%;
     border-start-end-radius: 0;
     border-start-start-radius: 0;
-    box-sizing: border-box;
     box-sizing: content-box;
+    overflow-y: scroll;
+
+}
+
+.reunion-description::-webkit-scrollbar {
+    display: none;
+    scrollbar-color: white;
 }
 
 /*
@@ -303,27 +310,6 @@ footer a {
     cursor: pointer;
 }
 
-/* Personnalisation de la barre de défilement */
-
-/* Barre de défilement */
-html {
-    scrollbar-width: thin;
-}
-
-/* Piste de la barre de défilement */
-html {
-    scrollbar-color: #ffffff transparent;
-}
-
-/* Poignée de la barre de défilement */
-html {
-    scrollbar-color: #04071d transparent;
-}
-
-/* Poignée de la barre de défilement au survol */
-html:hover {
-    scrollbar-color: #04071d transparent;
-}
 
 /*
  * AUTRES
@@ -494,3 +480,238 @@ input, textarea {
     align-self: center;
     bottom: 0;
 }
+
+
+
+#nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants, #creer-liste-taches {
+    height: max(60vmin,400px);
+    aspect-ratio: 3/4;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    display: none;
+    position: fixed;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px black;
+    padding: 5p;
+}
+
+#formulaire-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 20%;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: #04071d;
+
+}
+
+.champs-a-remplir {
+  height: 80%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  color: black;
+  font-size: 1em;
+  margin-right: 1em;
+}
+
+.champ-reunion {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+input, textarea {
+  border-radius: 0.3em;
+  margin-right: 1em;
+  border: 1px solid lightgray;
+}
+
+textarea {
+  height: 30%;
+  overflow: hidden;
+}
+
+
+#debut-reunion, #fin-reunion {
+  width: 6em;
+  font-size: 0.8rem;
+}
+
+#btn-radios {
+  margin-top: 1em;
+}
+
+.reunion-visible {
+    display: flex  !important ;
+    flex-direction: column;
+    opacity: 100%;
+}
+
+
+#messages-erreur, #messages-erreur-participants {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-style: italic;
+}
+
+.btn-reunion {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-reunion button{
+  background-color: #04071d;
+  color: white;
+  border-radius: 0.5em;
+  width: 40%;
+  padding: 2%
+}
+
+.reunion-journee {
+  height: 24%;
+  width: 80%;
+  background-color: #04071d;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 2%;
+  padding-left: 3%;
+  border: 1px solid lightgray;
+}
+
+.reunion-journee:hover {
+  background-color: #00c1f3;
+}
+
+
+#ajouter-participants {
+  height: 100%;
+}
+
+#ajout-participant-label {
+  padding-left: 0.5em;
+  font-size: 1.2em;
+}
+
+#btn-creer-participant, #btn-creer-tache {
+  background-color: #04071d;
+  border-radius: 50%;
+  height: 2.5em;
+  width: 2.5em;
+  color: white;
+  font-size: 100%;
+}
+
+#nouveau-participant, #nouvelle-tache {
+  height: 2.5em;
+  width: 70%;
+  border-radius: 2em;
+  padding-left: 1em;
+  margin-right: 1em;
+  border: 2px solid lightgray;
+}
+
+#nouveau-participant-creer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.4em;
+}
+
+#liste-participants, #liste-taches{
+  height: 50%;
+  max-height: 150px;
+  margin-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.nom-participant {
+height: 20%;
+border-radius: 1em;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-left: 1em;
+padding-right: 1em;
+margin-bottom: 2%;
+border: 2px solid lightgray;
+}
+
+.nom-participant:hover {
+  background-color: lightgray;
+}
+
+.supprimer-participant, .supprimer-tache {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: 1.8em;
+}
+
+.supprimer-participant:hover, .supprimer-tache:hover {
+  background-color: transparent;
+  font-size: 2.1em;
+}
+
+#choix-groupe {
+  width: 60%;
+  height: 20%;
+}
+
+#champs-groupes {
+  padding-top: 10%;
+height: 30%;
+display: flex;
+justify-content: center;
+}
+
+#espace-vide {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 5%;
+}
+
+#creer-reunion {
+    position: fixed; 
+    bottom: 5%; 
+    right: 5%; 
+    border-radius: 100%;
+    background-color: #04071d;
+    color: white;
+    height: max(10%, 70px);
+    max-height: 6em;
+    aspect-ratio: 1/1;
+    font-size: 1em;
+    min-width: 70px;
+    z-index: 2;
+}
+
+.focus {
+    opacity: 50%;
+    pointer-events: none;
+  }
