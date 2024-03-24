@@ -143,6 +143,7 @@ $(document).ready(function() {
 
 
         $("#choix-groupe").html("");
+        $("#choix-groupe").append("<option value='null'>Veuillez choisir un groupe</option>");
 
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
@@ -467,7 +468,7 @@ $(document).ready(function() {
         let groupe = $("#choix-groupe").val();
 
         //TODO ??
-        if (groupe === 23 || groupe === null || groupe === undefined) {
+        if (groupe === "null" || groupe === undefined) {
             console.log("ok");
             $("#espace-vide").text("Vous devez choisir un groupe");
         }
