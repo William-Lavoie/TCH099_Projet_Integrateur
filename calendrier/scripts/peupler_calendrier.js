@@ -178,7 +178,8 @@ $(document).ready(function() {
         
             // Mettre un écouteur d'évènement qui ouvre la réunion
                reunionJournee.on("click", function() {
-                  consulterReunionSpecifique($("#calendrier").children().eq(i), reunionJournee.index());
+                console.log(donnees[j]['courriel_createur']);
+                  consulterReunionSpecifique($("#calendrier").children().eq(i), reunionJournee.index(), donnees[j]['courriel_createur']);
             })
 
           }
@@ -378,7 +379,7 @@ $(document).ready(function() {
         $("#panneau-reunions").append(reunion);
 
         $("#panneau-reunions").children().eq(i).on("click", function() {
-           consulterReunion($(this));
+           consulterReunion($(this), journee.data("listeReunionsJournee")[i]['courriel_createur']);
         })
 
       }
@@ -392,9 +393,11 @@ $(document).ready(function() {
    * d'une journée, ouvre son onglet et lui offre l'option de la joindre 
    * ou de la modifier
    * @param {div} reunion 
+   * @param {String} courriel du créateur de la créunion
    */
-  function consulterReunion(reunion) {
+  function consulterReunion(reunion, createur) {
 
+    console.log(reunion);
     if (!reunion.hasClass("reunion-visible-panneau")) {
 
       reunion.addClass("reunion-visible-panneau");
@@ -445,17 +448,42 @@ $(document).ready(function() {
         joindreReunion(reunion);
       });
 
-      let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
-      boutonModifier.on("click", function() {
-      modifierReunion(reunion);
-       console.log("temporary");
-
-      });
-
       $(reunion).find("#btn-panneau-reunion").append(boutonJoindre);
-      $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
 
 
+      // Ajoute le bouton modifier si l'utilisateur est le créateur de la réunion
+      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+      })
+      .then(response => {
+
+      if (response.ok) {
+
+      return response.json();
+      }
+
+      else {
+      }
+      })
+      .then(reponse => {
+
+          console.log(reponse);
+          
+       if (reponse == createur) {
+           let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
+           boutonModifier.on("click", function() {
+           modifierReunion(reunion);
+           console.log("temporary");
+          });
+
+          $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
+       }  
+
+
+      })
+      .catch(error => {
+      console.log(error);
+      });  
+     
       reunion.find("#quitter-reunion").remove();
 
       /* Bouton pour revenir en arrière
@@ -494,11 +522,10 @@ $(document).ready(function() {
  * @param {div} journee 
  * @param {int} index 
  */
-  function consulterReunionSpecifique(journee, index) {
+  function consulterReunionSpecifique(journee, index, createur) {
 
     ouvrirReunion(journee);
-    console.log(index);
-    consulterReunion($("#panneau-reunions").children().eq(index));
+    consulterReunion($("#panneau-reunions").children().eq(index), createur);
   }
 
   /**
