@@ -210,6 +210,108 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
+    // Modification d'une réunion côté groupe
+    if (preg_match("~modifier_reunion_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['titre'], $donnees['debutReunion'], $donnees['finReunion'], $donnees['dateReunion'], $donnees['description'], $donnees['groupe'], $donnees['taches'], $donnees['id_reunions'])) {
+
+            require("connexion.php");
+
+            $groupe = $donnees['groupe'];
+            $titre = $donnees['titre'];
+            $debut = $donnees['debutReunion'];
+            $fin = $donnees['finReunion'];
+            $date = $donnees['dateReunion'];
+            $description = $donnees['description'];
+            $taches = $donnees['taches'];
+            $idReunion = $donnees['id_reunions'];
+
+
+            // Création de la réunion
+            $query = $conn->prepare(" UPDATE reunions 
+            SET 
+                courriel_createur = :courriel,
+                titre = :titre,
+                heure_debut = :debut,
+                heure_fin = :fin,
+                date = :date,
+                description = :description,
+                id_groupes = :id_groupes
+            WHERE 
+                id_reunions = :reunion");
+
+            $query->bindParam(':courriel', $_SESSION['courriel']);
+            $query->bindParam(':titre', $titre);
+            $query->bindParam(':debut', $debut);
+            $query->bindParam(':fin', $fin);
+            $query->bindParam(':date', $date);
+            $query->bindParam(':description', $description);
+            $query->bindParam(':id_groupes', $groupe);
+            $query->bindParam(':reunion', $idReunion);
+
+            $query->execute();
+
+            // Recherche de tous les participants dans le groupe
+            $query = $conn->prepare("SELECT courriel_etudiants FROM utilisateurs_groupes ug INNER JOIN groupes g ON ug.id_groupes = g.id_groupes  WHERE g.id_groupes = '$groupe'");
+            $query->execute();
+
+            $resultat = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+            // Vider la table de jointure pour enlever les participants n'étant plus inclus
+            $queryDelete = $conn->prepare("DELETE FROM utilisateurs_reunions WHERE id_reunions = :id");
+            $queryDelete->bindParam(":id", $idReunion, PDO::PARAM_STR);
+            $queryDelete->execute();
+
+            // Création d'une entrée dans la table de jointure pour chaque utilisateur
+            for ($i = 0; $i < count($resultat); $i++) {
+
+                $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
+                $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            // Chercher l'id de la liste des tâches
+            $query = $conn->prepare("SELECT id_listes_taches FROM liste_taches WHERE id_reunions = :id");
+            $query->bindParam(":id", $idReunion,  PDO::PARAM_STR);
+            $query->execute();
+
+            $idListe = $query->fetch();
+
+            // Vider la liste des tâches
+            $query = $conn->prepare("DELETE FROM taches WHERE id_liste_taches = :id");
+            $query->bindParam(":id", $idListe['id_listes_taches'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Ajout des tâches 
+            for ($i = 0; $i < count($taches); $i++) {
+
+                $query = $conn->prepare("INSERT INTO taches (titre, id_liste_taches) VALUES (:titre, :id_liste)");
+                $query->bindParam(":titre", $taches[$i],  PDO::PARAM_STR);
+                $query->bindParam(":id_liste", $idListe['id_listes_taches'],  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            echo json_encode(["error" => "succes"]);
+
+            }
+            else {
+                echo json_encode(["error" => "erreur"]);
+            }
+
+    }
+
+
+
+
+
+     // Chercher les réun
+
+
 
 
 

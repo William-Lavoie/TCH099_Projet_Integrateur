@@ -596,6 +596,8 @@ $(document).ready(function() {
   function modifierReunion(reunion) {
 
     localStorage.setItem('reunionEstModifiee', true);
+    localStorage.setItem('reunionIdentifiant', reunion.data("listeReunionsJournee")['id_reunions']);
+
 
     $("#nouvelle-reunion").addClass("reunion-visible");
 
@@ -670,7 +672,55 @@ $(document).ready(function() {
       $("#btn-radio").prop("checked", true);
 
 
+
     }
+
+
+    // Afficher la liste des tâches 
+    donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_taches", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+
+
+        for (let i = 0; i < data.length; i++) {
+
+          console.log("test");
+            const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
+            const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
+
+            // Bouton pour supprimer la tâche 
+            boutonSupprimer.on("click", function(event) {
+
+                // Évite de supprimer les parents également
+                event.stopPropagation(); 
+                $(this).parent().remove();
+            });
+
+            // Création de la tâche dans le formulaire 
+              nouvelleTache.children("p").text(data[i]['titre']);
+              nouvelleTache.append(boutonSupprimer);
+              $("#liste-taches").append(nouvelleTache);
+            }
+
+        })
+        .catch(error => {
+        console.log(error);
+        });
 
 
 

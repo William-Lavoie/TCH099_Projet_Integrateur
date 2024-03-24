@@ -141,6 +141,9 @@ $(document).ready(function() {
 
     function afficherListeGroupes() {
 
+
+        $("#choix-groupe").html("");
+
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
         .then(response => {
@@ -188,9 +191,12 @@ $(document).ready(function() {
     */
     $("#creer-reunion").on("click", function() {
 
+
+        fermerFormulaires();
+
         localStorage.setItem('reunionEstModifiee', false);
         $(".formulaire-header").html("Créer une nouvelle réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
-
+        console.log(localStorage.getItem('reunionEstModifiee'));
 
         // Affiche le formulaire
         $("#nouvelle-reunion").addClass("reunion-visible");
@@ -198,14 +204,6 @@ $(document).ready(function() {
         // Réduit l'opacité et désactive toutes les fonctionalités de tout l'écran sauf le formulaire
         $("main, header, footer, #creer-reunion").addClass("focus");
     }) 
-
-
-    /**
-     * Permet de déterminer que la réunion doit être modifiée et non créée 
-     */
-    $(".jour").on("click", function() {
-        reunionEstModifiee = true;
-    })
 
 
     // Fermer le formulaire de création d'une réunion en appuyant sur retour
@@ -274,7 +272,7 @@ $(document).ready(function() {
 
                 console.log(localStorage.getItem('reunionEstModifiee'));
                 // Si la réunion est en cours de modification
-                if (localStorage.getItem('reunionEstModifiee')) {
+                if (localStorage.getItem('reunionEstModifiee') == true) {
                     console.log("ok");
                     $(".formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
                 }
@@ -535,15 +533,18 @@ function envoyerFormulaireGroupe() {
         }
     
         if (groupe != null) {
-             // Les informations de la réunions sont ajoutées à la base de données
-             const donnees = {"titre": titre,
-             "debutReunion": debutReunion,
-             "finReunion": finReunion,
-             "dateReunion": dateReunion,
-             "description": description,
-             "groupe": groupe,
-             "taches": listeTaches};
-    
+
+            const donnees = {"titre": titre,
+            "debutReunion": debutReunion,
+            "finReunion": finReunion,
+            "dateReunion": dateReunion,
+            "description": description,
+            "groupe": groupe,
+            "taches": listeTaches};
+
+            if (!localStorage.getItem("reunionEstModifiee")) {
+                // Les informations de la réunions sont ajoutées à la base de données
+            
             fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -567,7 +568,44 @@ function envoyerFormulaireGroupe() {
                 console.log(error);
             });
     
-            };
+        }
+
+        // La réunion est modifiée
+        else {
+
+            const donnees = {"titre": titre,
+            "debutReunion": debutReunion,
+            "finReunion": finReunion,
+            "dateReunion": dateReunion,
+            "description": description,
+            "groupe": groupe,
+            "taches": listeTaches,
+            "id_reunions": localStorage.getItem("reunionIdentifiant")};
+
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+        
+                if (response.ok) {
+        
+                    // Fermer les formulaires et rafraîchir la page
+                    fermerFormulaires();
+                    //window.location.reload();
+                    return response.json();
+                }
+        
+                else {
+                    console.log("error");
+                }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        
+        }
     }
     
 }
@@ -615,6 +653,8 @@ function envoyerFormulaireParticipants() {
     console.log(error);
     });
 
+            }
+             
     }
 });
 
