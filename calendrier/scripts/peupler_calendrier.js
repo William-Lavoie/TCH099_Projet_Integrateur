@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  console.log(localStorage.getItem('reunionEstModifiee'));
   // Information par rapport au mois courant
   var joursMoisDernier;
   let joursMoisCourant;
@@ -594,10 +595,12 @@ $(document).ready(function() {
    */
   function modifierReunion(reunion) {
 
+    localStorage.setItem('reunionEstModifiee', true);
+
     $("#nouvelle-reunion").addClass("reunion-visible");
 
     // Remplir le formulaire avec les données courantes
-    $("#formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+    $(".formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
 
     $("#titre-reunion").val(reunion.data("listeReunionsJournee")['titre']);
     $("#debut-reunion").val(formatterHeure(reunion.data("listeReunionsJournee")['heure_debut']));
@@ -611,6 +614,7 @@ $(document).ready(function() {
       $("#groupes").prop("checked", true);
 
       donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
+
       // Ajouter la liste des participants déjà invités à la réunion
       fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
@@ -662,13 +666,10 @@ $(document).ready(function() {
       
     }
 
-
-    //else {
-
-    //}
-
     else {
       $("#btn-radio").prop("checked", true);
+
+
     }
 
 

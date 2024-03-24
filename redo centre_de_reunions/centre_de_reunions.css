@@ -222,8 +222,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
-    justify-content: space-around;
     row-gap: 5vh;
+    column-gap: 2%;
     height: 90%;
     width: 90%;
     content: 100px;
@@ -347,6 +347,12 @@ main {
     overflow: hidden;
 }
 
+.conteneur-reunion:hover {
+    background-color: rgb(231, 228, 228);
+    opacity: 80%;
+    cursor: pointer; 
+}
+
 .reunion-entete {
     display: flex;
     flex-direction: row;
@@ -362,9 +368,7 @@ main {
     z-index: 1;
 }
 
-.reunion-entete:hover .reunion-titre,
-.reunion-entete:hover .reunion-reglage, .reunion-entete:hover {
-    cursor: pointer;
+.reunion-reglage:hover {
     color: white;
     font-weight: bold;
 }
@@ -373,7 +377,7 @@ main {
     align-self: center;
     margin-left: 1em;
     font-size: large;
-    color: #c7c7cb;
+    color: white;
     box-sizing: border-box;
 }
 
@@ -388,10 +392,17 @@ main {
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    padding: 3%;
     border-start-end-radius: 0;
     border-start-start-radius: 0;
     box-sizing: border-box;
     box-sizing: content-box;
+    overflow-y: scroll;
+}
+
+.reunion-description::-webkit-scrollbar {
+    display: none;
+    scrollbar-color: white;
 }
 
 /*
@@ -488,27 +499,6 @@ footer a {
     cursor: pointer;
 }
 
-/* Personnalisation de la barre de défilement */
-
-/* Barre de défilement */
-html {
-    scrollbar-width: thin;
-}
-
-/* Piste de la barre de défilement */
-html {
-    scrollbar-color: #ffffff transparent;
-}
-
-/* Poignée de la barre de défilement */
-html {
-    scrollbar-color: #04071d transparent;
-}
-
-/* Poignée de la barre de défilement au survol */
-html:hover {
-    scrollbar-color: #04071d transparent;
-}
 
 /*
  * AUTRES

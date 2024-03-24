@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-    //TODO: if the user is a prof, do nothing, else when creating meeting add user to utilisateurs_reunions
     
     // Informations par rapport à une réunion
     let titre;
@@ -14,6 +13,9 @@ $(document).ready(function() {
 
     // Liste des tâches à ajouter à une réunion
     let listeTaches = [];
+
+    // Détermine si la réunion doit être créée ou modifiée
+    localStorage.setItem('reunionEstModifiee', false);  
 
     /**
      * Vide tous les champs et ferme les formulaires de création d'une réunion
@@ -138,7 +140,7 @@ $(document).ready(function() {
     }
 
     function afficherListeGroupes() {
-        console.log("ok");
+
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
         .then(response => {
@@ -186,12 +188,24 @@ $(document).ready(function() {
     */
     $("#creer-reunion").on("click", function() {
 
+        localStorage.setItem('reunionEstModifiee', false);
+        $(".formulaire-header").html("Créer une nouvelle réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+
+
         // Affiche le formulaire
         $("#nouvelle-reunion").addClass("reunion-visible");
 
         // Réduit l'opacité et désactive toutes les fonctionalités de tout l'écran sauf le formulaire
         $("main, header, footer, #creer-reunion").addClass("focus");
     }) 
+
+
+    /**
+     * Permet de déterminer que la réunion doit être modifiée et non créée 
+     */
+    $(".jour").on("click", function() {
+        reunionEstModifiee = true;
+    })
 
 
     // Fermer le formulaire de création d'une réunion en appuyant sur retour
@@ -257,6 +271,14 @@ $(document).ready(function() {
 
             // Vérifie que l'heure et la date sont valides
             if (heureDateValides()) {
+
+                console.log(localStorage.getItem('reunionEstModifiee'));
+                // Si la réunion est en cours de modification
+                if (localStorage.getItem('reunionEstModifiee')) {
+                    console.log("ok");
+                    $(".formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+                }
+
 
                 // Passer à la page suivante selon l'option choisie (groupe ou participants)
                 if ($("#btn-radio")[0].checked) {
