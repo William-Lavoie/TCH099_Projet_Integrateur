@@ -384,6 +384,10 @@ $(document).ready(function() {
         })
 
       }
+
+      if ($("#panneau-reunions").html() === "") {
+        $("#panneau-reunions").text("Vous n'avez aucune réunion de planifiée!")
+      }
       
   }  
 

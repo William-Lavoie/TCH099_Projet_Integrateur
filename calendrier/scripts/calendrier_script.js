@@ -374,20 +374,11 @@ $(document).ready(function() {
         .then(reponse => {
 
             if (texte == reponse) {
-                erreur = true;
+
+                $("#messages-erreur-participants").text("Vous faites déjà parti de la réunion!");
             }
 
-    
-        })
-        .catch(error => {
-        console.log(error);
-        });  
-
-        if (erreur == false) {
-            $("#messages-erreur-participants").text("Vous faites déjà parti de la réunion!");
-        }
-
-        // Le même participant ne doit pas être ajouté plus d'une fois
+            // Le même participant ne doit pas être ajouté plus d'une fois
         else if (courrrielPresent(texte)) {
             $("#nouveau-participant").val("");
             $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
@@ -457,6 +448,15 @@ $(document).ready(function() {
         else {
             $("#messages-erreur-participants").text(texte + " n'est pas une adresse valide!");
         }
+          
+
+    
+        })
+        .catch(error => {
+        console.log(error);
+        });  
+
+        
     }) 
 
 
@@ -625,7 +625,7 @@ function envoyerFormulaireGroupe() {
         
                     // Fermer les formulaires et rafraîchir la page
                     fermerFormulaires();
-                    //window.location.reload();
+                    window.location.reload();
                     return response.json();
                 }
         
@@ -711,7 +711,7 @@ function envoyerFormulaireParticipants() {
 
             // Fermer les formulaires et rafraîchir la page
             fermerFormulaires();
-           // window.location.reload();
+            window.location.reload();
             return response.json();
             }
 
