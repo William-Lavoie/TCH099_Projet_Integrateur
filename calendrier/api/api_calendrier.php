@@ -450,6 +450,41 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
+    if (preg_match("~supprimer_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+           
+            // Supprimer la réunion
+            $query = $conn->prepare("DELETE FROM reunions WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['id_reunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Supprimer les entrées dans la table de jointure 
+            $query = $conn->prepare("DELETE FROM utilisateurs_reunions WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Supprimer la liste des tâches 
+            $query = $conn->prepare("DELETE FROM liste_taches WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+    
+            echo json_encode("Succès");
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
+
     // Chercher les participants pour une réunion donnée
     if (preg_match("~chercher_liste_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
@@ -748,7 +783,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             $idGroupe = $donnees['idGroupe'];
            
-            $query = $conn->prepare("SELECT id_reunions, titre, description FROM reunions WHERE id_groupes = :id ORDER BY date");
+            $query = $conn->prepare("SELECT id_reunions, titre, date, description FROM reunions WHERE id_groupes = :id ORDER BY date");
             $query->bindParam(":id", $idGroupe,  PDO::PARAM_STR);
 
             $query->execute();
@@ -897,7 +932,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT r.id_reunions, r.titre, r.description FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE courriel_utilisateurs = :courriel ORDER BY r.date");
+        $query = $conn->prepare("SELECT r.id_reunions, r.titre, r.description, r.date FROM reunions AS r INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions WHERE courriel_utilisateurs = :courriel ORDER BY r.date, r.heure_debut");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();

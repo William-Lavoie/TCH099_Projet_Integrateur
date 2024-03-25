@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Compteur des réunions
         let compteur = 0;
+
+        // Compteur des jours écoulés
+        let joursEcoules =0;
+
 console.log(data[compteur]['date']);
         // Créer le tableau des présences
         for (let i = 0; i < rows; i++) {
@@ -33,7 +37,7 @@ console.log(data[compteur]['date']);
                 const cell = document.createElement('div');
                 cell.classList.add('grid-item');
 
-                console.log(formatterDate(jour));
+                console.log();
 
                 // Tant que les réunions sont pour la même journée
                 while (compteur < data.length && data[compteur]['date'] === formatterDate(jour)) {
@@ -49,7 +53,13 @@ console.log(data[compteur]['date']);
 
                     compteur++;
                 }
+
+                // Afficher les semaines
+                if (joursEcoules % 7 == 0) {
+                    $("#semaines-grille").append("<div class='semaine'><p>" + formatterDate(jour) + "<p/></div>");
+                }
                 
+                joursEcoules++;
                 jour.setDate(jour.getDate()+1);
                 gridContainer.appendChild(cell);
 

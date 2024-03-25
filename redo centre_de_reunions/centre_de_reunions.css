@@ -219,19 +219,45 @@ main {
 }
 
 #conteneur-reunions {
+  
+height: 90%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+#conteneur-reunions > p {
+    width: 90%;
+    text-align: left;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#conteneur-reunions-prochaines::-webkit-scrollbar, #conteneur-reunions-passees::-webkit-scrollbar {
+    display: none;
+}
+
+#conteneur-reunions-prochaines, #conteneur-reunions-passees {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
     row-gap: 5vh;
     column-gap: 2%;
-    height: 90%;
-    width: 90%;
-    content: 100px;
-    margin-top: 5%;
+    max-height: 60%;
+    width: 80vw;
     margin-left: 5%;
+    margin-bottom: 5%;
     box-sizing: border-box;
-
+    overflow-y: scroll;
+    background-color: lightgray;
     transition: margin-left 0.5s;
+    padding: 2%;
+    border-radius: 10px;
+    max-height: 100vh;
+    min-height: 20vh;
+    padding-left: 2.5%;
+    box-shadow: 5px 6px 0px 0px #0000005e;
 }
 
 #conteneur-groupes {
@@ -345,6 +371,7 @@ main {
     border-radius: 5px;
     box-sizing: border-box;
     overflow: hidden;
+    background-color: white;
 }
 
 .conteneur-reunion:hover {
