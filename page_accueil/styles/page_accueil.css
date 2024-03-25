@@ -791,8 +791,11 @@ svg {
 
 @media screen and (max-height: 900px) {
 
+
+
     #bureau-acceuil{
         margin-left: 75vw;
+        margin-top: calc(30vh - 14vmin);
     }
     svg {
         width: 128px;
@@ -893,7 +896,7 @@ section aprendre plus
     margin-left: 20vw;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-height: 900px) {
 
     #premiere-boite-aprendre h1{
         font-size: 1.5em;
@@ -934,3 +937,4 @@ section aprendre plus
     background-color: #04071d;
     color: white;
 }
+

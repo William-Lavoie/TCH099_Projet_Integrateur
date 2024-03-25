@@ -30,20 +30,20 @@ document.addEventListener("DOMContentLoaded", function() {
         let containerAprendrePlus = document.getElementById('conteneur-aprendre-plus');
         containerAprendrePlus.classList.toggle('collapse');
 
-        let h1Elements = document.querySelectorAll('#premiere-boite-aprendre h1');
+        let h1ElementsPremiereBoite = document.querySelectorAll('#premiere-boite-aprendre h1');
 
-            h1Elements[0].classList.add('animate__animated' );
-            h1Elements[0].classList.add('animate__zoomIn');
-            
-            h1Elements[1].classList.add('cacher');
+            h1ElementsPremiereBoite[0].classList.add('animate__animated' );
+            h1ElementsPremiereBoite[0].classList.add('animate__zoomIn');
+                
+            h1ElementsPremiereBoite[1].classList.add('cacher');
 
         setTimeout(function() {
 
 
             setTimeout(function() {
-                h1Elements[1].classList.remove('cacher');
-                h1Elements[1].classList.add('animate__animated');
-                h1Elements[1].classList.add('animate__zoomIn');
+                h1ElementsPremiereBoite[1].classList.remove('cacher');
+                h1ElementsPremiereBoite[1].classList.add('animate__animated');
+                h1ElementsPremiereBoite[1].classList.add('animate__zoomIn');
             }, 600);
         }, 100); 
     });
@@ -51,4 +51,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+    //action seolon la hauteur de la page
+    window.addEventListener('scroll', function() {
+        let scrollHeight = document.documentElement.scrollHeight;
+        let clientHeight = document.documentElement.clientHeight;
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+        let scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    
+        let h1ElementsDeuxiemeBoite = document.querySelectorAll('#deuxieme-boite-aprendre h1');
+        let h1ElementsTroisiemeBoite = document.querySelectorAll('#troisieme-boite-aprendre h1');
+        let h1ElementsQuatriemeBoite = document.querySelectorAll('#quatrieme-boite-aprendre h1');
+
+            // action a 25% height pour la deuxime boite
+        if (scrollPercentage >= 25 && scrollPercentage < 50) {
+            h1ElementsDeuxiemeBoite[0].classList.add('animate__animated' );
+            h1ElementsDeuxiemeBoite[0].classList.add('animate__zoomIn' );
+
+
+                //  action a 50% height pour la troisieme boite
+        } else if (scrollPercentage >= 50 && scrollPercentage < 75) {
+
+            h1ElementsTroisiemeBoite[0].classList.add('animate__animated' );
+            h1ElementsTroisiemeBoite[0].classList.add('animate__zoomIn' );
+
+          //  action a 75% height pour la quatrieme boite
+        } else if (scrollPercentage >= 90) {
+            h1ElementsQuatriemeBoite[0].classList.add('animate__animated' );
+            h1ElementsQuatriemeBoite[0].classList.add('animate__zoomIn' );
+        }
+    });
+
+
+    
 });
