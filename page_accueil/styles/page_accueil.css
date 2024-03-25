@@ -879,7 +879,7 @@ section aprendre plus
     justify-content: space-around;
     align-items: center;
     gap: 1vw;
-    margin-bottom: 1vh;
+    margin-bottom: 5vh;
 }
 
 .btn-slide-page-accueil{
@@ -963,13 +963,6 @@ premiere boite
 /*************************************
 deuxieme boite
 *************************************/
-#deuxieme-message-boite-deux img,
-#troisieme-message-boite-deux img {
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; 
-}
-
 #deuxieme-boite-aprendre {
     display: flex;
     flex-direction: column;
@@ -979,6 +972,13 @@ deuxieme boite
     justify-content: center;
     background-color: #04071d;
     color: white;
+}
+
+#deuxieme-message-boite-deux img,
+#troisieme-message-boite-deux img {
+    max-width: 80%; 
+    max-height: 80%; 
+    object-fit: contain; 
 }
 
 #premier-message-boite-deux {
@@ -995,7 +995,9 @@ deuxieme boite
     justify-content: center;
     align-items: center;
     flex: 1; 
-    width: 100%;
+    width: 80%;
+    height: 80%;
+    margin-top: 10vh;
 }
 
 #deuxieme-message-boite-deux h2,

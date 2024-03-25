@@ -50,8 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
+    //******************** */
     //action seolon la hauteur de la page
+    //************************ */
     window.addEventListener('scroll', function() {
         let scrollHeight = document.documentElement.scrollHeight;
         let clientHeight = document.documentElement.clientHeight;
@@ -84,6 +85,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+    //**************** */
+    //slider
+    //*************** */
     const btnGauche = document.getElementById("btn-gauche-deuxieme-boite");
     const btnDroite = document.getElementById("btn-droite-deuxieme-boite");
     const premierMessage = document.getElementById("premier-message-boite-deux");
