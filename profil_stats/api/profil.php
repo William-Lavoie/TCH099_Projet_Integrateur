@@ -74,3 +74,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }*/
    
 } 
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    // Chercher les réunions de l'utilisateur connecté dans les 140 derniers jours
+    if (preg_match("~chercher_reunions_stats$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+       
+        //  connexion à la base de données
+        require("connexionP.php");
+
+        $query = $conn->prepare("SELECT * FROM utilisateurs_reunions AS ur INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions WHERE ur.courriel_utilisateurs = :courriel AND (r.date BETWEEN DATE_SUB(NOW(), INTERVAL 139 DAY) AND NOW()) ORDER BY r.date");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        // executer la requête
+        if ($resultat) {
+            echo json_encode($resultat);
+        } else {
+            // la gestionn des erreurs
+            echo json_encode(['success' => false, 'error' => 'Aucune réunion trouvée']);
+        }
+            
+    }
+}
+
