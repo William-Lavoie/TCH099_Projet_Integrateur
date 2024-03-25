@@ -47,7 +47,6 @@ function afficherReunionsGroupe(groupe) {
     .then(data => {
         for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
-            $("#conteneur-reunions").append("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
 
             let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
             $("#conteneur-reunions").append(nouvelleReunion);
@@ -78,6 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .then(data => {
+
+            $("#conteneur-reunions").html("");
+            
             for (let i = 0; i < data.length; i++) {
                 let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
                 $("#conteneur-reunions").append(nouvelleReunion);
