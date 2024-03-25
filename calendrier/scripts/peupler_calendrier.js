@@ -470,17 +470,23 @@ $(document).ready(function() {
       }
       })
       .then(reponse => {
-
-          console.log(reponse);
           
        if (reponse == createur) {
            let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
            boutonModifier.on("click", function() {
            modifierReunion(reunion);
-           console.log("temporary");
           });
 
           $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
+
+
+          let boutonSupprimer = $("<button id='supprimer-reunion-panneau'>Supprimer</button>");
+          boutonSupprimer.on("click", function() {
+          supprimerReunion(reunion);
+         });
+         $(reunion).find("#btn-panneau-reunion").append(boutonSupprimer);
+
+
        }  
 
 
@@ -726,9 +732,41 @@ $(document).ready(function() {
         .catch(error => {
         console.log(error);
         });
+  }
 
 
+  /**
+   * SUPPRIMER_REUNION
+   * Permet au créateur d'une réunion de la supprimer 
+   * @param {} reunion 
+   */
+  function supprimerReunion(reunion) {
 
+    donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/supprimer_reunion", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+
+          window.location.reload();
+
+        })
+        .catch(error => {
+        console.log(error);
+        });
 
   }
 
