@@ -22,13 +22,38 @@ function basculerGroupes() {
     }
 }
 
+
+/**FORMATTER_DATE 
+   * Transforme les dates fournies par les objets de type Date() 
+   * en format donné par la base de données: aaaa-mm-jj
+   * @param {Date} date
+   * @returns String: heure au format hh:mm
+   */
+function formatterDate(date) {
+    
+    let dateFormatte = "";
+
+    // Ajouter l'année
+    dateFormatte += date.getFullYear() + "-";
+
+    // Ajouter le mois (+1 car commence à 0)
+    dateFormatte += String(date.getMonth()+1).padStart(2,'0') + "-";
+
+    // Ajouter la date
+    dateFormatte += String(date.getDate()).padStart(2,'0');
+
+    return dateFormatte;
+  }
+
 /*
  * Affiche les réunions spécifiques à un groupe
  */
 
 function afficherReunionsGroupe(groupe) {
 
-    $("#conteneur-reunions").html("");
+    $("#conteneur-reunions-prochaines").html("");
+    $("#conteneur-reunions-passees").html("");
+
 
     let donnees = {'idGroupe': groupe};
     // Afficher les réunions pour un groupe
@@ -46,11 +71,19 @@ function afficherReunionsGroupe(groupe) {
     })
     .then(data => {
         for (let i = 0; i < data.length; i++) {
-            console.log(data[i]);
+            console.log(data[i]['date']);
+            console.log(formatterDate(new Date()));
 
             let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
-            $("#conteneur-reunions").append(nouvelleReunion);
+            if (data[i]['date'] >= formatterDate(new Date())) {
+                console.log("test");
+                $("#conteneur-reunions-prochaines").append(nouvelleReunion);
+            }
 
+            else {
+                $("#conteneur-reunions-passees").append(nouvelleReunion);
+
+            }
             // Ouvrir la réunion quand l'utilisateur clique dessus
             nouvelleReunion.on("click", function() {
                 console.log("ok");
@@ -66,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     afficherReunion();
 
+
+
     function afficherReunion() {
         // Afficher les réunions 
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir_reunions_utilisateur", {})
@@ -78,11 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
 
-            $("#conteneur-reunions").html("");
             
             for (let i = 0; i < data.length; i++) {
                 let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
-                $("#conteneur-reunions").append(nouvelleReunion);
+
+                if (data[i]['date'] >= formatterDate(new Date())) {
+                    $("#conteneur-reunions-prochaines").append(nouvelleReunion);
+                }
+
+                else {
+                    $("#conteneur-reunions-passees").append(nouvelleReunion);
+
+                }
 
                 // Ouvrir la réunion quand l'utilisateur clique dessus
                 nouvelleReunion.on("click", function() {
@@ -119,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     $("button").removeClass("groupe-choisi");
                     $(this).addClass("groupe-choisi");
+                    console.log(data[i]['id_groupes']);
                     afficherReunionsGroupe(data[i]['id_groupes']);
                 }
             });
