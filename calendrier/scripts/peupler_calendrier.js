@@ -482,7 +482,10 @@ $(document).ready(function() {
 
           let boutonSupprimer = $("<button id='supprimer-reunion-panneau'>Supprimer</button>");
           boutonSupprimer.on("click", function() {
-          supprimerReunion(reunion);
+
+            if (confirm("La supression d'une réunion est irréversible, êtes-vous sûr de vouloir continuer?")) {
+              supprimerReunion(reunion);
+            }
          });
          $(reunion).find("#btn-panneau-reunion").append(boutonSupprimer);
 

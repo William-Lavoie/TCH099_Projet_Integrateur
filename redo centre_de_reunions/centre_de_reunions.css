@@ -257,6 +257,7 @@ align-items: center;
     max-height: 100vh;
     min-height: 20vh;
     padding-left: 2.5%;
+    box-shadow: 5px 6px 0px 0px #0000005e;
 }
 
 #conteneur-groupes {
