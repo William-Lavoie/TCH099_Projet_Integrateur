@@ -4,7 +4,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const cols = 7;
 
    
-
+/**
+ * Transforme un mois en integer de 0 à 11 en String 
+ */
+    function formatterMois(mois) {
+        switch (mois) {
+            case 0:
+                return "Janvier";
+            case 1:
+                return "Février";
+            case 2:
+                return "Mars";
+            case 3:
+                return "Avril";
+            case 4:
+                return "Mai";
+            case 5:
+                return "Juin";
+            case 6:
+                return "Juillet";
+            case 7:
+                return "Août";
+            case 8:
+                return "Septembre";
+            case 9:
+                return "Octobre";
+            case 10:
+                return "Novembre";
+            case 11:
+                return "Décembre";
+            default:
+                return null;
+        }
+    }
 
 
 
@@ -28,7 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Compteur des jours écoulés
         let joursEcoules =0;
 
-console.log(data[compteur]['date']);
+        // Compteur des semaines
+        let semaines = 0;
+
+        //Mois courant 
+        let moisCourant;
+
         // Créer le tableau des présences
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
@@ -54,11 +91,23 @@ console.log(data[compteur]['date']);
                     compteur++;
                 }
 
-                // Afficher les semaines
-                if (joursEcoules % 7 == 0) {
-                    $("#semaines-grille").append("<div class='semaine'><p>" + formatterDate(jour) + "<p/></div>");
+                if (joursEcoules == 0) {
+                    $("#semaines-grille").children().eq(0).text(formatterMois(jour.getMonth()));
+                    moisCourant = jour.getMonth();
                 }
-                
+
+                // Afficher les semaines
+                else if (joursEcoules % 7 == 0) {
+                    
+                    semaines++;
+
+                    if (moisCourant != jour.getMonth()) {
+
+                        $("#semaines-grille").children().eq(semaines).text(formatterMois(jour.getMonth()));
+                        moisCourant = jour.getMonth();
+                    }
+                }
+
                 joursEcoules++;
                 jour.setDate(jour.getDate()+1);
                 gridContainer.appendChild(cell);
