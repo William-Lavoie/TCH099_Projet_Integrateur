@@ -59,14 +59,14 @@ document.addEventListener("DOMContentLoaded", function() {
     
         let scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
     
-        let h1ElementsDeuxiemeBoite = document.querySelectorAll('#deuxieme-boite-aprendre h1');
+        let h1ElementsDeuxiemeBoite = document.querySelectorAll('#premier-message-boite-deux h1');
         let h1ElementsTroisiemeBoite = document.querySelectorAll('#troisieme-boite-aprendre h1');
         let h1ElementsQuatriemeBoite = document.querySelectorAll('#quatrieme-boite-aprendre h1');
 
             // action a 25% height pour la deuxime boite
         if (scrollPercentage >= 25 && scrollPercentage < 50) {
             h1ElementsDeuxiemeBoite[0].classList.add('animate__animated' );
-            h1ElementsDeuxiemeBoite[0].classList.add('animate__zoomIn' );
+            h1ElementsDeuxiemeBoite[0].classList.add('animate__slideInRight' );
 
 
                 //  action a 50% height pour la troisieme boite
@@ -83,5 +83,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
+
+    const btnGauche = document.getElementById("btn-gauche-deuxieme-boite");
+    const btnDroite = document.getElementById("btn-droite-deuxieme-boite");
+    const premierMessage = document.getElementById("premier-message-boite-deux");
+    const deuxiemeMessage = document.getElementById("deuxieme-message-boite-deux");
+    const troisiemeMessage = document.getElementById("troisieme-message-boite-deux");
+
+    let currentSlide = 1;
+
+    btnGauche.addEventListener("click", function() {
+        if (currentSlide === 1) {
+            return; 
+        }
+        currentSlide--;
+        updateSlideDisplay();
+    });
+
+    btnDroite.addEventListener("click", function() {
+        if (currentSlide === 3) {
+            return;
+        }
+        currentSlide++;
+        updateSlideDisplay();
+    });
+
+    function updateSlideDisplay() {
+        premierMessage.style.display = "none";
+        deuxiemeMessage.style.display = "none";
+        troisiemeMessage.style.display = "none";
     
+        if (currentSlide === 1) {
+            premierMessage.style.display = "flex";
+        } else if (currentSlide === 2) {
+            deuxiemeMessage.style.display = "flex";
+        } else if (currentSlide === 3) {
+            troisiemeMessage.style.display = "flex";
+        }
+    
+        const indicators = document.querySelectorAll(".indicateur-de-slide");
+        indicators.forEach((indicator, index) => {
+            if (index === currentSlide - 1) {
+                indicator.style.backgroundColor = "#00c1f3"; 
+                indicator.style.transform = "scale(1.5)"; 
+            } else {
+                indicator.style.backgroundColor = "white"; 
+                indicator.style.transform = "scale(1)"; 
+            }
+        });
+    }
+    
+    const firstIndicator = document.querySelector(".indicateur-de-slide");
+    firstIndicator.style.backgroundColor = "#00c1f3";
+    firstIndicator.style.transform = "scale(1.5)";
+
 });

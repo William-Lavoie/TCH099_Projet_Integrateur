@@ -872,6 +872,57 @@ section aprendre plus
     height: 100%;
 }
 
+
+.conteneur-btn-slide{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1vw;
+    margin-bottom: 1vh;
+}
+
+.btn-slide-page-accueil{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #00c1f3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-slide-page-accueil:hover{
+    background-color: white;
+    color: #04071d;
+    cursor: pointer;
+}
+
+.indicateur-de-slide{
+    height: 1vh;
+    width: 2vh;
+    background-color: white;
+}
+
+.gauche-message-boite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 25%;
+}
+
+.droite-message-boite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 75%;
+}
+
+/*************************************
+premiere boite
+*************************************/
+
 #premiere-boite-aprendre {
     display: flex;
     flex-direction: column;
@@ -907,16 +958,55 @@ section aprendre plus
     display: none;
 }
 
+
+
+/*************************************
+deuxieme boite
+*************************************/
+#deuxieme-message-boite-deux img,
+#troisieme-message-boite-deux img {
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
+
 #deuxieme-boite-aprendre {
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height:100vh;
+    min-height: 100vh; 
     align-items: center;
     justify-content: center;
     background-color: #04071d;
     color: white;
 }
+
+#premier-message-boite-deux {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#deuxieme-message-boite-deux,
+#troisieme-message-boite-deux {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 1; 
+    width: 100%;
+}
+
+#deuxieme-message-boite-deux h2,
+#troisieme-message-boite-deux h2 {
+    margin-top: 1vh; 
+    text-align: center; 
+}
+
+/*************************************
+troisieme boite
+*************************************/
 
 #troisieme-boite-aprendre {
     display: flex;
@@ -926,6 +1016,12 @@ section aprendre plus
     align-items: center;
     justify-content: center;
 }
+
+
+
+/*************************************
+quatrieme boite
+*************************************/
 
 #quatrieme-boite-aprendre {
     display: flex;
