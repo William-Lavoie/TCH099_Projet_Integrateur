@@ -350,7 +350,7 @@ $(document).ready(function() {
       $("#consulter-reunion-calendrier span").find("button").remove();
 
       // Bouton pour quitter l'onglet
-      let boutonQuitter = $("<button id='quitter-reunion'></button>");
+      let boutonQuitter = $("<button id='quitter-reunion'>⇦</button>");
       $("#consulter-reunion-calendrier span").append(boutonQuitter);
 
       $("#quitter-reunion").on("click", function(event) {
