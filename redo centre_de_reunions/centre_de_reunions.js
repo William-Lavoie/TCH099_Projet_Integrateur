@@ -215,6 +215,40 @@ $(document).ready(function() {
     }
 
 
+
+    // Affiche le bouton de création d'un nouveau groupe uniquement si l'utilisateur est
+    // un enseignant
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_type", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+    
+        if (data['type'] === 'enseignant') {
+
+            $("#table-creer-groupe").css({"display": "block"});
+        }   
+
+    })
+    .catch(error => {
+
+    });
+
+      // Afficher le formulaire pour créer un groupe
+      btnCreerGroupe.click(function() {
+        formulaireGroupe.css("visibility", "visible");
+    });
+
+
     // Valider les champs avant de procéder avec le bouton "Confirmer"
     btnConfirmer.click(function(event) {
         event.preventDefault(); // Prévient le reload (Besoin API)
@@ -264,10 +298,7 @@ $(document).ready(function() {
         }
     });
 
-    // Afficher le formulaire pour créer un groupe
-    btnCreerGroupe.click(function() {
-        formulaireGroupe.css("visibility", "visible");
-    });
+   
 
     // Fermer le formulaire de création de groupe
     // Par le bouton retour

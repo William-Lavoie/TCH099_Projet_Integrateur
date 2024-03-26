@@ -406,17 +406,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     }
 
-
-
-
-
-
-     // Chercher les réun
-
-
-
-
-
      // Chercher les réunions entre deux jours données
      if (preg_match("~chercher_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
@@ -953,6 +942,26 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         if (isset($_SESSION['courriel'])) {
             echo json_encode($_SESSION['courriel']);
+        }
+        
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+    // Chercher le type de l'utilisateur (étudiant ou enseignant)
+    if (preg_match("~afficher_type$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT type FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        if ($resultat) {
+            echo json_encode($resultat);
         }
         
         else {
