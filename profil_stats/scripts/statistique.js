@@ -81,11 +81,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
                     if (data[compteur]['presence'] == 1) {
-                        cell.style.backgroundColor = "green";
+
+                        if (cell.style.backgroundColor == "red") {
+                            cell.style.backgroundColor = "yellow";
+                        }
+                        
+                        else if (cell.style.backgroundColor != "yellow") {
+                            cell.style.backgroundColor = "green";
+                        }
                     }
 
                     else if (data[compteur]['presence'] == 0) {
-                        cell.style.backgroundColor = "red";
+
+                        if (cell.style.backgroundColor == "green") {
+                            cell.style.backgroundColor = "yellow";
+                        }
+                        
+                        else if (cell.style.backgroundColor != "yellow") {
+                            cell.style.backgroundColor = "red";
+                        }
                     }
 
                     compteur++;
