@@ -596,10 +596,20 @@ light mode
     color: #04071d;
   }
 
+  body.dark #journee-mois, 
+  body.dark #btn-prochain-mois,
+  body.dark #btn-dernier-mois{
+    color: white;
+  }
+
   body.dark .jour:hover {
+    background-color: #0a1251;
+  }
+
+  #pas-mois-courant.dark{
     background-color: #00c1f3;
   }
 
-  #pas-mois-courant.light{
-    background-color: #00c1f3;
+  #ligne-blanche-header.dark{
+    background-color: #04071d;
   }
