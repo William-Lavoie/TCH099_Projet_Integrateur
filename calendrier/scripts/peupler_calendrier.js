@@ -240,7 +240,6 @@ $(document).ready(function() {
       // Espace pour les réunions 
       let reunionDate = $("<div class=reunions-date></div>")
       journee.append(reunionDate);
-      journee.css("background-color", "lightgray");
       
       // Ajoute la case contenant la date au calendrier
       $("#calendrier").append(journee);
@@ -306,7 +305,6 @@ $(document).ready(function() {
       // Espace pour les réunions 
       let reunionDate = $("<div class=reunions-date></div>")
       journee.append(reunionDate);
-      journee.css("background-color", "lightgray");
   
       $("#calendrier").append(journee);
       index++;

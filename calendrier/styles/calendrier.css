@@ -602,10 +602,16 @@ light mode
     background-color: #0a1251;
   }
 
-  #pas-mois-courant.dark{
-    background-color: #00c1f3;
+  #pas-mois-courant{
+    background-color: darkgray;
   }
+
+  body.dark #pas-mois-courant{
+    background-color: rgb(40, 40, 40);
+  }
+
 
   #ligne-blanche-header.dark{
     background-color: #04071d;
   }
+
