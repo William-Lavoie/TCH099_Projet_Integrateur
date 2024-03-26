@@ -8,7 +8,9 @@ body {
     height: 90vmin;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    margin-left: 2%;
+    margin-right: 2%;
+    justify-content: space-between;
   }
   
   .profil {
@@ -32,7 +34,7 @@ body {
     aspect-ratio: 1/1;
     border-radius: 50%;
     box-sizing: border-box;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -68,10 +70,9 @@ body {
   }
 
   #conteneur-boutons-modifications {
-    width: 100%;
+    width: 80%;
     height: 20%;
     padding: 5%;
-    background-color: red;
     display: none;
   }
 
