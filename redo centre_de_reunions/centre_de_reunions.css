@@ -264,6 +264,7 @@ align-items: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     position: fixed;
     top: 4em;
     left: 0;
@@ -304,7 +305,14 @@ align-items: center;
     color: #adabab;
 }
 
+#conteneur-titre-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #table-titre {
+    text-align: center;
     color: white;
 }
 
@@ -496,6 +504,35 @@ align-items: center;
     margin-right: 1em;
     border: 2px solid lightgray;
 }
+
+.nom-participant-groupe {
+    height: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 2%;
+    }
+    
+.nom-participant-groupe:hover {
+      background-color: lightgray;
+}
+
+.supprimer-participant-groupe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8em;      
+}
+      
+.supprimer-participant-groupe:hover {
+    background-color: transparent;
+    font-size: 2.1em;
+}
+      
 
 /*
  * PIED DE PAGE
@@ -855,6 +892,10 @@ textarea {
   padding: 2%
 }
 
+.btn-reunion button:hover {
+    background-color: #00c1f3;
+}
+
 .reunion-journee {
   height: 24%;
   width: 80%;
@@ -893,6 +934,10 @@ textarea {
   color: white;
   font-size: 100%;
 }
+
+#btn-creer-participant:hover, #btn-creer-tache:hover {
+    background-color: #00c1f3;
+  }
 
 #nouveau-participant, #nouvelle-tache {
   height: 2.5em;
