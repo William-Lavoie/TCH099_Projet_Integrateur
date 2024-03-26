@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-  console.log(localStorage.getItem('reunionEstModifiee'));
   // Information par rapport au mois courant
   var joursMoisDernier;
   let joursMoisCourant;
@@ -174,12 +173,10 @@ $(document).ready(function() {
 
             // Stocke les informations de la réunion dans un tableau
             listeReunionsJournee.push(donnees[j]);
-         //  console.log(listeReunionsJournee);
 
         
             // Mettre un écouteur d'évènement qui ouvre la réunion
                reunionJournee.on("click", function() {
-                console.log(donnees[j]['courriel_createur']);
                   consulterReunionSpecifique($("#calendrier").children().eq(i), reunionJournee.index(), donnees[j]['courriel_createur']);
             })
 
@@ -339,11 +336,10 @@ $(document).ready(function() {
 
       // Écrire la date 
       let journeeSemaine = trouverJourneeSemaine(journee.index())
-      console.log(journeeSemaine);
 
       // Prendre la date dans la case
       let date = journee.find("p").text();
-      $("#consulter-reunion-calendrier span").html(journeeSemaine + " " + date + "<br>⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+      $("#consulter-reunion-calendrier span").html(journeeSemaine + " " + date);
 
       $("#consulter-reunion-calendrier span").find("button").remove();
 
@@ -360,7 +356,6 @@ $(document).ready(function() {
       // Représenter les différentes réunions dans l'onglet
       $("#panneau-reunions").html("");
 
-      console.log(journee.data("listeReunionsJournee"));
       // Afficher les réunions de la journée
       for (let i = 0; i < journee.data("listeReunionsJournee").length; i++) {
  
@@ -400,7 +395,6 @@ $(document).ready(function() {
    */
   function consulterReunion(reunion, createur) {
 
-    console.log(reunion);
     if (!reunion.hasClass("reunion-visible-panneau")) {
 
       reunion.addClass("reunion-visible-panneau");
@@ -447,7 +441,6 @@ $(document).ready(function() {
       // Créer des écouteurs d'évènements pour les boutons
       let boutonJoindre = $("<button id='consulter-reunion-panneau'>Joindre</button>"); 
       boutonJoindre.on("click", function() {
-        console.log("temporary");
         joindreReunion(reunion);
       });
 
@@ -669,7 +662,6 @@ $(document).ready(function() {
             nouveauParticipant.children("p").text(data[i]['courriel_utilisateurs']);
             nouveauParticipant.append(boutonSupprimer);
             $("#liste-participants").append(nouveauParticipant);
-            console.log("ok");
             }
           
         }
@@ -711,7 +703,6 @@ $(document).ready(function() {
 
         for (let i = 0; i < data.length; i++) {
 
-          console.log("test");
             const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
             const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
 

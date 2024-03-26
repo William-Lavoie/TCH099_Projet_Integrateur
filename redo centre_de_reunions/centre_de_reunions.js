@@ -71,12 +71,10 @@ function afficherReunionsGroupe(groupe) {
     })
     .then(data => {
         for (let i = 0; i < data.length; i++) {
-            console.log(data[i]['date']);
-            console.log(formatterDate(new Date()));
+           
 
             let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
             if (data[i]['date'] >= formatterDate(new Date())) {
-                console.log("test");
                 $("#conteneur-reunions-prochaines").append(nouvelleReunion);
             }
 
@@ -86,7 +84,6 @@ function afficherReunionsGroupe(groupe) {
             }
             // Ouvrir la réunion quand l'utilisateur clique dessus
             nouvelleReunion.on("click", function() {
-                console.log("ok");
                 let idReunion = data[i]['id_reunions'];
                 window.location.href = "../../réunions/réunions.html?info=" + encodeURIComponent(idReunion);
             });
@@ -165,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     $("button").removeClass("groupe-choisi");
                     $(this).addClass("groupe-choisi");
-                    console.log(data[i]['id_groupes']);
                     afficherReunionsGroupe(data[i]['id_groupes']);
                 }
             });

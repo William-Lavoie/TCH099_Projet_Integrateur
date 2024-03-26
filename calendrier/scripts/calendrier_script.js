@@ -101,7 +101,6 @@ $(document).ready(function() {
                 && date.getFullYear() == dateActuelle.getFullYear() 
                 && (heureDebut < dateActuelle.getHours() || minuteDebut < dateActuelle.getMinutes())) {
 
-                    console.log(date.getDay());
                 $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
                 return false;
         }
@@ -239,7 +238,6 @@ $(document).ready(function() {
 
         localStorage.setItem('reunionEstModifiee', false);
         $(".formulaire-header").html("Créer une nouvelle réunion");
-        console.log(localStorage.getItem('reunionEstModifiee'));
 
         // Affiche le formulaire
         $("#nouvelle-reunion").addClass("reunion-visible");
@@ -315,7 +313,6 @@ $(document).ready(function() {
 
                 // Si la réunion est en cours de modification
                 if (localStorage.getItem('reunionEstModifiee') == true) {
-                    console.log("ok");
                     $(".formulaire-header").html("Modifier la réunion");
                 }
 
@@ -389,7 +386,6 @@ $(document).ready(function() {
 
         let erreur = false;
 
-        console.log("ok");
         // Réinitialise le message d'erreur
         $("#messages-erreur-participants").text("");
 
@@ -546,7 +542,6 @@ $(document).ready(function() {
 
         //TODO ??
         if (groupe === "null" || groupe === undefined) {
-            console.log("ok");
             $("#espace-vide").text("Vous devez choisir un groupe");
         }
         else {

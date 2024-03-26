@@ -63,7 +63,6 @@ auth0.createAuth0Client({
       const profileElement = document.getElementById("profile");
   
       if (userProfile) {
-        console.log(userProfile.name);
       //  profileElement.innerHTML = `<p>${userProfile.name}</p>`;
       } else {
         profileElement.style.display = "none";
@@ -80,7 +79,6 @@ auth0.createAuth0Client({
       .then(response => {
   
       if (response.ok) {
-            console.log("Succès");
       }
       else {
           console.log("La requête n'a pas fonctionnée");

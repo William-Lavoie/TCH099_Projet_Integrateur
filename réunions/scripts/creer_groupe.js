@@ -83,7 +83,6 @@ $(document).ready(function() {
         .then(data => {
         
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i]);
                 $("#conteneur_reunions").append("<div class='conteneur-reunion'><div class='reunion_header'><div id='titre_reunion'>" +  data[i]['titre'] + "</div> <button id='reglage_reunion'>⚙</button></div><div id='description_reunion'>" + data[i]['description'] + "</div></div></div>");
             }
         
@@ -113,7 +112,7 @@ $(document).ready(function() {
         event.preventDefault();
 
         const participant = $("#ajouter-participants").val().trim();
-        console.log(tableauParticipants);
+
         // Vérifier si le champ participant est valide
         if (participant === "") { // Si vide
             erreurs.text("Veuillez saisir une adresse e-mail.");
@@ -177,7 +176,6 @@ $(document).ready(function() {
         const donnees = {"nom": nomGroupe,
                         "participants": tableauParticipants};
 
-        console.log(donnees);
 
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_groupe", {
         method: 'POST',
