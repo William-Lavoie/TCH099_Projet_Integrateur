@@ -110,7 +110,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnGaucheDeux.addEventListener("click", function() {
         if (currentSlideDeux === 1) {
-            return; 
+            premierMessageDeux.style.display = "none";
+            troisiemeMessageDeux.style.display = "flex";
+            currentSlideDeux = 3;
+            updateSlideDisplayDeux(); 
+            return;
         }
         currentSlideDeux--;
         updateSlideDisplayDeux();
@@ -118,6 +122,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnDroiteDeux.addEventListener("click", function() {
         if (currentSlideDeux === 3) {
+            troisiemeMessageDeux.style.display = "none";
+            premierMessageDeux.style.display = "flex";
+            currentSlideDeux = 1;
+            updateSlideDisplayDeux(); 
             return;
         }
         currentSlideDeux++;
@@ -167,6 +175,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnGaucheTrois.addEventListener("click", function() {
         if (currentSlideTrois === 1) {
+            premierMessageTrois.style.display = "none";
+            troisiemeMessageTrois.style.display = "flex";
+            currentSlideTrois = 3;
+            updateSlideDisplayTrois(); 
             return; 
         }
         currentSlideTrois--;
@@ -175,6 +187,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnDroiteTrois.addEventListener("click", function() {
         if (currentSlideTrois === 3) {
+            troisiemeMessageTrois.style.display = "none";
+            premierMessageTrois.style.display = "flex";
+            currentSlideTrois = 1;
+            updateSlideDisplayTrois(); 
             return;
         }
         currentSlideTrois++;
