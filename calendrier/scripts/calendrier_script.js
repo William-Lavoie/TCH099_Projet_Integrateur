@@ -389,6 +389,7 @@ $(document).ready(function() {
 
         let erreur = false;
 
+        console.log("ok");
         // Réinitialise le message d'erreur
         $("#messages-erreur-participants").text("");
 
