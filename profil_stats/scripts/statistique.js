@@ -108,6 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
+              
+
                 joursEcoules++;
                 jour.setDate(jour.getDate()+1);
                 gridContainer.appendChild(cell);

@@ -17,7 +17,7 @@ function basculerGroupes() {
         // Ouvrir la barre latérale contenant les groupes
         groupes.style.marginLeft = "-12em";
         btnBasculer.style.marginLeft = "-12em";
-        reunions.style.marginLeft = "-12em";
+        reunions.style.marginLeft = "-6%";
         document.getElementById("basculer").innerText = "⪔";
     }
 }
@@ -195,19 +195,42 @@ $(document).ready(function() {
     let tableauParticipants = [];
 
 
+    /**  Vérifie si le courriel passé en paramètre a été ajouté à la liste
+    *    des participants dans le formulaire de création d'un groupe
+    */
+      function courrrielPresent(courriel) {
+
+        //Liste des participants entrés par l'utilisateur
+        const listeParticipants = $("#liste-participants-groupe p");
+
+        // Compare chaque courriel dans la liste au nouveau courriel ajouté
+        for (let i=0; i < listeParticipants.length; i++) {
+
+            if (listeParticipants[i].innerText === courriel) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     // Valider les champs avant de procéder avec le bouton "Confirmer"
     btnConfirmer.click(function(event) {
         event.preventDefault(); // Prévient le reload (Besoin API)
 
         // Conserver les informations des champs
         const nomGroupe = $("#nom-groupe").val().trim();
-        const participantsText = listeParticipants.text().trim(); // Obtenir le texte au complet
-        const nbParticipants = participantsText ? participantsText.split(", ").length : 0; // Nombre de participants
+
+        // Ajouter les noms des participants au tableau
+        for (let i = 0; i < $("#liste-participants-groupe").children().length; i++) {
+            tableauParticipants.push($("#liste-participants-groupe").children().eq(i).find("p").text());
+        }
 
         // Vérifier si le champ nom du groupe est valide
-        if (nomGroupe.length < 1) {
-            erreurs.text("Le nom du groupe doit contenir au moins un caractère.");
-        } else if (nbParticipants < 1) {
+        if (nomGroupe == "") {
+            erreurs.text("Vous devez choisir un nom.");
+        } else if (tableauParticipants.length < 1) {
             erreurs.text("Il doit y avoir au moins un participant.");
         } else {
             erreurs.text(""); // Vider les erreurs
@@ -287,7 +310,7 @@ $(document).ready(function() {
 
 
             if (participant === "") { 
-                erreurs.text("Veuillez saisir une adresse e-mail.");
+                erreurs.text("Veuillez saisir une adresse courriel.");
             } 
             else if (tableauParticipants.includes(participant)) {
                 erreurs.text("Le participant est déjà dans la liste.");
@@ -295,7 +318,7 @@ $(document).ready(function() {
 
             else if (participant == reponse) {
 
-                $("#messages-erreur-participants-groupe").text("Vous faites déjà parti de la réunion!");
+                $("#messages-erreur-participants-groupe").text("Vous n'avez pas besoin de vous ajouter au groupe.");
             }                
 
 
@@ -325,21 +348,29 @@ $(document).ready(function() {
                     
                 // Un utilisateur a été trouvé
                 if (data["existe"]) {
-                        
-                    // Le participant est ajouté à la liste
-                    $("#nouveau-participant-groupe").val("");
 
-                    // Bouton pour supprimer le participant 
-                    boutonSupprimer.on("click", function(event) {
-                        event.stopPropagation();
-                        nouveauParticipant.remove();
-                    });
+                    if (courrrielPresent(participant)) {
+                        $("#messages-erreur-participants-groupe").text(participant + " est déjà présent");
+                    }
+                        
+                    else {
+                        
+                        // Le participant est ajouté à la liste
+                        $("#nouveau-participant-groupe").val("");
+
+                        // Bouton pour supprimer le participant 
+                        boutonSupprimer.on("click", function(event) {
+                            event.stopPropagation();
+                            nouveauParticipant.remove();
+                        });
+        
+                        // Création du participant dans le formulaire 
+                        nouveauParticipant.children("p").text(participant);
+                        nouveauParticipant.append(boutonSupprimer);
+                         $("#liste-participants-groupe").append(nouveauParticipant);
     
-                    // Création du participant dans le formulaire 
-                    nouveauParticipant.children("p").text(participant);
-                    nouveauParticipant.append(boutonSupprimer);
-                    $("#liste-participants-groupe").append(nouveauParticipant);
-    
+                    }
+             
                 }
 
                else {
@@ -351,12 +382,7 @@ $(document).ready(function() {
             })
             .catch(error => {
             console.log(error);
-            });
-
-
-            // Ajouter à la liste des participants
-            listeParticipants.text(participant);
-            tableauParticipants.push(participant);
+            });;
 
 
             erreurs.text(""); // Vider les erreurs

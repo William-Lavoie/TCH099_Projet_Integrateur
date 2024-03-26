@@ -150,6 +150,12 @@ $(document).ready(function() {
     btnConfirmer.click(function(event) {
         event.preventDefault(); // Prévient le reload (Besoin API)
 
+
+        // Ajouter les participants dans un tableau
+        for (let i = 0; i < $("#liste-participants-groupe").children().length; i++) {
+            tableauParticipants.push($("#liste-participants-groupe").children().eq(i).find("p").text());
+        }
+
         // Conserver les informations des champs
         const nomGroupe = $("#nom-groupe").val().trim();
 
