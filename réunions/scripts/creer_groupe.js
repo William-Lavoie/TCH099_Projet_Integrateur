@@ -152,19 +152,14 @@ $(document).ready(function() {
 
         // Conserver les informations des champs
         const nomGroupe = $("#nom-groupe").val().trim();
-        const description = $("#description").val().trim();
-        const participantsText = listeParticipants.text().trim(); // Obtenir le texte au complèt
-        const nbParticipants = participantsText ? participantsText.split(", ").length : 0; // Nombre de participants
 
-        console.log(nomGroupe.length);
         // Vérifier si le champ nom du groupe est valide
         if (nomGroupe.length < 1) {
-            console.log("test");
-            erreurs.text("Le nom du groupe doit contenir au moins un caractère.");
+            erreurs.text("Le groupe doit avoir un nom.");
         } 
 
         // Vérifier si le champ des participants est valide
-        else if (nbParticipants < 1) {
+        else if (tableauParticipants.length < 1) {
             erreurs.text("Il doit y avoir au moins un participant.");
         } 
         

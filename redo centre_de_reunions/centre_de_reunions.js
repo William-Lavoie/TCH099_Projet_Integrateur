@@ -300,7 +300,7 @@ $(document).ready(function() {
 
 
             // Le courriel du participant doit être valide
-            else if (participant != "" && validerAdresse(participant)) {
+            else if (validerAdresse(participant)) {
 
                 // Le participant doit avoir un compte dans la base de données
                 const courriel = {"courriel": participant};
@@ -361,6 +361,11 @@ $(document).ready(function() {
 
             erreurs.text(""); // Vider les erreurs
             $("#ajouter-participants").val(""); // Effacer le champ d'ajout de participant
+        }
+
+        else {
+            $("#messages-erreur-participants-groupe").text(participant + " ne correspond pas à une adresse valide");
+
         }
                     
     });
