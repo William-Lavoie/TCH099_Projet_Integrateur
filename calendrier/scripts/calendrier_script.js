@@ -238,7 +238,7 @@ $(document).ready(function() {
         fermerFormulaires();
 
         localStorage.setItem('reunionEstModifiee', false);
-        $(".formulaire-header").html("Créer une nouvelle réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+        $(".formulaire-header").html("Créer une nouvelle réunion");
         console.log(localStorage.getItem('reunionEstModifiee'));
 
         // Affiche le formulaire
@@ -316,7 +316,7 @@ $(document).ready(function() {
                 // Si la réunion est en cours de modification
                 if (localStorage.getItem('reunionEstModifiee') == true) {
                     console.log("ok");
-                    $(".formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+                    $(".formulaire-header").html("Modifier la réunion");
                 }
 
 

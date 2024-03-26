@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
    
 /**
- * Transforme un mois en integer de 0 à 11 en String 
+ * Transforme un mois sous forme d'entier entre 0 à 11 en String 
  */
     function formatterMois(mois) {
         switch (mois) {
@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         else if (cell.style.backgroundColor != "yellow") {
                             cell.style.backgroundColor = "red";
                         }
+
                     }
 
                     compteur++;

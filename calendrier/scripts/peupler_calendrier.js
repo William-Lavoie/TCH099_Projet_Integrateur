@@ -613,7 +613,7 @@ $(document).ready(function() {
     $("#nouvelle-reunion").addClass("reunion-visible");
 
     // Remplir le formulaire avec les données courantes
-    $(".formulaire-header").html("Modifier la réunion <br> ⋆༺𓆩𓆪༻༺𓆩⋆☾⋆☽⋆𓆪༻༺𓆩𓆪༻⋆");
+    $(".formulaire-header").html("Modifier la réunion");
 
     $("#titre-reunion").val(reunion.data("listeReunionsJournee")['titre']);
     $("#debut-reunion").val(formatterHeure(reunion.data("listeReunionsJournee")['heure_debut']));
