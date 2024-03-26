@@ -638,3 +638,36 @@ li span {
     height: 100%;
 }
 
+/**************************
+dark mode
+***************************/
+
+body.dark main{
+    background-color: #04071d;
+    color: white;
+}
+
+body.dark #presence{
+    background-color: #04071d;
+    color: white;
+    border-right: solid white 3px;
+}
+
+body.dark #to_do{
+    background-color: #04071d;
+    color: white;
+    border-left: solid white 3px;
+}
+
+body.dark #conteneur-ajouter-tache,
+body.dark #satisfaction_conteneur{
+    border-top: solid white 3px;
+}
+
+body.dark .slider{
+    background-color: white;
+}
+
+body.dark .slider:before{
+    background-color: #04071d;
+}
