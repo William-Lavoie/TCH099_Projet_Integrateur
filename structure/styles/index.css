@@ -81,11 +81,10 @@ header {
 #photo-profil-header {
     min-width: 3em;
     min-height: 3em;
-    border: 3px solid #04071d;
     border-radius: 100%;
     background-image: url("/structure/image_structure/image_profil_vide.png");
     box-sizing: border-box;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }

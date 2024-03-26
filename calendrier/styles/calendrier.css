@@ -491,7 +491,7 @@ justify-content: center;
   .participant-pour-reunion img {
     margin-right: 2%;
     border-radius: 50%;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-color: lightgray;

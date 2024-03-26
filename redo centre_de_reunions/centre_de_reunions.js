@@ -102,6 +102,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function afficherReunion() {
+
+        $("#conteneur-reunions-prochaines").html("");
+        $("#conteneur-reunions-passees").html("");
+        
         // Afficher les réunions 
         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir_reunions_utilisateur", {})
         .then(response => {

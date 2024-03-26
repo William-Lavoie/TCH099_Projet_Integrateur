@@ -45,7 +45,7 @@ main {
     height: 3rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     margin-right: 1%;
