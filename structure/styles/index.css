@@ -316,3 +316,10 @@ footer a {
 }
 
 
+body.dark{
+    background-color: #04071d;
+    color: white;
+  }
+  #ligne-blanche-header.dark{
+    background-color: #04071d;
+  }
