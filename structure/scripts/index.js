@@ -104,4 +104,53 @@ $(document).ready(function() {
 
     });
 
+
+
+//color toggle function
+    const toggleButton = document.getElementById("toggleTheme");
+
+    const elementsToToggle = [
+        document.querySelector("body"),
+        ...document.querySelectorAll('.btn')
+    ];
+
+    /*
+    const aside = document.querySelector("aside");
+    const collapseBtn = document.querySelector("#collapseBtn");
+
+    // verifying that aside and collapseBtn are in the page so that  
+    // the script doesn't break for pages without those elements
+    
+    if (aside != null && collapseBtn != null) {
+        elementsToToggle.push(
+            aside,
+            collapseBtn
+        );
+    }
+    */
+
+    // Retrieve theme from localStorage
+    const savedTheme = localStorage.getItem("theme");
+
+    function applyTheme(theme) {
+        elementsToToggle.forEach(el => el.classList.toggle("dark", theme === "dark"));
+        toggleButton.innerText = theme === "dark" ? '𖤓' : '☼';
+    }
+
+    //local storage for theme
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+
+    toggleButton.addEventListener("click", function () {
+        const isLightMode = document.body.classList.toggle("dark");
+
+        // Save theme to localStorage
+        localStorage.setItem("theme", isLightMode ? "dark" : "light");
+
+        applyTheme(isLightMode ? "dark" : "light");
+    });
+
 });
+
+

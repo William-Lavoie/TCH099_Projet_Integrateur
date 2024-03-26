@@ -577,3 +577,25 @@ justify-content: center;
     opacity: 50%;
     pointer-events: none;
   }
+
+
+  /*************************************
+light mode
+  *****************************/
+
+  body.dark{
+    background-color: #04071d;
+    color: white;
+  }
+
+  #journee-mois{
+    color: #04071d;
+  }
+
+  body.dark .jour:hover {
+    background-color: #00c1f3;
+  }
+
+  #pas-mois-courant.light{
+    background-color: #00c1f3;
+  }
