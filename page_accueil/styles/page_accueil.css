@@ -881,6 +881,7 @@ section aprendre plus
     align-items: center;
     gap: 1vw;
     margin-bottom: 5vh;
+    width: 17.5em;
 }
 
 .btn-slide-page-accueil{
@@ -899,9 +900,15 @@ section aprendre plus
 }
 
 .indicateur-de-slide{
-    height: 1vh;
-    width: 2vh;
+    height: 0.5em;
+    width: 2em;
     background-color: white;
+}
+
+.indicateur-de-slide-dark{
+    height: 0.5em;
+    width: 2em;
+    background-color: #04071d;
 }
 
 .gauche-message-boite{
@@ -973,6 +980,7 @@ deuxieme boite
     justify-content: center;
     background-color: #04071d;
     color: white;
+    flex-wrap: wrap;
 }
 
 #deuxieme-message-boite-deux img,
@@ -1015,12 +1023,45 @@ troisieme boite
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height:100vh;
+    min-height: 100vh; 
     align-items: center;
     justify-content: center;
+    background-color: white;
+    color: #04071d;
+    flex-wrap: wrap;
 }
 
+#deuxieme-message-boite-trois img,
+#troisieme-message-boite-trois img {
+    max-width: 70%; 
+    max-height: 70%; 
+    object-fit: contain; 
+}
 
+#premier-message-boite-trois {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#deuxieme-message-boite-trois,
+#troisieme-message-boite-trois {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 1; 
+    width: 80%;
+    height: 80%;
+    margin-top: 10vh;
+}
+
+#deuxieme-message-boite-trois h2,
+#troisieme-message-boite-trois h2 {
+    margin-top: 1vh; 
+    text-align: center; 
+}
 
 /*************************************
 quatrieme boite
@@ -1037,3 +1078,17 @@ quatrieme boite
     color: white;
 }
 
+/*************************************
+cinquieme boite
+*************************************/
+
+#cinquieme-boite-aprendre {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height:100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #04071d;
+}
