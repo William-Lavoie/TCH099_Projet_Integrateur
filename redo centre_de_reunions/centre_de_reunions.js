@@ -17,7 +17,7 @@ function basculerGroupes() {
         // Ouvrir la barre latérale contenant les groupes
         groupes.style.marginLeft = "-12em";
         btnBasculer.style.marginLeft = "-12em";
-        reunions.style.marginLeft = "-12em";
+        reunions.style.marginLeft = "-6%";
         document.getElementById("basculer").innerText = "⪔";
     }
 }

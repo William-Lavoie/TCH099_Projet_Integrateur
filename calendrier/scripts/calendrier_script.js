@@ -381,7 +381,7 @@ $(document).ready(function() {
      })
 
 
-     
+     // TODO: SUBMITTING GROUP BY READING FIELD INSTEAD OF ARRAY
     /** 
      * Ajout d'un participant si celui-ci a un compte valide
      */
