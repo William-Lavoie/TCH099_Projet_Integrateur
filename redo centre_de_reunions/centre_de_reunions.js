@@ -187,41 +187,13 @@ $(document).ready(function() {
     const formulaireGroupe = $("#conteneur-creer-groupe");
     const btnRetour = $("#retour-creer-groupe");
     const btnConfirmer = $("#confirmer-creer-groupe");
-    const btnAjouterParticipant = $("#ajouter-participant");
+    const btnAjouterParticipant = $("#btn-ajouter-participant");
     const listeParticipants = $("#liste-participants");
-    const erreurs = $("#erreurs-creer-groupe");
+    const erreurs = $("#messages-erreur-participants-groupe");
     const groupesTable = $("#groupes");
 
     let tableauParticipants = [];
 
-    // Afficher les groupes dans le "aside"
-    function afficherGroupes() {
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {})
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log("error");
-            }
-        })
-        .then(data => {
-            for (let i = 0; i < data.length; i++) {
-                const nouveauGroupe = $("<button class='groupe'>").text(data[i]['nom']);
-                const nouvelleCellule = $("<td>").append(nouveauGroupe);
-                groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
-
-                nouveauGroupe.on("click", function(event) {
-                    event.preventDefault()
-                    $("button").removeClass("groupe-choisi");
-                    $(this).addClass("groupe-choisi");
-                    afficherReunionsGroupe(data[i]['id_groupes']);
-                })
-            }
-        })
-        .catch(error => {
-            console.log("erreur");
-        });
-    }
 
     // Valider les champs avant de procéder avec le bouton "Confirmer"
     btnConfirmer.click(function(event) {
@@ -229,7 +201,6 @@ $(document).ready(function() {
 
         // Conserver les informations des champs
         const nomGroupe = $("#nom-groupe").val().trim();
-        const description = $("#description").val().trim();
         const participantsText = listeParticipants.text().trim(); // Obtenir le texte au complet
         const nbParticipants = participantsText ? participantsText.split(", ").length : 0; // Nombre de participants
 
@@ -265,7 +236,6 @@ $(document).ready(function() {
 
             // Réinitialiser les champs du formulaire
             $("#nom-groupe").val('');
-            $("#description").val('');
             listeParticipants.text('');
             erreurs.text('');
         }
@@ -293,37 +263,109 @@ $(document).ready(function() {
     btnAjouterParticipant.click(function(event) {
         event.preventDefault();
 
-        const participant = $("#ajouter-participants").val().trim();
+        const participant = $("#nouveau-participant-groupe").val().trim();
         
-        // Vérifier si le champ participant est valide
-        if (participant === "") { // Si vide
-            erreurs.text("Veuillez saisir une adresse e-mail.");
-            return false;
-        } else if (!validerAdresse(participant)) {
-            erreurs.text("L'adresse e-mail est invalide.");
-            return false;
-        } else if (tableauParticipants.includes(participant)) {
-            erreurs.text("Le participant est déjà dans la liste.");
-            return false;
-        } else {
-            // Vérifier s'il y a déjà des participants
-            if (listeParticipants.text() === "") {
-                listeParticipants.text(participant);
 
-                // Ajouter à la liste des participants
-                tableauParticipants.push(participant);
-            } else {
-                // Ajouter le participant à la liste en séparant par une virgule et un espace
-                listeParticipants.text(listeParticipants.text() + ", " + participant);
+        const nouveauParticipant = $("<div class='nom-participant-groupe'> <p></p> </div> ");
+        const boutonSupprimer = $("<button class='supprimer-participant-groupe'>🗑</button>");
 
-                // Ajouter à la liste des participants
-                tableauParticipants.push(participant);
-            }
+
+        // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+        })
+        .then(response => {
+    
+        if (response.ok) {
+    
+        return response.json();
+        }
+    
+        else {
+        }
+        })
+        .then(reponse => {
+
+
+            if (participant === "") { 
+                erreurs.text("Veuillez saisir une adresse e-mail.");
+            } 
+            else if (tableauParticipants.includes(participant)) {
+                erreurs.text("Le participant est déjà dans la liste.");
+            } 
+
+            else if (participant == reponse) {
+
+                $("#messages-erreur-participants-groupe").text("Vous faites déjà parti de la réunion!");
+            }                
+
+
+            // Le courriel du participant doit être valide
+            else if (participant != "" && validerAdresse(participant)) {
+
+                // Le participant doit avoir un compte dans la base de données
+                const courriel = {"courriel": participant};
+        
+                // Cherche le participant dans la table des utilisateurs de la base de données
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_participants", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(courriel)
+                })
+                .then(response => {
+        
+                if (response.ok) {
+                    return response.json();
+                }
+        
+                else {
+                    console.log("La requête n'a pas fonctionnée");
+                }
+                })
+                .then(data => {
+                    
+                // Un utilisateur a été trouvé
+                if (data["existe"]) {
+                        
+                    // Le participant est ajouté à la liste
+                    $("#nouveau-participant-groupe").val("");
+
+                    // Bouton pour supprimer le participant 
+                    boutonSupprimer.on("click", function(event) {
+                        event.stopPropagation();
+                        nouveauParticipant.remove();
+                    });
+    
+                    // Création du participant dans le formulaire 
+                    nouveauParticipant.children("p").text(participant);
+                    nouveauParticipant.append(boutonSupprimer);
+                    $("#liste-participants-groupe").append(nouveauParticipant);
+    
+                }
+
+               else {
+
+                $("#messages-erreur-participants-groupe").text(participant + " ne correspond pas à un compte HuddleHarbor");
+
+               }
+                
+            })
+            .catch(error => {
+            console.log(error);
+            });
+
+
+            // Ajouter à la liste des participants
+            listeParticipants.text(participant);
+            tableauParticipants.push(participant);
+
 
             erreurs.text(""); // Vider les erreurs
             $("#ajouter-participants").val(""); // Effacer le champ d'ajout de participant
         }
+                    
     });
+  });
+
 
     // Fonction pour valider le format d'une adresse e-mail
     function validerAdresse(email) {
