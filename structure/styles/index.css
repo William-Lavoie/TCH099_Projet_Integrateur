@@ -247,7 +247,6 @@ header button, header a {
 
 /*******************************
 /*PIED DE PAGE
-
 /********************************/
 
 footer {
@@ -282,7 +281,7 @@ footer h4{
 #terms-policy-footer{
     display: flex;
     justify-content: space-around;
-    width: 20em;
+    width: 25em;
 }
 
 #politique-de-confidentialite-footer{
@@ -305,8 +304,6 @@ footer h4{
     width: 15em;
 }
 
-
-
 footer a {
     all: unset;
 }
@@ -315,6 +312,10 @@ footer a {
     cursor: pointer;
 }
 
+
+/********************************
+dark mode switch
+********************************/
 
 body.dark{
     background-color: #04071d;
