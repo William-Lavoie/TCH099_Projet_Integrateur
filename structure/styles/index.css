@@ -319,7 +319,13 @@ footer a {
 body.dark{
     background-color: #04071d;
     color: white;
-  }
-  #ligne-blanche-header.dark{
+}
+
+#ligne-blanche-header.dark{
     background-color: #04071d;
-  }
+}
+#lignes-decoratives-header.dark {
+    width: 100vw;
+    border-bottom: 2px solid #FFFFFF;
+    box-sizing: border-box;
+}

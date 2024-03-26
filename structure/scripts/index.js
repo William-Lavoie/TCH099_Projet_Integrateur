@@ -112,6 +112,7 @@ $(document).ready(function() {
     const elementsToToggle = [
         document.querySelector("body"),
         document.querySelector("#ligne-blanche-header"),
+        document.querySelector("#lignes-decoratives-header"),
         ...document.querySelectorAll('.btn')
     ];
 

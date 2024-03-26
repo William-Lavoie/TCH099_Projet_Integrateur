@@ -584,13 +584,8 @@ justify-content: center;
 
 
   /*************************************
-light mode
+dark mode
   *****************************/
-
-  body.dark{
-    background-color: #04071d;
-    color: white;
-  }
 
   #journee-mois{
     color: #04071d;
@@ -612,10 +607,5 @@ light mode
 
   body.dark #pas-mois-courant{
     background-color: rgb(40, 40, 40);
-  }
-
-
-  #ligne-blanche-header.dark{
-    background-color: #04071d;
   }
 
