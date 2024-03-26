@@ -647,6 +647,10 @@ body.dark main{
     color: white;
 }
 
+body.dark content{
+    color: white;
+}
+
 body.dark #presence{
     background-color: #04071d;
     color: white;
