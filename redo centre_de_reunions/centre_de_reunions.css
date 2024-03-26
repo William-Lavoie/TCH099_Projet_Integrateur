@@ -1035,3 +1035,12 @@ justify-content: center;
     opacity: 50%;
     pointer-events: none;
 }
+
+
+/*************************
+dark mode
+**************************/
+
+body.dark aside {
+    border-right: white solid 3px;
+}
