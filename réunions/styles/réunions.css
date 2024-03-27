@@ -25,7 +25,7 @@ main {
     align-items: center;
     overflow-y: scroll;
     padding: 2%;
-
+    overflow: hidden; 
 }
 
 #message-publique {
@@ -110,9 +110,12 @@ main {
 #nouveau-message {
     width: 50%;
     height: 5%;
+    max-height: 75px;
     border-radius: 10px;
     padding-left: 1%;
     border: 1px solid lightgray;
+    position: fixed;
+    bottom: 5vh;
 }
 
 /* start of aside code */
@@ -673,4 +676,8 @@ body.dark .slider{
 
 body.dark .slider:before{
     background-color: #04071d;
+}
+
+body.dark label{
+    color: white;
 }

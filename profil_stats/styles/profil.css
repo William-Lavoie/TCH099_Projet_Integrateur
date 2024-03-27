@@ -169,3 +169,11 @@ body {
   .grid-item.filled {
     background-color: #8FBC8F; 
   }
+
+
+/****************************
+dark mode
+*****************************/
+  body.dark label{
+    color: white;
+}

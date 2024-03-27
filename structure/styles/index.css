@@ -146,7 +146,6 @@ header {
     flex-direction: column;
     justify-content: space-evenly;
     box-sizing: border-box;
-
     display: none;
 }
 
@@ -165,7 +164,7 @@ header {
 
 #toggleTheme{
     font-size: 2em;
-    background-color: white;
+    background-color: transparent;
     border: none;
 }
 
@@ -339,5 +338,13 @@ body.dark{
 
 body.dark #logo-header{
     border-bottom: 2px solid #FFFFFF;
+}
 
+body.dark #menu-profil-header {
+    background-color: #404040;
+    color: white;
+}
+
+body.dark #menu-profil-header button{
+    color: white;
 }
