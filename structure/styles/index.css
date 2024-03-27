@@ -330,3 +330,8 @@ body.dark{
     border-bottom: 2px solid #FFFFFF;
     box-sizing: border-box;
 }
+
+body.dark #logo-header{
+    border-bottom: 2px solid #FFFFFF;
+
+}
