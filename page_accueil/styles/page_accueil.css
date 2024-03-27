@@ -984,8 +984,8 @@ deuxieme boite
 
 #deuxieme-message-boite-deux img,
 #troisieme-message-boite-deux img {
-    max-width: 70%; 
-    max-height: 70%; 
+    max-width: 60%; 
+    max-height: 60%; 
     object-fit: contain; 
 }
 
@@ -1032,8 +1032,8 @@ troisieme boite
 
 #deuxieme-message-boite-trois img,
 #troisieme-message-boite-trois img {
-    max-width: 70%; 
-    max-height: 70%; 
+    max-width: 60%; 
+    max-height: 60%; 
     object-fit: contain; 
 }
 
@@ -1090,4 +1090,16 @@ cinquieme boite
     justify-content: center;
     background-color: white;
     color: #04071d;
+}
+
+#cinquieme-boite-aprendre h1{
+    margin-top: 5vh;
+}
+
+#cinquieme-boite-aprendre img{
+    margin-top: 10vmax;
+    max-width: 50%; 
+    max-height: 50%; 
+    object-fit: contain; 
+    border: #04071d solid 1px;
 }
