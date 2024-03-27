@@ -81,40 +81,39 @@ main {
 
 #contenu-message::-webkit-scrollbar {
     display: none;
-  }
+}
 
-  #heure-message {
+#heure-message {
     width: 10%;
     display: flex;
     flex-direction: column;
-   
     color: black;
     padding-top: 1%;
-  }
+}
 
-  #btn-retour-message, #btn-confirmer-modification {
+#btn-retour-message, #btn-confirmer-modification {
     background-color: transparent;
     border: none;
     height: 30%;
     width: 80%;
-  }
+}
 
-  #btn-retour-message:hover, #btn-confirmer-modification:hover {
+#btn-retour-message:hover, #btn-confirmer-modification:hover {
     background-color: grey;
-  }
+}
 
-  #modifier-message-textarea {
+#modifier-message-textarea {
     height: 100%;
     border-radius: 1em;
-  }
+}
 
-  #nouveau-message {
+#nouveau-message {
     width: 50%;
     height: 5%;
     border-radius: 10px;
     padding-left: 1%;
     border: 1px solid lightgray;
-  }
+}
 
 /* start of aside code */
 
@@ -129,7 +128,7 @@ main {
     background-color: white;
     color: black;
     border: #04071d 2px solid;
-    width: 10em; 
+    width: calc(10em - 4px); 
     font-size: 1.2rem;
     position: fixed;
     text-decoration: none;
