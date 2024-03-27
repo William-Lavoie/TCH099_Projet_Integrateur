@@ -94,6 +94,9 @@ function afficherReunionsGroupe(groupe) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    //Courriel de l'utilisateur 
+    let courrielCourant;
+
     afficherReunion();
 
 
@@ -137,6 +140,25 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {});
     }
 
+    // Récupérer le courriel de l'utilisateur courant 
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+        return response.json();
+    }
+    })
+    .then(reponse => {
+        
+        courrielCourant = reponse;
+
+    })
+    .catch(error => {
+    console.log(error);
+    });  
+   
+
     // Afficher la liste des groupes
     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {})
     .then(response => {
@@ -156,39 +178,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const nouvelleCellule = $("<td class='cellule-groupe'>").append(nouveauGroupe);
 
             // Ajouter le bouton de modification du groupe si l'utilisateur en est le créateur
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
-            })
-            .then(response => {
-      
-            if (response.ok) {
-      
-            return response.json();
-            }
-      
-            else {
-            }
-            })
-            .then(reponse => {
-                
-             if (reponse == data[i]['courriel_enseignant']) {
-      
-            console.log("ok");
-                let boutonModifier = $("<button class='modifier-groupe'>✎</button>");
-                nouvelleCellule.append(boutonModifier);
+            if (courrielCourant == data[i]['courriel_enseignant']) {
 
-                // Écouter d'évènement pour modifier le groupe
-                boutonModifier.on("click", function() {
-
-                    console.log("ok");
-                    modifierGroupe(data[i]);
-                })
-             }  
-             
-            })
-            .catch(error => {
-            console.log(error);
-            });  
-           
+                console.log("ok");
+                    let boutonModifier = $("<button class='modifier-groupe'>✎</button>");
+                    nouvelleCellule.append(boutonModifier);
+            
+                    // Écouter d'évènement pour modifier le groupe
+                    boutonModifier.on("click", function() {
+            
+                        console.log("ok");
+                        modifierGroupe(data[i]);
+                    })
+                 }  
             
             //Ajouter le groupe à la tabke
             groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
