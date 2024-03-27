@@ -25,7 +25,7 @@ body {
   color: black;
   box-sizing: border-box;
   box-shadow: 2px 2px 2px black;
-  padding: 5p;
+  padding: 5px;
 }
 
 .formulaire-header {
@@ -568,8 +568,8 @@ reunion
 
 #creer-reunion {
   position: fixed; 
-  bottom: 5%; 
-  right: 5%; 
+  bottom: 3%; 
+  right: 3%; 
   border-radius: 100%;
   background-color: #04071d;
   color: white;
@@ -604,7 +604,6 @@ body.dark #btn-dernier-mois{
 body.dark .jour:hover,
 body.dark #pas-mois-courant:hover  {
   background-color: rgb(104, 103, 103);
-  color: #04071d;
   border: 2px #00c1f3 solid;
 }
 

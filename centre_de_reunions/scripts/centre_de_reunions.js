@@ -11,13 +11,13 @@ function basculerGroupes() {
         // Fermer la barre latérale contenant les groupes
         groupes.style.marginLeft = "0";
         btnBasculer.style.marginLeft = "0em";
-        reunions.style.marginLeft = "0em";
+        reunions.classList.remove('bascule');
         document.getElementById("basculer").innerText = "⪓";
     } else {
         // Ouvrir la barre latérale contenant les groupes
         groupes.style.marginLeft = "-12em";
         btnBasculer.style.marginLeft = "-12em";
-        reunions.style.marginLeft = "-6%";
+        reunions.classList.add('bascule');
         document.getElementById("basculer").innerText = "⪔";
     }
 }
@@ -43,7 +43,7 @@ function formatterDate(date) {
     dateFormatte += String(date.getDate()).padStart(2,'0');
 
     return dateFormatte;
-  }
+}
 
 /*
  * Affiche les réunions spécifiques à un groupe

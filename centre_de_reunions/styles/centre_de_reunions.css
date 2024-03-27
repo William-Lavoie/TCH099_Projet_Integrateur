@@ -1,7 +1,6 @@
 body {
     width: 100vw;
     margin: 0;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -14,52 +13,57 @@ body {
 main{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     width: 100vw;
     height: calc(100vh - 10vmin);
     box-sizing: border-box;
     box-sizing: content-box;
 }
 
-#conteneur-milieu{
-    position: sticky;
-    top: 4em;
-    right: 0;
-    left: 14em;
-    width: calc(100vw - 14em);
-    height: 100%; 
-    display: flex;
-    box-sizing: border-box;
-    min-height: 70vh;
-}
-
 #conteneur-reunions {
-height: 90%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12em;
+    width: calc(100% - 14em);
+    transition: ease-out 0.5s;
 }
 
-#conteneur-reunions > p {
-    width: 90%;
-    text-align: left;
+#conteneur-reunions.bascule{
+    width: 100%;
+    margin-left: 0;
+    transition: ease-out 0.5s;
+}
+
+#reunion-a-venir,
+#reunion-terminees{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 5rem;
+    width: 80%;
     font-size: 2em;
     font-weight: bold;
+    margin-bottom: 2vh;
 }
 
-#conteneur-reunions-prochaines::-webkit-scrollbar, #conteneur-reunions-passees::-webkit-scrollbar {
+#conteneur-reunions-prochaines::-webkit-scrollbar, 
+#conteneur-reunions-passees::-webkit-scrollbar {
     display: none;
 }
 
-#conteneur-reunions-prochaines, #conteneur-reunions-passees {
+#conteneur-reunions-prochaines, 
+#conteneur-reunions-passees {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
     row-gap: 5vh;
     column-gap: 2%;
-    max-height: 60%;
-    width: 80vw;
-    margin-left: 5%;
+    height: fit-content;
+    min-height: 20vh;
+    max-height: 100vh;
+    width: 80% ;
     margin-bottom: 5%;
     box-sizing: border-box;
     overflow-y: scroll;
@@ -67,11 +71,9 @@ align-items: center;
     transition: margin-left 0.5s;
     padding: 2%;
     border-radius: 10px;
-    max-height: 100vh;
-    min-height: 20vh;
-    padding-left: 2.5%;
     box-shadow: 5px 6px 0px 0px #0000005e;
 }
+
 
 #conteneur-groupes {
     display: flex;
@@ -101,7 +103,6 @@ align-items: center;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-
     transition: margin-left 0.5s;
 }
 
@@ -853,8 +854,8 @@ textarea {
 
 #creer-reunion {
     position: fixed; 
-    bottom: 5%; 
-    right: 5%; 
+    bottom: 3%; 
+    right: 3%; 
     border-radius: 100%;
     background-color: #04071d;
     color: white;
@@ -882,4 +883,14 @@ dark mode
 
 body.dark aside {
     border-right: white solid 3px;
+}
+
+body.dark #conteneur-reunions-prochaines, 
+body.dark #conteneur-reunions-passees{
+    background-color: rgb(88, 88, 88);
+}
+
+body.dark #creer-reunion {
+    background-color: white;
+    color: #04071d;
 }
