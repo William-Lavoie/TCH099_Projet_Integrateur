@@ -50,7 +50,7 @@ $(document).ready(function() {
      * empêche l'interaction avec tout élément autre que l'onglet
      */
     function enleverFocus() {
-        $("main, header, footer, #creer-reunion").removeClass("hors-focus");
+        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("hors-focus");
     }
 
 
@@ -243,7 +243,7 @@ $(document).ready(function() {
         $("#nouvelle-reunion").addClass("reunion-visible");
 
         // Réduit l'opacité et désactive toutes les fonctionalités de tout l'écran sauf le formulaire
-        $("main, header, footer, #creer-reunion").addClass("focus");
+        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").addClass("focus");
     }) 
 
 
@@ -257,7 +257,7 @@ $(document).ready(function() {
             if (confirm("Vos modifications ne seront pas sauvegardées, êtes-vous sûr de vouloir continuer?")) {
                 
                 fermerFormulaires();
-                $("main, header, footer, #creer-reunion").removeClass("focus");
+                $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("focus");
 
                 enleverFocus();
             }
@@ -266,7 +266,7 @@ $(document).ready(function() {
         // Le formulaire est vide
         else {
             fermerFormulaires();
-            $("main, header, footer, #creer-reunion").removeClass("focus");
+            $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("focus");
 
             enleverFocus();
         }
@@ -288,7 +288,7 @@ $(document).ready(function() {
 
             fermerFormulaires();
             enleverFocus();
-            $("main, header, footer, #creer-reunion").removeClass("focus");
+            $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("focus");
 
         }
     })
