@@ -193,6 +193,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query->execute();
             }
 
+            // Création du forum
+            $query = $conn->prepare("INSERT INTO forum (id_reunions) VALUES (:id)");
+            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+            $query->execute();
+
+
             echo json_encode(["error" => "succes"]);
 
             }
@@ -444,7 +450,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
            
             // Supprimer la réunion
             $query = $conn->prepare("DELETE FROM reunions WHERE id_reunions = :id_reunions");
-            $query->bindParam(":id_reunions", $donnees['id_reunions'],  PDO::PARAM_STR);
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
             $query->execute();
 
             // Supprimer les entrées dans la table de jointure 
@@ -452,10 +458,43 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
             $query->execute();
 
+            // Récupérer l'identifiant du forum  
+            $query = $conn->prepare("SELECT id_forum FROM forum WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            $resultat = $query->fetch(PDO::FETCH_ASSOC);
+            $id_forum = $resultat['id_forum'];
+
+            // Supprimer le forum
+            $query = $conn->prepare("DELETE FROM forum WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Supprimer les messages associés au forum
+            $query = $conn->prepare("DELETE FROM message WHERE id_forum = :id_forum");
+            $query->bindParam(":id_forum", $id_forum,  PDO::PARAM_STR);
+            $query->execute();
+
+
+            // Récupérer l'identifiant de la liste des tâches 
+            $query = $conn->prepare("SELECT id_listes_taches FROM liste_taches WHERE id_reunions = :id_reunions");
+            $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            $resultat = $query->fetch(PDO::FETCH_ASSOC);
+            $id_liste = $resultat['id_listes_taches'];
+
             // Supprimer la liste des tâches 
             $query = $conn->prepare("DELETE FROM liste_taches WHERE id_reunions = :id_reunions");
             $query->bindParam(":id_reunions", $donnees['idReunions'],  PDO::PARAM_STR);
             $query->execute();
+
+            // Supprimer les tâches associées à la liste
+            $query = $conn->prepare("DELETE FROM taches WHERE id_liste_taches = :id_liste");
+            $query->bindParam(":id_liste", $id_liste,  PDO::PARAM_STR);
+            $query->execute();
+
     
             echo json_encode("Succès");
         }
