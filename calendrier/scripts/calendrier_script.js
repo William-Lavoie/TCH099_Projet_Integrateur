@@ -16,6 +16,7 @@ $(document).ready(function() {
 
     // Détermine si la réunion doit être créée ou modifiée
     localStorage.setItem('reunionEstModifiee', false);  
+    console.log(localStorage.getItem('reunionEstModifiee') == "false")
 
     /**
      * Vide tous les champs et ferme les formulaires de création d'une réunion
@@ -312,7 +313,7 @@ $(document).ready(function() {
             if (heureDateValides()) {
 
                 // Si la réunion est en cours de modification
-                if (localStorage.getItem('reunionEstModifiee') == true) {
+                if (localStorage.getItem('reunionEstModifiee') == "true") {
                     $(".formulaire-header").html("Modifier la réunion");
                 }
 
@@ -614,7 +615,7 @@ function envoyerFormulaireGroupe() {
             "groupe": groupe,
             "taches": listeTaches};
 
-            if (!localStorage.getItem("reunionEstModifiee")) {
+            if (localStorage.getItem("reunionEstModifiee") == "false") {
                 // Les informations de la réunions sont ajoutées à la base de données
             
             fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
@@ -628,7 +629,7 @@ function envoyerFormulaireGroupe() {
     
                 // Fermer les formulaires et rafraîchir la page
                 fermerFormulaires();
-                window.location.reload();
+              //  window.location.reload();
                 return response.json();
             }
     
@@ -665,7 +666,7 @@ function envoyerFormulaireGroupe() {
         
                     // Fermer les formulaires et rafraîchir la page
                     fermerFormulaires();
-                    window.location.reload();
+                    //window.location.reload();
                     return response.json();
                 }
         
@@ -685,6 +686,7 @@ function envoyerFormulaireGroupe() {
 
 function envoyerFormulaireParticipants() {
 
+    console.log(localStorage.getItem("reunionEstModifiee") == false);
     for (let i = 0; i < $("#liste-taches").children().length; i++) {
         listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
     }
@@ -693,8 +695,9 @@ function envoyerFormulaireParticipants() {
         participantsReunion.push($("#liste-participants").children().eq(i).find("p").text());
     }
 
-    if (!localStorage.getItem("reunionEstModifiee")) {
+    if (localStorage.getItem("reunionEstModifiee") == "false") {
 
+        console.log("test");
         // Les informations de la réunions sont ajoutées à la base de données
         const donnees = {"titre": titre,
         "debutReunion": debutReunion,
@@ -715,7 +718,7 @@ function envoyerFormulaireParticipants() {
 
         // Fermer les formulaires et rafraîchir la page
         fermerFormulaires();
-        window.location.reload();
+        //window.location.reload();
         return response.json();
         }
 
@@ -751,7 +754,7 @@ function envoyerFormulaireParticipants() {
 
             // Fermer les formulaires et rafraîchir la page
             fermerFormulaires();
-            window.location.reload();
+            //window.location.reload();
             return response.json();
             }
 

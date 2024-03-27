@@ -140,17 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {});
     }
 
-/**
- * MODIFIER_GROUPE
- * Permet à l'enseignant ayant créé un groupe de modifier son nom et/ou ses membres
- * @param {array} groupe 
- */
-    function modifierGroupe(groupe) {
-
-
-
-    }
-
     // Récupérer le courriel de l'utilisateur courant 
     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
     })
@@ -227,9 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => {
         console.log("erreur");
     });
-});
 
-$(document).ready(function() {
+
     
     /*
      * SÉLECTIONNER LES ÉLÉMENTS
@@ -299,6 +287,8 @@ $(document).ready(function() {
       // Afficher le formulaire pour créer un groupe
       btnCreerGroupe.click(function() {
         formulaireGroupe.css("visibility", "visible");
+        $("#creer-groupe-header").text("Créer groupe");
+
     });
 
 
@@ -491,4 +481,25 @@ $(document).ready(function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
+
+/**
+ * MODIFIER_GROUPE
+ * Permet à un enseignant de modifier le nom et/ou les participants d'un de ses groupes
+ * @param {array} groupe 
+ */
+    function modifierGroupe(groupe) {
+
+        formulaireGroupe.css("visibility", "visible");
+
+        $("#creer-groupe-header").text("Modifier groupe");
+        // Remplir les champs
+        $("#nom-groupe").val(groupe['nom']);
+
+        $("#liste-participants-groupe").html("");
+
+        // Remplir la liste des participants 
+        
+
+    }
+
 });

@@ -161,13 +161,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             //id de la réunion venant d'être créée
             $id_reunion = $conn->lastInsertId();
 
-            // Ajout du créateur dans la table de jointure 
-            $query = $conn->prepare("INSERT INTO utilisateurs_reunions (courriel_utilisateurs, id_reunions) VALUES (:courriel, :id)");
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-            $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
-            $query->execute();
-
-
             // Recherche de tous les participants dans le groupe
             $query = $conn->prepare("SELECT courriel_etudiants FROM utilisateurs_groupes ug INNER JOIN groupes g ON ug.id_groupes = g.id_groupes  WHERE g.id_groupes = '$groupe'");
             $query->execute();
