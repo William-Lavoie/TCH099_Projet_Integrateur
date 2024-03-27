@@ -288,7 +288,7 @@ main {
 }
 
 #pas-mois-courant{
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 .jour p {
@@ -325,8 +325,7 @@ main {
 
 .jour:hover,
 #pas-mois-courant:hover {
-    background-color: #04071d;  
-    color: white;
+    background-color: lightgray;  
 }
 
 
@@ -604,7 +603,7 @@ body.dark #btn-dernier-mois{
 
 body.dark .jour:hover,
 body.dark #pas-mois-courant:hover  {
-  background-color: white;
+  background-color: rgb(104, 103, 103);
   color: #04071d;
   border: 2px #00c1f3 solid;
 }
