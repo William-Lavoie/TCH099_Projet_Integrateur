@@ -600,6 +600,7 @@ body.dark .jour:hover,
 body.dark #pas-mois-courant:hover  {
   background-color: white;
   color: #04071d;
+  border: 2px #00c1f3 solid;
 }
 
 #pas-mois-courant{
