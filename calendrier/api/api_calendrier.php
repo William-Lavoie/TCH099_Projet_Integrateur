@@ -530,6 +530,43 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     }
 
+    // Supprimer un groupe
+    if (preg_match("~supprimer_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idGroupe'])) {
+
+            $id_groupe = $donnees['idGroupe'];
+    
+            require("connexion.php");
+           
+            // Supprimer le groupe
+            $query = $conn->prepare("DELETE FROM groupes WHERE id_groupes = :id");
+            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
+            $query->execute();
+
+            // Supprimer les entrées dans la table de jointure 
+            $query = $conn->prepare("DELETE FROM utilisateurs_groupes WHERE id_groupes = :id");
+            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
+            $query->execute();
+
+            // Modifier les réunions associés à ce groupe
+            $query = $conn->prepare("UPDATE reunions SET id_groupes = null WHERE id_groupes = :id");
+            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
+            $query->execute();
+    
+            echo json_encode("Succès");
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
 
     // Chercher les participants pour une réunion donnée
     if (preg_match("~chercher_liste_participants$~", $_SERVER['REQUEST_URI'], $matches)) {

@@ -754,7 +754,7 @@ $(document).ready(function() {
         })
         .then(data => {
 
-          //window.location.reload();
+          window.location.reload();
 
         })
         .catch(error => {

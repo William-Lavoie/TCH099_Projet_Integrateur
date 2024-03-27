@@ -177,10 +177,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const nouveauGroupe = $("<button class='groupe'>").text(data[i]['nom']);
             const nouvelleCellule = $("<td class='cellule-groupe'>").append(nouveauGroupe);
 
-            // Ajouter le bouton de modification du groupe si l'utilisateur en est le créateur
+            // Ajouter le bouton de modification et de supression du groupe si l'utilisateur en est le créateur
             if (courrielCourant == data[i]['courriel_enseignant']) {
 
-                console.log("ok");
+                    // Bouton pour modifier
                     let boutonModifier = $("<button class='modifier-groupe'>✎</button>");
                     nouvelleCellule.append(boutonModifier);
             
@@ -189,6 +189,20 @@ document.addEventListener('DOMContentLoaded', function () {
             
                         console.log("ok");
                         modifierGroupe(data[i]);
+                    })
+
+                    
+                    // Bouton pour supprimer 
+                    let boutonSupprimer = $("<button class='modifier-groupe'>🗑</button>");
+                    nouvelleCellule.append(boutonSupprimer);
+            
+                    // Écouter d'évènement pour modifier le groupe
+                    boutonSupprimer.on("click", function() {
+            
+                        console.log(data[i]['id_groupes']);
+                        if (confirm("La supression d'un groupe est permanente, êtes-vous sûr de vouloir procéder?")) {
+                            supprimerGroupe(data[i]['id_groupes']);
+                        }
                     })
             }  
             
@@ -583,5 +597,41 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(error);
         });
     }
+
+    /**
+   * SUPPRIMER_GROUPE
+   * Permet au créateur d'un groupe de la supprimer. Les réunions passées restent et celles 
+   * à venir sont également supprimées. 
+   * @param {int} groupe: id du groupe à supprimer 
+   */
+  function supprimerGroupe(groupe) {
+
+    donnees = {'idGroupe': groupe};
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/supprimer_groupe", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+
+          //window.location.reload();
+
+        })
+        .catch(error => {
+        console.log(error);
+        });
+
+  }
 
 });
