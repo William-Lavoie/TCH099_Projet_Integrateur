@@ -71,7 +71,7 @@ function afficherReunionsGroupe(groupe) {
     })
     .then(data => {
         for (let i = 0; i < data.length; i++) {
-           
+        
 
             let nouvelleReunion = $("<div class='conteneur-reunion'><div class='reunion-entete'><p class='reunion-titre'>" +  data[i]['titre'] + "</p> <p class='reunion-reglage'>⚙</p></div><div class='reunion-description'>" + data[i]['description'] + "</div></div></div>");
             if (data[i]['date'] >= formatterDate(new Date())) {
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => {
     console.log(error);
     });  
-   
+
 
     // Afficher la liste des groupes
     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {})
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /**  Vérifie si le courriel passé en paramètre a été ajouté à la liste
     *    des participants dans le formulaire de création d'un groupe
     */
-      function courrrielPresent(courriel) {
+    function courrrielPresent(courriel) {
 
         //Liste des participants entrés par l'utilisateur
         const listeParticipants = $("#liste-participants-groupe p");
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
       // Afficher le formulaire pour créer un groupe
-      btnCreerGroupe.click(function() {
+    btnCreerGroupe.click(function() {
         formulaireGroupe.css("visibility", "visible");
         $("#creer-groupe-header").text("Créer groupe");
 
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-   
+
 
     // Fermer le formulaire de création de groupe
     // Par le bouton retour

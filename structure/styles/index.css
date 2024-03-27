@@ -159,8 +159,14 @@ header {
     flex-direction: row;
     color: black;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+}
+
+#toggleTheme{
+    font-size: 2em;
+    background-color: white;
+    border: none;
 }
 
 #page-profil-header {
