@@ -61,7 +61,7 @@ main{
     row-gap: 5vh;
     column-gap: 2%;
     height: fit-content;
-    min-height: 20vh;
+    min-height: 20em;
     max-height: 100vh;
     width: 80% ;
     margin-bottom: 5%;

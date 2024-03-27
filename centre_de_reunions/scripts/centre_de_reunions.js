@@ -445,17 +445,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Création du participant dans le formulaire 
                         nouveauParticipant.children("p").text(participant);
                         nouveauParticipant.append(boutonSupprimer);
-                         $("#liste-participants-groupe").append(nouveauParticipant);
+                        $("#liste-participants-groupe").append(nouveauParticipant);
     
                     }
-             
+            
                 }
 
-               else {
+            else {
 
                 $("#messages-erreur-participants-groupe").text(participant + " ne correspond pas à un compte HuddleHarbor");
 
-               }
+            }
                 
             })
             .catch(error => {
@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
                     
     });
-  });
+});
 
 
     // Fonction pour valider le format d'une adresse e-mail
