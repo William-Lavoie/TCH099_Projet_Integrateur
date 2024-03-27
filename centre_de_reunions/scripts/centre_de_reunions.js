@@ -140,6 +140,17 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {});
     }
 
+/**
+ * MODIFIER_GROUPE
+ * Permet à l'enseignant ayant créé un groupe de modifier son nom et/ou ses membres
+ * @param {array} groupe 
+ */
+    function modifierGroupe(groupe) {
+
+
+
+    }
+
     // Récupérer le courriel de l'utilisateur courant 
     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
     })
@@ -190,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log("ok");
                         modifierGroupe(data[i]);
                     })
-                 }  
+            }  
             
             //Ajouter le groupe à la tabke
             groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
@@ -345,6 +356,8 @@ $(document).ready(function() {
     // Fermer le formulaire de création de groupe
     // Par le bouton retour
     btnRetour.click(function() {
+        $("#nom-groupe").val("");
+        $("#liste-participants-groupe").html("");
         formulaireGroupe.css("visibility", "hidden");
     });
 
@@ -352,6 +365,8 @@ $(document).ready(function() {
     formulaireGroupe.click(function(event) {
         if (event.target === this) {
             formulaireGroupe.css("visibility", "hidden");
+            $("#nom-groupe").val("");
+            $("#liste-participants-groupe").html("");
         }
     });
 

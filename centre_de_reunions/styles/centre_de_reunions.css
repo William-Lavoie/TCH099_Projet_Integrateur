@@ -324,6 +324,11 @@ align-items: center;
     font-size: 100%;
 }
 
+#btn-ajouter-participant:hover {
+    background-color: #00c1f3;
+}
+
+
 #nouveau-participant-groupe {
     height: 2.5em;
     width: 70%;
@@ -464,7 +469,7 @@ footer a {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 3;
+    z-index: 10;
     position: fixed;
     background-color: #302f4b8c;
     display: flex;
@@ -609,6 +614,10 @@ input, textarea {
     padding: 2%;
     align-self: center;
     bottom: 0;
+}
+
+#confirmer-creer-groupe:hover, #retour-creer-groupe:hover {
+    background-color: #00c1f3;
 }
 
 .groupe-choisi {
