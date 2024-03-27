@@ -13,24 +13,24 @@ header {
 
 
 #nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants, #creer-liste-taches {
-    height: max(60vmin,400px);
-    aspect-ratio: 3/4;
-    border: 1px solid black;
-    border-radius: 0.5em;
-    display: none;
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 4;
-    overflow: hidden;
-    background-color: white;
-    color: black;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 2px black;
-    padding: 5p;
+  height: max(60vmin,400px);
+  aspect-ratio: 3/4;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  display: none;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  overflow: hidden;
+  background-color: white;
+  color: black;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px black;
+  padding: 5p;
 }
 
 .formulaire-header {
@@ -88,9 +88,9 @@ textarea {
 }
 
 .reunion-visible {
-    display: flex  !important ;
-    flex-direction: column;
-    opacity: 100%;
+  display: flex  !important ;
+  flex-direction: column;
+  opacity: 100%;
 }
 
 

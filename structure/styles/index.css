@@ -19,8 +19,8 @@ header {
 }
 
 #logo-header {
-    width: 12vmin;
-    min-width: 7em;
+    width: 12em;
+    min-width: 12em;
     min-height: 4em;
     height: 10vmin;
     box-sizing: border-box;
