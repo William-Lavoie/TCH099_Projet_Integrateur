@@ -937,27 +937,46 @@ premiere boite
     height:100vh;
     align-items: center;
     justify-content: center;
-    bottom: 10vh;
+    gap: 20vh;
+}
+
+#boite-message-etudiant{
+    margin-top: calc(25vh - 14vmin);
 }
 
 #premiere-boite-aprendre h1{
     font-size: 3em;
 }
 
+#premiere-boite-aprendre h2{
+    font-size: 2em;
+}
 
-#premiere-boite-aprendre h1:nth-child(1) {
+#premier-message-boite-un {
     margin-right: 20vw;
+    height: 3rem;
 }
 
 
-#premiere-boite-aprendre h1:nth-child(2) {
+#deuxieme-message-boite-un{
     margin-left: 20vw;
+    height: 3rem;
+}
+
+#troisieme-message-boite-un{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 @media screen and (max-height: 900px) {
 
     #premiere-boite-aprendre h1{
         font-size: 1.5em;
+    }
+    #premiere-boite-aprendre h2{
+        font-size: 1.2em;
     }
 }
 
@@ -984,8 +1003,8 @@ deuxieme boite
 
 #deuxieme-message-boite-deux img,
 #troisieme-message-boite-deux img {
-    max-width: 60%; 
-    max-height: 60%; 
+    max-width: 75%; 
+    max-height: 75%; 
     object-fit: contain; 
 }
 
@@ -994,6 +1013,9 @@ deuxieme boite
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5vmin;
+    text-align: center;
+    margin-top: 14vmin;
 }
 
 #deuxieme-message-boite-deux,
@@ -1014,6 +1036,15 @@ deuxieme boite
     text-align: center; 
 }
 
+@media screen and (max-height: 900px) {
+
+    #deuxieme-message-boite-deux img,
+    #troisieme-message-boite-deux img {
+        max-width: 60%; 
+        max-height: 60%; 
+    }
+}
+
 /*************************************
 troisieme boite
 *************************************/
@@ -1032,8 +1063,8 @@ troisieme boite
 
 #deuxieme-message-boite-trois img,
 #troisieme-message-boite-trois img {
-    max-width: 60%; 
-    max-height: 60%; 
+    max-width: 75%; 
+    max-height: 75%; 
     object-fit: contain; 
 }
 
@@ -1042,6 +1073,9 @@ troisieme boite
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5vmin;
+    text-align: center;
+    margin-top: 14vmin;
 }
 
 #deuxieme-message-boite-trois,
@@ -1062,6 +1096,15 @@ troisieme boite
     text-align: center; 
 }
 
+@media screen and (max-height: 900px) {
+
+    #deuxieme-message-boite-trois img,
+    #troisieme-message-boite-trois img {
+        max-width: 60%; 
+        max-height: 60%; 
+    }
+}
+
 /*************************************
 quatrieme boite
 *************************************/
@@ -1075,6 +1118,7 @@ quatrieme boite
     justify-content: center;
     background-color: #04071d;
     color: white;
+    margin-top: 14vmin;
 }
 
 /*************************************
