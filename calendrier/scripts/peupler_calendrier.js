@@ -465,6 +465,7 @@ $(document).ready(function() {
        if (reponse == createur) {
            let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
            boutonModifier.on("click", function() {
+            console.log(reunion);
            modifierReunion(reunion);
           });
 

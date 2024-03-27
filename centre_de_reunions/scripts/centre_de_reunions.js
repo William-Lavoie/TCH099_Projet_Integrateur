@@ -234,6 +234,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const groupesTable = $("#groupes");
 
     let tableauParticipants = [];
+    let groupeEstModifie = false;
+    let id_groupe;
+
 
 
     /**  Vérifie si le courriel passé en paramètre a été ajouté à la liste
@@ -282,12 +285,15 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => {
 
+        console.log("erreur");
     });
 
       // Afficher le formulaire pour créer un groupe
     btnCreerGroupe.click(function() {
         formulaireGroupe.css("visibility", "visible");
         $("#creer-groupe-header").text("Créer groupe");
+
+        groupeEstModifie = false;
 
     });
 
@@ -312,34 +318,62 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             erreurs.text(""); // Vider les erreurs
 
-            // Si tous les champs sont valides, procéder à la soumission du formulaire
-            const donnees = {"nom": nomGroupe, "participants": tableauParticipants};
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_groupe", {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(donnees)
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    throw new Error("La création de la réunion n'a pas fonctionnée");
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            if (groupeEstModifie == false) {
+                
+                // Si tous les champs sont valides, procéder à la soumission du formulaire
+                const donnees = {"nom": nomGroupe, "participants": tableauParticipants};
 
-            // Cacher le formulaire (fin)
-            formulaireGroupe.css("visibility", "hidden");
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_groupe", {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(donnees)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        throw new Error("La création de la réunion n'a pas fonctionnée");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
 
-            // Réinitialiser les champs du formulaire
-            $("#nom-groupe").val('');
-            listeParticipants.text('');
-            erreurs.text('');
+            }
+
+            else if (groupeEstModifie == true) {
+
+                // Si tous les champs sont valides, procéder à la soumission du formulaire
+                const donnees = {"nom": nomGroupe, "participants": tableauParticipants, "idGroupe": id_groupe};
+
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier_groupe", {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(donnees)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        throw new Error("La création de la réunion n'a pas fonctionnée");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            }
+
+             // Cacher le formulaire (fin)
+             formulaireGroupe.css("visibility", "hidden");
+
+             // Réinitialiser les champs du formulaire
+             $("#nom-groupe").val('');
+             listeParticipants.text('');
+             erreurs.text('');
         }
-    });
+    });     
 
 
 
@@ -497,9 +531,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $("#liste-participants-groupe").html("");
 
-        // Remplir la liste des participants 
-        
+        groupeEstModifie = true;
+        id_groupe = groupe['id_groupes'];
 
+        // Remplir la liste des participants 
+        let donnees = {'idGroupes': groupe['id_groupes']};
+
+        // Chercher les membres du groupe
+        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-membres-groupe", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+        })
+        .then(response => {
+        
+            if (response.ok) {
+                return response.json();
+            }
+    
+            else {
+                console.log("La requête n'a pas fonctionnée");
+            }
+            })
+        .then(data => {
+
+            console.log(data[0]);
+            // Ajouter les participants
+            for (let i = 0; i < data.length; i++) {
+
+                const nouveauParticipant = $("<div class='nom-participant-groupe'> <p></p> </div> ");
+                const boutonSupprimer = $("<button class='supprimer-participant-groupe'>🗑</button>");
+
+                // Le participant est ajouté à la liste
+                $("#nouveau-participant-groupe").val("");
+
+                // Bouton pour supprimer le participant 
+                boutonSupprimer.on("click", function(event) {
+                    event.stopPropagation();
+                    nouveauParticipant.remove();
+                });
+
+                // Création du participant dans le formulaire 
+                nouveauParticipant.children("p").text(data[i]['courriel_etudiants']);
+                nouveauParticipant.append(boutonSupprimer);
+                 $("#liste-participants-groupe").append(nouveauParticipant);
+            }  
+
+            // Modifier le groupe
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
 });
