@@ -7,11 +7,6 @@ body {
   flex-direction: column;
 }
 
-header {
-  z-index: 5;
-}
-
-
 #nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants, #creer-liste-taches {
   height: max(60vmin,400px);
   aspect-ratio: 3/4;
@@ -243,7 +238,7 @@ justify-content: center;
 }
 
 /************************************
- /* main */
+/* main 
 /************************************/
 main {
     height: calc(100vh - 10vmin);
@@ -292,8 +287,13 @@ main {
 }
 
 .jour p {
-  margin: 0;
+  margin-top: 3px;
+  margin-left: 3px;
 }
+
+/******************************
+reunion
+*****************************/
 
 .reunions-date {
   height: 100%;
