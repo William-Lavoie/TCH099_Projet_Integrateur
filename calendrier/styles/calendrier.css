@@ -317,14 +317,12 @@ justify-content: center;
     opacity: 50%;
   }
 
-  .jour:hover {
-      background-color: rgb(246, 246, 246);  
+  .jour:hover,
+  #pas-mois-courant:hover {
+      background-color: #00c1f3;  
   }
 
-  #pas-mois-courant:hover {
-    background-color: rgb(206, 206, 206) !important;
-  }
-  
+
   #consulter-reunion-calendrier {
     height: 0;
     width: 0;
@@ -597,8 +595,9 @@ dark mode
     color: white;
   }
 
-  body.dark .jour:hover {
-    background-color: #0a1251;
+  body.dark .jour:hover,
+  body.dark #pas-mois-courant:hover  {
+    background-color: #00c1f3;
   }
 
   #pas-mois-courant{
@@ -608,4 +607,3 @@ dark mode
   body.dark #pas-mois-courant{
     background-color: rgb(40, 40, 40);
   }
-
