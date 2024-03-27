@@ -7,7 +7,10 @@ body {
   flex-direction: column;
 }
 
-#nouvelle-reunion , #creer-reunion-groupe, #creer-reunion-participants, #creer-liste-taches {
+#nouvelle-reunion, 
+#creer-reunion-groupe, 
+#creer-reunion-participants,
+#creer-liste-taches {
   height: max(60vmin,400px);
   aspect-ratio: 3/4;
   border: 1px solid black;
@@ -25,7 +28,6 @@ body {
   color: black;
   box-sizing: border-box;
   box-shadow: 2px 2px 2px black;
-  padding: 5px;
 }
 
 .formulaire-header {
@@ -614,4 +616,27 @@ body.dark #pas-mois-courant:hover  {
 body.dark #pas-mois-courant{
   background-color: rgb(40, 40, 40);
   border: 1px solid darkgray;
+}
+
+body.dark #creer-reunion {
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
+
+body.dark #creer-reunion:hover {
+  background-color: #00c1f3;
+  cursor: pointer;
+}
+
+body.dark #nouvelle-reunion,
+body.dark #creer-reunion-groupe,
+body.dark #creer-reunion-participants,
+body.dark #creer-liste-taches,
+body.dark{
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
+
+body.dark label{
+  color: white;
 }

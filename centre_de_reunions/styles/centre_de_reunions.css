@@ -887,10 +887,28 @@ body.dark aside {
 
 body.dark #conteneur-reunions-prochaines, 
 body.dark #conteneur-reunions-passees{
-    background-color: rgb(88, 88, 88);
+    background-color: rgb(40, 40, 40);
 }
 
 body.dark #creer-reunion {
-    background-color: white;
-    color: #04071d;
+    background-color: rgb(40, 40, 40);
+    color: white;
+}
+
+body.dark #creer-reunion:hover {
+    background-color: #00c1f3;
+    cursor: pointer;
+}
+
+body.dark #nouvelle-reunion,
+body.dark #creer-reunion-groupe,
+body.dark #creer-reunion-participants,
+body.dark #creer-liste-taches,
+body.dark{
+background-color: rgb(40, 40, 40);
+color: white;
+}
+
+body.dark label{
+color: white;
 }
