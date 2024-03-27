@@ -882,7 +882,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT nom, g.id_groupes FROM groupes g INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes WHERE courriel_etudiants = :courriel UNION SELECT nom, id_groupes FROM groupes WHERE courriel_enseignant = :courriel");
+        $query = $conn->prepare("SELECT g.nom, g.id_groupes, g.courriel_enseignant FROM groupes g INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes WHERE courriel_etudiants = :courriel UNION SELECT nom, id_groupes, courriel_enseignant FROM groupes WHERE courriel_enseignant = :courriel");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();

@@ -6,6 +6,7 @@ body {
     flex-direction: column;
 }
 
+
 /* 
  * EN-TÊTE
  */
@@ -327,7 +328,6 @@ align-items: center;
 }
 
 .groupe {
-    width: 10em;
     height: 3em;
     font-weight: bold;
     font-size: 1em;
@@ -365,6 +365,22 @@ align-items: center;
     color: #04071d;
     background-color: white;
     border: 2px solid #04071d;
+}
+
+.cellule-groupe {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modifier-groupe {
+    background-color: #04071d;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+}
+
+.modifier-groupe:hover {
+    font-size: 1.5em;
 }
 
 /*

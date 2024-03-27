@@ -147,19 +147,63 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
     .then(data => {
+    
+    
         const groupesTable = $("#table-groupes");
+
         for (let i = 0; i < data.length; i++) {
             const nouveauGroupe = $("<button class='groupe'>").text(data[i]['nom']);
-            const nouvelleCellule = $("<td>").append(nouveauGroupe);
+            const nouvelleCellule = $("<td class='cellule-groupe'>").append(nouveauGroupe);
+
+            // Ajouter le bouton de modification du groupe si l'utilisateur en est le créateur
+            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+            })
+            .then(response => {
+      
+            if (response.ok) {
+      
+            return response.json();
+            }
+      
+            else {
+            }
+            })
+            .then(reponse => {
+                
+             if (reponse == data[i]['courriel_enseignant']) {
+      
+            console.log("ok");
+                let boutonModifier = $("<button class='modifier-groupe'>✎</button>");
+                nouvelleCellule.append(boutonModifier);
+
+                // Écouter d'évènement pour modifier le groupe
+                boutonModifier.on("click", function() {
+
+                    console.log("ok");
+                    modifierGroupe(data[i]);
+                })
+             }  
+             
+            })
+            .catch(error => {
+            console.log(error);
+            });  
+           
+            
+            //Ajouter le groupe à la tabke
             groupesTable.find("tr").last().after($("<tr>").append(nouvelleCellule));
 
             nouveauGroupe.on("click", function(event) {
                 event.preventDefault();
+
                 // Si le groupe est déjà sélectionné, affiche toutes les réunions
                 if ($(this).hasClass("groupe-choisi")) {
                     afficherReunion();
                     $("button").removeClass("groupe-choisi");
-                } else {
+                } 
+                
+                // Afficher uniquement les réunions du groupe choisi
+                else {
                     $("button").removeClass("groupe-choisi");
                     $(this).addClass("groupe-choisi");
                     afficherReunionsGroupe(data[i]['id_groupes']);
