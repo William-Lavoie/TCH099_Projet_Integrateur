@@ -304,7 +304,7 @@ align-items: center;
     display: flex;
     flex-direction: column;
     overflow: auto;
-  }
+}
 
 #messages-erreur-participants-groupe {
     height: 20%;
@@ -349,7 +349,7 @@ align-items: center;
     }
     
 .nom-participant-groupe:hover {
-      background-color: lightgray;
+    background-color: lightgray;
 }
 
 .supprimer-participant-groupe {
@@ -360,12 +360,12 @@ align-items: center;
     border: none;
     font-size: 1.8em;      
 }
-      
+
 .supprimer-participant-groupe:hover {
     background-color: transparent;
     font-size: 2.1em;
 }
-      
+
 
 /*
  * PIED DE PAGE
@@ -650,55 +650,55 @@ input, textarea {
 }
 
 #formulaire-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 20%;
-  font-size: 1.5rem;
-  text-align: center;
-  background-color: #04071d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 20%;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #04071d;
 }
 
 .champs-a-remplir {
-  height: 80%;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
+    height: 80%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-  color: black;
-  font-size: 1em;
-  margin-right: 1em;
+    color: black;
+    font-size: 1em;
+    margin-right: 1em;
 }
 
 .champ-reunion {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 1em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1em;
 }
 
 input, textarea {
-  border-radius: 0.3em;
-  margin-right: 1em;
-  border: 1px solid lightgray;
+    border-radius: 0.3em;
+    margin-right: 1em;
+    border: 1px solid lightgray;
 }
 
 textarea {
-  height: 30%;
-  overflow: hidden;
+    height: 30%;
+    overflow: hidden;
 }
 
 #debut-reunion, #fin-reunion {
-  width: 6em;
-  font-size: 0.8rem;
+    width: 6em;
+    font-size: 0.8rem;
 }
 
 #btn-radios {
-  margin-top: 1em;
+    margin-top: 1em;
 }
 
 .reunion-visible {
@@ -708,25 +708,25 @@ textarea {
 }
 
 #messages-erreur, #messages-erreur-participants {
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: red;
-  font-style: italic;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-style: italic;
 }
 
 .btn-reunion {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 
 .btn-reunion button {
-  background-color: #04071d;
-  color: white;
-  border-radius: 0.5em;
-  width: 40%;
-  padding: 2%
+    background-color: #04071d;
+    color: white;
+    border-radius: 0.5em;
+    width: 40%;
+    padding: 2%
 }
 
 .btn-reunion button:hover {
@@ -734,122 +734,121 @@ textarea {
 }
 
 .reunion-journee {
-  height: 24%;
-  width: 80%;
-  background-color: #04071d;
-  color: white;
-  border-radius: 10px;
-  margin-bottom: 2%;
-  padding-left: 3%;
-  border: 1px solid lightgray;
+    height: 24%;
+    width: 80%;
+    background-color: #04071d;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    padding-left: 3%;
+    border: 1px solid lightgray;
 }
 
 .reunion-journee:hover {
-  background-color: #00c1f3;
+    background-color: #00c1f3;
 }
 
 
 #ajouter-participants {
-  height: 100%;
-  width: 90%;
+    height: 100%;
+    width: 90%;
 }
 
 #ajouter-participants-groupe {
     width: 90%;
-  }
+}
 
 #ajout-participant-label {
-  padding-left: 0.5em;
-  font-size: 1.2em;
+    padding-left: 0.5em;
+    font-size: 1.2em;
 }
 
 #btn-creer-participant, #btn-creer-tache {
-  background-color: #04071d;
-  border-radius: 50%;
-  height: 2.5em;
-  width: 2.5em;
-  color: white;
-  font-size: 100%;
+    background-color: #04071d;
+    border-radius: 50%;
+    height: 2.5em;
+    width: 2.5em;
+    color: white;
+    font-size: 100%;
 }
 
 #btn-creer-participant:hover, #btn-creer-tache:hover {
     background-color: #00c1f3;
-  }
+}
 
 #nouveau-participant, #nouvelle-tache {
-  height: 2.5em;
-  width: 70%;
-  border-radius: 2em;
-  padding-left: 1em;
-  margin-right: 1em;
-  border: 2px solid lightgray;
+    height: 2.5em;
+    width: 70%;
+    border-radius: 2em;
+    padding-left: 1em;
+    margin-right: 1em;
+    border: 2px solid lightgray;
 }
 
 #nouveau-participant-creer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0.4em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.4em;
 }
 
 #liste-participants, #liste-taches {
-  height: 50%;
-  max-height: 150px;
-  margin-top: 0.5em;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+    height: 50%;
+    max-height: 150px;
+    margin-top: 0.5em;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
 .nom-participant {
-height: 20%;
-border-radius: 1em;
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding-left: 1em;
-padding-right: 1em;
-margin-bottom: 2%;
-border: 2px solid lightgray;
+    height: 20%;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 2%;
+    border: 2px solid lightgray;
 }
 
 .nom-participant:hover {
-  background-color: lightgray;
+    background-color: lightgray;
 }
 
 .supprimer-participant, .supprimer-tache {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8em;
 }
 
 .supprimer-participant:hover, .supprimer-tache:hover {
-  background-color: transparent;
-  font-size: 2.1em;
+    background-color: transparent;
+    font-size: 2.1em;
 }
 
 #choix-groupe {
-  width: 60%;
-  height: 20%;
+    width: 60%;
+    height: 20%;
 }
 
 #champs-groupes {
-  padding-top: 10%;
-height: 30%;
-display: flex;
-justify-content: center;
+    padding-top: 10%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
 }
 
 #espace-vide {
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 5%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 5%;
 }
 
 #creer-reunion {
@@ -865,6 +864,10 @@ justify-content: center;
     font-size: 1em;
     min-width: 70px;
     z-index: 2;
+}
+
+#creer-reunion:hover{
+    background-color: #00c1f3;
 }
 
 .focus {

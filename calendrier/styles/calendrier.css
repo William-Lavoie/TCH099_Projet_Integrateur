@@ -132,7 +132,7 @@ textarea {
 .reunion-journee {
   height: 24%;
   width: 80%;
-  background-color: #04071d;
+  background-color: #00c1f3;
   color: white;
   border-radius: 10px;
   margin-bottom: 2%;
@@ -142,7 +142,7 @@ textarea {
 }
 
 .reunion-journee:hover {
-  background-color: #00c1f3;
+  background-color: #46daff;
 }
 
 
@@ -243,7 +243,7 @@ justify-content: center;
 }
 
  /* main */
- main {
+main {
     height: 90vmin;
     display: flex;
     align-items: center;
@@ -253,359 +253,359 @@ justify-content: center;
   
   }
 
-  #calendrier-jour {
-    height: 100%;
-    width: 100vmax;
-    min-width: 475px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  #calendrier {
-    margin: 0;
-    aspect-ratio: 1/2;
-    border: 1px solid black;
-    display: flex;  
-    flex-wrap: wrap;  
-    box-sizing: border-box;
-  }
-
-  .jour {
-    position: relative;
-    margin: 0;
-    width: calc(100%/7);
-    height: calc(100%/6);
-    border: 1px solid rgb(245, 245, 245);
-    box-sizing: border-box;
-    padding: 0.2%;
-    min-height: 40px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .jour p {
-    margin: 0;
-  }
-
-  .reunions-date {
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 4%;
-    
-  }
-  .autre-reunion {
-    width: 100%;
-    height: 50%;
-    font-size: 0.8em;
-    border: 1px solid black;
-    background-color: blue;
-    border-radius: 10%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #calendrier .autre-reunion:hover {
-    opacity: 50%;
-  }
-
-  .jour:hover,
-  #pas-mois-courant:hover {
-      background-color: #04071d;  
-      color: white;
-  }
-
-
-  #consulter-reunion-calendrier {
-    height: 0;
-    width: 0;
-    border-radius: 0.5em;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    overflow: hidden;
-    background-color: white;
-    color: black;
-    box-sizing: border-box;
-    box-shadow: 5px 5px 13px 0px black;
-    transition: 0.5s height, 0.5s width;
-  }
-
-  #consulter-reunion-calendrier span {
-    width: 100%;
-    height: 15%;
-    font-size: 1.7em;
-    display: flex;
-    justify-content: center;
-    background-color: black;
-    color: white;
-    display: flex;
-    align-items: center;
-    text-align: center;
-  }
-
-  #panneau-reunions {
-    margin-top: 5%;
-    height: 80%;
-    width: 90%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    padding: 1%;
-    overflow-x: hidden;
-    align-items: center;
-
-  }
-
-  .reunion-pour-panneau {
-    flex-shrink: 0;
-    height: 18%;
-    width: 90%;
-    border: 2px solid black;
-    border-radius: 1em;
-    margin-bottom: 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 2%;
-    padding-right: 4%;
-    font-size: 1em;
-  }
-
-  #boutons-pour-panneau {
-    height: 30%;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
-  #btn-panneau-reunion {
-    width: 200%;
-    height: 40%;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  #btn-panneau-reunion button {
-    background-color: #04071d;
-    color: white;
-    border-radius: 0.5em;
-    width: 40%;
-    font-size: 1.1em;
-  }
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
-  #btn-panneau-reunion button:hover, #creer-reunion:hover, form button:hover {
-    background-color: #00c1f3;
-  }
-
-  .ouvrir-reunion {
-    height: max(60vmin,400px) !important;
-    width: max(45vmin, 300px) !important;
-    display: flex !important;
-    border: 2px solid black;
-    align-items: center;
-    overflow: hidden;
-
-  }
-
-  /* Removed hover for testing purposes*/
-  .reunion-visible-panneau {
-    position: absolute;
-    height: 80%;
-    background-color: white;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    bottom: 4%;
-    border: none;
-  }
-
-  #reunion-test p {
-    height: 10%;
-    font-size: 1.4em;
-  }
-
-  .heure-debut-fin {
-    position: relative;
-    bottom: 7%;
-  }
-
-  #informations-reunion {
-    width: 90%;
-    height: 70%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .participant-pour-reunion {
-    height: 21%;
-    display: flex;
-    align-items: center;
-    padding-left: 4%;
-    font-size: 1.2em;
-    flex-shrink: 0;
-    margin-bottom: 2%;
-  }
-
-  .participant-pour-reunion:hover {
-    background-color: lightgray;
-  }
-
-  #btn-nouvelle-reunion {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    height: 10%;
-    padding: 2%;
-    
-  }
-
-  #btn-ajouter-reunion {
-    aspect-ratio: 1/1;
-    border-radius: 100%;
-    background-color: #04071d;
-    position: relative;
-    top: 15%;
-    color: white;
-  }
-
-  .participant-pour-reunion img {
-    margin-right: 2%;
-    border-radius: 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: lightgray;
-  }
-
-  #journee-mois {
-    min-height: 70px;
-    overflow: hidden;
-    width: 12em;
-    font-size: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;    
-    }
-
-
-  #journee-mois button {
-    background-color: transparent;
-    border: 0;
-    height: fit-content;
-    width: fit-content;
-    font-size: 1em;
-  }
-
-  #journee-mois p {
-    font-size: 1em;
-    text-align: center;
-  }
-
-  #calendrier-journees-semaine {
-    width: max(100%,450px);
-    height: 100%;
-    min-height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-
-  #journee-semaine {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 7%;
-  }
-
-  .journee {
-    width: calc(100%/7);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    position: relative;
-    top: 20%;
-  }
-
-  .main-btn {
-    width: 5%;
-    min-width: 100px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    padding: 2%;
-  }
-
-  #creer-reunion {
-    position: fixed; 
-    bottom: 5%; 
-    right: 5%; 
-    border-radius: 100%;
-    background-color: #04071d;
-    color: white;
-    height: max(10%, 70px);
-    max-height: 6em;
-    aspect-ratio: 1/1;
-    font-size: 1em;
-    min-width: 70px;
-    z-index: 2;
+#calendrier-jour {
+  height: 100%;
+  width: 100vmax;
+  min-width: 475px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-  .focus {
-    opacity: 50%;
-    pointer-events: none;
-  }
+#calendrier {
+  margin: 0;
+  aspect-ratio: 1/2;
+  border: 1px solid black;
+  display: flex;  
+  flex-wrap: wrap;  
+  box-sizing: border-box;
+}
 
+.jour {
+  position: relative;
+  margin: 0;
+  width: calc(100%/7);
+  height: calc(100%/6);
+  border: 1px solid rgb(245, 245, 245);
+  box-sizing: border-box;
+  padding: 0.2%;
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+}
 
-  /*************************************
-dark mode
-  *****************************/
+.jour p {
+  margin: 0;
+}
 
-  #journee-mois{
-    color: #04071d;
-  }
+.reunions-date {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4%;
+  
+}
+.autre-reunion {
+  width: 100%;
+  height: 50%;
+  font-size: 0.8em;
+  border: 1px solid black;
+  background-color: blue;
+  border-radius: 10%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  body.dark #journee-mois, 
-  body.dark #btn-prochain-mois,
-  body.dark #btn-dernier-mois{
+#calendrier .autre-reunion:hover {
+  opacity: 50%;
+}
+
+.jour:hover,
+#pas-mois-courant:hover {
+    background-color: #04071d;  
     color: white;
+}
+
+
+#consulter-reunion-calendrier {
+  height: 0;
+  width: 0;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+  background-color: white;
+  color: black;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 13px 0px black;
+  transition: 0.5s height, 0.5s width;
+}
+
+#consulter-reunion-calendrier span {
+  width: 100%;
+  height: 15%;
+  font-size: 1.7em;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+#panneau-reunions {
+  margin-top: 5%;
+  height: 80%;
+  width: 90%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  overflow-x: hidden;
+  align-items: center;
+
+}
+
+.reunion-pour-panneau {
+  flex-shrink: 0;
+  height: 18%;
+  width: 90%;
+  border: 2px solid black;
+  border-radius: 1em;
+  margin-bottom: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 4%;
+  font-size: 1em;
+}
+
+#boutons-pour-panneau {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+#btn-panneau-reunion {
+  width: 200%;
+  height: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#btn-panneau-reunion button {
+  background-color: #04071d;
+  color: white;
+  border-radius: 0.5em;
+  width: 40%;
+  font-size: 1.1em;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#btn-panneau-reunion button:hover, #creer-reunion:hover, form button:hover {
+  background-color: #00c1f3;
+}
+
+.ouvrir-reunion {
+  height: max(60vmin,400px) !important;
+  width: max(45vmin, 300px) !important;
+  display: flex !important;
+  border: 2px solid black;
+  align-items: center;
+  overflow: hidden;
+
+}
+
+/* Removed hover for testing purposes*/
+.reunion-visible-panneau {
+  position: absolute;
+  height: 80%;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  bottom: 4%;
+  border: none;
+}
+
+#reunion-test p {
+  height: 10%;
+  font-size: 1.4em;
+}
+
+.heure-debut-fin {
+  position: relative;
+  bottom: 7%;
+}
+
+#informations-reunion {
+  width: 90%;
+  height: 70%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.participant-pour-reunion {
+  height: 21%;
+  display: flex;
+  align-items: center;
+  padding-left: 4%;
+  font-size: 1.2em;
+  flex-shrink: 0;
+  margin-bottom: 2%;
+}
+
+.participant-pour-reunion:hover {
+  background-color: lightgray;
+}
+
+#btn-nouvelle-reunion {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 10%;
+  padding: 2%;
+  
+}
+
+#btn-ajouter-reunion {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  background-color: #04071d;
+  position: relative;
+  top: 15%;
+  color: white;
+}
+
+.participant-pour-reunion img {
+  margin-right: 2%;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: lightgray;
+}
+
+#journee-mois {
+  min-height: 70px;
+  overflow: hidden;
+  width: 12em;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;    
   }
 
-  body.dark .jour:hover,
-  body.dark #pas-mois-courant:hover  {
-    background-color: white;
-    color: #04071d;
-  }
 
-  #pas-mois-courant{
-    background-color: darkgray;
-  }
+#journee-mois button {
+  background-color: transparent;
+  border: 0;
+  height: fit-content;
+  width: fit-content;
+  font-size: 1em;
+}
 
-  body.dark #pas-mois-courant{
-    background-color: rgb(40, 40, 40);
-  }
+#journee-mois p {
+  font-size: 1em;
+  text-align: center;
+}
+
+#calendrier-journees-semaine {
+  width: max(100%,450px);
+  height: 100%;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+#journee-semaine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 7%;
+}
+
+.journee {
+  width: calc(100%/7);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  top: 20%;
+}
+
+.main-btn {
+  width: 5%;
+  min-width: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2%;
+}
+
+#creer-reunion {
+  position: fixed; 
+  bottom: 5%; 
+  right: 5%; 
+  border-radius: 100%;
+  background-color: #04071d;
+  color: white;
+  height: max(10%, 70px);
+  max-height: 6em;
+  aspect-ratio: 1/1;
+  font-size: 1em;
+  min-width: 70px;
+  z-index: 2;
+}
+
+.focus {
+  opacity: 50%;
+  pointer-events: none;
+}
+
+
+/*************************************
+dark mode
+*****************************/
+
+#journee-mois{
+  color: #04071d;
+}
+
+body.dark #journee-mois, 
+body.dark #btn-prochain-mois,
+body.dark #btn-dernier-mois{
+  color: white;
+}
+
+body.dark .jour:hover,
+body.dark #pas-mois-courant:hover  {
+  background-color: white;
+  color: #04071d;
+}
+
+#pas-mois-courant{
+  background-color: darkgray;
+}
+
+body.dark #pas-mois-courant{
+  background-color: rgb(40, 40, 40);
+}
