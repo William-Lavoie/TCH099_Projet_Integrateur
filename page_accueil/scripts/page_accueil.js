@@ -31,11 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
         containerAprendrePlus.classList.toggle('collapse');
 
         let h1ElementsPremiereBoite = document.querySelectorAll('#premiere-boite-aprendre h1');
+        let h2ElementsPremiereBoite = document.querySelectorAll('#premiere-boite-aprendre h2');
 
             h1ElementsPremiereBoite[0].classList.add('animate__animated' );
             h1ElementsPremiereBoite[0].classList.add('animate__zoomIn');
                 
             h1ElementsPremiereBoite[1].classList.add('cacher');
+            h2ElementsPremiereBoite[0].classList.add('cacher');
 
         setTimeout(function() {
 
@@ -45,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 h1ElementsPremiereBoite[1].classList.add('animate__animated');
                 h1ElementsPremiereBoite[1].classList.add('animate__zoomIn');
             }, 600);
+
+            setTimeout(function(){
+                h2ElementsPremiereBoite[0].classList.remove('cacher');
+                h2ElementsPremiereBoite[0].classList.add('animate__animated');
+                h2ElementsPremiereBoite[0].classList.add('animate__fadeInDown');
+
+            }, 1200);
         }, 100); 
+
     });
 
 
