@@ -319,7 +319,8 @@ justify-content: center;
 
   .jour:hover,
   #pas-mois-courant:hover {
-      background-color: #00c1f3;  
+      background-color: #04071d;  
+      color: white;
   }
 
 
@@ -597,7 +598,8 @@ dark mode
 
   body.dark .jour:hover,
   body.dark #pas-mois-courant:hover  {
-    background-color: #00c1f3;
+    background-color: white;
+    color: #04071d;
   }
 
   #pas-mois-courant{
