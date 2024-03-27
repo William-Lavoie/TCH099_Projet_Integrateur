@@ -7,11 +7,16 @@ body {
   flex-direction: column;
 }
 
+/******************************
+form 
+******************************/
+
 #nouvelle-reunion, 
 #creer-reunion-groupe, 
 #creer-reunion-participants,
 #creer-liste-taches {
-  height: max(60vmin,400px);
+  height: 65%;
+  min-height: 400px;
   aspect-ratio: 3/4;
   border: 1px solid black;
   border-radius: 0.5em;
@@ -30,13 +35,79 @@ body {
   box-shadow: 2px 2px 2px black;
 }
 
+#titre-reunion-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5vmin;
+}
+
+#titre-reunion{
+  height: 80%;
+  width: 90%;
+  text-align: center;
+  margin: 0;
+  font-size: 2em;
+}
+
+@media screen and (max-height: 900px) {
+  #titre-reunion{
+    font-size: 1em;
+  }
+}
+
+#choisir-heure-form{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+
+#choisir-heure-form input{
+  margin: 0;
+  width: 50%;
+}
+
+#date-reunion-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#date-reunion-form input{
+  width: 50%;
+  text-align: center;
+}
+
+#description-reunion{
+  border-radius: 1em;
+  border: 1px solid lightgray;
+  height: 30%;
+  overflow: scroll;
+}
+
+#btn-radios {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2em;
+}
+
 .formulaire-header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  height: 20%;
+  height: 15%;
   font-size: 1.5rem;
   text-align: center;
   background-color: #04071d;
@@ -63,16 +134,6 @@ label {
   margin-bottom: 1em;
 }
 
-input, textarea {
-  border-radius: 0.3em;
-  margin-right: 1em;
-  border: 1px solid lightgray;
-}
-
-textarea {
-  height: 30%;
-  overflow: hidden;
-}
 
 
 #debut-reunion, #fin-reunion {
@@ -80,9 +141,6 @@ textarea {
   font-size: 0.8rem;
 }
 
-#btn-radios {
-  margin-top: 1em;
-}
 
 .reunion-visible {
   display: flex  !important ;
@@ -640,3 +698,12 @@ body.dark{
 body.dark label{
   color: white;
 }
+
+body.dark #description-reunion,
+body.dark   #titre-reunion,
+body.dark #choisir-heure-form input,
+body.dark #date-reunion-form input{
+  background-color: darkgray;
+}
+
+

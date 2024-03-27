@@ -768,12 +768,20 @@ function envoyerFormulaireParticipants() {
         }
 
 
-  
+
 
 }
-             
-    
+
+
 });
 
 
-      
+
+// form count 
+function updateCompte(textarea) {
+    var maxLength = 255;
+    var longeurCourante = textarea.value.length;
+    var longeurRestante = maxLength - longeurCourante;
+    var charCountElement = document.getElementById('compteChar');
+    charCountElement.textContent = 'Characters restant: ' + longeurRestante;
+}
