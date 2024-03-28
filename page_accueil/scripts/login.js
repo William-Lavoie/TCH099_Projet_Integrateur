@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+var hostname = window.location.hostname;
+var path = window.location.pathname;
+
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
     clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
     authorizationParams: {
-        redirect_uri: "https://huddleharbor.com/calendrier/calendrier.html" // Specify your desired redirect URL
+        redirect_uri: "https://" + hostname + path +  "/calendrier/calendrier.html" // Specify your desired redirect URL
     }
   }).then(async (auth0Client) => {
 
@@ -71,7 +74,7 @@ auth0.createAuth0Client({
       // Envoie de l'identifiant de l'utilisateur 
       const identifiants = {"courriel": userProfile.name};
 
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/envoyer_identifiant", {
+      fetch("http:" + hostname + path + "/calendrier/api/api_calendrier.php/envoyer_identifiant", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(identifiants)
