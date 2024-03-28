@@ -1,10 +1,25 @@
 <?php
 
-// Temporary values for testing on localhost
-    $hostname = "localhost";
-    $username = "admin10";
-    $password = "admin10";
-    $database = "tch099";
+    $host = parse_url($_SERVER["HTTP_HOST"], PHP_URL_HOST);
+  
+    $hostname;
+    $username;
+    $password;
+    $database;
+
+    if ($host=="127.0.0.1") {
+        //Code d'accès à la base de données locale
+        $hostname = "localhost";
+        $username = "admin10";
+        $password = "admin10";
+        $database = "tch099";
+    } else {
+        //Codes d'accès à la base de données de production
+        $hostname = "srv1386.hstgr.io";
+        $username = "u558642428_admin";
+        $password = "q&m~B9Of/9qI";
+        $database = "u558642428_TCH_099";
+    }
 
 
     try {
