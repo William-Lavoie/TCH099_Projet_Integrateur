@@ -4,7 +4,7 @@ auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
     clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
     authorizationParams: {
-        redirect_uri: "http://127.0.0.1:3000/calendrier/calendrier.html" // Specify your desired redirect URL
+        redirect_uri: "https://huddleharbor.com/calendrier/calendrier.html" // Specify your desired redirect URL
     }
   }).then(async (auth0Client) => {
 
@@ -50,7 +50,7 @@ auth0.createAuth0Client({
   //verifie si l'utilisateur est authentifie, si il ne l'ai pas, redirect to landing page
   if (!isAuthenticated) {
     // Redirect to the login page if the user is not authenticated
-    window.location.href = 'http://127.0.0.1:3000/page_accueil/page_accueil.html';
+    window.location.href = 'https://huddleharbor.com';
     return;
   }
 
