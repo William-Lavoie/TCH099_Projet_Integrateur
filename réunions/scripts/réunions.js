@@ -708,6 +708,33 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(error);
         });
      }
+
+
+    function ajouterTemps(minutes) {
+        // Chercher la liste des tâches
+        donnees = {'idReunions': idReunion,
+                   'minutes': minutes};
+
+         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_temps", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(donnees)
+            })
+            .then(response => {
+    
+            if (response.ok) {
+    
+            return response.json();
+            }
+    
+            else {
+            console.log("error");
+            }
+            })
+            .catch(error => {
+            console.log(error);
+            });
+         }
     
      
     (function () {
@@ -731,6 +758,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Mettre à jour l'affichage du compte à rebours immédiatement après l'ajout de minutes
             updateCountdown();
+            
+            // Modifier l'heure de fin dans la base de données 
+            ajouterTemps(minutesAAjouter);
         });
 
         const x = setInterval(updateCountdown, 1000); // Définir l'intervalle à 1000 millisecondes (1 seconde)

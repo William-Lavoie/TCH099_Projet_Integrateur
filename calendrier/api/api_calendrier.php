@@ -627,6 +627,38 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     }
 
+    // Modifier l'heure de fin d'une réunion
+    if (preg_match("~ajouter_temps$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idReunions'], $donnees['minutes'])) {
+    
+            require("connexion.php");
+    
+            $idReunions = $donnees['idReunions'];
+            $minutes = $donnees['minutes'];
+
+           
+            $query = $conn->prepare("UPDATE reunions SET heure_fin = ADDDATE(heure_fin, INTERVAL :minutes MINUTE)  WHERE id_reunions = :id");
+            $query->bindParam(":minutes", $minutes,  PDO::PARAM_INT);
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_INT);
+
+            if ($query->execute()) {
+                echo json_encode(['message' => 'succès']);
+            }
+    
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
+
 
 
         // Création d'un groupe
