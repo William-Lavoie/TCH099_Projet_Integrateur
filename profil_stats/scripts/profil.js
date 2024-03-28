@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // Afficher la photo de profil 
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_photo", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_photo", {
     })
     .then(response => {
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Afficher le nom 
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_nom", {
     })
     .then(response => {
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Afficher le courriel
      // Vérifier si le message a été écrit par l'utilisateur connecté
-     fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+     fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
     })
     .then(response => {
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
         const donnees ={"nom" : nouveauNom};
 
-        fetch("http://127.0.0.1:3000/profil_stats/api/profil.php/modifier-nom", { // Envoie une requête POST au serveur
+        fetch(window.location.protocol + "//" + window.location.hostname + "/profil_stats/api/profil.php/modifier-nom", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let formData = new FormData();
             formData.append('photo', blobData);
             
-        fetch("http://127.0.0.1:3000/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
+        fetch(window.location.protocol + "//" + window.location.hostname + "/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
             method: 'POST',
             body: formData
         })

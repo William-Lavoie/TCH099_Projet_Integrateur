@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let donnees = {'idReunion': idReunion};
 
     // Afficher les réunions pour un groupe
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir-messages-reunion", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/obtenir-messages-reunion", {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(donnees)
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             donnees = {'courriel': data[i]['auteur']};
 
             // Mettre la photo de profil de l'utilisateur
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/obtenir-photo-profil", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/obtenir-photo-profil", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             // Vérifier si le message a été écrit par l'utilisateur connecté
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
                 })
                 .then(response => {
         
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let donnees = {'id_message': id_message};
 
         //Supprimer le message avec identifiant id_message 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/supprimer-message", {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/supprimer-message", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let donnees = {"contenu": texte,
                 "idMessage": id_message};
 
-                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier-message", {
+                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier-message", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let donnees = {"contenu": texte,
                 "idReunion": idReunion};
     
-                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
+                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/ajouter-nouveau-message", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let donnees = {'titre': texte,
                             'idReunion': idReunion};
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter-nouvelle-tache", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/ajouter-nouvelle-tache", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Chercher la liste des participants
     donnees = {'idReunions': idReunion};
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Chercher la liste des tâches
     donnees = {'idReunions': idReunion};
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_taches", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_taches", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', function () {
      async function obtenirHeures() {
     // Chercher la liste des tâches
     donnees = {'idReunions': idReunion};
-    await fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_heures_reunions", {
+    await fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_heures_reunions", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
         donnees = {'idReunions': idReunion,
                    'minutes': minutes};
 
-         fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/ajouter_temps", {
+         fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/ajouter_temps", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)

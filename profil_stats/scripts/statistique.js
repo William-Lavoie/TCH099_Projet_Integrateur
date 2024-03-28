@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    fetch("http://127.0.0.1:3000/profil_stats//api/profil.php/chercher_reunions_stats", {})
+    fetch( window.location.protocol + "//" + window.location.hostname + "/profil_stats//api/profil.php/chercher_reunions_stats", {})
     .then(response => {
         if (response.ok) {
             return response.json();
