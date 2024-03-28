@@ -122,6 +122,7 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 #table-titre {
@@ -134,6 +135,7 @@ main{
     justify-content: center;
     align-items: start;
     width: 100%;
+    max-width: 12em;
     height: 30em;
     overflow-y: scroll;
     box-sizing: border-box;
@@ -141,12 +143,20 @@ main{
 
 .groupe {
     height: 3em;
+    width: 80%;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 100%;
     background-color: transparent;
     color: #c7c7cb;
     border: none;
-    text-align: start;
+    margin-right: 0%;
+    align-self: flex-start;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+.groupe::-webkit-scrollbar {
+    display: none;
 }
 
 .groupe:hover {
@@ -180,15 +190,19 @@ main{
 }
 
 .cellule-groupe {
+    width: 12em;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    box-sizing: border-box;
 }
 
 .modifier-groupe {
-    background-color: #04071d;
+    width: 20%;
+    background-color: transparent;
     border: none;
     color: white;
-    font-size: 1.2em;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
 .modifier-groupe:hover {
@@ -298,7 +312,7 @@ main{
  * Créer groupe
  */
 
-#liste-participants-groupe{
+#liste-participants-groupe {
     height: 50%;
     max-height: 150px;
     margin-top: 0.5em;
