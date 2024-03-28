@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var hostname = window.location.hostname;
 
+console.log(window.location.protocol + '' + window.location.hostname);
+
+
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
     clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
