@@ -63,7 +63,6 @@ $(document).ready(function() {
 
         // Sépare les heures et les minutes (par exemple 13:47 = [13,47])
         const [heureDebut, minuteDebut] = debutReunion.split(':').map(Number);
-        const [heureFin, minuteFin] = finReunion.split(':').map(Number);
 
         // Remplace tous les '-' dans la date par '/' (exemple: 2024-12-10 = 2024/12/10)
         const dateFormate = dateReunion.replace(/-/g, '/'); 
@@ -86,8 +85,8 @@ $(document).ready(function() {
         // Vérifie que l'heure de la réunion ne soit pas déjà passée, si la date est la date courante
         else if (date.getDay() == dateActuelle.getDay() && date.getMonth() == dateActuelle.getMonth() 
                 && date.getFullYear() == dateActuelle.getFullYear() 
-                && (heureDebut == dateActuelle.getHours() && minuteDebut < dateActuelle.getMinutes()
-                && (heureDebut < dateActuelle.getHours()))) {
+                && (heureDebut < dateActuelle.getHours() || (minuteDebut < dateActuelle.getMinutes()
+                && (heureDebut == dateActuelle.getHours())))) {
 
                 $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
                 return false;
@@ -298,6 +297,8 @@ $(document).ready(function() {
 
             // Vérifie que l'heure et la date sont valides
             if (heureDateValides()) {
+
+                $("#messages-erreur").text("");
 
                 // Si la réunion est en cours de modification
                 if (localStorage.getItem('reunionEstModifiee') == "true") {
