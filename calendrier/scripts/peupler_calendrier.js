@@ -121,7 +121,7 @@ $(document).ready(function() {
     try {
 
       const dates = {'debut': debut, 'fin': fin}
-      const reponse = await fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_reunions", {
+      const reponse = await fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_reunions", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(dates)
@@ -415,7 +415,7 @@ $(document).ready(function() {
       const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
       // Ajouter la liste des participants
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -461,7 +461,7 @@ $(document).ready(function() {
 
 
       // Ajoute le bouton modifier si l'utilisateur est le créateur de la réunion
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
       })
       .then(response => {
 
@@ -555,7 +555,7 @@ $(document).ready(function() {
   async function chercherPhoto(courriel, index, reunion) {
 
     const donnees = {"courriel": courriel};
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_photo", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_photo", {
     method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -635,7 +635,7 @@ $(document).ready(function() {
       donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
       // Ajouter la liste des participants déjà invités à la réunion
-      fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -695,7 +695,7 @@ $(document).ready(function() {
 
     // Afficher la liste des tâches 
     donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_liste_taches", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_taches", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -748,7 +748,7 @@ $(document).ready(function() {
   function supprimerReunion(reunion) {
 
     donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/supprimer_reunion", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "calendrier/api/api_calendrier.php/supprimer_reunion", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)

@@ -46,7 +46,7 @@ $(document).ready(function() {
    * AFFICHER_PHOTO
    * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
    */
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_photo", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_photo", {
     })
     .then(response => {
 
@@ -82,7 +82,7 @@ $(document).ready(function() {
    * AFFICHER_NOM
    * Permet d'afficher dans l'en-tête le nom de l'utilisateur connecté
    */
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_nom", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_nom", {
     })
     .then(response => {
 

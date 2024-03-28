@@ -131,7 +131,7 @@ $(document).ready(function() {
         $("#choix-groupe").html("");
         $("#choix-groupe").append("<option value='null'>Veuillez choisir un groupe</option>");
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/afficher_groupes", {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
         .then(response => {
     
@@ -176,7 +176,7 @@ $(document).ready(function() {
                          'fin': fin,
                          'date': date};
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_conflit", {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_conflit", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -387,7 +387,7 @@ $(document).ready(function() {
 
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher-courriel", {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
         })
         .then(response => {
     
@@ -419,7 +419,7 @@ $(document).ready(function() {
             const courriel = {"courriel": texte};
     
             // Cherche le participant dans la table des utilisateurs de la base de données
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_participants", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(courriel)
@@ -606,7 +606,7 @@ function envoyerFormulaireGroupe() {
             if (localStorage.getItem("reunionEstModifiee") == "false") {
                 // Les informations de la réunions sont ajoutées à la base de données
             
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -643,7 +643,7 @@ function envoyerFormulaireGroupe() {
             "taches": listeTaches,
             "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
@@ -695,7 +695,7 @@ function envoyerFormulaireParticipants() {
         "listeParticipants": participantsReunion,
         "taches": listeTaches};
 
-        fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer_reunion_participants", {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer_reunion_participants", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -731,7 +731,7 @@ function envoyerFormulaireParticipants() {
             "taches": listeTaches,
             "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
-            fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
+            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
