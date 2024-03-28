@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
 
 var hostname = window.location.hostname;
-var path = window.location.pathname;
+
+console.log(window.location.protocol + '' + window.location.hostname);
+
 
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
     clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
     authorizationParams: {
-        redirect_uri: "https://" + hostname + path +  "/calendrier/calendrier.html" // Specify your desired redirect URL
+        redirect_uri: window.location.protocol + "//" + window.location.hostname + "/calendrier/calendrier.html" // Specify your desired redirect URL
     }
   }).then(async (auth0Client) => {
 
