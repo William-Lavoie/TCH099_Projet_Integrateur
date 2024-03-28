@@ -1,8 +1,13 @@
 <?php
 
     $host = parse_url($_SERVER["HTTP_HOST"], PHP_URL_HOST);
+  
+    $hostname;
+    $username;
+    $password;
+    $database;
 
-    if ($host=="localhost") {
+    if ($host=="127.0.0.1") {
         //Code d'accès à la base de données locale
         $hostname = "localhost";
         $username = "admin10";
