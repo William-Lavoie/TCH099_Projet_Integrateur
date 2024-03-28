@@ -86,7 +86,8 @@ $(document).ready(function() {
         // Vérifie que l'heure de la réunion ne soit pas déjà passée, si la date est la date courante
         else if (date.getDay() == dateActuelle.getDay() && date.getMonth() == dateActuelle.getMonth() 
                 && date.getFullYear() == dateActuelle.getFullYear() 
-                && (heureDebut < dateActuelle.getHours() || minuteDebut < dateActuelle.getMinutes())) {
+                && (heureDebut == dateActuelle.getHours() && minuteDebut < dateActuelle.getMinutes()
+                && (heureDebut < dateActuelle.getHours()))) {
 
                 $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
                 return false;
