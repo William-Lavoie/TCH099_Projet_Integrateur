@@ -73,23 +73,9 @@ $(document).ready(function() {
 
         // Date courante
         const dateActuelle = new Date();
-    
-        // Vérifie si l'heure de fin de la réunion est après son début
-        if (heureFin < heureDebut) {
-
-            $("#messages-erreur").text("L'heure de fin ne peut précéder l'heure de début");
-            return false;
-        }
-
-        // L'heure est la même mais les minutes ne concordent pas
-        else if (heureFin == heureDebut && minuteDebut > minuteFin) {
-
-            $("#messages-erreur").text("L'heure de fin ne peut précéder l'heure de début");
-            return false;
-        }
 
         // Vérifie que la date de la réunion ne soit pas déjà passée
-        else if (date.getFullYear() < dateActuelle.getFullYear() ||
+        if (date.getFullYear() < dateActuelle.getFullYear() ||
                  date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() < dateActuelle.getMonth()  ||
                  date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() == dateActuelle.getMonth() && date.getDate() < dateActuelle.getDate()) {
 
