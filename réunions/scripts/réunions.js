@@ -626,15 +626,98 @@ document.addEventListener('DOMContentLoaded', function () {
 //******************************* */
 document.addEventListener('DOMContentLoaded', function () {
 
+     // Définir les dates et heures de début et de fin.
+     let meetingStart; 
+     let meetingEnd; // Convertir en objet Date
+
+     async function obtenirHeures() {
+    // Chercher la liste des tâches
+    donnees = {'idReunions': idReunion};
+    await fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/chercher_heures_reunions", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(donnees)
+        })
+        .then(response => {
+
+        if (response.ok) {
+
+        return response.json();
+        }
+
+        else {
+        console.log("error");
+        }
+        })
+        .then(data => {
+
+            // Séparer l'année, le mois et le jour
+            let jourPartis = data[0]['date'].split('-'); 
+
+            // Séparer les heures, les minutes et les secondes
+            let heurePartis = data[0]['heure_debut'].split(':'); 
+
+            // Début de la réunion
+            meetingStart = new Date(
+                parseInt(jourPartis[0]), 
+                parseInt(jourPartis[1]) - 1, 
+                parseInt(jourPartis[2]), 
+                parseInt(heurePartis[0]), 
+                parseInt(heurePartis[1]), 
+                parseInt(heurePartis[2]) 
+            );
+
+
+
+            // Séparer l'année, le mois et le jour
+            let jourPartisFin = data[0]['date'].split('-'); 
+
+            // Séparer les heures, les minutes et les secondes
+            let heurePartisFin = data[0]['heure_fin'].split(':'); 
+
+            // Si l'heure de fin précède l'heure de début c'est qu'en réalité 
+            // la réunion dépasse minuit 
+            if (heurePartisFin[0] < heurePartis[0]) {
+                console.log("oh");
+
+                meetingEnd = new Date(
+                    parseInt(jourPartisFin[0]), 
+                    parseInt(jourPartisFin[1]) - 1, 
+                    parseInt(parseInt(jourPartisFin[2])+1), 
+                    parseInt(heurePartisFin[0]), 
+                    parseInt(heurePartisFin[1]), 
+                    parseInt(heurePartisFin[2]) 
+                );
+
+            }
+
+            else {
+                meetingEnd = new Date(
+                    parseInt(jourPartisFin[0]), 
+                    parseInt(jourPartisFin[1]) - 1, 
+                    parseInt(jourPartisFin[2]), 
+                    parseInt(heurePartisFin[0]), 
+                    parseInt(heurePartisFin[1]), 
+                    parseInt(heurePartisFin[2]) 
+                );
+            }
+            console.log(meetingStart);
+
+        })
+        .catch(error => {
+        console.log(error);
+        });
+     }
+    
+     
     (function () {
+
+        obtenirHeures();
+
         const second = 1000,
             minute = second * 60,
             hour = minute * 60,
             day = hour * 24;
-
-        // Définir les dates et heures de début et de fin.
-        const meetingStart = "03/14/2024 20:14"; 
-        let meetingEnd = new Date("03/30/2024 20:25"); // Convertir en objet Date
 
         let btnHorloge = document.getElementById("btn_horloge");
         let minutesAAjouter = parseInt(document.getElementById("minutesAAjouter").value);
@@ -650,16 +733,16 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCountdown();
         });
 
-        const countDownStart = new Date(meetingStart).getTime(),
-            x = setInterval(updateCountdown, 1000); // Définir l'intervalle à 1000 millisecondes (1 seconde)
-
+        const x = setInterval(updateCountdown, 1000); // Définir l'intervalle à 1000 millisecondes (1 seconde)
+        
         function updateCountdown() {
             const now = new Date().getTime();
 
             // Compte à rebours jusqu'au début de la réunion, puis compte à rebours jusqu'à la fin de la réunion
             let distance;
-            if (now < countDownStart) {  // Compte à rebours jusqu'au début de la réunion
-                distance = countDownStart - now;
+            console.log(meetingStart.getTime());
+            if (now < meetingStart.getTime()) {  // Compte à rebours jusqu'au début de la réunion
+                distance = meetingStart.getTime() - now;
             } else if (now > meetingEnd.getTime()) { // Si terminé, afficher 0
                 distance = 0;
             } else {

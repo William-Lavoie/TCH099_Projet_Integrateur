@@ -598,6 +598,37 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
+     // Chercher l'heure de début et de fin pour une réunion donnée
+     if (preg_match("~chercher_heures_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+    
+            $idReunions = $donnees['idReunions'];
+           
+            $query = $conn->prepare("SELECT date, heure_debut, heure_fin FROM reunions  WHERE id_reunions = :id");
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
+
+
         // Création d'un groupe
         if (preg_match("~ajouter_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
     
