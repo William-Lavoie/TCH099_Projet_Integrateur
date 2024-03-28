@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-var hostname = window.location.hostname;
-
-console.log(window.location.protocol + '' + window.location.hostname);
-
 
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
@@ -76,7 +72,7 @@ auth0.createAuth0Client({
       // Envoie de l'identifiant de l'utilisateur 
       const identifiants = {"courriel": userProfile.name};
 
-      fetch(window.location.protocol + "//" + window.location.hostname +"/calendrier/api/api_calendrier.php/envoyer_identifiant", {
+      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/envoyer_identifiant", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(identifiants)
