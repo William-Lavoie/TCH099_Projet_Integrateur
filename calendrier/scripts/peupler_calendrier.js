@@ -344,7 +344,7 @@ $(document).ready(function() {
       $("#consulter-reunion-calendrier span").find("button").remove();
 
       // Bouton pour quitter l'onglet
-      let boutonQuitter = $("<button id='quitter-reunion'>⇦</button>");
+      let boutonQuitter = $("<button id='quitter-reunion'>✖</button>");
       $("#consulter-reunion-calendrier span").append(boutonQuitter);
 
       $("#quitter-reunion").on("click", function(event) {
@@ -396,6 +396,19 @@ $(document).ready(function() {
   function consulterReunion(reunion, createur) {
 
     if (!reunion.hasClass("reunion-visible-panneau")) {
+
+      // Bouton pour effacer la réunion
+      let boutonEffacer = $("<button id='effacer-reunion'>🗑</button>");
+      $("#consulter-reunion-calendrier span").prepend(boutonEffacer);
+
+      //boutonEffacer.after("#quitter-reunion");
+
+      boutonEffacer.on("click", function() {
+
+        if (confirm("La supression d'une réunion est irréversible, êtes-vous sûr de vouloir continuer?")) {
+          supprimerReunion(reunion);
+        }
+     });
 
       reunion.addClass("reunion-visible-panneau");
       const infoReunions = $("<div id='informations-reunion'></div>");
@@ -470,7 +483,6 @@ $(document).ready(function() {
           });
 
           $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
-
 
           let boutonSupprimer = $("<button id='supprimer-reunion-panneau'>Supprimer</button>");
           boutonSupprimer.on("click", function() {
