@@ -21,7 +21,7 @@ session_start();
 
         $nom = $donnees['nom'];
         $participants = $donnees['tableauParticipants'];
-     
+    
         // Création de la réunion
         $query = $conn->prepare("INSERT INTO groupes (courriel_enseignant, nom) VALUES (:courriel, :nom)");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);

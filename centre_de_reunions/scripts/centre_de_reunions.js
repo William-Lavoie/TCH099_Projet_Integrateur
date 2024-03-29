@@ -97,9 +97,6 @@ function afficherReunionsGroupe(groupe) {
     .catch(error => {});
 }
 
-});
-
-document.addEventListener('DOMContentLoaded', function () {
 
     //Courriel de l'utilisateur 
     let courrielCourant;
