@@ -5,12 +5,12 @@
 // identifiant de la réunion
 var idReunion;
 var totalCheckboxesChecked = 0; // Variable pour suivre le nombre total de cases cochées.
-
+var pathDynamic;
 
 document.addEventListener('DOMContentLoaded', function () {
 
     //declaration des path dynamic
-    const pathDynamic = window.location.origin;
+    pathDynamic = window.location.origin;
 
     // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
     const pageAppelante = window.location.search;
@@ -585,13 +585,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
             input.addEventListener('change', function () {
                 var nameElement = this.parentElement.parentElement.nextElementSibling;
+
+                // Détermine si la tâche est complétée
+                let etat;
+
                 if (this.checked) {
                     nameElement.style.color = 'green';
                     totalCheckboxesChecked++; // Incrémenter le nombre total de cases cochées.
+                    etat  = 1; // true
+
                 } else {
                     nameElement.style.color = 'red'; // Réinitialiser en rouge lorsque l'utilisateur désactive la bascule.
                     totalCheckboxesChecked--; // Decrementer le nombre total de cases cochées.
+                    etat = 0; //false
                 }
+
+                // Modifier l'état de la tâche
+                donnees = {'titre': titre, 
+                           'etat': etat,
+                           'idReunion': idReunion};
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_tache", {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(donnees)
+                    })
+                    .then(response => {
+            
+                    if (response.ok) {
+            
+                    return response.json();
+                    }
+            
+                    else {
+                    console.log("error");
+                    }
+                    })
+                    .then(data => {
+                        console.log("Succès")
+                    })
+                    .catch(error => {
+                    console.log(error);
+                    });
+
+                
                 // Update completion bar
                 updateCompletion(totalCheckboxesChecked, document.getElementById("toDo_conteneur").getElementsByTagName("input").length);
             });

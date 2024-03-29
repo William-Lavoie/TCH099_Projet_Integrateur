@@ -1087,6 +1087,41 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     }
 
+
+    // Modifier l'état d'une tâche lors d'une réunion 
+    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['titre'], $donnees['etat'], $donnees['idReunion'])) {
+    
+            require("connexion.php");
+
+            // La tâche n'est pas complétée
+            if ($donnees['etat'] == 0) {
+
+
+            }
+               
+            $query = $conn->prepare("UPDATE tache SET completee");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
+            $query->bindParam(":type", $donnees['type'],  PDO::PARAM_STR);
+            
+            $query->execute();
+    
+                echo json_encode(["message" => "succès"]);
+
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
         
 
 
