@@ -937,6 +937,9 @@ background-color: rgb(40, 40, 40);
 color: white;
 }
 
-body.dark label{
-color: white;
+
+body.dark label,
+body.dark #nom-utilisateur,
+body.dark #contenu-message{
+    color: white;
 }
