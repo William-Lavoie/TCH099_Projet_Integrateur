@@ -233,6 +233,10 @@ main{
     #conteneur-reunions-passees {
         min-height: 8em;
     }
+
+    .reunion-entete {
+        height: 2.5em;
+    }
 }
 
 .conteneur-reunion:hover {
