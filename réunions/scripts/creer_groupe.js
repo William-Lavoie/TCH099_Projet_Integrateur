@@ -1,4 +1,17 @@
 $(document).ready(function() {
+
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+        pathDynamic = protocol + location;
+    }
+
     // Sélectionner les éléments nécessaires à l'ouverture du formulaire
     const btnCreerGroupe = $("#creer_groupe");
     const formulaireCreerGroupe = $("#conteneur-creer-groupe");
@@ -15,7 +28,7 @@ $(document).ready(function() {
      * Affiche les groupes dans le "aside"
      */
     function afficherGroupes() {
-        fetch( window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_groupes", {
+        fetch( pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
         .then(response => {
     
@@ -32,7 +45,7 @@ $(document).ready(function() {
     
           // Ajouter les groupes à la liste des groupes dans la sidebar
 
-          for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
 
             const nouveauGroupe = $("<button class='groupe'>").text(data[i]['nom']); // Changer le nom
             const nouvelleCellule = $("<td>").append(nouveauGroupe);
@@ -44,13 +57,13 @@ $(document).ready(function() {
                 $(this).addClass("groupe-choisi");
                 afficherReunionsGroupe(data[i]['id_groupes']);
             })
-      
-          }
+            
+        }
             
         })
         .catch(error => {
     
-          console.log("erreur");
+        console.log("erreur");
         });
     }
 
@@ -64,7 +77,7 @@ $(document).ready(function() {
 
         let donnees = {'idGroupe': groupe};
         // Afficher les réunions pour un groupe
-        fetch( window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/obtenir_reunions_groupes", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/obtenir_reunions_groupes", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -177,7 +190,7 @@ $(document).ready(function() {
                         "participants": tableauParticipants};
 
 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/ajouter_groupe", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/ajouter_groupe", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)

@@ -1,4 +1,17 @@
 $(document).ready(function() {
+
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+    pathDynamic = protocol + location;
+    }
+
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // Afficher le menu-profil sur mobile si on clique sur photo-profil
         $('#photo-profil-header').on('click', function() {
@@ -46,7 +59,7 @@ $(document).ready(function() {
    * AFFICHER_PHOTO
    * Permet d'afficher dans l'en-tête la photo de profil de l'utilisateur connecté
    */
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_photo", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_photo", {
     })
     .then(response => {
 
@@ -82,7 +95,7 @@ $(document).ready(function() {
    * AFFICHER_NOM
    * Permet d'afficher dans l'en-tête le nom de l'utilisateur connecté
    */
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_nom", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_nom", {
     })
     .then(response => {
 

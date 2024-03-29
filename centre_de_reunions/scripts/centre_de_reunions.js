@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", function() {
+
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+        pathDynamic = protocol + location;
+    }
+    
 /*
  * Basculer la barre latérale (groupes)
  */
@@ -57,7 +71,7 @@ function afficherReunionsGroupe(groupe) {
 
     let donnees = {'idGroupe': groupe};
     // Afficher les réunions pour un groupe
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/obtenir_reunions_groupes", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/obtenir_reunions_groupes", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -92,6 +106,8 @@ function afficherReunionsGroupe(groupe) {
     .catch(error => {});
 }
 
+});
+
 document.addEventListener('DOMContentLoaded', function () {
 
     //Courriel de l'utilisateur 
@@ -107,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#conteneur-reunions-passees").html("");
         
         // Afficher les réunions 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/obtenir_reunions_utilisateur", {})
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/obtenir_reunions_utilisateur", {})
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -141,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Récupérer le courriel de l'utilisateur courant 
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
     })
     .then(response => {
 
@@ -160,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Afficher la liste des groupes
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_groupes", {})
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes", {})
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -280,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Affiche le bouton de création d'un nouveau groupe uniquement si l'utilisateur est
     // un enseignant
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_type", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_type", {
     })
     .then(response => {
 
@@ -342,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Si tous les champs sont valides, procéder à la soumission du formulaire
                 const donnees = {"nom": nomGroupe, "participants": tableauParticipants};
 
-                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/ajouter_groupe", {
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/ajouter_groupe", {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(donnees)
@@ -365,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Si tous les champs sont valides, procéder à la soumission du formulaire
                 const donnees = {"nom": nomGroupe, "participants": tableauParticipants, "idGroupe": id_groupe};
 
-                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier_groupe", {
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_groupe", {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(donnees)
@@ -424,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
         })
         .then(response => {
     
@@ -459,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const courriel = {"courriel": participant};
         
                 // Cherche le participant dans la table des utilisateurs de la base de données
-                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_participants", {
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_participants", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(courriel)
@@ -556,7 +572,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let donnees = {'idGroupes': groupe['id_groupes']};
 
         // Chercher les membres du groupe
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-membres-groupe", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-membres-groupe", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -592,7 +608,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Création du participant dans le formulaire 
                 nouveauParticipant.children("p").text(data[i]['courriel_etudiants']);
                 nouveauParticipant.append(boutonSupprimer);
-                 $("#liste-participants-groupe").append(nouveauParticipant);
+                $("#liste-participants-groupe").append(nouveauParticipant);
             }  
 
             // Modifier le groupe
@@ -608,10 +624,10 @@ document.addEventListener('DOMContentLoaded', function () {
    * à venir sont également supprimées. 
    * @param {int} groupe: id du groupe à supprimer 
    */
-  function supprimerGroupe(groupe) {
+function supprimerGroupe(groupe) {
 
     donnees = {'idGroupe': groupe};
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/supprimer_groupe", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/supprimer_groupe", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -636,6 +652,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(error);
         });
 
-  }
+}
 
 });

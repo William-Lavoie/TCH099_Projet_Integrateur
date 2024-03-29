@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if (isset($donnees['nom'])) {
             
-             $nouveauNom = $donnees['nom'];
+            $nouveauNom = $donnees['nom'];
           // validation du nouveau nom avec preg_match (il a le droit a  des lettres, chiffres, apostrophes, tirets, et espaces)
-          if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
+        if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
 
                 //  connexion à la base de données
                 require("connexionP.php");
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         echo json_encode($response);
     }*/
-   
+
 } 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Chercher les réunions de l'utilisateur connecté dans les 140 derniers jours
     if (preg_match("~chercher_reunions_stats$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-       
+    
         //  connexion à la base de données
         require("connexionP.php");
 

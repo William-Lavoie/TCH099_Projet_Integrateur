@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+        pathDynamic = protocol + location;
+    }
+    
     const gridContainer = document.getElementById('grid-container');
     const rows = 20;
     const cols = 7;
 
-   
+
 /**
  * Transforme un mois sous forme d'entier entre 0 à 11 en String 
  */
@@ -40,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    fetch( window.location.protocol + "//" + window.location.hostname + "/profil_stats//api/profil.php/chercher_reunions_stats", {})
+    fetch( pathDynamic + "/profil_stats//api/profil.php/chercher_reunions_stats", {})
     .then(response => {
         if (response.ok) {
             return response.json();

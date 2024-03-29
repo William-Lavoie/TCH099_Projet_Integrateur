@@ -1,11 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  //declaration des variables pour un path dynamic
+  let protocol =  window.location.protocol + "//";
+  let location = window.location.hostname;
+  let port = ":" + window.location.port;
+  let pathDynamic;
+
+  if (location === 'localhost' || location === '127.0.0.1'){
+      pathDynamic = protocol + location + port;
+  }else {
+    pathDynamic = protocol + location;
+  }
 
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
     clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
     authorizationParams: {
-        redirect_uri: window.location.protocol + "//" + window.location.hostname + "/calendrier/calendrier.html" // Specify your desired redirect URL
+        redirect_uri: pathDynamic + "/calendrier/calendrier.html" 
     }
   }).then(async (auth0Client) => {
 
@@ -73,7 +84,7 @@ auth0.createAuth0Client({
       // Envoie de l'identifiant de l'utilisateur 
       const identifiants = {"courriel": userProfile.name};
 
-      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/envoyer_identifiant", {
+      fetch(pathDynamic + "/calendrier/api/api_calendrier.php/envoyer_identifiant", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(identifiants)

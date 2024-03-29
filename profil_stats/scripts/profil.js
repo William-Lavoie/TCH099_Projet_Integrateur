@@ -1,8 +1,20 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+        pathDynamic = protocol + location;
+    }
+    
     // Afficher la photo de profil 
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_photo", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_photo", {
     })
     .then(response => {
 
@@ -35,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Afficher le nom 
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_nom", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_nom", {
     })
     .then(response => {
 
@@ -59,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Afficher le courriel
      // Vérifier si le message a été écrit par l'utilisateur connecté
-     fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
     })
     .then(response => {
 
@@ -94,11 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#modifier-nom").on('click', function() {
 
         let nouveauNom = $("#nom-choisi").val(); 
-       
-      
+    
+    
         const donnees ={"nom" : nouveauNom};
 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/profil_stats/api/profil.php/modifier-nom", { // Envoie une requête POST au serveur
+        fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-nom", { // Envoie une requête POST au serveur
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -133,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let formData = new FormData();
             formData.append('photo', blobData);
             
-        fetch(window.location.protocol + "//" + window.location.hostname + "/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
+        fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
             method: 'POST',
             body: formData
         })

@@ -1,5 +1,17 @@
 $(document).ready(function() {
 
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+  
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+      pathDynamic = protocol + location;
+    }
+    
   // Information par rapport au mois courant
   var joursMoisDernier;
   let joursMoisCourant;
@@ -28,7 +40,7 @@ $(document).ready(function() {
       case 2:
         return "Mardi";
       case 3:
-         return "Mercredi";
+        return "Mercredi";
       case 4:
         return "Jeudi";
       case 5:
@@ -83,28 +95,28 @@ $(document).ready(function() {
   function afficherDate(mois) {
 
      // Obtient le premier jour du mois sélectionné
-     let moisAnnee = new Date(jourCourant.getFullYear(), mois);
-   
+    let moisAnnee = new Date(jourCourant.getFullYear(), mois);
+  
      // Crée une chaîne de caractère correspond au mois et à l'année 
-     const options = {month: 'long', year: 'numeric'};
-     let moisAnneeActuel = moisAnnee.toLocaleDateString('fr-FR',options);
- 
+    const options = {month: 'long', year: 'numeric'};
+    let moisAnneeActuel = moisAnnee.toLocaleDateString('fr-FR',options);
+
      // Met la première lettre du mois en majuscule
-     let moisAnneeFormatte = "";
-     for (let i = 0; i < moisAnneeActuel.length; i++) {
-       if (i ==0) {
-         moisAnneeFormatte += moisAnneeActuel[0].toUpperCase();
-       }
- 
-       else {
-         moisAnneeFormatte += moisAnneeActuel[i];
-       }
- 
-     }
- 
+    let moisAnneeFormatte = "";
+    for (let i = 0; i < moisAnneeActuel.length; i++) {
+      if (i ==0) {
+        moisAnneeFormatte += moisAnneeActuel[0].toUpperCase();
+      }
+
+      else {
+        moisAnneeFormatte += moisAnneeActuel[i];
+      }
+
+    }
+
      // Affiche le mois et l'année dans l'en-tête
-     $("#journee-du-mois").text(moisAnneeFormatte);
-     
+    $("#journee-du-mois").text(moisAnneeFormatte);
+    
   }
 
   /**
@@ -121,7 +133,7 @@ $(document).ready(function() {
     try {
 
       const dates = {'debut': debut, 'fin': fin}
-      const reponse = await fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_reunions", {
+      const reponse = await fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_reunions", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(dates)
@@ -132,7 +144,7 @@ $(document).ready(function() {
       }
 
       const donnees = await reponse.json();
-   
+  
       // Pour les cases entre la date de début et de fin 
       for (let i = premierJour; i < dernierJour; i++) {
 
@@ -146,7 +158,7 @@ $(document).ready(function() {
         });
 
            // Ajout de l'écouteur d'évènement aux enfants
-           $("#calendrier").children().eq(i).children().on('click', function() {
+          $("#calendrier").children().eq(i).children().on('click', function() {
 
             // Appeler la fonction seulement quand le parent est cliqué
             if (this === event.target) {
@@ -358,14 +370,14 @@ $(document).ready(function() {
 
       // Afficher les réunions de la journée
       for (let i = 0; i < journee.data("listeReunionsJournee").length; i++) {
- 
+
         // Affichage des réunions
         const reunion = $("<div class='reunion-pour-panneau'></div>");
         reunion.append("<p>" + journee.data("listeReunionsJournee")[i]['titre'] + "</p>");
 
         // Afficher l'heure
         reunion.append("<p>" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_debut']) + "-" + formatterHeure(journee.data("listeReunionsJournee")[i]['heure_fin']) + "</p>");
- 
+
         // Insérer les informations dans la réunion 
         reunion.data("listeReunionsJournee", journee.data("listeReunionsJournee")[i]);
 
@@ -373,7 +385,7 @@ $(document).ready(function() {
         $("#panneau-reunions").append(reunion);
 
         $("#panneau-reunions").children().eq(i).on("click", function() {
-           consulterReunion($(this), journee.data("listeReunionsJournee")[i]['courriel_createur']);
+          consulterReunion($(this), journee.data("listeReunionsJournee")[i]['courriel_createur']);
         })
 
       }
@@ -402,7 +414,7 @@ $(document).ready(function() {
       const donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
       // Ajouter la liste des participants
-      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -448,7 +460,7 @@ $(document).ready(function() {
 
 
       // Ajoute le bouton modifier si l'utilisateur est le créateur de la réunion
-      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+      fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
       })
       .then(response => {
 
@@ -542,7 +554,7 @@ $(document).ready(function() {
   async function chercherPhoto(courriel, index, reunion) {
 
     const donnees = {"courriel": courriel};
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_photo", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_photo", {
     method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -563,7 +575,7 @@ $(document).ready(function() {
 
       if (data != undefined && data != null) {
 
-       reunion.children().eq(2).children().eq(index).children().eq(0).css({
+      reunion.children().eq(2).children().eq(index).children().eq(0).css({
           'background-image': 'url(' + URL.createObjectURL(data) + ')',
 
         });
@@ -571,7 +583,7 @@ $(document).ready(function() {
     }})
     .catch(error => {
 
-       console.log("Erreur")
+      console.log("Erreur")
       
     });
   }
@@ -616,13 +628,13 @@ $(document).ready(function() {
 
     // Cocher la case "Participants" ou "Groupe"
     if (reunion.data("listeReunionsJournee")['id_groupes'] == null) {
-         
+        
       $("#groupes").prop("checked", true);
 
       donnees = {"idReunions": reunion.data("listeReunionsJournee")['id_reunions']};
 
       // Ajouter la liste des participants déjà invités à la réunion
-      fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
+      fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_participants", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(donnees)
@@ -682,7 +694,7 @@ $(document).ready(function() {
 
     // Afficher la liste des tâches 
     donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_liste_taches", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_taches", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -735,7 +747,7 @@ $(document).ready(function() {
   function supprimerReunion(reunion) {
 
     donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/supprimer_reunion", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/supprimer_reunion", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)

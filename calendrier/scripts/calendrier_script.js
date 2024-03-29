@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+    //declaration des variables pour un path dynamic
+    let protocol =  window.location.protocol + "//";
+    let location = window.location.hostname;
+    let port = ":" + window.location.port;
+    let pathDynamic;
+
+    if (location === 'localhost' || location === '127.0.0.1'){
+        pathDynamic = protocol + location + port;
+    }else {
+        pathDynamic = protocol + location;
+    }
     
     // Informations par rapport à une réunion
     let titre;
@@ -131,7 +142,7 @@ $(document).ready(function() {
         $("#choix-groupe").html("");
         $("#choix-groupe").append("<option value='null'>Veuillez choisir un groupe</option>");
 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/afficher_groupes", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes", {
         })
         .then(response => {
     
@@ -147,17 +158,17 @@ $(document).ready(function() {
         .then(data => {
     
           // Ajouter les groupes à la liste des groupes dans la sidebar
-          for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
 
             // Mettre comme valeur l'identifiant de la réunion
             const nouvelleValeur = $("<option value='" + data[i]['id_groupes'] + "'>" + data[i]['nom'] +"</option>");
             $("#choix-groupe").append(nouvelleValeur);
-          }
+        }
             
         })
         .catch(error => {
     
-          console.log("erreur");
+        console.log("erreur");
         });
     }
 
@@ -172,11 +183,11 @@ $(document).ready(function() {
     function aConflitHoraire(courriel, debut, fin, date) {
 
         const donnees = {'courriel': courriel,
-                         'debut': debut,
-                         'fin': fin,
-                         'date': date};
+                        'debut': debut,
+                        'fin': fin,
+                        'date': date};
 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_conflit", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_conflit", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -184,7 +195,7 @@ $(document).ready(function() {
             .then(response => {
     
             if (response.ok) {
-                 return response.json();
+                return response.json();
             }
     
             else {
@@ -193,9 +204,9 @@ $(document).ready(function() {
             })
             .then(data => {
                 
-              if (data.length > 0) {
+            if (data.length > 0) {
                 alert(courriel + " a une réunion à " + data[0]['heure_debut']);
-              }
+            }
             })
             .catch(error => {
             console.log(error);
@@ -205,7 +216,7 @@ $(document).ready(function() {
 
 
     // Créer un compte lorsque l'utilisateur se connecte pour la première fois 
-    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/compte_existe", {
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/compte_existe", {
     })
     .then(response => {
 
@@ -220,7 +231,7 @@ $(document).ready(function() {
     })
     .then(data => {
 
-      if (!data['existe']) {
+    if (!data['existe']) {
         
         $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").addClass("focus");
         $("main, header, footer, #creer-reunion, aside, #conteneur-basculer, body").css("pointer-events", "none");
@@ -242,9 +253,9 @@ $(document).ready(function() {
             // Création du compte
             else {
                 const donnees = {'nom': $("#nom-compte").val(),
-                                 'type': $("input[name='type-compte']:checked").val()};
+                                'type': $("input[name='type-compte']:checked").val()};
 
-                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer-compte", {
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer-compte", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
@@ -428,23 +439,23 @@ $(document).ready(function() {
                 $("#messages-erreur").text("Vous devez choisir entre Groupe et Participants");
             }
         }
-     })
+    })
 
-     /**
+    /**
       * Retour vers la première page du formulaire depuis la page des groupes
       */
-     $("#btn-retour-groupes").on("click", function(event) {
-       
+    $("#btn-retour-groupes").on("click", function(event) {
+    
         $("#creer-reunion-groupe").removeClass("reunion-visible");
-     })
+    })
 
     /** Retour vers la première page du formulaire depuis 
      * la page des participants
      */
-     $("#btn-retour-participants").on("click", function(event) {
-       
+    $("#btn-retour-participants").on("click", function(event) {
+    
         $("#creer-reunion-participants").removeClass("reunion-visible");
-     })
+    })
 
 
      // TODO: SUBMITTING GROUP BY READING FIELD INSTEAD OF ARRAY
@@ -467,7 +478,7 @@ $(document).ready(function() {
 
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
         })
         .then(response => {
     
@@ -499,7 +510,7 @@ $(document).ready(function() {
             const courriel = {"courriel": texte};
     
             // Cherche le participant dans la table des utilisateurs de la base de données
-            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/chercher_participants", {
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(courriel)
@@ -507,7 +518,7 @@ $(document).ready(function() {
             .then(response => {
     
             if (response.ok) {
-                 return response.json();
+                return response.json();
             }
     
             else {
@@ -517,7 +528,7 @@ $(document).ready(function() {
             .then(data => {
                 
                // Un utilisateur a été trouvé
-               if (data["existe"]) {
+            if (data["existe"]) {
 
                 aConflitHoraire(texte, debutReunion, finReunion, dateReunion);
                     
@@ -652,13 +663,13 @@ $(document).ready(function() {
             $("#messages-erreur-participants").text("Vous devez ajouter au moins un participant");
 
         }
-      
+    
 
     
 
     })
 
-   
+
 
 function envoyerFormulaireGroupe() {
     let groupe = $("#choix-groupe").val();
@@ -686,7 +697,7 @@ function envoyerFormulaireGroupe() {
             if (localStorage.getItem("reunionEstModifiee") == "false") {
                 // Les informations de la réunions sont ajoutées à la base de données
             
-            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
@@ -723,7 +734,7 @@ function envoyerFormulaireGroupe() {
             "taches": listeTaches,
             "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
-            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
@@ -775,7 +786,7 @@ function envoyerFormulaireParticipants() {
         "listeParticipants": participantsReunion,
         "taches": listeTaches};
 
-        fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer_reunion_participants", {
+        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_participants", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -811,7 +822,7 @@ function envoyerFormulaireParticipants() {
             "taches": listeTaches,
             "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
-            fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
