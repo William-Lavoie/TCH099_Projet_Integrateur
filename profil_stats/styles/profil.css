@@ -2,18 +2,18 @@ body {
     /* a revoir */
     font-family: 'Times New Roman', Times, serif, sans-serif;
     margin: 0;
-  }
+}
 
-  main {
+main {
     height: 90vmin;
     display: flex;
     align-items: center;
     margin-left: 2%;
     margin-right: 2%;
     justify-content: space-between;
-  }
-  
-  .profil {
+}
+
+.profil {
     height: 80%;
     min-height: 200px;
     text-align: center;
@@ -21,13 +21,13 @@ body {
     flex-direction: column;
     align-items: center;
   
-  }
+}
 
-  .onglet-visible {
+.onglet-visible {
     display: block !important;
-  }
-  
-  #photo {
+}
+
+#photo {
     min-height: 70px;
     min-width: 70px;
     height: 25%;
@@ -37,21 +37,20 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-  }
+}
 
-  
-  .profil-info h2 {
+.profil-info h2 {
     margin: 0;
     color: #333333;
     font-size: 22px;
-  }
-  
-  .profil-info p {
+}
+
+.profil-info p {
     color: #666666;
     margin: 5px 0 20px;
-  }
-  
-  #edit-button {
+}
+
+#edit-button {
     background-color: #04071d;
     color: #FFFFFF;
     border: none;
@@ -61,25 +60,25 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     outline: none;
-  }
+}
   
-  #edit-button:hover {
+#edit-button:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
-  }
+}
 
-  #conteneur-boutons-modifications {
+#conteneur-boutons-modifications {
     width: 80%;
     height: 20%;
     padding: 5%;
     display: none;
-  }
+}
 
-  .modifier-visible {
+.modifier-visible {
     display: flex !important;
     flex-direction: column;
-  }
+}
 
 .modifier-onglet {
     position: absolute;
@@ -148,8 +147,6 @@ body {
 
 }
 
-
-
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -157,23 +154,23 @@ body {
     height: 70%;
     width: 100%;
     margin-top: 1%;
-  }
+}
   
-  .grid-item {
+.grid-item {
     border: 1px solid lightgray;
     height: calc(100%/7);
     width: calc(100%/20); 
     box-sizing: border-box;
-  }
+}
   
-  .grid-item.filled {
+.grid-item.filled {
     background-color: #8FBC8F; 
-  }
+}
 
 
 /****************************
 dark mode
 *****************************/
-  body.dark label{
+body.dark label{
     color: white;
 }

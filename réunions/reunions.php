@@ -7,7 +7,7 @@ header("Access-Control-Max-Age: 3600");
 
 session_start();
 
-    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Création d'un GROUPE
     if (preg_match("~ajouter-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
@@ -17,37 +17,33 @@ session_start();
 
         if (isset($donnees['nom'], $donnees['tableauParticipants'])) {
 
-        require("calendrier\api\connexion.php");
+            require("calendrier\api\connexion.php");
 
-        $nom = $donnees['nom'];
-        $participants = $donnees['tableauParticipants'];
-    
-        // Création de la réunion
-        $query = $conn->prepare("INSERT INTO groupes (courriel_enseignant, nom) VALUES (:courriel, :nom)");
-        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-        $query->bindParam(":courriel", $nom,  PDO::PARAM_STR);
+            $nom = $donnees['nom'];
+            $participants = $donnees['tableauParticipants'];
+        
+            // Création de la réunion
+            $query = $conn->prepare("INSERT INTO groupes (courriel_enseignant, nom) VALUES (:courriel, :nom)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $nom,  PDO::PARAM_STR);
 
-        $query->execute();
-
-        //id du groupe venant d'être créée
-        $id_groupe = $conn->lastInsertId();
-
-        // Création d'une entrée dans la table de jointure pour chaque étudiant
-        for ($i = 0; $i < count($participants); $i++) {
-
-            $query = $conn->prepare("INSERT INTO utilisateurs_groupes (courriel_etudiants, id_groupes) VALUES (:courriel, :id)");
-            $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
-            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
             $query->execute();
-        }
 
-        echo json_encode(["error" => "success"]);
+            //id du groupe venant d'être créée
+            $id_groupe = $conn->lastInsertId();
 
-        }
-        else {
+            // Création d'une entrée dans la table de jointure pour chaque étudiant
+            for ($i = 0; $i < count($participants); $i++) {
+
+                $query = $conn->prepare("INSERT INTO utilisateurs_groupes (courriel_etudiants, id_groupes) VALUES (:courriel, :id)");
+                $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            echo json_encode(["error" => "success"]);
+        } else {
             echo json_encode(["error" => "erreur"]);
         }
-
     }
-
 }

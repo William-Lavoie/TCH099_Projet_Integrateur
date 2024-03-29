@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($donnees['nom'])) {
             
             $nouveauNom = $donnees['nom'];
-          // validation du nouveau nom avec preg_match (il a le droit a  des lettres, chiffres, apostrophes, tirets, et espaces)
-        if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
+            // validation du nouveau nom avec preg_match (il a le droit a  des lettres, chiffres, apostrophes, tirets, et espaces)
+            if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
 
                 //  connexion à la base de données
                 require("connexionP.php");
@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo json_encode(['success' => false, 'error' => 'Erreur lors de la mise à jour dans la base de données']);
                 }
             } 
-    } else {
-        //  nouveau nom n'est pas fourni
-        echo json_encode(['success' => false, 'error' => 'Nom manquant! Veuillez en entrer un.']);
-    }
+        } else {
+            //  nouveau nom n'est pas fourni
+            echo json_encode(['success' => false, 'error' => 'Nom manquant! Veuillez en entrer un.']);
+        }
     }
 
 
@@ -80,11 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Chercher les réunions de l'utilisateur connecté dans les 140 derniers jours
     if (preg_match("~chercher_reunions_stats$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-    
         //  connexion à la base de données
         require("connexionP.php");
 
-        $query = $conn->prepare("SELECT * FROM utilisateurs_reunions AS ur INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions WHERE ur.courriel_utilisateurs = :courriel AND (r.date BETWEEN DATE_SUB(NOW(), INTERVAL 139 DAY) AND NOW()) ORDER BY r.date");
+        $query = $conn->prepare("SELECT * 
+                                FROM utilisateurs_reunions AS ur 
+                                INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions 
+                                WHERE ur.courriel_utilisateurs = :courriel 
+                                    AND (r.date BETWEEN DATE_SUB(NOW(), INTERVAL 139 DAY) 
+                                    AND NOW()) 
+                                    ORDER BY r.date");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();
@@ -95,8 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             // la gestionn des erreurs
             echo json_encode(['success' => false, 'error' => 'Aucune réunion trouvée']);
-        }
-            
+        }     
     }
 }
 

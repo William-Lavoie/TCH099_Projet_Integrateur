@@ -1,10 +1,10 @@
 body {
-  height: 100%; 
-  margin: 0;
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
+    height: 100%; 
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 /******************************
@@ -16,256 +16,256 @@ form
 #creer-reunion-participants,
 #creer-liste-taches,
 #creer-nouveau-compte {
-  height: 65%;
-  min-height: 400px;
-  aspect-ratio: 3/4;
-  border: 1px solid black;
-  border-radius: 0.5em;
-  display: none;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 4;
-  overflow: hidden;
-  background-color: white;
-  color: black;
-  box-sizing: border-box;
-  box-shadow: 2px 2px 2px black;
+    height: 65%;
+    min-height: 400px;
+    aspect-ratio: 3/4;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    display: none;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px black;
 }
 
 #titre-reunion-form{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 5vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5vmin;
 }
 
 #titre-reunion{
-  height: 80%;
-  width: 90%;
-  text-align: center;
-  margin: 0;
-  font-size: 2em;
+    height: 80%;
+    width: 90%;
+    text-align: center;
+    margin: 0;
+    font-size: 2em;
 }
 
 @media screen and (max-height: 900px) {
-  #titre-reunion{
-    font-size: 1em;
-  }
+    #titre-reunion{
+        font-size: 1em;
+    }
 }
 
 #choisir-heure-form{
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
 }
 
 
 #choisir-heure-form input{
-  margin: 0;
-  width: 50%;
+    margin: 0;
+    width: 50%;
 }
 
 #date-reunion-form{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 #date-reunion-form input{
-  width: 50%;
-  text-align: center;
+    width: 50%;
+    text-align: center;
 }
 
 #description-reunion{
-  border-radius: 1em;
-  border: 1px solid lightgray;
-  height: 30%;
-  overflow: scroll;
+    border-radius: 1em;
+    border: 1px solid lightgray;
+    height: 30%;
+    overflow: scroll;
 }
 
 #btn-radios {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2em;
 }
 
 .formulaire-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 15%;
-  font-size: 1.5rem;
-  text-align: center;
-  background-color: #04071d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 15%;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #04071d;
 
 }
 
 .champs-a-remplir,
 #champs-compte {
-  height: 80%;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
+    height: 80%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
 
 label {
-  color: black;
-  font-size: 1em;
-  margin-right: 1em;
+    color: black;
+    font-size: 1em;
+    margin-right: 1em;
 }
 
 .champ-reunion {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 1em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1em;
 }
 
 
 
 #debut-reunion, #fin-reunion {
-  width: 6em;
-  font-size: 0.8rem;
+    width: 6em;
+    font-size: 0.8rem;
 }
 
 
 .reunion-visible {
-  display: flex  !important ;
-  flex-direction: column;
-  opacity: 100%;
+    display: flex    !important ;
+    flex-direction: column;
+    opacity: 100%;
 }
 
 
 #messages-erreur, #messages-erreur-participants {
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: red;
-  font-style: italic;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-style: italic;
 }
 
 .btn-reunion {
-  display: flex;
-  justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 
 #effacer-reunion {
-  background-color: transparent;
-  color: white;
-  font-size: 1em;
-  margin-right: 0.5em;
-  border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 1em;
+    margin-right: 0.5em;
+    border: none;
 }
 
 span {
-  padding-left: 1em;
-  display: flex;
+    padding-left: 1em;
+    display: flex;
 }
 
 #quitter-reunion {
-  background-color: transparent;
-  color: white;
-  font-size: 1em;
-  border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 1em;
+    border: none;
 }
 
 #effacer-reunion:hover {
-  cursor: pointer;
-  font-size: 110%;
+    cursor: pointer;
+    font-size: 110%;
 }
 
 #quitter-reunion:hover {
-  cursor: pointer;
-  font-size: 110%;
+    cursor: pointer;
+    font-size: 110%;
 }
 
 .btn-reunion button{
-  background-color: #04071d;
-  color: white;
-  border-radius: 0.5em;
-  width: 40%;
-  padding: 2%
+    background-color: #04071d;
+    color: white;
+    border-radius: 0.5em;
+    width: 40%;
+    padding: 2%
 }
 
 .reunion-journee {
-  height: 24%;
-  width: 80%;
-  background-color: #00c1f3;
-  color: white;
-  border-radius: 10px;
-  margin-bottom: 2%;
-  padding-left: 3%;
-  border: 1px solid lightgray;
-  overflow: hidden;
+    height: 24%;
+    width: 80%;
+    background-color: #00c1f3;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    padding-left: 3%;
+    border: 1px solid lightgray;
+    overflow: hidden;
 }
 
 .reunion-journee:hover {
-  background-color: #46daff;
+    background-color: #46daff;
 }
 
 
 #ajouter-participants {
-  height: 100%;
+    height: 100%;
 }
 
 #ajout-participant-label {
-  padding-left: 0.5em;
-  font-size: 1.2em;
+    padding-left: 0.5em;
+    font-size: 1.2em;
 }
 
 #btn-creer-participant, #btn-creer-tache {
-  background-color: #04071d;
-  border-radius: 50%;
-  height: 2.5em;
-  width: 2.5em;
-  color: white;
-  font-size: 100%;
+    background-color: #04071d;
+    border-radius: 50%;
+    height: 2.5em;
+    width: 2.5em;
+    color: white;
+    font-size: 100%;
 }
 
 #btn-creer-participant:hover, #btn-creer-tache:hover {
-  background-color: #00c1f3;
+    background-color: #00c1f3;
 } 
 
 #nouveau-participant, #nouvelle-tache {
-  height: 2.5em;
-  width: 70%;
-  border-radius: 2em;
-  padding-left: 1em;
-  margin-right: 1em;
-  border: 2px solid lightgray;
+    height: 2.5em;
+    width: 70%;
+    border-radius: 2em;
+    padding-left: 1em;
+    margin-right: 1em;
+    border: 2px solid lightgray;
 }
 
 #nouveau-participant-creer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0.4em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.4em;
 }
 
 #liste-participants, #liste-taches{
-  height: 50%;
-  max-height: 150px;
-  margin-top: 0.5em;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+    height: 50%;
+    max-height: 150px;
+    margin-top: 0.5em;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
 .nom-participant {
@@ -279,96 +279,96 @@ margin-bottom: 2%;
 }
 
 .nom-participant:hover {
-  background-color: lightgray;
+    background-color: lightgray;
 }
 
 .supprimer-participant, .supprimer-tache {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  font-size: 1.8em;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8em;
 }
 
 .supprimer-participant:hover, .supprimer-tache:hover {
-  background-color: transparent;
-  font-size: 2.1em;
+    background-color: transparent;
+    font-size: 2.1em;
 }
 
 #choix-groupe {
-  width: 60%;
-  height: 20%;
+    width: 60%;
+    height: 20%;
 }
 
 #champs-groupes {
-  padding-top: 10%;
+    padding-top: 10%;
 height: 30%;
 display: flex;
 justify-content: center;
 }
 
 #espace-vide {
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 5%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 5%;
 }
 
 /************************************
 /* main 
 /************************************/
 main {
-    height: calc(100vh - 10vmin);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    margin: 0;
-  
-  }
+        height: calc(100vh - 10vmin);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        margin: 0;
+    
+    }
 
 #calendrier-jour {
-  height: calc(100vh - 10vmin);
-  width: 100vw;
-  min-width: 475px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    height: calc(100vh - 10vmin);
+    width: 100vw;
+    min-width: 475px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 #calendrier {
-  margin: 0;
-  height: 200%;
-  border: 1px solid black;
-  display: flex;  
-  flex-wrap: wrap;  
-  box-sizing: border-box;
+    margin: 0;
+    height: 200%;
+    border: 1px solid black;
+    display: flex;    
+    flex-wrap: wrap;    
+    box-sizing: border-box;
 }
 
 .jour {
-  position: relative;
-  margin: 0;
-  width: calc(100%/7);
-  height: calc(100%/6);
-  border: 1px solid darkgray;
-  box-sizing: border-box;
-  padding: 0.2%;
-  min-height: 40px;
-  display: flex;
-  flex-direction: column;
+    position: relative;
+    margin: 0;
+    width: calc(100%/7);
+    height: calc(100%/6);
+    border: 1px solid darkgray;
+    box-sizing: border-box;
+    padding: 0.2%;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 #pas-mois-courant{
-  border: 1px solid white;
+    border: 1px solid white;
 }
 
 .jour p {
-  margin-top: 3px;
-  margin-left: 3px;
+    margin-top: 3px;
+    margin-left: 3px;
 }
 
 /******************************
@@ -376,294 +376,294 @@ reunion
 *****************************/
 
 .reunions-date {
-  height: 100%;
-  width: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 4%;
-  
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4%;
+    
 }
 .autre-reunion {
-  width: 100%;
-  height: 50%;
-  font-size: 0.8em;
-  border: 1px solid black;
-  background-color: blue;
-  border-radius: 10%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 50%;
+    font-size: 0.8em;
+    border: 1px solid black;
+    background-color: blue;
+    border-radius: 10%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #calendrier .autre-reunion:hover {
-  opacity: 50%;
+    opacity: 50%;
 }
 
 .jour:hover,
 #pas-mois-courant:hover {
-    background-color: lightgray;  
+        background-color: lightgray;    
 }
 
 
 #consulter-reunion-calendrier {
-  height: 0;
-  width: 0;
-  border-radius: 0.5em;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  overflow: hidden;
-  background-color: white;
-  color: black;
-  box-sizing: border-box;
-  box-shadow: 5px 5px 13px 0px black;
-  transition: 0.5s height, 0.5s width;
+    height: 0;
+    width: 0;
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 13px 0px black;
+    transition: 0.5s height, 0.5s width;
 }
 
 #consulter-reunion-calendrier span {
-  width: 100%;
-  height: 15%;
-  font-size: 1.7em;
-  display: flex;
-  justify-content: center;
-  background-color: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  text-align: center;
+    width: 100%;
+    height: 15%;
+    font-size: 1.7em;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 #panneau-reunions {
-  margin-top: 5%;
-  height: 80%;
-  width: 90%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  padding: 1%;
-  overflow-x: hidden;
-  align-items: center;
+    margin-top: 5%;
+    height: 80%;
+    width: 90%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    overflow-x: hidden;
+    align-items: center;
 
 }
 
 .reunion-pour-panneau {
-  flex-shrink: 0;
-  height: 18%;
-  width: 90%;
-  border: 2px solid black;
-  border-radius: 1em;
-  margin-bottom: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 2%;
-  padding-right: 4%;
-  font-size: 1em;
+    flex-shrink: 0;
+    height: 18%;
+    width: 90%;
+    border: 2px solid black;
+    border-radius: 1em;
+    margin-bottom: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2%;
+    padding-right: 4%;
+    font-size: 1em;
 }
 
 #boutons-pour-panneau {
-  height: 30%;
-  display: flex;
-  align-items: center;
-  width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 #btn-panneau-reunion {
-  width: 200%;
-  height: 40%;
-  display: flex;
-  justify-content: space-around;
+    width: 200%;
+    height: 40%;
+    display: flex;
+    justify-content: space-around;
 }
 
 #btn-panneau-reunion button {
-  background-color: #04071d;
-  color: white;
-  border-radius: 0.5em;
-  width: 40%;
-  font-size: 1.1em;
+    background-color: #04071d;
+    color: white;
+    border-radius: 0.5em;
+    width: 40%;
+    font-size: 1.1em;
 }
 
 ::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 #btn-panneau-reunion button:hover, #creer-reunion:hover, form button:hover {
-  background-color: #00c1f3;
+    background-color: #00c1f3;
 }
 
 .ouvrir-reunion {
-  height: max(60vmin,400px) !important;
-  width: max(45vmin, 300px) !important;
-  display: flex !important;
-  border: 2px solid black;
-  align-items: center;
-  overflow: hidden;
+    height: max(60vmin,400px) !important;
+    width: max(45vmin, 300px) !important;
+    display: flex !important;
+    border: 2px solid black;
+    align-items: center;
+    overflow: hidden;
 
 }
 
 /* Removed hover for testing purposes*/
 .reunion-visible-panneau {
-  position: absolute;
-  height: 80%;
-  background-color: white;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  bottom: 4%;
-  border: none;
+    position: absolute;
+    height: 80%;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    bottom: 4%;
+    border: none;
 }
 
 #reunion-test p {
-  height: 10%;
-  font-size: 1.4em;
+    height: 10%;
+    font-size: 1.4em;
 }
 
 .heure-debut-fin {
-  position: relative;
-  bottom: 7%;
+    position: relative;
+    bottom: 7%;
 }
 
 #informations-reunion {
-  width: 90%;
-  height: 70%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+    width: 90%;
+    height: 70%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .participant-pour-reunion {
-  height: 21%;
-  display: flex;
-  align-items: center;
-  padding-left: 4%;
-  font-size: 1.2em;
-  flex-shrink: 0;
-  margin-bottom: 2%;
+    height: 21%;
+    display: flex;
+    align-items: center;
+    padding-left: 4%;
+    font-size: 1.2em;
+    flex-shrink: 0;
+    margin-bottom: 2%;
 }
 
 .participant-pour-reunion:hover {
-  background-color: lightgray;
+    background-color: lightgray;
 }
 
 #btn-nouvelle-reunion {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  height: 10%;
-  padding: 2%;
-  
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 10%;
+    padding: 2%;
+    
 }
 
 #btn-ajouter-reunion {
-  aspect-ratio: 1/1;
-  border-radius: 100%;
-  background-color: #04071d;
-  position: relative;
-  top: 15%;
-  color: white;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background-color: #04071d;
+    position: relative;
+    top: 15%;
+    color: white;
 }
 
 .participant-pour-reunion img {
-  margin-right: 2%;
-  border-radius: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: lightgray;
+    margin-right: 2%;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: lightgray;
 }
 
 #journee-mois {
-  min-height: 70px;
-  overflow: hidden;
-  width: 12em;
-  font-size: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;    
-  }
+    min-height: 70px;
+    overflow: hidden;
+    width: 12em;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;        
+    }
 
 
 #journee-mois button {
-  background-color: transparent;
-  border: 0;
-  height: fit-content;
-  width: fit-content;
-  font-size: 1em;
+    background-color: transparent;
+    border: 0;
+    height: fit-content;
+    width: fit-content;
+    font-size: 1em;
 }
 
 #journee-mois p {
-  font-size: 1em;
-  text-align: center;
+    font-size: 1em;
+    text-align: center;
 }
 
 #calendrier-journees-semaine {
-  width: max(100%,450px);
-  height: 100%;
-  min-height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    width: max(100%,450px);
+    height: 100%;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
 #journee-semaine {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 7%;
 }
 
 .journee {
-  width: calc(100%/7);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  position: relative;
-  top: 20%;
+    width: calc(100%/7);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    top: 20%;
 }
 
 .main-btn {
-  width: 5%;
-  min-width: 100px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  padding: 2%;
+    width: 5%;
+    min-width: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2%;
 }
 
 #creer-reunion {
-  position: fixed; 
-  bottom: 3%; 
-  right: 3%; 
-  border-radius: 100%;
-  background-color: #04071d;
-  color: white;
-  height: max(10%, 70px);
-  max-height: 6em;
-  aspect-ratio: 1/1;
-  font-size: 1em;
-  min-width: 70px;
-  z-index: 2;
+    position: fixed; 
+    bottom: 3%; 
+    right: 3%; 
+    border-radius: 100%;
+    background-color: #04071d;
+    color: white;
+    height: max(10%, 70px);
+    max-height: 6em;
+    aspect-ratio: 1/1;
+    font-size: 1em;
+    min-width: 70px;
+    z-index: 2;
 }
 
 .focus {
-  opacity: 50%;
-  pointer-events: none;
+    opacity: 50%;
+    pointer-events: none;
 }
 
 
@@ -672,38 +672,38 @@ dark mode
 *****************************/
 
 #journee-mois{
-  color: #04071d;
+    color: #04071d;
 }
 
 body.dark #journee-mois, 
 body.dark #btn-prochain-mois,
 body.dark #btn-dernier-mois{
-  color: white;
+    color: white;
 }
 
 body.dark .jour:hover,
-body.dark #pas-mois-courant:hover  {
-  background-color: rgb(104, 103, 103);
-  border: 2px #00c1f3 solid;
+body.dark #pas-mois-courant:hover    {
+    background-color: rgb(104, 103, 103);
+    border: 2px #00c1f3 solid;
 }
 
 #pas-mois-courant{
-  background-color: darkgray;
+    background-color: darkgray;
 }
 
 body.dark #pas-mois-courant{
-  background-color: rgb(40, 40, 40);
-  border: 1px solid darkgray;
+    background-color: rgb(40, 40, 40);
+    border: 1px solid darkgray;
 }
 
 body.dark #creer-reunion {
-  background-color: rgb(40, 40, 40);
-  color: white;
+    background-color: rgb(40, 40, 40);
+    color: white;
 }
 
 body.dark #creer-reunion:hover {
-  background-color: #00c1f3;
-  cursor: pointer;
+    background-color: #00c1f3;
+    cursor: pointer;
 }
 
 body.dark #nouvelle-reunion,
@@ -711,19 +711,19 @@ body.dark #creer-reunion-groupe,
 body.dark #creer-reunion-participants,
 body.dark #creer-liste-taches,
 body.dark{
-  background-color: rgb(40, 40, 40);
-  color: white;
+    background-color: rgb(40, 40, 40);
+    color: white;
 }
 
 body.dark label{
-  color: white;
+    color: white;
 }
 
 body.dark #description-reunion,
-body.dark   #titre-reunion,
+body.dark     #titre-reunion,
 body.dark #choisir-heure-form input,
 body.dark #date-reunion-form input{
-  background-color: darkgray;
+    background-color: darkgray;
 }
 
 

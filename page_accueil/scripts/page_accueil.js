@@ -52,10 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 h2ElementsPremiereBoite[0].classList.remove('cacher');
                 h2ElementsPremiereBoite[0].classList.add('animate__animated');
                 h2ElementsPremiereBoite[0].classList.add('animate__fadeInDown');
-
             }, 1200);
         }, 100); 
-
     });
 
 
@@ -235,17 +233,5 @@ document.addEventListener("DOMContentLoaded", function() {
     const premierIndicateurTrois = document.querySelector("#premier-indicateur-trois");
     premierIndicateurTrois.style.backgroundColor = "#00c1f3";
     premierIndicateurTrois.style.transform = "scale(1.5)";
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
