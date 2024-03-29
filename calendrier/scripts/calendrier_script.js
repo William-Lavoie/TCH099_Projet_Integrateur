@@ -33,9 +33,7 @@ $(document).ready(function() {
         $("#fin-reunion").val("");
         $("#date-reunion").val("");
         $("#description-reunion").val("");
-
         $("#liste-participants").text("");
-
         $("#messages-erreur").text("");
 
         // Réinitialiser les variables
@@ -77,23 +75,26 @@ $(document).ready(function() {
 
         // Vérifie que la date de la réunion ne soit pas déjà passée
         if (date.getFullYear() < dateActuelle.getFullYear() ||
-                 date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() < dateActuelle.getMonth()  ||
-                 date.getFullYear() == dateActuelle.getFullYear() && date.getMonth() == dateActuelle.getMonth() && date.getDate() < dateActuelle.getDate()) {
+                date.getFullYear() == dateActuelle.getFullYear() && 
+                date.getMonth() < dateActuelle.getMonth()  ||
+                date.getFullYear() == dateActuelle.getFullYear() && 
+                date.getMonth() == dateActuelle.getMonth() && 
+                date.getDate() < dateActuelle.getDate()) {
 
             $("#messages-erreur").text("La date ne peut pas déjà être passée");
             return false;
-        }
 
         // Vérifie que l'heure de la réunion ne soit pas déjà passée, si la date est la date courante
-        else if (date.getDay() == dateActuelle.getDay() && date.getMonth() == dateActuelle.getMonth() 
-                && date.getFullYear() == dateActuelle.getFullYear() 
-                && (heureDebut < dateActuelle.getHours() || (minuteDebut < dateActuelle.getMinutes()
-                && (heureDebut == dateActuelle.getHours())))) {
+        }  else if (date.getDay() == dateActuelle.getDay() && 
+                    date.getMonth() == dateActuelle.getMonth() && 
+                    date.getFullYear() == dateActuelle.getFullYear() && 
+                    (heureDebut < dateActuelle.getHours() || 
+                    (minuteDebut < dateActuelle.getMinutes() && 
+                    (heureDebut == dateActuelle.getHours())))) {
 
                 $("#messages-erreur").text("L'heure ne peut pas être déjà passée");
                 return false;
         }
-
         return true;
     }
 
@@ -120,46 +121,41 @@ $(document).ready(function() {
 
     // Vérifie si un formulaire est vide (i.e aucun champ n'a été rempli)
     function formulaireEstRempli() {
-     return ($("#titre-reunion").val() != "" ||
-             $("#debut-reunion").val() != "" ||
-             $("#fin-reunion").val() != ""   ||
-             $("#date-reunion").val() != ""  ||
-             $("#description-reunion").val() != "");        
+        return ($("#titre-reunion").val() != "" ||
+                $("#debut-reunion").val() != "" ||
+                $("#fin-reunion").val() != ""   ||
+                $("#date-reunion").val() != ""  ||
+                $("#description-reunion").val() != "");        
     }
 
-    function afficherListeGroupes() {
 
+    function afficherListeGroupes() {
 
         $("#choix-groupe").html("");
         $("#choix-groupe").append("<option value='null'>Veuillez choisir un groupe</option>");
 
         fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes", {
-        })
-        .then(response => {
+        })  .then(response => {
     
-        if (response.ok) {
+            if (response.ok) {
+        
+                return response.json();
+            } else {
+                console.log("error");
+            }
+        })  .then(data => {
     
-        return response.json();
-        }
-    
-        else {
-        console.log("error");
-        }
-        })
-        .then(data => {
-    
-          // Ajouter les groupes à la liste des groupes dans la sidebar
-        for (let i = 0; i < data.length; i++) {
+            // Ajouter les groupes à la liste des groupes dans la sidebar
+            for (let i = 0; i < data.length; i++) {
 
-            // Mettre comme valeur l'identifiant de la réunion
-            const nouvelleValeur = $("<option value='" + data[i]['id_groupes'] + "'>" + data[i]['nom'] +"</option>");
-            $("#choix-groupe").append(nouvelleValeur);
-        }
-            
-        })
-        .catch(error => {
+                // Mettre comme valeur l'identifiant de la réunion
+                const nouvelleValeur = $("<option value='" + data[i]['id_groupes'] + "'>" + data[i]['nom'] +"</option>");
+                $("#choix-groupe").append(nouvelleValeur);
+            }
+        
+        })  .catch(error => {
     
-        console.log("erreur");
+            console.log("erreur");
         });
     }
 
@@ -179,119 +175,110 @@ $(document).ready(function() {
                         'date': date};
 
         fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_conflit", {
+
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(donnees)
-            })
-            .then(response => {
-    
+        })  .then(response => {
+
             if (response.ok) {
+
                 return response.json();
-            }
-    
-            else {
+            } else {
+
                 console.log("La requête n'a pas fonctionnée");
             }
-            })
-            .then(data => {
-                
+        }) .then(data => {
+            
             if (data.length > 0) {
+
                 alert(courriel + " a une réunion à " + data[0]['heure_debut']);
             }
-            })
-            .catch(error => {
-            console.log(error);
-            });
+        })  .catch(error => {
 
+            console.log(error);
+        });
     }
 
 
     // Créer un compte lorsque l'utilisateur se connecte pour la première fois 
     fetch(pathDynamic + "/calendrier/api/api_calendrier.php/compte_existe", {
-    })
-    .then(response => {
 
-    if (response.ok) {
+    })  .then(response => {
 
-    return response.json();
-    }
+        if (response.ok) {
 
-    else {
-    console.log("error");
-    }
-    })
-    .then(data => {
+            return response.json();
+        } else {
 
-    if (!data['existe']) {
-        
-        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").addClass("focus");
-        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer, body").css("pointer-events", "none");
+            console.log("error");
+        }
+    })  .then(data => {
 
-        $("#creer-nouveau-compte").addClass("reunion-visible");
-        $("#creer-nouveau-compte").css("pointer-events", "all");
+        if (!data['existe']) {
+            
+            $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").addClass("focus");
+            $("main, header, footer, #creer-reunion, aside, #conteneur-basculer, body").css("pointer-events", "none");
 
-        $("#creer-compte").on("click", function() {
+            $("#creer-nouveau-compte").addClass("reunion-visible");
+            $("#creer-nouveau-compte").css("pointer-events", "all");
 
-            if ($("#nom-compte").val() == "") {
-                $("#messages-erreurs-compte").text("Vous devez choisir un nom d'utilisateur")
-            }
+            $("#creer-compte").on("click", function() {
 
-            else if ($("input[name='type-compte']:checked").length == 0) {
-                // At least one radio button in the group is checked
-                $("#messages-erreurs-compte").text("Vous devez choisir un type de compte")
-            }
+                if ($("#nom-compte").val() == "") {
 
-            // Création du compte
-            else {
-                const donnees = {'nom': $("#nom-compte").val(),
-                                'type': $("input[name='type-compte']:checked").val()};
+                    $("#messages-erreurs-compte").text("Vous devez choisir un nom d'utilisateur")
 
-                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer-compte", {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(donnees)
-                })
-                .then(response => {
+                } else if ($("input[name='type-compte']:checked").length == 0) {
 
-                if (response.ok) {
-                        return response.json();
-                }
+                    // At least one radio button in the group is checked
+                    $("#messages-erreurs-compte").text("Vous devez choisir un type de compte")
 
-                else {
-                    console.log("La requête n'a pas fonctionnée");
-                }
-                })
-                .then(data => {
-                    
-                    console.log("Compte créé avec succès");
-                    window.location.reload();
+                } else { // Création du compte
 
-                })
-                .catch(error => {
-                console.log(error);
-                });
+                    const donnees = {'nom': $("#nom-compte").val(),
+                                    'type': $("input[name='type-compte']:checked").val()};
 
+                    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer-compte", {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(donnees)
+                    }) .then(response => {
 
+                        if (response.ok) {
 
+                            return response.json();
+
+                        } else {
+
+                            console.log("La requête n'a pas fonctionnée");
+                        }
+                    })  .then(data => {
+                        
+                        console.log("Compte créé avec succès");
+                        window.location.reload();
+
+                    })  .catch(error => {
+
+                        console.log(error);
+                    });
                 }
             })
+
             console.log("ok");
         }
-
-            
-        })
-        .catch(error => {
+    })  .catch(error => {
 
         console.log("erreur");
-        });
+    });
 
 
     /**
      * Prévient le comportement par défaut des boutons dans les formulaires
      * afin d'utiliser notre propre implémentation
      * */ 
-
     $("form button").on("click", function(event) {
+
         event.preventDefault();
     })
 
@@ -300,7 +287,6 @@ $(document).ready(function() {
     *    Appuie sur le bouton "Réunion"
     */
     $("#creer-reunion").on("click", function() {
-
 
         fermerFormulaires();
 
@@ -330,15 +316,12 @@ $(document).ready(function() {
                 enleverFocus();
             }
 
-        }
-        // Le formulaire est vide
-        else {
+        } else { // Le formulaire est vide
             fermerFormulaires();
             $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("focus");
 
             enleverFocus();
         }
-      
     }) 
 
     /**
@@ -350,17 +333,17 @@ $(document).ready(function() {
         // Le formulaire est actif et l'utilisateur ne clique pas dessus ni sur "Modifier"
         if ($("#formulaires-reunion").has(event.target).length <= 0 &&
              // Empêche le formulaire de fermer dès son ouverture
-             !$(event.target).is("#creer-reunion") &&
-             !$(event.target).is("#modifier-reunion-panneau") &&
-             !$(event.target).is("#btn-creer-tache") &&
-             !$(event.target).closest("#creer-nouveau-compte")) {
+            !$(event.target).is("#creer-reunion") &&
+            !$(event.target).is("#modifier-reunion-panneau") &&
+            !$(event.target).is("#btn-creer-tache") &&
+            !$(event.target).closest("#creer-nouveau-compte")) {
 
             fermerFormulaires();
             enleverFocus();
             $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").removeClass("focus");
-
         }
     })
+
 
     /** Passage à la deuxième partie du formulaire lorsque l'utilisateur 
      *  appuie sur "Continuer"
@@ -384,53 +367,48 @@ $(document).ready(function() {
 
                 // Si la réunion est en cours de modification
                 if (localStorage.getItem('reunionEstModifiee') == "true") {
+
                     $(".formulaire-header").html("Modifier la réunion");
                 }
 
 
                 // Passer à la page suivante selon l'option choisie (groupe ou participants)
                 if ($("#btn-radio")[0].checked) {
+
                     $("#creer-reunion-groupe").addClass("reunion-visible");
                     afficherListeGroupes();
-
                 }
 
                 if ($("#groupes")[0].checked) {
+
                     $("#creer-reunion-participants").addClass("reunion-visible");
                 }
             }
-
-           
-        }
-
-        // Affiche un message d'erreur selon le champ qui n'a pas été rempli
-        else {
+        } else { // Affiche un message d'erreur selon le champ qui n'a pas été rempli
 
             if ($("#titre-reunion").val() == "") {
 
                 $("#messages-erreur").text("Vous devez choisir un titre");
-            }
 
-            else if ($("#debut-reunion").val() == "") {
+            } else if ($("#debut-reunion").val() == "") {
 
                 $("#messages-erreur").text("Vous devez choisir une heure de début");
-            }
 
-            else if($("#fin-reunion").val() == "") {
+            } else if($("#fin-reunion").val() == "") {
 
                 $("#messages-erreur").text("Vous devez choisir une heure de fin");
-            }
 
-            else if ($("#date-reunion").val() == "") {
+            } else if ($("#date-reunion").val() == "") {
 
                 $("#messages-erreur").text("Vous devez choisir une date");
-            }
 
-            else {
+            } else {
+
                 $("#messages-erreur").text("Vous devez choisir entre Groupe et Participants");
             }
         }
     })
+
 
     /**
       * Retour vers la première page du formulaire depuis la page des groupes
@@ -470,107 +448,88 @@ $(document).ready(function() {
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
         fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
-        })
-        .then(response => {
+        })  .then(response => {
     
-        if (response.ok) {
-    
-        return response.json();
-        }
-    
-        else {
-        }
-        })
-        .then(reponse => {
+            if (response.ok) {
+        
+            return response.json();
+            } 
+        })  .then(reponse => {
 
             if (texte == reponse) {
 
                 $("#messages-erreur-participants").text("Vous faites déjà parti de la réunion!");
-            }
 
-            // Le même participant ne doit pas être ajouté plus d'une fois
-        else if (courrrielPresent(texte)) {
-            $("#nouveau-participant").val("");
-            $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
-        }
+            } else if (courrrielPresent(texte)) { // Le même participant ne doit pas être ajouté plus d'une fois
 
-        // Le courriel du participant doit être valide
-        else if (texte != "" && texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-
-            // Le participant doit avoir un compte dans la base de données
-            const courriel = {"courriel": texte};
-    
-            // Cherche le participant dans la table des utilisateurs de la base de données
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_participants", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(courriel)
-            })
-            .then(response => {
-    
-            if (response.ok) {
-                return response.json();
-            }
-    
-            else {
-                console.log("La requête n'a pas fonctionnée");
-            }
-            })
-            .then(data => {
-                
-               // Un utilisateur a été trouvé
-            if (data["existe"]) {
-
-                aConflitHoraire(texte, debutReunion, finReunion, dateReunion);
-                    
-                // Le participant est ajouté à la liste
                 $("#nouveau-participant").val("");
+                $("#messages-erreur-participants").text(texte + " a déjà été ajouté!");
 
-                // Bouton pour supprimer le participant 
-                boutonSupprimer.on("click", function(event) {
-                    event.stopPropagation();
-                    nouveauParticipant.remove();
-                });
- 
-                // Création du participant dans le formulaire 
-                 nouveauParticipant.children("p").text(texte);
-                 nouveauParticipant.append(boutonSupprimer);
-                 $("#liste-participants").append(nouveauParticipant);
- 
-               }
+            } else if (texte != "" && texte.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) { // Le courriel du participant doit être valide
 
-               else {
-
-                $("#messages-erreur-participants").text(texte + " ne correspond pas à un compte HuddleHarbor");
-
-               }
-                
-            })
-            .catch(error => {
-            console.log(error);
-            });
-        }
-
-        // Aucune adresse n'a été entrée 
-        else if (texte == "") {
-            $("#messages-erreur-participants").text("Vous devez entrer une adresse courriel");
-        }
+                // Le participant doit avoir un compte dans la base de données
+                const courriel = {"courriel": texte};
         
-        // L'adresse n'est pas valide
-        else {
+                // Cherche le participant dans la table des utilisateurs de la base de données
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_participants", {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(courriel)
+                })  .then(response => {
+        
+                    if (response.ok) {
+
+                        return response.json();
+                    } else {
+
+                        console.log("La requête n'a pas fonctionnée");
+                    }
+                })  .then(data => {
+                    
+                    // Un utilisateur a été trouvé
+                    if (data["existe"]) {
+
+                        aConflitHoraire(texte, debutReunion, finReunion, dateReunion);
+                            
+                        // Le participant est ajouté à la liste
+                        $("#nouveau-participant").val("");
+
+                        // Bouton pour supprimer le participant 
+                        boutonSupprimer.on("click", function(event) {
+                            event.stopPropagation();
+                            nouveauParticipant.remove();
+                        });
+        
+                        // Création du participant dans le formulaire 
+                        nouveauParticipant.children("p").text(texte);
+                        nouveauParticipant.append(boutonSupprimer);
+                        $("#liste-participants").append(nouveauParticipant);
+        
+                    } else {
+
+                        $("#messages-erreur-participants").text(texte + " ne correspond pas à un compte HuddleHarbor");
+                    }
+                
+                }) .catch(error => {
+
+                    console.log(error);
+
+                });
+            } else if (texte == "") {  // Aucune adresse n'a été entrée 
+
+            $("#messages-erreur-participants").text("Vous devez entrer une adresse courriel");
+
+            }  else { // L'adresse n'est pas valide
+
             $("#messages-erreur-participants").text(texte + " n'est pas une adresse valide!");
-        }
-          
+            }
+        
 
     
-        })
-        .catch(error => {
-        console.log(error);
+        })  .catch(error => {
+            console.log(error);
         });  
-
-        
     }) 
-
 
 
     // Ajout d'une tâche
