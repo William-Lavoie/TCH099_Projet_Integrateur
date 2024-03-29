@@ -40,9 +40,10 @@ auth0.createAuth0Client({
     }else{
 
 
-    if (location.search.includes("state=") && 
-        (location.search.includes("code=") || 
-        location.search.includes("error="))) {
+      if (typeof location.search === 'string' &&
+      (location.search.includes("state=") && 
+      (location.search.includes("code=") || 
+      location.search.includes("error=")))) {
       await auth0Client.handleRedirectCallback();
       window.history.replaceState({}, document.title, "/");
     }
@@ -100,7 +101,7 @@ auth0.createAuth0Client({
     }
 
   }).catch(error => {
-    console.log("Erreur avec Auth0");
+    console.log(error);
   });
 
 });
