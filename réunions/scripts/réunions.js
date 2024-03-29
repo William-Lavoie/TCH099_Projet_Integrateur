@@ -498,6 +498,18 @@ document.addEventListener('DOMContentLoaded', function () {
 //************************* */
 document.addEventListener('DOMContentLoaded', function () {
 
+     //**************************************** */
+    // Update la bar de progression
+    //**************************************** */
+    function updateCompletion(checkedCount, totalCount) {
+        var progressBar = document.getElementById('completion');
+        var valueElement = document.getElementById('valeurCompletion');
+        var completionPercentage = (checkedCount / totalCount) * 100;
+        
+        progressBar.value = completionPercentage;
+        valueElement.textContent = completionPercentage.toFixed(2) + "%";
+    }
+
     // Chercher la liste des tâches
     donnees = {'idReunions': idReunion};
     fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_taches", {
@@ -521,8 +533,11 @@ document.addEventListener('DOMContentLoaded', function () {
             let nbObjectifAAjouter = data.length; 
 
         for (let i = 0; i < nbObjectifAAjouter; i++) {
-            addTasksToContainer(data[i]['titre']);
+            addTasksToContainer(data[i]['titre'], data[i]['completee']);
         }
+
+        // Updater le compteur
+        updateCompletion(totalCheckboxesChecked, document.getElementById("toDo_conteneur").getElementsByTagName("input").length);
 
         })
         .catch(error => {
@@ -539,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    function addTasksToContainer(titre) {
+    function addTasksToContainer(titre, etat) {
         var container = document.getElementById("toDo_conteneur");
 
             // Créer un div pour chaque ligne.
@@ -565,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function () {
             form.appendChild(label);
 
             rowDiv.appendChild(form);
-
             container.appendChild(rowDiv);
 
             // Objectif
@@ -573,6 +587,17 @@ document.addEventListener('DOMContentLoaded', function () {
             nameDiv.classList.add("nomObjectif");
             nameDiv.textContent = titre;
             rowDiv.appendChild(nameDiv);
+
+            if (etat == 1) {
+                input.checked = true;
+                totalCheckboxesChecked++;
+                nameDiv.style.color = 'green';
+            }
+
+            else if (etat == 0) {
+                input.checked = false;
+                nameDiv.style.color = 'red';
+            }
 
             //************************* */
             //changer la couleur des nom et le compte des elements checked quand un checkbox est checked
@@ -638,17 +663,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     
 
-    //**************************************** */
-    // Update la bar de progression
-    //**************************************** */
-    function updateCompletion(checkedCount, totalCount) {
-        var progressBar = document.getElementById('completion');
-        var valueElement = document.getElementById('valeurCompletion');
-        var completionPercentage = (checkedCount / totalCount) * 100;
-        
-        progressBar.value = completionPercentage;
-        valueElement.textContent = completionPercentage.toFixed(2) + "%";
-    }
+   
 }
 });
 
