@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+
 
      //declaration des path dynamic
     const pathDynamic = window.location.origin;
@@ -27,7 +27,8 @@ function basculerGroupes() {
     }
 }
 
-
+document.addEventListener("DOMContentLoaded", function() {
+    
 /**FORMATTER_DATE 
    * Transforme les dates fournies par les objets de type Date() 
    * en format donné par la base de données: aaaa-mm-jj
