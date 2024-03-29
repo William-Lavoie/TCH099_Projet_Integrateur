@@ -69,6 +69,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
                 $query->execute();
 
+            // Création d'une liste des présences pour le créateur 
+            $query = $conn->prepare("INSERT INTO présences_reunions (id_reunions, courriel_utilisateur) 
+            VALUES (:id, :courriel)");
+                $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+                $query->execute();
+
+            $id_presence= $conn->lastInsertId();
+
+            // Création d'une entrée pour chaque autre utilisateur dans la table présence du créateur
+            for ($i = 0; $i < count($participants); $i++) {
+
+                $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
+                                        VALUES (:courriel, null, :id)");
+                    $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
+                    $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                    $query->execute();
+            }
+
             // Création d'une entrée dans la table de jointure pour chaque utilisateur
             for ($i = 0; $i < count($participants); $i++) {
 
@@ -77,7 +96,41 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
                 $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
                 $query->execute();
-            }
+
+
+                // Création d'une liste des présences pour chaque utilisateur 
+                $query = $conn->prepare("INSERT INTO présences_reunions (id_reunions, courriel_utilisateur) 
+                                        VALUES (:id, :courriel)");
+                $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+                $query->execute();
+
+                $id_presence= $conn->lastInsertId();
+
+                // Création d'une entrée pour chaque autre utilisateurs dans la table présence
+                for ($j = 0; $j < count($participants); $j++) {
+
+                    // Le participant ne s'ajoute pas lui-même
+                    if ($j != $i) {
+
+                        $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
+                                            VALUES (:courriel, null, :id)");
+                        $query->bindParam(":courriel", $participants[$j],  PDO::PARAM_STR);
+                        $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                        $query->execute();
+                    }
+                }
+                    
+
+                // Ajout du créateur
+                $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
+                                        VALUES (:courriel, null, :id)");
+                    $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+                    $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                    $query->execute();
+                    
+                }
+            
 
             // Création de la liste des tâches 
             $query = $conn->prepare("INSERT INTO liste_taches (id_reunions) 
@@ -220,6 +273,30 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
                 $query->execute();
+
+
+                 // Création d'une liste des présences pour chaque utilisateur 
+                 $query = $conn->prepare("INSERT INTO présences_reunions (id_reunions, courriel_utilisateur) 
+                 VALUES (:id, :courriel)");
+                $query->bindParam(":courriel", $resultat[$i]['courriel_etudiants'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_reunion,  PDO::PARAM_STR);
+                $query->execute();
+
+                $id_presence= $conn->lastInsertId();
+
+                // Création d'une entrée pour chaque autre utilisateurs dans la table présence
+                for ($j = 0; $j < count($resultat); $j++) {
+
+                // Le participant ne s'ajoute pas lui-même
+                if ($j != $i) {
+
+                    $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
+                                        VALUES (:courriel, null, :id)");
+                    $query->bindParam(":courriel", $resultat[$j]['courriel_etudiants'],  PDO::PARAM_STR);
+                    $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                    $query->execute();
+                }
+}
             }
 
              // Création de la liste des tâches 
