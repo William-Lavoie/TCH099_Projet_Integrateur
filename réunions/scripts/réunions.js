@@ -5,12 +5,11 @@
 // identifiant de la réunion
 var idReunion;
 var totalCheckboxesChecked = 0; // Variable pour suivre le nombre total de cases cochées.
-var pathDynamic;
+const pathDynamic = window.location.origin;
 
 document.addEventListener('DOMContentLoaded', function () {
 
     //declaration des path dynamic
-    pathDynamic = window.location.origin;
 
     // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
     const pageAppelante = window.location.search;
@@ -124,13 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#notes-publiques").append(message);
         $("#notes-publiques").scrollTop($("#notes-publiques")[0].scrollHeight);
         }
-    
-        
-
-    
     })
     .catch(error => {
-        console.log("Erreur");
+        console.log(error);
     });
 
 

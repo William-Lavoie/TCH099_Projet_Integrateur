@@ -1089,7 +1089,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Modifier l'état d'une tâche lors d'une réunion 
-    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
+    if (preg_match("~modifier_tache$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1099,32 +1099,38 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
             require("connexion.php");
 
+            // Chercher l'identifiant de la liste des tâches
+            $query = $conn->prepare("SELECT id_listes_taches FROM liste_taches AS lt INNER JOIN reunions AS r ON lt.id_reunions = r.id_reunions WHERE r.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+
+            $id_liste = $query->fetchColumn();
+
             // La tâche n'est pas complétée
             if ($donnees['etat'] == 0) {
 
-
+                $query = $conn->prepare("UPDATE taches SET completee = 0 WHERE titre = :titre AND id_liste_taches = :id");
+                $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
+                $query->execute();
             }
-               
-            $query = $conn->prepare("UPDATE tache SET completee");
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-            $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
-            $query->bindParam(":type", $donnees['type'],  PDO::PARAM_STR);
-            
-            $query->execute();
-    
-                echo json_encode(["message" => "succès"]);
 
+            // La tâche est complétée
+            else {
+
+                $query = $conn->prepare("UPDATE taches SET completee = 1 WHERE titre = :titre AND id_liste_taches = :id");
+                $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
+                $query->execute();
+            }
+
+            echo json_encode(["message" => "succès"]);
         }
-    
+
         else {
             echo json_encode(["error" => "erreur"]);
         }
-    
     }
-
-        
-
-
 }
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
