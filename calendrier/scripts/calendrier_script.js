@@ -205,7 +205,7 @@ $(document).ready(function() {
 
 
     // Créer un compte lorsque l'utilisateur se connecte pour la première fois 
-    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/compte_existe", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/compte_existe", {
     })
     .then(response => {
 
@@ -244,7 +244,7 @@ $(document).ready(function() {
                 const donnees = {'nom': $("#nom-compte").val(),
                                  'type': $("input[name='type-compte']:checked").val()};
 
-                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer-compte", {
+                fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/creer-compte", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
