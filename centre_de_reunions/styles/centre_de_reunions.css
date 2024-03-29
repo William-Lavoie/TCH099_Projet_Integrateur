@@ -3,6 +3,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 
@@ -15,9 +16,7 @@ main{
     flex-direction: row;
     justify-content: space-around;
     width: 100vw;
-    height: calc(100vh - 10vmin);
-    box-sizing: border-box;
-    box-sizing: content-box;
+    top: 0;
 }
 
 #conteneur-reunions {
@@ -27,7 +26,7 @@ main{
     align-items: center;
     margin-left: 12em;
     width: calc(100% - 14em);
-    transition: ease-out 0.5s;
+    height: calc(100vh - 10vmin);
 }
 
 #conteneur-reunions.bascule{
@@ -46,6 +45,7 @@ main{
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 2vh;
+    top: 0;
 }
 
 #conteneur-reunions-prochaines::-webkit-scrollbar, 
@@ -60,8 +60,7 @@ main{
     align-content: start;
     row-gap: 5vh;
     column-gap: 2%;
-    height: fit-content;
-    min-height: 20em;
+    min-height: 16em;
     max-height: 100vh;
     width: 80% ;
     margin-bottom: 5%;
@@ -223,6 +222,17 @@ main{
     box-sizing: border-box;
     overflow: hidden;
     background-color: white;
+}
+
+@media screen and (max-height: 800px) {
+    .conteneur-reunion {
+        height: 7.5em;
+    }
+
+    #conteneur-reunions-prochaines, 
+    #conteneur-reunions-passees {
+        min-height: 8em;
+    }
 }
 
 .conteneur-reunion:hover {
