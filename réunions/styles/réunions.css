@@ -680,6 +680,9 @@ body.dark .slider:before{
 
 body.dark label,
 body.dark #nom-utilisateur,
-body.dark #contenu-message{
+body.dark #contenu-message
+body.dark #heure-message,
+body.dark #supprimer-message,
+body.dark #modifier-message{
     color: white;
 }

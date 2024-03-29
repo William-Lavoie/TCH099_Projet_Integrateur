@@ -932,7 +932,7 @@ body.dark #nouvelle-reunion,
 body.dark #creer-reunion-groupe,
 body.dark #creer-reunion-participants,
 body.dark #creer-liste-taches,
-body.dark{
+body.dark #formulaire-creer-groupe{
 background-color: rgb(40, 40, 40);
 color: white;
 }
