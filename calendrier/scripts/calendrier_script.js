@@ -536,31 +536,31 @@ $(document).ready(function() {
     $("#btn-creer-tache").on("click", function() {
 
          // Tâche entrée par l'utilisateur
-         let texte = $("#nouvelle-tache").val();
+        let texte = $("#nouvelle-tache").val();
 
          // La tâche est ajoutée à la liste
-         $("#nouvelle-tache").val("");
+        $("#nouvelle-tache").val("");
 
-         const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
-         const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
+        const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
+        const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
 
-         // Bouton pour supprimer le participant 
-         boutonSupprimer.on("click", function(event) {
+        // Bouton pour supprimer le participant 
+        boutonSupprimer.on("click", function(event) {
 
             // Évite de supprimer les parents également
             event.stopPropagation(); 
             $(this).parent().remove();
         });
 
-         // Création du participant dans le formulaire 
-          nouvelleTache.children("p").text(texte);
-          nouvelleTache.append(boutonSupprimer);
-          $("#liste-taches").append(nouvelleTache);
-
+        // Création du participant dans le formulaire 
+        nouvelleTache.children("p").text(texte);
+        nouvelleTache.append(boutonSupprimer);
+        $("#liste-taches").append(nouvelleTache);
     })
 
     // Revenir en arrière à partir du formulaire de création des tâches
     $("#btn-retour-liste").on("click", function() {
+
         event.preventDefault();
         $("#creer-liste-taches").removeClass("reunion-visible");
     })
@@ -572,9 +572,9 @@ $(document).ready(function() {
 
         //TODO ??
         if (groupe === "null" || groupe === undefined) {
+
             $("#espace-vide").text("Vous devez choisir un groupe");
-        }
-        else {
+        } else {
             $("#creer-liste-taches").addClass("reunion-visible");
 
             // Empêche de mettre plusieurs boutons
@@ -583,13 +583,13 @@ $(document).ready(function() {
             $("#creer-liste-taches").children().find(".btn-reunion").append("<button id='btn-confirmer-groupes'>Confirmer</button>");
     
             $("#creer-liste-taches").children().find("#btn-confirmer-groupes").on("click", function(event) {
+
                 event.preventDefault();
                 envoyerFormulaireGroupe();
             });
         }
-        
-
     })
+
 
     // Accéder à la liste des tâches à partir du formulaire des participants
     $("#btn-continuer-participants").on("click", function() {
@@ -604,205 +604,181 @@ $(document).ready(function() {
             $("#creer-liste-taches .btn-reunion").append("<button id='btn-confirmer-participants'>Confirmer</button>");
     
             $("#creer-liste-taches").children().find("#btn-confirmer-participants").on("click", function(event) {
+
                 event.preventDefault();
                 envoyerFormulaireParticipants();
             });
-        }
+        } else {
 
-        else {
             $("#messages-erreur-participants").text("Vous devez ajouter au moins un participant");
-
         }
-    
-
-    
-
     })
 
 
+    function envoyerFormulaireGroupe() {
 
-function envoyerFormulaireGroupe() {
-    let groupe = $("#choix-groupe").val();
-    
-    if (groupe == null) {
-        $("#espace-vide").text("Vous devez choisir un groupe");
-    }
+        let groupe = $("#choix-groupe").val();
+        
+        if (groupe == null) {
 
-    else {
+            $("#espace-vide").text("Vous devez choisir un groupe");
+        } else {
+
+            for (let i = 0; i < $("#liste-taches").children().length; i++) {
+
+                listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
+            }
+        
+            if (groupe != null) {
+
+                const donnees = {"titre": titre,
+                                "debutReunion": debutReunion,
+                                "finReunion": finReunion,
+                                "dateReunion": dateReunion,
+                                "description": description,
+                                "groupe": groupe,
+                                "taches": listeTaches};
+
+                if (localStorage.getItem("reunionEstModifiee") == "false") {
+                    // Les informations de la réunions sont ajoutées à la base de données
+                
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(donnees)
+                })  .then(response => {
+        
+                    if (response.ok) {
+            
+                        // Fermer les formulaires et rafraîchir la page
+                        fermerFormulaires();
+                    //  window.location.reload();
+                        return response.json();
+                    } else {
+
+                        console.log("error");
+                    }
+                })  .catch(error => {
+
+                    console.log(error);
+                });
+                } else { // La réunion est modifiée
+
+                    const donnees = {"titre": titre,
+                                    "debutReunion": debutReunion,
+                                    "finReunion": finReunion,
+                                    "dateReunion": dateReunion,
+                                    "description": description,
+                                    "groupe": groupe,
+                                    "taches": listeTaches,
+                                    "id_reunions": localStorage.getItem("reunionIdentifiant")};
+
+                    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(donnees)
+                    })  .then(response => {
+                
+                        if (response.ok) {
+                
+                            // Fermer les formulaires et rafraîchir la page
+                            fermerFormulaires();
+                            //window.location.reload();
+                            return response.json();
+                        } else {
+
+                            console.log("error");
+                        }
+                    })  .catch(error => {
+                            console.log(error);
+                    });
+                
+                }
+            }
+        
+        }
+    }    
+
+
+    function envoyerFormulaireParticipants() {
+
+        console.log(localStorage.getItem("reunionEstModifiee") == false);
 
         for (let i = 0; i < $("#liste-taches").children().length; i++) {
+
             listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
         }
-    
-        if (groupe != null) {
 
-            const donnees = {"titre": titre,
-            "debutReunion": debutReunion,
-            "finReunion": finReunion,
-            "dateReunion": dateReunion,
-            "description": description,
-            "groupe": groupe,
-            "taches": listeTaches};
+        for (let i = 0; i < $("#liste-participants").children().length; i++) {
 
-            if (localStorage.getItem("reunionEstModifiee") == "false") {
-                // Les informations de la réunions sont ajoutées à la base de données
-            
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_groupes", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-            })
-            .then(response => {
-    
-            if (response.ok) {
-    
-                // Fermer les formulaires et rafraîchir la page
-                fermerFormulaires();
-              //  window.location.reload();
-                return response.json();
-            }
-    
-            else {
-                console.log("error");
-            }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    
+            participantsReunion.push($("#liste-participants").children().eq(i).find("p").text());
         }
 
-        // La réunion est modifiée
-        else {
+        if (localStorage.getItem("reunionEstModifiee") == "false") {
 
+            console.log("test");
+            // Les informations de la réunions sont ajoutées à la base de données
             const donnees = {"titre": titre,
-            "debutReunion": debutReunion,
-            "finReunion": finReunion,
-            "dateReunion": dateReunion,
-            "description": description,
-            "groupe": groupe,
-            "taches": listeTaches,
-            "id_reunions": localStorage.getItem("reunionIdentifiant")};
+                            "debutReunion": debutReunion,
+                            "finReunion": finReunion,
+                            "dateReunion": dateReunion,
+                            "description": description,
+                            "listeParticipants": participantsReunion,
+                            "taches": listeTaches};
 
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_reunion_groupes", {
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_participants", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(donnees)
-                })
-                .then(response => {
-        
+            })  .then(response => {
+
                 if (response.ok) {
-        
+
                     // Fermer les formulaires et rafraîchir la page
                     fermerFormulaires();
                     //window.location.reload();
                     return response.json();
-                }
-        
-                else {
+                } else {
                     console.log("error");
                 }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        
-        }
-    }
-    
-}
-}    
+            })  .catch(error => {
 
-function envoyerFormulaireParticipants() {
-
-    console.log(localStorage.getItem("reunionEstModifiee") == false);
-    for (let i = 0; i < $("#liste-taches").children().length; i++) {
-        listeTaches.push($("#liste-taches").children().eq(i).find("p").text());
-    }
-
-    for (let i = 0; i < $("#liste-participants").children().length; i++) {
-        participantsReunion.push($("#liste-participants").children().eq(i).find("p").text());
-    }
-
-    if (localStorage.getItem("reunionEstModifiee") == "false") {
-
-        console.log("test");
-        // Les informations de la réunions sont ajoutées à la base de données
-        const donnees = {"titre": titre,
-        "debutReunion": debutReunion,
-        "finReunion": finReunion,
-        "dateReunion": dateReunion,
-        "description": description,
-        "listeParticipants": participantsReunion,
-        "taches": listeTaches};
-
-        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/creer_reunion_participants", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(donnees)
-        })
-        .then(response => {
-
-        if (response.ok) {
-
-        // Fermer les formulaires et rafraîchir la page
-        fermerFormulaires();
-        //window.location.reload();
-        return response.json();
-        }
-
-        else {
-        console.log("error");
-        }
-        })
-        .catch(error => {
-        console.log(error);
-        });
-    }
-        // La réunion est modifiée
-        else {
+                console.log(error);
+            });
+        } else { // La réunion est modifiée
 
                 // Les informations de la réunions sont ajoutées à la base de données
             const donnees = {"titre": titre,
-            "debutReunion": debutReunion,
-            "finReunion": finReunion,
-            "dateReunion": dateReunion,
-            "description": description,
-            "listeParticipants": participantsReunion,
-            "taches": listeTaches,
-            "id_reunions": localStorage.getItem("reunionIdentifiant")};
+                            "debutReunion": debutReunion,
+                            "finReunion": finReunion,
+                            "dateReunion": dateReunion,
+                            "description": description,
+                            "listeParticipants": participantsReunion,
+                            "taches": listeTaches,
+                            "id_reunions": localStorage.getItem("reunionIdentifiant")};
 
             fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_reunion_participants", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(donnees)
-            })
-            .then(response => {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+            })  .then(response => {
 
-            if (response.ok) {
+                if (response.ok) {
 
-            // Fermer les formulaires et rafraîchir la page
-            fermerFormulaires();
-            //window.location.reload();
-            return response.json();
-            }
+                // Fermer les formulaires et rafraîchir la page
+                fermerFormulaires();
+                //window.location.reload();
+                return response.json();
+                }  else {
 
-            else {
-            console.log("error");
-            }
-            })
-            .catch(error => {
-            console.log(error);
+                    console.log("error");
+                }
+            })  .catch(error => {
+                console.log(error);
             });
         }
-
-
-
-
-}
-
+    }
 });
-
 
 
 // form count 
