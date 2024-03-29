@@ -9,17 +9,8 @@ var totalCheckboxesChecked = 0; // Variable pour suivre le nombre total de cases
 
 document.addEventListener('DOMContentLoaded', function () {
 
-        //declaration des variables pour un path dynamic
-    let protocol =  window.location.protocol + "//";
-    let location = window.location.hostname;
-    let port = ":" + window.location.port;
-    let pathDynamic;
-
-    if (location === 'localhost' || location === '127.0.0.1'){
-        pathDynamic = protocol + location + port;
-    }else {
-        pathDynamic = protocol + location;
-    }
+    //declaration des path dynamic
+    const pathDynamic = window.location.origin;
 
     // Chercher l'identifiant de la réunion lorsque l'utilisateur arrive sur cette page 
     const pageAppelante = window.location.search;

@@ -1,16 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-  //declaration des variables pour un path dynamic
-  let protocol =  window.location.protocol + "//";
-  let location = window.location.hostname;
-  let port = ":" + window.location.port;
-  let pathDynamic;
-
-  if (location === 'localhost' || location === '127.0.0.1'){
-      pathDynamic = protocol + location + port;
-  }else {
-    pathDynamic = protocol + location;
-  }
+  //declaration des path dynamic
+  const pathDynamic = window.location.origin;
 
 auth0.createAuth0Client({
     domain: "projet-integrateur-eq2.us.auth0.com",
