@@ -204,6 +204,84 @@ $(document).ready(function() {
     }
 
 
+    // Créer un compte lorsque l'utilisateur se connecte pour la première fois 
+    fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/compte_existe", {
+    })
+    .then(response => {
+
+    if (response.ok) {
+
+    return response.json();
+    }
+
+    else {
+    console.log("error");
+    }
+    })
+    .then(data => {
+
+      if (!data['existe']) {
+        
+        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer").addClass("focus");
+        $("main, header, footer, #creer-reunion, aside, #conteneur-basculer, body").css("pointer-events", "none");
+
+        $("#creer-nouveau-compte").addClass("reunion-visible");
+        $("#creer-nouveau-compte").css("pointer-events", "all");
+
+        $("#creer-compte").on("click", function() {
+
+            if ($("#nom-compte").val() == "") {
+                $("#messages-erreurs-compte").text("Vous devez choisir un nom d'utilisateur")
+            }
+
+            else if ($("input[name='type-compte']:checked").length == 0) {
+                // At least one radio button in the group is checked
+                $("#messages-erreurs-compte").text("Vous devez choisir un type de compte")
+            }
+
+            // Création du compte
+            else {
+                const donnees = {'nom': $("#nom-compte").val(),
+                                 'type': $("input[name='type-compte']:checked").val()};
+
+                fetch("http://127.0.0.1:3000/calendrier/api/api_calendrier.php/creer-compte", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(donnees)
+                })
+                .then(response => {
+
+                if (response.ok) {
+                        return response.json();
+                }
+
+                else {
+                    console.log("La requête n'a pas fonctionnée");
+                }
+                })
+                .then(data => {
+                    
+                    console.log("Compte créé avec succès");
+                })
+                .catch(error => {
+                console.log(error);
+                });
+
+                window.location.reload();
+
+
+                }
+            })
+            console.log("ok");
+        }
+
+            
+        })
+        .catch(error => {
+
+        console.log("erreur");
+        });
+
 
     /**
      * Prévient le comportement par défaut des boutons dans les formulaires
@@ -271,7 +349,8 @@ $(document).ready(function() {
              // Empêche le formulaire de fermer dès son ouverture
              !$(event.target).is("#creer-reunion") &&
              !$(event.target).is("#modifier-reunion-panneau") &&
-             !$(event.target).is("#btn-creer-tache")) {
+             !$(event.target).is("#btn-creer-tache") &&
+             !$(event.target).closest("#creer-nouveau-compte")) {
 
             fermerFormulaires();
             enleverFocus();
@@ -759,7 +838,6 @@ function envoyerFormulaireParticipants() {
 
 
 }
-
 
 });
 

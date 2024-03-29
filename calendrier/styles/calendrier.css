@@ -14,7 +14,8 @@ form
 #nouvelle-reunion, 
 #creer-reunion-groupe, 
 #creer-reunion-participants,
-#creer-liste-taches {
+#creer-liste-taches,
+#creer-nouveau-compte {
   height: 65%;
   min-height: 400px;
   aspect-ratio: 3/4;
@@ -114,12 +115,14 @@ form
 
 }
 
-.champs-a-remplir {
+.champs-a-remplir,
+#champs-compte {
   height: 80%;
   padding: 1em;
   display: flex;
   flex-direction: column;
 }
+
 
 label {
   color: black;

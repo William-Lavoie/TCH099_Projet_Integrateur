@@ -1058,6 +1058,35 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     }
 
+
+    // Chercher si un utilisateur a une réunion entre deux heures données 
+    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+    
+        if (isset($donnees['nom'], $donnees['type'])) {
+    
+            require("connexion.php");
+               
+            $query = $conn->prepare("INSERT INTO utilisateurs (nom, type, courriel_utilisateurs) VALUES (:nom, :type, :courriel)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
+            $query->bindParam(":type", $donnees['type'],  PDO::PARAM_STR);
+            
+            $query->execute();
+    
+                echo json_encode(["message" => "succès"]);
+
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
         
 
 
@@ -1175,6 +1204,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         
         else {
             echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+    // Chercher si le courriel de l'utilisateur est associé à un compte 
+    if (preg_match("~compte_existe$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        $query = $conn->prepare("SELECT * FROM utilisateurs WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        if ($resultat) {
+            echo json_encode(["existe" => true]);
+        }
+        
+        else {
+            echo json_encode(["existe" => false]);
         }
     }
 
