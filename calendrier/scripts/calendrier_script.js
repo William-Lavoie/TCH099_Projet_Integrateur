@@ -262,12 +262,13 @@ $(document).ready(function() {
                 .then(data => {
                     
                     console.log("Compte créé avec succès");
+                    window.location.reload();
+
                 })
                 .catch(error => {
                 console.log(error);
                 });
 
-                window.location.reload();
 
 
                 }

@@ -350,8 +350,8 @@ $(document).ready(function() {
       $("#quitter-reunion").on("click", function(event) {
         event.preventDefault();
         $("#consulter-reunion-calendrier").removeClass("ouvrir-reunion");
-
-      })
+        $("main, header, footer, #creer-reunion").removeClass("focus"); 
+      });
 
       // Représenter les différentes réunions dans l'onglet
       $("#panneau-reunions").html("");
@@ -396,19 +396,6 @@ $(document).ready(function() {
   function consulterReunion(reunion, createur) {
 
     if (!reunion.hasClass("reunion-visible-panneau")) {
-
-      // Bouton pour effacer la réunion
-      let boutonEffacer = $("<button id='effacer-reunion'>🗑</button>");
-      $("#consulter-reunion-calendrier span").prepend(boutonEffacer);
-
-      //boutonEffacer.after("#quitter-reunion");
-
-      boutonEffacer.on("click", function() {
-
-        if (confirm("La supression d'une réunion est irréversible, êtes-vous sûr de vouloir continuer?")) {
-          supprimerReunion(reunion);
-        }
-     });
 
       reunion.addClass("reunion-visible-panneau");
       const infoReunions = $("<div id='informations-reunion'></div>");
@@ -475,28 +462,28 @@ $(document).ready(function() {
       })
       .then(reponse => {
           
-       if (reponse == createur) {
-           let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
-           boutonModifier.on("click", function() {
-            console.log(reunion);
-           modifierReunion(reunion);
-          });
+        if (reponse == createur) {
+            let boutonModifier = $("<button id='modifier-reunion-panneau'>Modifier</button>");
+            boutonModifier.on("click", function() {
+              console.log(reunion);
+              modifierReunion(reunion);
+            });
 
-          $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
+            $(reunion).find("#btn-panneau-reunion").append(boutonModifier);
 
-          let boutonSupprimer = $("<button id='supprimer-reunion-panneau'>Supprimer</button>");
-          boutonSupprimer.on("click", function() {
+            // Bouton pour effacer la réunion
+          let boutonEffacer = $("<button id='effacer-reunion'>🗑</button>");
+          $("#consulter-reunion-calendrier span").prepend(boutonEffacer);
+
+          //boutonEffacer.after("#quitter-reunion");
+
+          boutonEffacer.on("click", function() {
 
             if (confirm("La supression d'une réunion est irréversible, êtes-vous sûr de vouloir continuer?")) {
               supprimerReunion(reunion);
             }
-         });
-         $(reunion).find("#btn-panneau-reunion").append(boutonSupprimer);
-
-
-       }  
-
-
+          });
+        }  
       })
       .catch(error => {
       console.log(error);
@@ -748,7 +735,7 @@ $(document).ready(function() {
   function supprimerReunion(reunion) {
 
     donnees = {'idReunions': reunion.data("listeReunionsJournee")['id_reunions']};
-    fetch(window.location.protocol + "//" + window.location.hostname + "calendrier/api/api_calendrier.php/supprimer_reunion", {
+    fetch(window.location.protocol + "//" + window.location.hostname + "/calendrier/api/api_calendrier.php/supprimer_reunion", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(donnees)
@@ -766,7 +753,7 @@ $(document).ready(function() {
         })
         .then(data => {
 
-          window.location.reload();
+          //window.location.reload();
 
         })
         .catch(error => {
