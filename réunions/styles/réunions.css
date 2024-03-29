@@ -678,6 +678,8 @@ body.dark .slider:before{
     background-color: #04071d;
 }
 
-body.dark label{
+body.dark label,
+body.dark #nom-utilisateur,
+body.dark #contenu-message{
     color: white;
 }
