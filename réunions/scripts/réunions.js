@@ -446,7 +446,6 @@ document.addEventListener("DOMContentLoaded", function () {
         //************************* */
         input.addEventListener("change", function () {
             let etat;
-
             var nameElement = this.parentElement.parentElement.previousElementSibling;
             if (this.checked) {
                 nameElement.style.color = "green";
@@ -813,6 +812,26 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (now > meetingEnd.getTime()) {
                 // Si terminé, afficher 0
                 distance = 0;
+
+                donnees = { idReunion: idReunion};
+                // Déterminer si les participants étaient présents ou non 
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/mettre_presences_a_jour", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(donnees),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            console.log("error");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+
             } else {
                 distance = meetingEnd.getTime() - now; // Compte à rebours jusqu'à la fin de la réunion
             }

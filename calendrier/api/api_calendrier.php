@@ -1446,6 +1446,68 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
+    if (preg_match("~mettre_presences_a_jour$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['idReunion'])) {
+    
+            require("connexion.php");
+
+            //Liste des participants à la rencontre
+            $query = $conn->prepare("SELECT courriel_utilisateurs 
+                                     FROM utilisateurs_reunions AS ur
+                                     INNER JOIN reunions AS r
+                                     WHERE r.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetchAll();
+
+
+            //Récupérer les présences pour chacun des participants 
+            for ($i = 0; $i < count($resultat); $i++) {
+
+                $query = $conn->prepare("SELECT p.presence 
+                                    FROM présences AS p
+                                    INNER JOIN présences_reunions AS pr ON p.id_presences_reunions = pr.id_presences_reunions 
+                                    INNER JOIN reunions  AS r ON pr.id_reunions = r.id_reunions
+                                    WHERE r.id_reunions = :id AND p.courriel = :courriel");
+                $query->bindParam(":courriel", $resultat[$i]['courriel_utilisateurs'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+
+                $query->execute();
+                $presences = $query->fetchAll();
+
+                $somme_presences = 0;
+                for ($j = 0; $j < count($presences); $j++) {
+
+                    if ($presences[$j] != null) {
+                        $somme_presences += (int)$presences[$j]['presence'];
+                    }
+                }
+
+                // L'utilisateur est considéré présent si la majorité des utilisateurs l'ont indiqué présent
+                $present = round($somme_presences / count($presences));
+
+                // Insérer la présence dans la table de jointure des utilisateurs et des réunions 
+                $query = $conn->prepare("UPDATE utilisateurs_reunions 
+                                SET presence = :present 
+                                WHERE courriel_utilisateurs = :courriel AND id_reunions = :id");
+                $query->bindParam(":courriel", $resultat[$i]['courriel_utilisateurs'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+                $query->bindParam(":present", $present,  PDO::PARAM_STR);
+                $query->execute();
+            }
+            
+            if ($resultat) {
+                echo json_encode($presences);
+            } else {
+                echo json_encode(["error" => "erreur"]);
+            }
+        }
+    }
+
 
 
 
@@ -1595,6 +1657,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["existe" => false]);
         }
     }
+
+    
 
 
 };
