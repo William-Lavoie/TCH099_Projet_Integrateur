@@ -208,6 +208,86 @@ main{
     font-size: 1.5em;
 }
 
+/*iphone */
+@media only screen and (max-width: 390px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #conteneur-reunions {
+        margin-left: 0;
+        width: calc(100% - 2em);
+    }
+
+    #reunion-a-venir,
+    #reunion-terminees {
+        width: 100%;
+        font-size: 1.5em;
+    }
+
+    #conteneur-reunions-prochaines,
+    #conteneur-reunions-passees {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #conteneur-groupes {
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        border-top: none;
+        flex-direction: row;
+    }
+
+    #conteneur-basculer {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-left: 0;
+    }
+
+    #table-titre {
+        font-size: 1.2em;
+    }
+
+    .groupe {
+        width: 100%;
+        font-size: 0.8em;
+    }
+
+    #table-creer-groupe {
+        width: 100%;
+        font-size: medium;
+        margin: 0.5em;
+    }
+
+    .cellule-groupe {
+        width: 100%;
+    }
+
+    .modifier-groupe {
+        width: 30%;
+    }
+}
+
+
+@media only screen and (max-width: 390px) {
+
+    .conteneur-reunion {
+        height: 4em;
+    }
+
+    #conteneur-reunions-prochaines, 
+    #conteneur-reunions-passees {
+        min-height: 5em;
+    }
+
+    .reunion-entete {
+        height: 1.5em;
+    }
+}
 /*
  * UNE RÉUNION EXEMPLE
  */

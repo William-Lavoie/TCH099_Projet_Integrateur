@@ -371,6 +371,28 @@ main {
     margin-left: 3px;
 }
 
+/* Media query pour iPhone 12 */
+@media only screen and (max-width: 428px) {
+    main {
+        padding: 10px;
+    }
+
+    #calendrier-jour {
+        min-width: auto;
+        width: auto;
+    }
+
+    .jour {
+        width: calc(100% / 3);
+        height: calc(100% / 4);
+        min-height: 30px;
+    }
+
+    #calendrier {
+        height: auto;
+    }
+}
+
 /******************************
 reunion
 *****************************/
@@ -666,6 +688,33 @@ reunion
     pointer-events: none;
 }
 
+@media only screen and (max-width: 390px) { /* iPhone 12 */
+    .reunions-date {
+        padding-top: 10%; 
+    }
+
+    .autre-reunion {
+        height: 40%; 
+        font-size: 0.7em; 
+    }
+
+    #consulter-reunion-calendrier {
+        width: 80%; 
+    }
+
+    .reunion-pour-panneau {
+        height: 15%; 
+    }
+
+    #btn-panneau-reunion button {
+        font-size: 0.9em;
+    }
+
+    #creer-reunion {
+        bottom: 1%; 
+        right: 1%; 
+    }
+}
 
 /*************************************
 dark mode

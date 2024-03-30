@@ -249,6 +249,51 @@ header button, header a {
 
 }
 
+/*querry pour iphone*/
+@media only screen and (max-width: 390px) {
+    header {
+        height: 8vh; 
+    }
+
+    #logo-header {
+        width: 10em; 
+        min-width: 10em;
+        height: 8vh; 
+        min-height: 3em;
+    }
+
+    #conteneur-boutons-header {
+        gap: 3vw; 
+        padding-left: 3vw; 
+    }
+
+    .en-tete-boutons {
+        width: 12vmin; 
+        min-width: 8em;
+        height: 5vh; 
+        min-height: 2em;
+        max-height: 2.5em;
+        font-size: 0.8rem; 
+    }
+
+    #conteneur-compte-header {
+        gap: 0.5vw; 
+    }
+
+    #photo-profil-header {
+        min-width: 2.5em; 
+        min-height: 2.5em;
+    }
+
+    #menu-profil-header {
+        margin-right: 2.5em; 
+        margin-top: 0.5em; 
+        min-width: 8em; 
+        width: 20vw; 
+        min-height: 8em; 
+        height: 10em; 
+    }
+}
 
 /*******************************
 /*PIED DE PAGE
@@ -309,14 +354,29 @@ footer h4{
     width: 15em;
 }
 
-footer a {
-    all: unset;
-}
 
 footer a {
+    all: unset;
     cursor: pointer;
 }
 
+/* Media query pour iPhone 12 */
+@media only screen and (max-width: 390px) {
+    footer {
+        height: auto;
+    }
+
+    footer h4 {
+        font-size: 1.5em; 
+    }
+
+    #terms-policy-footer,
+    #politique-de-confidentialite-footer,
+    #conditions-generales-footer {
+        width: auto;
+        margin: 5px; 
+    }
+}
 
 /********************************
 dark mode switch
