@@ -4,25 +4,30 @@ const pathDynamic = window.location.origin;
  * Basculer la barre latérale (groupes)
  */
 
-function basculerGroupes() {
+    let btnPliable = document.getElementById("basculer")
+
+    btnPliable.addEventListener("click", function () {
+
     var groupes = document.getElementById("conteneur-groupes");
     var btnBasculer = document.getElementById("conteneur-basculer");
     var reunions = document.getElementById("conteneur-reunions");
 
-    if (groupes.style.marginLeft === "-12em") {
+    let estBascule = groupes.classList.toggle("bascule");
+
+    if (!estBascule) {
         // Fermer la barre latérale contenant les groupes
-        groupes.style.marginLeft = "0";
-        btnBasculer.style.marginLeft = "0em";
+        btnBasculer.classList.remove("bascule");
+        groupes.classList.remove("bascule");
         reunions.classList.remove("bascule");
         document.getElementById("basculer").innerText = "⪓";
     } else {
         // Ouvrir la barre latérale contenant les groupes
-        groupes.style.marginLeft = "-12em";
-        btnBasculer.style.marginLeft = "-12em";
+        btnBasculer.classList.add("bascule");
+        groupes.classList.add("bascule");
         reunions.classList.add("bascule");
         document.getElementById("basculer").innerText = "⪔";
     }
-}
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     /**FORMATTER_DATE

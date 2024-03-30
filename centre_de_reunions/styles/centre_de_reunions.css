@@ -27,12 +27,13 @@ main{
     margin-left: 12em;
     width: calc(100% - 14em);
     height: calc(100vh - 10vmin);
+    transition: 0.5s;
 }
 
 #conteneur-reunions.bascule{
     width: 100%;
     margin-left: 0;
-    transition: ease-out 0.5s;
+    transition: 0.5s;
 }
 
 #reunion-a-venir,
@@ -67,7 +68,7 @@ main{
     box-sizing: border-box;
     overflow-y: scroll;
     background-color: lightgray;
-    transition: margin-left 0.5s;
+    transition: 0.5s;
     padding: 2%;
     border-radius: 10px;
     box-shadow: 5px 6px 0px 0px #0000005e;
@@ -92,6 +93,13 @@ main{
     border-top: 1px white solid;
 }
 
+#conteneur-groupes.bascule{
+    width: 0;
+    overflow: hidden;
+    background-color: white;
+    transition: 0.5s;
+}
+
 #conteneur-basculer {
     position: fixed;
     top: 4em;
@@ -102,7 +110,12 @@ main{
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    transition: margin-left 0.5s;
+    transition: 0.5s;
+}
+
+#conteneur-basculer.bascule{
+    left: 1em;
+    transition: 0.5s;
 }
 
 #basculer {
@@ -208,86 +221,7 @@ main{
     font-size: 1.5em;
 }
 
-/*iphone */
-@media only screen and (max-width: 390px) {
-    main {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    #conteneur-reunions {
-        margin-left: 0;
-        width: calc(100% - 2em);
-    }
 
-    #reunion-a-venir,
-    #reunion-terminees {
-        width: 100%;
-        font-size: 1.5em;
-    }
-
-    #conteneur-reunions-prochaines,
-    #conteneur-reunions-passees {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    #conteneur-groupes {
-        position: relative;
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-        border-top: none;
-        flex-direction: row;
-    }
-
-    #conteneur-basculer {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin-left: 0;
-    }
-
-    #table-titre {
-        font-size: 1.2em;
-    }
-
-    .groupe {
-        width: 100%;
-        font-size: 0.8em;
-    }
-
-    #table-creer-groupe {
-        width: 100%;
-        font-size: medium;
-        margin: 0.5em;
-    }
-
-    .cellule-groupe {
-        width: 100%;
-    }
-
-    .modifier-groupe {
-        width: 30%;
-    }
-}
-
-
-@media only screen and (max-width: 390px) {
-
-    .conteneur-reunion {
-        height: 4em;
-    }
-
-    #conteneur-reunions-prochaines, 
-    #conteneur-reunions-passees {
-        min-height: 5em;
-    }
-
-    .reunion-entete {
-        height: 1.5em;
-    }
-}
 /*
  * UNE RÉUNION EXEMPLE
  */
@@ -307,6 +241,7 @@ main{
 @media screen and (max-height: 800px) {
     .conteneur-reunion {
         height: 7.5em;
+        width: 6em;
     }
 
     #conteneur-reunions-prochaines, 
@@ -316,6 +251,7 @@ main{
 
     .reunion-entete {
         height: 2.5em;
+        width: 6em;
     }
 }
 
@@ -477,76 +413,6 @@ main{
 
 
 /*
- * PIED DE PAGE
- */
-
-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #04071d;
-    color: lightgray;
-    text-align: center;
-    left: 0;
-    bottom: 0;;
-    width: 100vw;   
-    height: 8em;
-    margin-top: 1em;
-}
-
-footer h5 {
-    margin: 0;
-    font-size: .8rem;
-}
-
-footer h4 {
-    margin-bottom: 0;
-    margin-top: 0;
-    color: #00c1f3;
-    font-size: 2.5em;
-    font-family: "Monotype Corsiva Bold", "Monotype Corsiva", sans-serif;
-    font-style: italic;
-}
-
-#terms-policy-footer {
-    display: flex;
-    justify-content: space-around;
-    width: 20em;
-}
-
-#politique-de-confidentialite-footer {
-    display: flex;
-    justify-content: flex-end;
-    width: 15em;
-}
-
-#espace-footer {
-    display: flex;
-    justify-content: center;
-    width: 2em;
-    margin-right: 1em;
-    margin-left: 1em;
-}
-
-#conditions-generales-footer {
-    display: flex;
-    justify-content: flex-start;
-    width: 15em;
-}
-
-
-
-footer a {
-    all: unset;
-}
-
-footer a {
-    cursor: pointer;
-}
-
-
-/*
  * AUTRES
  */
 
@@ -570,7 +436,7 @@ footer a {
  * Fenêtre créer un groupe
  */
 
- #conteneur-creer-groupe {
+#conteneur-creer-groupe {
     margin: 0;
     width: 100vw;
     height: 100vh;
@@ -984,6 +850,85 @@ textarea {
     pointer-events: none;
 }
 
+
+/*iphone */
+@media only screen and (max-width: 390px) {
+
+    #conteneur-groupes {
+        left: 0;
+        width: 7em;
+        height: calc(100% - 10vmin);
+        border-top: 1px white solid;
+    }
+
+    #conteneur-basculer {
+        position: fixed;
+        top: 4em;
+        left: 7em;
+        width: 2em;
+        height: calc(100% - 4em);
+    }
+
+    .conteneur-reunion {
+        height: 3.5em;
+        width: 3em;
+    }
+
+    #conteneur-reunions-prochaines, 
+    #conteneur-reunions-passees {
+        min-height: 8em;
+    }
+
+    .reunion-entete {
+        height: 1.25em;
+        width: 3em;
+    }
+
+    .reunion-entete {
+        height: 1em;
+    }
+
+    #reunion-a-venir{
+        font-size: 1.5em;
+    }
+    
+    #reunion-terminees{
+        font-size: 1.5em;
+    }
+
+    .reunion-titre{
+        font-size: 1em;
+    }
+
+    #table-titre{
+        margin-top: 2.5em;
+        font-size: 1em;
+    }
+
+    #table-creer-groupe {
+        min-height: 0em;
+        margin: 0.5em;
+        box-shadow: 3px 3px 10px 0px #00000059;
+        border-radius: 5px;
+        border: 1px solid #ffffff;
+        font-size: small;
+    }
+
+    .groupe {
+        height: 1.5em;
+        font-size: 1em;
+    }
+
+    #creer-reunion {
+        bottom: 3%; 
+        right: 10%; 
+        border-radius: 100%;
+        height: 7.5%;
+        max-height: 6em;
+        font-size: 0.8em;
+        min-width: 0px;
+    }
+}
 
 /*************************
 dark mode

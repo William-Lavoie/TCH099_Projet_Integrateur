@@ -279,15 +279,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Sélectionner les éléments nécessaires pour la transition
-    var btnPliableGauche = document.querySelector("#BtnPliableGauche");
+    let btnPliableGauche = document.querySelector("#BtnPliableGauche");
 
-    var asidePresence = document.querySelector("#presence");
-    var content = document.querySelector("#main_aside");
-    var classBtnPliableGauche = document.querySelector(".BtnPliableGauche");
+    let asidePresence = document.querySelector("#presence");
+    let content = document.querySelector("#main_aside");
+    let classBtnPliableGauche = document.querySelector(".BtnPliableGauche");
 
     btnPliableGauche.addEventListener("click", function () {
         // État de la barre
-        var isCollapsed = asidePresence.classList.toggle("collapsed");
+        let isCollapsed = asidePresence.classList.toggle("collapsed");
 
         // Changer la barre par rapport à son état
         if (isCollapsed) {
@@ -315,15 +315,15 @@ document.addEventListener("DOMContentLoaded", function () {
 //*********************************** */
 document.addEventListener("DOMContentLoaded", function () {
     // Sélectionner les éléments nécessaires pour la transition
-    var btnPliableDroite = document.querySelector("#BtnPliableDroite");
+    let btnPliableDroite = document.querySelector("#BtnPliableDroite");
 
-    var asideTodo = document.querySelector("#to_do");
-    var content = document.querySelector("#main_aside");
-    var classBtnPliableDroite = document.querySelector(".BtnPliableDroite");
+    let asideTodo = document.querySelector("#to_do");
+    let content = document.querySelector("#main_aside");
+    let classBtnPliableDroite = document.querySelector(".BtnPliableDroite");
 
     btnPliableDroite.addEventListener("click", function () {
         // État de la barre
-        var isCollapsed = asideTodo.classList.toggle("collapsed");
+        let isCollapsed = asideTodo.classList.toggle("collapsed");
 
         // Changer la barre par rapport à son état
         if (isCollapsed) {
@@ -350,8 +350,8 @@ document.addEventListener("DOMContentLoaded", function () {
 //slider de satisfaction
 //************************** */
 function updateSliderValue() {
-    var satisfaction = document.getElementById("satisfaction");
-    var valeurSatisfaction = document.getElementById("valeurSatisfaction");
+    let satisfaction = document.getElementById("satisfaction");
+    let valeurSatisfaction = document.getElementById("valeurSatisfaction");
     valeurSatisfaction.innerText = satisfaction.value;
 }
 
