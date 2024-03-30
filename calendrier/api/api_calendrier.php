@@ -82,7 +82,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             for ($i = 0; $i < count($participants); $i++) {
 
                 $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                        VALUES (:courriel, null, :id)");
+                                        VALUES (:courriel, 0, :id)");
                     $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
                     $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                     $query->execute();
@@ -114,7 +114,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                     if ($j != $i) {
 
                         $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                            VALUES (:courriel, null, :id)");
+                                            VALUES (:courriel, 0, :id)");
                         $query->bindParam(":courriel", $participants[$j],  PDO::PARAM_STR);
                         $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                         $query->execute();
