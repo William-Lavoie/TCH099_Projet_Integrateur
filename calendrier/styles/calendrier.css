@@ -673,8 +673,8 @@ reunion
 
 
 
-/* Media query pour iPhone 12 */
-@media only screen and (max-width: 390px) {
+/* Media query pour iPhone */
+@media only screen and (max-width: 430px) {
     
     body{
         overflow-x: hidden;

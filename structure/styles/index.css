@@ -318,8 +318,8 @@ footer a {
 
 
 
-/*querry pour iphone*/
-@media only screen and (max-width: 390px) {
+/*querry pour telephone*/
+@media only screen and (max-width: 430px) {
 
     header {
         height: 10vmin;
