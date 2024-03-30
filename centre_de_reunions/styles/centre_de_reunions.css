@@ -852,7 +852,96 @@ textarea {
 
 
 /*iphone */
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 450px) {
+
+    body{
+        overflow-x: hidden;
+    }
+
+    html{
+        overflow-x: hidden;
+    }
+
+    #conteneur-groupes {
+        left: 0;
+        width: 7em;
+        height: calc(100% - 10vmin);
+        border-top: 1px white solid;
+    }
+
+    #conteneur-basculer {
+        position: fixed;
+        top: 4em;
+        left: 7em;
+        width: 2em;
+        height: calc(100% - 4em);
+    }
+
+    .conteneur-reunion {
+        height: 3.5em;
+        width: 3em;
+    }
+
+    #conteneur-reunions-prochaines, 
+    #conteneur-reunions-passees {
+        min-height: 8em;
+    }
+
+    .reunion-entete {
+        height: 1.25em;
+        width: 3em;
+    }
+
+    .reunion-entete {
+        height: 1em;
+    }
+
+    #reunion-a-venir{
+        font-size: 1.5em;
+    }
+    
+    #reunion-terminees{
+        font-size: 1.5em;
+    }
+
+    .reunion-titre{
+        font-size: 1em;
+    }
+
+    #table-titre{
+        margin-top: 2.5em;
+        font-size: 1em;
+    }
+
+    #table-creer-groupe {
+        min-height: 0em;
+        margin: 0.5em;
+        box-shadow: 3px 3px 10px 0px #00000059;
+        border-radius: 5px;
+        border: 1px solid #ffffff;
+        font-size: small;
+    }
+
+    .groupe {
+        height: 1.5em;
+        font-size: 1em;
+    }
+
+    #creer-reunion {
+        bottom: 3%; 
+        right: 10%; 
+        border-radius: 100%;
+        height: 7.5%;
+        max-height: 6em;
+        font-size: 0.8em;
+        min-width: 0px;
+    }
+}
+
+
+
+/* tablet  */
+@media only screen and (max-width: 600px) {
 
     body{
         overflow-x: hidden;

@@ -1132,21 +1132,7 @@ deuxieme boite
     }
 }
 
-/* Media Query for iPhone 12 */
-@media only screen and (max-device-width: 390px) and (max-device-height: 844px) {
-    #deuxieme-boite-aprendre {
-        padding: 10px; 
-    }
 
-    #deuxieme-boite-aprendre h1{
-        font-size: 1em;
-    }
-    #deuxieme-message-boite-deux,
-    #troisieme-message-boite-deux {
-        width: 100%; 
-        height: auto; 
-    }
-}
 
 /*************************************
 troisieme boite
@@ -1267,10 +1253,44 @@ cinquieme boite
     border: #04071d solid 1px;
 }
 
-/* Media Query pour iPhone 12 */
-@media only screen and (max-width: 390px) {
+/* Media Query pour iPhone  */
+@media only screen and (max-width: 450px) {
     #cinquieme-boite-aprendre img {
         max-width: 80%; 
         max-height: 80%; 
+    }
+
+    #deuxieme-boite-aprendre {
+        padding: 10px; 
+    }
+
+    #deuxieme-boite-aprendre h1{
+        font-size: 1em;
+    }
+    #deuxieme-message-boite-deux,
+    #troisieme-message-boite-deux {
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+/* Media Query pour tablet  */
+@media only screen and (max-width: 600px) {
+    #cinquieme-boite-aprendre img {
+        max-width: 80%; 
+        max-height: 80%; 
+    }
+
+    #deuxieme-boite-aprendre {
+        padding: 10px; 
+    }
+
+    #deuxieme-boite-aprendre h1{
+        font-size: 1em;
+    }
+    #deuxieme-message-boite-deux,
+    #troisieme-message-boite-deux {
+        width: 100%; 
+        height: auto; 
     }
 }

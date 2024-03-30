@@ -318,8 +318,8 @@ footer a {
 
 
 
-/*querry pour telephone*/
-@media only screen and (max-width: 430px) {
+/* iphone*/
+@media only screen and (max-width: 450px) {
 
     header {
         height: 10vmin;
@@ -456,6 +456,145 @@ footer a {
 
 }
 
+
+
+/*tablet  */
+@media only screen and (max-width: 600px) {
+
+    header {
+        height: 10vmin;
+        position:sticky
+    }
+
+    #logo-header {
+        display: none;
+    }
+
+    #conteneur-boutons-header {
+        flex-direction: row;
+        align-items: center;
+        min-width: 10em;
+        min-height: 4em;
+        height: 10vmin;
+        gap: 5vw;
+        padding-left: 5vw;
+        margin-left: 10vmin;
+    }
+
+    .en-tete-boutons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 18vmin;
+        min-width: 1em;
+        max-width: 16em;
+        height: 6vmin;
+        min-height: 2.5em;
+        max-height: 3.5em;
+        border: 0.1rem solid white;
+        border-radius: 0.5em;
+        font-size: 0.8rem;
+    }
+
+    #conteneur-compte-header {
+        min-height: 4em;
+        height: 10vmin;
+        margin-right: 1em;
+        gap: 1vw;
+    }
+
+    #conteneur-header-variable {
+        min-height: 4em;
+        height: 10vmin;    
+    }
+
+    #photo-profil-header {
+        min-width: 3em;
+        min-height: 3em;
+    }
+
+    #fond-en-tete {
+        width: 100vw;
+        min-height: 4em;
+        height: 10vmin;
+    }
+
+    #ligne-bleu-header {
+        width: 100vw;
+        min-height: 2em;
+        height: 5vh;
+    }
+
+    #ligne-blanche-header {
+        width: 100vw;
+        min-height: 2em;
+        height: 5vh;
+    }
+
+    #lignes-decoratives-header {
+        border-bottom: 5px double #04071d;
+    }
+
+    .en-tete-petit-boutons{
+        display: none;
+    }
+
+    #menu-profil-header {
+    margin-right: 3.5em;
+    margin-top: 1em;
+    min-width: 10em;
+    width: 15vw;
+    min-height: 10em;
+    height: 12em;
+    box-shadow: 0px 0px 20px 0px #04071d58;
+    border: 1px solid #04071d35;
+    border-radius: 10px;
+    }
+
+    #info-header {
+        border-bottom: 1px solid #04071d35;
+        padding: 0.6em;
+    }
+
+    #toggleTheme{
+        font-size: 1.5em;
+    }
+
+    #page-profil-header {
+        height: 6em;
+        border-bottom: 1px solid #04071d35;
+    }
+
+    #deconnexion {
+        height: 4em;
+    }
+
+    footer {
+        height: 4em;
+    }
+    
+    footer h5 {
+        font-size: .8rem;
+    }
+    
+    footer h4{
+        font-size: 1.5em;
+    }
+    
+    #terms-policy-footer{
+        display: flex;
+        justify-content: space-around;
+        width: 25em;
+    }
+    
+    #politique-de-confidentialite-footer{
+        display: flex;
+        justify-content: flex-end;
+        width: 15em;
+    }
+
+
+}
 
 
 

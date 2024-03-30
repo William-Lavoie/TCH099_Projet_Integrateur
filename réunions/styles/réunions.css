@@ -642,7 +642,100 @@ li span {
 
 
 /*iphone */
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 450px) {
+
+    body{
+        overflow-x: hidden;
+    }
+
+    html{
+        overflow-x: hidden;
+    }
+
+    #boite_horloge{
+        display: none;
+    }
+
+    #presence,
+    #to_do{ 
+        top: 3.2em;
+        width: 7em;
+        height: calc(100% - 10vmin);
+        border-top: 1px white solid;
+    }
+
+    #titre-nouvelle-tache{
+        width: 7em; 
+    }
+    h3{
+        font-size: 1em;
+    }
+    .BtnPliableGauche{
+        position:fixed;
+        left: 7em;
+    }
+    
+    .BtnPliableDroite{
+        position:fixed;
+        right: 7em;
+    }
+    .BtnPliableGauche.collapsed {
+        left: 2vmin;
+    }
+    
+    .BtnPliableDroite.collapsed {
+        right: 2vmin;
+    }
+
+    .switch_presence,
+    .switch_toDo {
+        width: 35px; 
+        height: 14px; 
+    }
+
+    .slider {
+        border-radius: 8px; 
+    }
+
+    .slider:before {
+        height: 12px; 
+        width: 12px; 
+        left: 1px; 
+        bottom: 1px; 
+    }
+    
+    input:checked + .slider:before {
+        -webkit-transform: translateX(21px); 
+        -ms-transform: translateX(21px); 
+        transform: translateX(21px); 
+    }
+    
+    .slider.round {
+        border-radius: 14px; 
+    }
+    
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    label{
+        font-size: 0.7em;
+    }
+
+    #satisfaction_conteneur,
+    #complete_conteneur {   
+        height: 2.5;
+    }
+
+    .nomPresence{
+        font-size: 0.7em;
+    }
+
+    
+}
+
+/*tablet */
+@media only screen and (max-width: 600px) {
 
     body{
         overflow-x: hidden;

@@ -674,7 +674,7 @@ reunion
 
 
 /* Media query pour iPhone */
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 450px) {
     
     body{
         overflow-x: hidden;
@@ -821,6 +821,155 @@ reunion
         font-size: 2.1em;
     }
 
+    
+/* tablet  */
+@media only screen and (max-width: 600px) {
+    
+    body{
+        overflow-x: hidden;
+    }
+
+    html{
+        overflow-x: hidden;
+    }
+    /******************************
+    form 
+    ******************************/
+    
+    #nouvelle-reunion, 
+    #creer-reunion-groupe, 
+    #creer-reunion-participants,
+    #creer-liste-taches,
+    #creer-nouveau-compte {
+        min-height: 0px;
+        aspect-ratio: 3/4;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        box-shadow: 2px 2px 2px black;
+    }
+    
+    #titre-reunion-form{
+        height: 5vmin;
+    }
+    
+    #titre-reunion{
+        font-size: 2em;
+    }
+
+    #date-reunion-form{
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #description-reunion{
+        border-radius: 1em;
+        border: 1px solid lightgray;
+    }
+    
+    #btn-radios {
+        margin-top: 2em;
+    }
+    
+    .formulaire-header {
+        font-size: 1.5rem;
+        text-align: center;    
+    }
+    
+    .champs-a-remplir,
+    #champs-compte {
+        padding: 1em;
+    }
+    
+    label {
+        font-size: 1em;
+        margin-right: 1em;
+    }
+    
+    .champ-reunion {
+        margin-bottom: 1em;
+    }
+    
+    #debut-reunion, #fin-reunion {
+        width: 6em;
+        font-size: 0.8rem;
+    }
+
+    #effacer-reunion {
+        font-size: 1em;
+        margin-right: 0.5em;
+    }
+    
+    span {
+        padding-left: 1em;
+    }
+    
+    #quitter-reunion {
+        font-size: 1em;
+    }
+    
+    #effacer-reunion:hover,
+    #quitter-reunion:hover {
+        font-size: 110%;
+    }
+
+    .btn-reunion button{
+        border-radius: 0.5em;
+        width: 40%;
+        padding: 2%
+    }
+    
+    .reunion-journee {
+        font-size: 0.5em;
+        border-radius: 10px;
+        margin-bottom: 2%;
+        padding-left: 3%;
+        border: 1px solid lightgray;
+    }
+
+    #ajout-participant-label {
+        padding-left: 0.5em;
+        font-size: 1.2em;
+    }
+    
+    #btn-creer-participant, #btn-creer-tache {
+        border-radius: 50%;
+        height: 2.5em;
+        width: 2.5em;
+        font-size: 100%;
+    }
+
+    #nouveau-participant, #nouvelle-tache {
+        height: 2.5em;
+        border-radius: 2em;
+        padding-left: 1em;
+        margin-right: 1em;
+        border: 2px solid lightgray;
+    }
+    
+    #nouveau-participant-creer {
+        margin-top: 0.4em;
+    }
+    
+    #liste-participants, #liste-taches{
+        height: 50%;
+        max-height: 150px;
+        margin-top: 0.5em;
+    }
+    
+    .nom-participant {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 2%;
+    }
+
+    .supprimer-participant, .supprimer-tache {
+        font-size: 1.8em;
+    }
+    
+    .supprimer-participant:hover, .supprimer-tache:hover {
+        font-size: 2.1em;
+    }
+}
     /************************************
     /* main 
     /************************************/
