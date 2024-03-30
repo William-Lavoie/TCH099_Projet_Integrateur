@@ -742,6 +742,20 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->bindParam(":id_liste", $id_liste,  PDO::PARAM_STR);
             $query->execute();
 
+            // Supprimer les présences
+            $query = $conn->prepare("DELETE p FROM présences AS p INNER JOIN présences_reunions AS pr  
+                                    WHERE pr.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+            // Supprimer la liste des présences
+            $query = $conn->prepare("DELETE FROM présences_reunions 
+            WHERE id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->execute();
+
+
+
             echo json_encode("Succès");
         } else {
             echo json_encode(["error" => "erreur"]);
