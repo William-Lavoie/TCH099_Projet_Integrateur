@@ -82,7 +82,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             for ($i = 0; $i < count($participants); $i++) {
 
                 $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                        VALUES (:courriel, null, :id)");
+                                        VALUES (:courriel, 0, :id)");
                     $query->bindParam(":courriel", $participants[$i],  PDO::PARAM_STR);
                     $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                     $query->execute();
@@ -114,7 +114,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                     if ($j != $i) {
 
                         $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                            VALUES (:courriel, null, :id)");
+                                            VALUES (:courriel, 0, :id)");
                         $query->bindParam(":courriel", $participants[$j],  PDO::PARAM_STR);
                         $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                         $query->execute();
@@ -1643,18 +1643,22 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT * 
-                                FROM utilisateurs 
-                                WHERE courriel_utilisateurs = :courriel");
-        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-        $query->execute();
-        $resultat = $query->fetch();
+        if (isset($_SESSION['courriel'])) {
 
-        if ($resultat) {
+            $query = $conn->prepare("SELECT * 
+            FROM utilisateurs 
+            WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+            if ($resultat) {
             echo json_encode(["existe" => true]);
-        } else {
+            } else {
             echo json_encode(["existe" => false]);
+            }
         }
+       
     }
 
     
