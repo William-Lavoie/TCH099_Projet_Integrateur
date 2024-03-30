@@ -321,13 +321,12 @@ justify-content: center;
 /* main 
 /************************************/
 main {
-        height: calc(100vh - 10vmin);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        margin: 0;
-    
+    height: calc(100vh - 10vmin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin: 0;
     }
 
 #calendrier-jour {
@@ -371,27 +370,7 @@ main {
     margin-left: 3px;
 }
 
-/* Media query pour iPhone 12 */
-@media only screen and (max-width: 428px) {
-    main {
-        padding: 10px;
-    }
 
-    #calendrier-jour {
-        min-width: auto;
-        width: auto;
-    }
-
-    .jour {
-        width: calc(100% / 3);
-        height: calc(100% / 4);
-        min-height: 30px;
-    }
-
-    #calendrier {
-        height: auto;
-    }
-}
 
 /******************************
 reunion
@@ -688,32 +667,284 @@ reunion
     pointer-events: none;
 }
 
-@media only screen and (max-width: 390px) { /* iPhone 12 */
-    .reunions-date {
-        padding-top: 10%; 
+
+
+
+
+/* Media query pour iPhone 12 */
+@media only screen and (max-width: 390px) {
+    
+    body{
+        overflow-x: hidden;
     }
+
+    html{
+        overflow-x: hidden;
+    }
+    /******************************
+    form 
+    ******************************/
+    
+    #nouvelle-reunion, 
+    #creer-reunion-groupe, 
+    #creer-reunion-participants,
+    #creer-liste-taches,
+    #creer-nouveau-compte {
+        min-height: 0px;
+        aspect-ratio: 3/4;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        box-shadow: 2px 2px 2px black;
+    }
+    
+    #titre-reunion-form{
+        height: 5vmin;
+    }
+    
+    #titre-reunion{
+        font-size: 2em;
+    }
+
+    #date-reunion-form{
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    #description-reunion{
+        border-radius: 1em;
+        border: 1px solid lightgray;
+    }
+    
+    #btn-radios {
+        margin-top: 2em;
+    }
+    
+    .formulaire-header {
+        font-size: 1.5rem;
+        text-align: center;    
+    }
+    
+    .champs-a-remplir,
+    #champs-compte {
+        padding: 1em;
+    }
+    
+    label {
+        font-size: 1em;
+        margin-right: 1em;
+    }
+    
+    .champ-reunion {
+        margin-bottom: 1em;
+    }
+    
+    #debut-reunion, #fin-reunion {
+        width: 6em;
+        font-size: 0.8rem;
+    }
+
+    #effacer-reunion {
+        font-size: 1em;
+        margin-right: 0.5em;
+    }
+    
+    span {
+        padding-left: 1em;
+    }
+    
+    #quitter-reunion {
+        font-size: 1em;
+    }
+    
+    #effacer-reunion:hover,
+    #quitter-reunion:hover {
+        font-size: 110%;
+    }
+
+    .btn-reunion button{
+        border-radius: 0.5em;
+        width: 40%;
+        padding: 2%
+    }
+    
+    .reunion-journee {
+        border-radius: 10px;
+        margin-bottom: 2%;
+        padding-left: 3%;
+        border: 1px solid lightgray;
+    }
+
+    #ajout-participant-label {
+        padding-left: 0.5em;
+        font-size: 1.2em;
+    }
+    
+    #btn-creer-participant, #btn-creer-tache {
+        border-radius: 50%;
+        height: 2.5em;
+        width: 2.5em;
+        font-size: 100%;
+    }
+
+    #nouveau-participant, #nouvelle-tache {
+        height: 2.5em;
+        border-radius: 2em;
+        padding-left: 1em;
+        margin-right: 1em;
+        border: 2px solid lightgray;
+    }
+    
+    #nouveau-participant-creer {
+        margin-top: 0.4em;
+    }
+    
+    #liste-participants, #liste-taches{
+        height: 50%;
+        max-height: 150px;
+        margin-top: 0.5em;
+    }
+    
+    .nom-participant {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 2%;
+    }
+
+    .supprimer-participant, .supprimer-tache {
+        font-size: 1.8em;
+    }
+    
+    .supprimer-participant:hover, .supprimer-tache:hover {
+        font-size: 2.1em;
+    }
+
+    /************************************
+    /* main 
+    /************************************/
+    main {
+        height: calc(100vh - 10vmin);
+        flex: 1;
+        margin: 0;
+    }
+    
+    #calendrier-jour {
+        height: calc(100vh - 10vmin);
+        width: 100vw;
+        min-width: 0px;
+    }
+    
+    #calendrier {
+        margin: 0;
+        height: 200%;
+        border: 1px solid black;
+    }
+    
+    .jour {
+        width: calc(100%/7);
+        height: calc(100%/6);
+        border: 1px solid darkgray;
+        padding: 0.2%;
+        min-height: 0px;
+    }
+    
+    #pas-mois-courant{
+        border: 1px solid white;
+    }
+    
+    .jour p {
+        margin-top: 3px;
+        margin-left: 3px;
+    }
+    
+    
+    
+    /******************************
+    reunion
+    *****************************/
 
     .autre-reunion {
-        height: 40%; 
-        font-size: 0.7em; 
+        font-size: 0.8em;
+        border: 1px solid black;
     }
-
+    
+    #calendrier .autre-reunion:hover {
+        opacity: 50%;
+    }
+    
+    .jour:hover,
+    #pas-mois-courant:hover {
+            background-color: lightgray;    
+    }
+    
+    
     #consulter-reunion-calendrier {
-        width: 80%; 
+        border-radius: 0.5em;
+        box-shadow: 5px 5px 13px 0px black;
+        transition: 0.5s height, 0.5s width;
     }
-
+    
+    #consulter-reunion-calendrier span {
+        font-size: 1.7em;
+    }
+    
     .reunion-pour-panneau {
-        height: 15%; 
+        border: 2px solid black;
+        border-radius: 1em;
+        font-size: 1em;
     }
 
     #btn-panneau-reunion button {
-        font-size: 0.9em;
+        border-radius: 0.5em;
+        font-size: 1.1em;
     }
 
-    #creer-reunion {
-        bottom: 1%; 
-        right: 1%; 
+    .ouvrir-reunion {
+        height: max(60vmin,400px) !important;
+        width: max(45vmin, 300px) !important;
+        border: 2px solid black;
     }
+    
+    .participant-pour-reunion {
+        font-size: 1.2em;
+    }
+
+    #journee-mois {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vmin;
+        width: 9em;
+        font-size: 0.8rem;
+        }
+    
+    
+    #journee-mois button {
+        font-size: 1em;
+    }
+    
+
+    #calendrier-journees-semaine {
+        margin-top: 5vmin;
+        width: 100%;
+        height: 100%;
+        min-height: 0px;
+    }
+
+    .journee {
+        width: calc(100%/7);
+        top: 20%;
+    }
+    
+    #creer-reunion {
+    bottom: 3%; 
+    right: 10%; 
+    border-radius: 100%;
+    height: 7.5%;
+    max-height: 6em;
+    font-size: 0.8em;
+    min-width: 0px;
+    }
+
 }
 
 /*************************************
