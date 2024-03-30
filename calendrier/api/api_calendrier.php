@@ -124,7 +124,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
                 // Ajout du créateur
                 $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                        VALUES (:courriel, null, :id)");
+                                        VALUES (:courriel, 0, :id)");
                     $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
                     $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                     $query->execute();
@@ -291,7 +291,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                     if ($j != $i) {
 
                         $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                            VALUES (:courriel, null, :id)");
+                                            VALUES (:courriel, 0, :id)");
                         $query->bindParam(":courriel", $resultat[$j]['courriel_etudiants'],  PDO::PARAM_STR);
                         $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                         $query->execute();
@@ -435,7 +435,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                     if ($j != $i) {
 
                         $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                            VALUES (:courriel, null, :id)");
+                                            VALUES (:courriel, 0, :id)");
                         $query->bindParam(":courriel", $resultat[$j]['courriel_etudiants'],  PDO::PARAM_STR);
                         $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                         $query->execute();
@@ -563,7 +563,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             for ($j = 0; $j < count($participants); $j++) {
 
                     $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                        VALUES (:courriel, null, :id)");
+                                        VALUES (:courriel, 0, :id)");
                     $query->bindParam(":courriel", $participants[$j],  PDO::PARAM_STR);
                     $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                     $query->execute();
@@ -595,7 +595,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                     if ($j != $i) {
 
                         $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                                            VALUES (:courriel, null, :id)");
+                                            VALUES (:courriel, 0, :id)");
                         $query->bindParam(":courriel", $participants[$j],  PDO::PARAM_STR);
                         $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                         $query->execute();
@@ -603,7 +603,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 }        
 
                 $query = $conn->prepare("INSERT INTO présences (courriel, presence, id_presences_reunions) 
-                VALUES (:courriel, null, :id)");
+                VALUES (:courriel, 0, :id)");
                 $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
                 $query->execute();
@@ -1277,67 +1277,176 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
+     // Créer un compte lorsque l'utilisateur se connecte pour la première fois
+     if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-    // Chercher si un utilisateur a une réunion entre deux heures données 
-    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
-        if (preg_match("~modifier_tache$~", $_SERVER['REQUEST_URI'], $matches)) {
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
     
-            $donnees_json = file_get_contents('php://input');
-            $donnees = json_decode($donnees_json, true);
-        
-            if (isset($donnees['titre'], 
-                    $donnees['etat'], 
-                    $donnees['idReunion'])) {
-        
-                require("connexion.php");
-
-                // Chercher l'identifiant de la liste des tâches
-                $query = $conn->prepare("SELECT id_listes_taches 
-                                        FROM liste_taches AS lt 
-                                        INNER JOIN reunions AS r ON lt.id_reunions = r.id_reunions 
-                                        WHERE r.id_reunions = :id");
-                $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
-                $query->execute();
     
-                $id_liste = $query->fetchColumn();
+        if (isset($donnees['nom'], $donnees['type'])) {
     
-                // La tâche n'est pas complétée
-                if ($donnees['etat'] == 0) {
-    
-                    $query = $conn->prepare("UPDATE taches 
-                                            SET completee = 0 
-                                            WHERE titre = :titre 
-                                                AND id_liste_taches = :id");
-                    $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
-                    $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
-                    $query->execute();
-                } else { // La tâche est complétée
-    
-                    $query = $conn->prepare("UPDATE taches 
-                                            SET completee = 1 
-                                            WHERE titre = :titre 
-                                                AND id_liste_taches = :id");
-                    $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
-                    $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
-                    $query->execute();
-                }
-                
-                $query = $conn->prepare("UPDATE tache 
-                                        SET completee");
-                $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-                $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
-                $query->bindParam(":type", $donnees['type'],  PDO::PARAM_STR);
-                
-                $query->execute();
-        
-                echo json_encode(["message" => "succès"]);
+            require("connexion.php");
+               
+            $query = $conn->prepare("INSERT INTO utilisateurs (nom, type, courriel_utilisateurs) VALUES (:nom, :type, :courriel)");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
+            $query->bindParam(":type", $donnees['type'],  PDO::PARAM_STR);
+            
+            $query->execute();
     
                 echo json_encode(["message" => "succès"]);
-            } else {
-                echo json_encode(["error" => "erreur"]);
+
+        }
+    
+        else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    
+    }
+
+
+    // Modifier l'état d'une tâche
+    if (preg_match("~modifier_tache$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['titre'], 
+                $donnees['etat'], 
+                $donnees['idReunion'])) {
+    
+            require("connexion.php");
+
+            // Chercher l'identifiant de la liste des tâches
+            $query = $conn->prepare("SELECT id_listes_taches 
+                                    FROM liste_taches AS lt 
+                                    INNER JOIN reunions AS r ON lt.id_reunions = r.id_reunions 
+                                    WHERE r.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+
+            $id_liste = $query->fetchColumn();
+
+            // La tâche n'est pas complétée
+            if ($donnees['etat'] == 0) {
+
+                $query = $conn->prepare("UPDATE taches 
+                                        SET completee = 0 
+                                        WHERE titre = :titre 
+                                            AND id_liste_taches = :id");
+                $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
+                $query->execute();
+            } else { // La tâche est complétée
+
+                $query = $conn->prepare("UPDATE taches 
+                                        SET completee = 1 
+                                        WHERE titre = :titre 
+                                            AND id_liste_taches = :id");
+                $query->bindParam(":titre", $donnees['titre'],  PDO::PARAM_STR);
+                $query->bindParam(":id", $id_liste,  PDO::PARAM_STR);
+                $query->execute();
             }
+    
+            echo json_encode(["message" => "succès"]);
+        } else {
+            echo json_encode(["error" => "erreur"]);
         }
     }
+
+
+     // Chercher les autres participants pour une réunion donnée
+     if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+    
+            $idReunions = $donnees['idReunions'];
+
+            $query = $conn->prepare("SELECT id_presences_reunions FROM présences_reunions WHERE id_reunions = :id AND courriel_utilisateur = :courriel");
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+
+            $query->execute();
+            $id_presence = $query->fetchColumn();
+
+            $query = $conn->prepare("SELECT DISTINCT u.nom, u.courriel_utilisateurs, pre.presence, pre.id_presences_reunions 
+                                    FROM utilisateurs AS u 
+                                    INNER JOIN utilisateurs_reunions AS ur ON u.courriel_utilisateurs = ur.courriel_utilisateurs 
+                                    INNER JOIN présences_reunions AS pr ON pr.id_reunions = ur.id_reunions
+                                    INNER JOIN présences AS pre ON pre.id_presences_reunions = pr.id_presences_reunions
+                                    WHERE ur.id_reunions = :id AND u.courriel_utilisateurs NOT LIKE :courriel AND pre.id_presences_reunions = :id_presence");
+            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":id_presence", $id_presence,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+    // Marquer un membre d'une réunion comme présent ou absent
+    if (preg_match("~modifier_presence$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['courriel'], 
+                $donnees['etat'], 
+                $donnees['idReunion'])) {
+    
+            require("connexion.php");
+
+            // Chercher l'identifiant de la liste des tâches
+            $query = $conn->prepare("SELECT id_presences_reunions
+                                    FROM présences_reunions 
+                                    WHERE id_reunions = :id AND courriel_utilisateur = :courriel");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+
+            $query->execute();
+
+            $id_presence = $query->fetchColumn();
+
+            // La tâche n'est pas complétée
+            if ($donnees['etat'] == 0) {
+
+                $query = $conn->prepare("UPDATE présences 
+                                        SET presence = 0 
+                                        WHERE id_presences_reunions = :id 
+                                        AND courriel = :courriel");
+                $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+                $query->execute();
+            } else { // La tâche est complétée
+
+                $query = $conn->prepare("UPDATE présences 
+                                        SET presence = 1
+                                        WHERE id_presences_reunions = :id 
+                                        AND courriel = :courriel");
+                $query->bindParam(":id", $id_presence,  PDO::PARAM_STR);
+                $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+                $query->execute();
+            }
+    
+            echo json_encode(["message" => "succès"]);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
 
 
 }

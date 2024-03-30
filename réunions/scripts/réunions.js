@@ -360,10 +360,10 @@ function updateSliderValue() {
 //************************* */
 document.addEventListener("DOMContentLoaded", function () {
     // Chercher la liste des participants
-    donnees = { idReunions: idReunion };
+    donnees = { 'idReunions': idReunion };
     fetch(
         pathDynamic +
-            "/calendrier/api/api_calendrier.php/chercher_liste_participants",
+            "/calendrier/api/api_calendrier.php/chercher_presences_reunions",
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -387,14 +387,14 @@ document.addEventListener("DOMContentLoaded", function () {
             let nbNomAAjouter = data.length;
 
             for (let i = 0; i < nbNomAAjouter; i++) {
-                addRowsToContainer(data[i]["nom"]);
+                addRowsToContainer(data[i]["nom"], data[i]['presence'], data[i]['courriel_utilisateurs']);
             }
         })
         .catch((error) => {
             console.log(error);
         });
 
-    function addRowsToContainer(nom) {
+    function addRowsToContainer(nom, present, courriel) {
         var container = document.getElementById("presence_conteneur");
 
         var rowDiv = document.createElement("div");
@@ -433,16 +433,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
         container.appendChild(rowDiv);
 
+        if (present == 1) {
+            input.checked = true;
+            nameDiv.style.color = "green";
+        } else if (present == 0) {
+            input.checked = false;
+            nameDiv.style.color = "red";
+        }
+
         //************************* */
         //changer la couleur des nom quand un checkbox est cheked
         //************************* */
         input.addEventListener("change", function () {
+            let etat;
+
             var nameElement = this.parentElement.parentElement.previousElementSibling;
             if (this.checked) {
                 nameElement.style.color = "green";
+                etat = 1;
             } else {
                 nameElement.style.color = "red"; // Réinitialiser en rouge lorsque l'utilisateur désactive le basculement.
+                etat = 0;
             }
+
+
+            // Modifier l'état de la tâche
+            donnees = { 'courriel': courriel, 'etat': etat, 'idReunion': idReunion };
+            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_presence", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(donnees),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        console.log("error");
+                    }
+                })
+                .then((data) => {
+                    console.log("Succès");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
         });
     }
 
@@ -588,7 +623,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Modifier l'état de la tâche
-            donnees = { titre: titre, etat: etat, idReunion: idReunion };
+            donnees = { 'titre': titre, 'etat': etat, 'idReunion': idReunion };
             fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_tache", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
