@@ -1643,18 +1643,22 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT * 
-                                FROM utilisateurs 
-                                WHERE courriel_utilisateurs = :courriel");
-        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-        $query->execute();
-        $resultat = $query->fetch();
+        if (isset($_SESSION['courriel'])) {
 
-        if ($resultat) {
+            $query = $conn->prepare("SELECT * 
+            FROM utilisateurs 
+            WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+            if ($resultat) {
             echo json_encode(["existe" => true]);
-        } else {
+            } else {
             echo json_encode(["existe" => false]);
+            }
         }
+       
     }
 
     
