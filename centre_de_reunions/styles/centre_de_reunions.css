@@ -854,6 +854,14 @@ textarea {
 /*iphone */
 @media only screen and (max-width: 390px) {
 
+    body{
+        overflow-x: hidden;
+    }
+
+    html{
+        overflow-x: hidden;
+    }
+
     #conteneur-groupes {
         left: 0;
         width: 7em;

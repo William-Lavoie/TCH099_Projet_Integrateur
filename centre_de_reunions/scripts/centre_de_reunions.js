@@ -8,9 +8,9 @@ const pathDynamic = window.location.origin;
 
     btnPliable.addEventListener("click", function () {
 
-    var groupes = document.getElementById("conteneur-groupes");
-    var btnBasculer = document.getElementById("conteneur-basculer");
-    var reunions = document.getElementById("conteneur-reunions");
+    let groupes = document.getElementById("conteneur-groupes");
+    let btnBasculer = document.getElementById("conteneur-basculer");
+    let reunions = document.getElementById("conteneur-reunions");
 
     let estBascule = groupes.classList.toggle("bascule");
 
