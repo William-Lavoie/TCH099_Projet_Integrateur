@@ -1278,16 +1278,15 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
      // Créer un compte lorsque l'utilisateur se connecte pour la première fois
-     if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
+    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
     
-    
         if (isset($donnees['nom'], $donnees['type'])) {
     
             require("connexion.php");
-               
+            
             $query = $conn->prepare("INSERT INTO utilisateurs (nom, type, courriel_utilisateurs) VALUES (:nom, :type, :courriel)");
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
             $query->bindParam(":nom", $donnees['nom'],  PDO::PARAM_STR);
@@ -1357,7 +1356,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher les autres participants pour une réunion donnée
-     if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1457,9 +1456,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
             //Liste des participants à la rencontre
             $query = $conn->prepare("SELECT courriel_utilisateurs 
-                                     FROM utilisateurs_reunions AS ur
-                                     INNER JOIN reunions AS r
-                                     WHERE r.id_reunions = :id");
+                                    FROM utilisateurs_reunions AS ur
+                                    INNER JOIN reunions AS r
+                                    WHERE r.id_reunions = :id");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetchAll();
