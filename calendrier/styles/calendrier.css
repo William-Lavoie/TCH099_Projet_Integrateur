@@ -91,7 +91,7 @@ form
     border-radius: 1em;
     border: 1px solid lightgray;
     height: 30%;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #btn-radios {
@@ -137,13 +137,10 @@ label {
     margin-bottom: 1em;
 }
 
-
-
 #debut-reunion, #fin-reunion {
     width: 6em;
     font-size: 0.8rem;
 }
-
 
 .reunion-visible {
     display: flex    !important ;
@@ -151,8 +148,8 @@ label {
     opacity: 100%;
 }
 
-
-#messages-erreur, #messages-erreur-participants {
+#messages-erreur, 
+#messages-erreur-participants {
     height: 20%;
     display: flex;
     justify-content: center;
@@ -195,6 +192,12 @@ span {
     cursor: pointer;
     font-size: 110%;
 }
+
+
+
+
+
+
 
 .btn-reunion button{
     background-color: #04071d;
@@ -1152,9 +1155,10 @@ body.dark label{
 }
 
 body.dark #description-reunion,
-body.dark     #titre-reunion,
+body.dark #titre-reunion,
 body.dark #choisir-heure-form input,
-body.dark #date-reunion-form input{
+body.dark #date-reunion-form input,
+body.dark #choix-groupe {
     background-color: darkgray;
 }
 
