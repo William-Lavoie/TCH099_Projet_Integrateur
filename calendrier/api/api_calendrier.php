@@ -6,10 +6,34 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Max-Age: 3600");
 
 session_start();
-$courrielUtilisateur;
 
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (preg_match("~chercher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['courriel'])) {
+            
+             require("connexion.php");
+
+
+            $courriel = $donnees['courriel'];
+
+            $query = $conn->prepare("SELECT nom 
+                                FROM utilisateurs 
+                                WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+             echo json_encode($resultat);
+        }else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
 
 
     // Mettre l'adresse de l'utilisateur dans la variable de session
