@@ -942,7 +942,6 @@ span {
     color: white;
     height: max(10%, 70px);
     max-height: 6em;
-    aspect-ratio: 1/1;
     font-size: 1em;
     min-width: 70px;
     z-index: 2;
