@@ -10,6 +10,8 @@ session_start();
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    /*** FOR MOBILE (WILL BE MOVED) ***/
+    // Chercher le nom d'un utilisateur
     if (preg_match("~chercher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
@@ -34,6 +36,50 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(["error" => "erreur"]);
         }
     }
+
+     // Chercher le nom d'un utilisateur
+     if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['courriel'], $donnees['date'])) {
+            
+             require("connexion.php");
+
+
+            $courriel = $donnees['courriel'];
+            $date = $donnees['date'];
+
+            $query = $conn->prepare("SELECT * 
+                                FROM utilisateurs_reunions 
+                                WHERE courriel_utilisateurs = :courriel AND date = :date");
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+            $query->bindParam(":date", $date,  PDO::PARAM_STR);
+
+            $query->execute();
+            $resultat = $query->fetch();
+
+            if (!empty($resultat)) {
+                echo json_encode(["resultat" => true]);
+            }
+
+            else {
+                echo json_encode(["resultat" => false]);
+            }
+            
+        }else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+
+
+
+
+
+
 
 
     // Mettre l'adresse de l'utilisateur dans la variable de session
