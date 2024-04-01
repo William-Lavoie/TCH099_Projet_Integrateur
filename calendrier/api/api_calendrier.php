@@ -37,7 +37,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
-     // Chercher le nom d'un utilisateur
+     // Chercher si une journée a au moins une réunion
      if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
@@ -52,8 +52,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $date = $donnees['date'];
 
             $query = $conn->prepare("SELECT * 
-                                FROM utilisateurs_reunions 
-                                WHERE courriel_utilisateurs = :courriel AND date = :date");
+            FROM utilisateurs_reunions AS ur
+            INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions
+            WHERE ur.courriel_utilisateurs = :courriel AND r.date = :date");
             $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
             $query->bindParam(":date", $date,  PDO::PARAM_STR);
 
@@ -67,7 +68,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             else {
                 echo json_encode(["resultat" => false]);
             }
-            
+
         }else {
             echo json_encode(["error" => "erreur"]);
         }
