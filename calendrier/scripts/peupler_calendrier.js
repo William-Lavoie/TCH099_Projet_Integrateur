@@ -229,37 +229,42 @@ $(document).ready(function () {
         );
         let debutCalendrier = moisDernier.getDate();
 
-        // Affiche les jours appartenant au mois précédant
-        for (let i = compteur; i < premierJour; i++) {
-            // Affiche la date et crée la case correspondante
-            const journee = $("<div class='jour' id='pas-mois-courant'></div>");
-            let dateJournee = $("<p>" + debutCalendrier + "</p>");
+        if (premierJour != 0) {
+            // Affiche les jours appartenant au mois précédant
+            for (let i = compteur; i < premierJour; i++) {
+                // Affiche la date et crée la case correspondante
+                const journee = $("<div class='jour' id='pas-mois-courant'></div>");
+                let dateJournee = $("<p>" + debutCalendrier + "</p>");
 
-            journee.append(dateJournee);
+                journee.append(dateJournee);
 
-            // Espace pour les réunions
-            let reunionDate = $("<div class=reunions-date></div>");
-            journee.append(reunionDate);
+                // Espace pour les réunions
+                let reunionDate = $("<div class=reunions-date></div>");
+                journee.append(reunionDate);
 
-            // Ajoute la case contenant la date au calendrier
-            $("#calendrier").append(journee);
+                // Ajoute la case contenant la date au calendrier
+                $("#calendrier").append(journee);
 
-            // Incrémente la date et le nombre de jours remplis
-            debutCalendrier++;
-            compteur++;
-        }
+                // Incrémente la date et le nombre de jours remplis
+                debutCalendrier++;
+                compteur++;
+            }
 
-        let dateDebutFormatte = formatterDate(moisDernier);
-        let dateFinFormatte = formatterDate(
-            new Date(
+
+            let dateDebutFormatte = formatterDate(moisDernier);
+            let dateFinFormatte = formatterDate(
+                new Date(
                 moisDernier.getFullYear(),
                 moisDernier.getMonth(),
                 moisDernier.getDate() + premierJour - 1
             )
-        );
+            );
 
-        chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
+            chercherReunions(dateDebutFormatte, dateFinFormatte, 0, compteur);
 
+        }
+        
+        
         // Premier jour du mois courant
         const moisCourantPremierJour = new Date(
             jour.getFullYear(),
@@ -313,23 +318,32 @@ $(document).ready(function () {
         // Afficher les réunions du mois courant
         chercherReunions(dateDebutFormatte, dateFinFormatte, premierJour, compteur);
 
-        // Affiche les jours appartenant au mois suivant
-        index = 1;
-        for (let j = finDuMois + premierJour - 1; j < 41; j++) {
-            const journee = $("<div class='jour' id='pas-mois-courant'></div>");
-            let dateJournee = $("<p>" + index + "</p>");
-            journee.append(dateJournee);
+        console.log(finDuMois);
+        console.log(finDuMois + premierJour);
 
-            // Espace pour les réunions
-            let reunionDate = $("<div class=reunions-date></div>");
-            journee.append(reunionDate);
+        if (finDuMois + premierJour % 6 != 0) {
 
-            $("#calendrier").append(journee);
-            index++;
+             // Affiche les jours appartenant au mois suivant
+            index = 1;
+            let j = finDuMois + premierJour - 1;
+
+            while (j < 41 && (j+1)%7 != 0) {
+                const journee = $("<div class='jour' id='pas-mois-courant'></div>");
+                let dateJournee = $("<p>" + index + "</p>");
+                journee.append(dateJournee);
+                console.log(j);
+
+                // Espace pour les réunions
+                let reunionDate = $("<div class=reunions-date></div>");
+                journee.append(reunionDate);
+
+                $("#calendrier").append(journee);
+                index++;
+                j++;
         }
 
-        // Chercher les réunions du mois prochain
-        dateDebutFormatte = formatterDate(
+         // Chercher les réunions du mois prochain
+         dateDebutFormatte = formatterDate(
             new Date(premierDuMois.getFullYear(), premierDuMois.getMonth() + 1, 1)
         );
         dateFinFormatte = formatterDate(
@@ -342,6 +356,11 @@ $(document).ready(function () {
 
         // Affiche les réunions du mois suivant
         chercherReunions(dateDebutFormatte, dateFinFormatte, compteur, 42);
+        }
+
+        // Ajuster la taille de chaque jour
+        let nbSemaines = $("#calendrier").children().length / 7;
+        $(".jour").css("height", "calc(100%/" + nbSemaines);
     }
 
     // Remplir le calendrier au mois courant
