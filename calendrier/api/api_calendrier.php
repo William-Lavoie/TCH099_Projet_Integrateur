@@ -75,6 +75,74 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
+    if (preg_match("~chercher_reunions_mobile$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['debut']) && 
+            isset($donnees['fin']) && 
+            isset($donnees['courriel'])) {
+    
+            require("connexion.php");
+    
+            $dateDebut = $donnees['debut'];
+            $dateFin = $donnees['fin'];
+            $courriel = $donnees['courriel'];
+        
+        
+            $query = $conn->prepare("SELECT DISTINCT date 
+                                    FROM reunions AS r 
+                                    INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
+                                    WHERE ur.courriel_utilisateurs = :courriel 
+                                        AND date BETWEEN :dateDebut 
+                                        AND :dateFin
+                                    ORDER BY date");
+            $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
+            $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+    if (preg_match("~chercher_reunions_journee$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['courriel'])) {
+    
+            require("connexion.php");
+    
+            $courriel = $donnees['courriel'];
+        
+            $query = $conn->prepare("SELECT * 
+                                    FROM reunions AS r 
+                                    INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
+                                    WHERE ur.courriel_utilisateurs = :courriel 
+                                    ORDER BY r.heure_debut");
+            $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
+            $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
 
 
 
