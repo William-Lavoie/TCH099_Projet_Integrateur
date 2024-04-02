@@ -11,6 +11,33 @@ session_start();
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
+
+
+     // Chercher les présences pour une réunion
+     if (preg_match("~chercher_presences_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['idReunion'])) {
+            
+             require("connexion.php");
+
+            $query = $conn->prepare("SELECT u.nom, ur.presence 
+                                    FROM utilisateurs_reunions AS ur
+                                    INNER JOIN utilisateurs AS u ON ur.courriel_utilisateurs = u.courriel_utilisateurs
+                                    WHERE ur.id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetchAll();
+
+             echo json_encode($resultat);
+        }else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
     // Chercher le nom d'un utilisateur
     if (preg_match("~chercher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
 
@@ -75,6 +102,29 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
+      // Chercher toutes les informations sur une réunion
+      if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+
+        if (isset($donnees['idReunion'])) {
+            
+             require("connexion.php");
+
+            $query = $conn->prepare("SELECT * 
+                                FROM reunions 
+                                WHERE id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+
+             echo json_encode($resultat);
+        }else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+    
     if (preg_match("~chercher_reunions_mobile$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
