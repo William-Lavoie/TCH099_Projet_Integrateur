@@ -15,7 +15,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     // Chercher les groupes avec un enseignant donné
       // Afficher les groupes associés à un utilisateur
-      if (preg_match("~afficher_groupes-enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
+      if (preg_match("~afficher_groupes_enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
