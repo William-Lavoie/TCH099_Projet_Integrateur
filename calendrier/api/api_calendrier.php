@@ -12,9 +12,31 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
 
+    // Chercher les groupes avec un enseignant donné
+    if (preg_match("~afficher_presences_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        if (isset($donnees['idReunion'], $donnees['courriel'])) {
+
+            $query = $conn->prepare("SELECT p.presence, pr.courriel_utilisateur 
+                                FROM présences AS p
+                                INNER JOIN présences_reunions AS pr ON pr.id_presences_reunions = p.id_presences_reunions
+                                WHERE p.courriel = :courriel AND pr.id_reunions = :id ");
+            $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $donnees['idReunion'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetchAll();
+
+            if ($resultat) {
+                echo json_encode($resultat);
+            } else {
+                echo json_encode(["error" => "erreur"]);
+            }
+        } 
+    }
 
     // Chercher les groupes avec un enseignant donné
-      // Afficher les groupes associés à un utilisateur
       if (preg_match("~afficher_groupes_enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
