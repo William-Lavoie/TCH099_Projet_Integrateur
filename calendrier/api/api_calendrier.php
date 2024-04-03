@@ -13,6 +13,30 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     /*** FOR MOBILE (WILL BE MOVED) ***/
 
 
+    // Chercher les groupes avec un enseignant donné
+      // Afficher les groupes associés à un utilisateur
+      if (preg_match("~afficher_groupes-enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("connexion.php");
+
+        if (isset($donnees['courriel'])) {
+
+            $query = $conn->prepare("SELECT g.nom, g.id_groupes 
+                                FROM groupes g 
+                                WHERE courriel_enseignant = :courriel");
+            $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetchAll();
+
+            if ($resultat) {
+                echo json_encode($resultat);
+            } else {
+                echo json_encode(["error" => "erreur"]);
+            }
+        } 
+    }
+
+
      // Chercher les présences pour une réunion
      if (preg_match("~chercher_presences_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
@@ -167,19 +191,19 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
     
-        if (isset($donnees['courriel'])) {
+        if (isset($donnees['courriel'], $donnees['date'])) {
     
             require("connexion.php");
     
             $courriel = $donnees['courriel'];
-        
+            $date = $donnees['date'];
+            
             $query = $conn->prepare("SELECT * 
                                     FROM reunions AS r 
                                     INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
-                                    WHERE ur.courriel_utilisateurs = :courriel 
+                                    WHERE ur.courriel_utilisateurs = :courriel AND r.date = :date
                                     ORDER BY r.heure_debut");
-            $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
-            $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
+            $query->bindParam(":date", $date,  PDO::PARAM_STR);
             $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
 
             $query->execute();
