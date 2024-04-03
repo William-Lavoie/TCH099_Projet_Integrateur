@@ -12,12 +12,15 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
 
-    // Chercher les groupes avec un enseignant donné
+    // Chercher les présences pour chaque utilisateur
     if (preg_match("~afficher_presences_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("connexion.php");
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['idReunion'], $donnees['courriel'])) {
+
+            require("connexion.php");
 
             $query = $conn->prepare("SELECT p.presence, pr.courriel_utilisateur 
                                 FROM présences AS p
@@ -39,9 +42,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     // Chercher les groupes avec un enseignant donné
       if (preg_match("~afficher_groupes_enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("connexion.php");
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'])) {
+
+            require("connexion.php");
 
             $query = $conn->prepare("SELECT g.nom, g.id_groupes 
                                 FROM groupes g 
