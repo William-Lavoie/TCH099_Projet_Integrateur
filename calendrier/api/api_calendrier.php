@@ -11,8 +11,6 @@ session_start();
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
-
-    /*** FOR MOBILE (WILL BE MOVED) ***/
     
     // Chercher les présences pour chaque utilisateur
     if (preg_match("~afficher_presences_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
@@ -172,7 +170,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
             $query = $conn->prepare("SELECT r.titre, r.heure_debut, r.heure_fin, COALESCE(g.nom, 'VIDE') AS nom 
                                      FROM reunions AS r
-                                     LEFT JOIN groupes AS g ON r.id_groupes = g.id_groupes 
+                                     LEFT JOIN groupes AS g ON g.id_groupes = r.id_groupes
                                      WHERE id_reunions = :id");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
@@ -200,12 +198,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $courriel = $donnees['courriel'];
         
         
-            $query = $conn->prepare("SELECT DISTINCT date 
+            $query = $conn->prepare("(SELECT DISTINCT date 
                                     FROM reunions AS r 
                                     INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
                                     WHERE ur.courriel_utilisateurs = :courriel 
                                         AND date BETWEEN :dateDebut 
-                                        AND :dateFin
+                                        AND :dateFin)
+
+                                    UNION 
+                                    
+                                    (SELECT DISTINCT date 
+                                    FROM reunions AS r 
+                                    INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
+                                    WHERE g.courriel_enseignant = :courriel 
+                                        AND date BETWEEN :dateDebut 
+                                        AND :dateFin)
                                     ORDER BY date");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
             $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
@@ -233,11 +240,19 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $courriel = $donnees['courriel'];
             $date = $donnees['date'];
             
-            $query = $conn->prepare("SELECT * 
+            $query = $conn->prepare("(SELECT r.*, ur.courriel_utilisateurs AS courriel 
                                     FROM reunions AS r 
                                     INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
-                                    WHERE ur.courriel_utilisateurs = :courriel AND r.date = :date
-                                    ORDER BY r.heure_debut");
+                                    WHERE ur.courriel_utilisateurs = :courriel AND r.date = :date)
+
+                                    UNION 
+                
+                                    (SELECT r.*, g.courriel_enseignant AS courriel 
+                                    FROM reunions AS r 
+                                    INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
+                                    WHERE g.courriel_enseignant = :courriel AND r.date = :date)
+                                    
+                                    ORDER BY heure_debut");
             $query->bindParam(":date", $date,  PDO::PARAM_STR);
             $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
 
@@ -250,6 +265,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(["error" => "erreur"]);
         }
     }
+
 
 
 
@@ -904,12 +920,18 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $dateDebut = $donnees['debut'];
             $dateFin = $donnees['fin'];
         
-            $query = $conn->prepare("SELECT * 
+            $query = $conn->prepare("SELECT r.*, ur.courriel_utilisateurs AS courriel
                                     FROM reunions AS r 
                                     INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
                                     WHERE ur.courriel_utilisateurs = :courriel 
-                                        AND date BETWEEN :dateDebut 
-                                        AND :dateFin");
+                                    AND r.date BETWEEN :dateDebut AND :dateFin
+                                    
+                                    UNION 
+                                    
+                                    SELECT r.*, g.courriel_enseignant AS courriel
+                                    FROM reunions AS r 
+                                    INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
+                                    WHERE g.courriel_enseignant = :courriel AND r.date BETWEEN :dateDebut AND :dateFin;");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
             $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
@@ -1157,13 +1179,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             //id du groupe venant d'être créée
             $id_groupe = $conn->lastInsertId();
 
-                // Ajout du créateur dans la table de jointure 
-            $query = $conn->prepare("INSERT INTO utilisateurs_groupes (courriel_etudiants, id_groupes) 
-                                    VALUES (:courriel, :id)");
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
-            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
-            $query->execute();
-
             // Création d'une entrée dans la table de jointure pour chaque étudiant
             for ($i = 0; $i < count($participants); $i++) {
 
@@ -1208,13 +1223,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             // Vider la table de jointure 
             $query = $conn->prepare("DELETE FROM utilisateurs_groupes 
                                     WHERE id_groupes = :id");
-            $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
-            $query->execute();
-
-            // Ajout du créateur dans la table de jointure 
-            $query = $conn->prepare("INSERT INTO utilisateurs_groupes (courriel_etudiants, id_groupes) 
-                                    VALUES (:courriel, :id)");
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
             $query->bindParam(":id", $id_groupe,  PDO::PARAM_STR);
             $query->execute();
 
@@ -1837,11 +1845,20 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT r.id_reunions, r.titre, r.description, r.date 
-                                FROM reunions AS r 
-                                INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
-                                WHERE courriel_utilisateurs = :courriel 
-                                    ORDER BY r.date, r.heure_debut");
+        $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut 
+                                    FROM reunions AS r 
+                                    INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
+                                    WHERE courriel_enseignant = :courriel)
+                                    
+                                    UNION ALL
+                                    
+                                    (SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut 
+                                    FROM reunions AS r
+                                    INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
+                                    WHERE courriel_utilisateurs = :courriel)
+                                    
+                                    ORDER BY date, heure_debut;
+                                 ");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();

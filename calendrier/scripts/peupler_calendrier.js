@@ -181,7 +181,7 @@ $(document).ready(function () {
                             consulterReunionSpecifique(
                                 $("#calendrier").children().eq(i),
                                 reunionJournee.index(),
-                                donnees[j]["courriel_createur"]
+                                donnees[j]["id_reunions"]
                             );
                         });
                     }
