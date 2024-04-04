@@ -100,8 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             const boutonModifier = $(
                                 "<button id='modifier-message'>⚙</button>"
                             );
-
-                            let boutonsMessage = $(".conteneur-boutons-message");
+                           let boutonsMessage = $("<div class='message-boutons'></div>");
                             boutonsMessage.append(boutonSupprimer);
                             boutonsMessage.append(boutonModifier);
                             

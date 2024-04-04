@@ -37,6 +37,10 @@ main {
     margin-bottom: 2%;
 }
 
+.message-boutons {
+    display: flex;
+}
+
 #message-publique:hover {
     background-color: lightgray;
 }
@@ -72,7 +76,8 @@ main {
 }
 
 #supprimer-message:hover, #modifier-message:hover {
-    font-size: 1.8em;
+    cursor: pointer;
+    color: white;
 }
 
 #contenu-message {
@@ -192,6 +197,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 50%;
 }
 
 
