@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Afficher la liste des messages
     let donnees = { idReunion: idReunion };
 
-    // Afficher les réunions pour un groupe
+    // Afficher les messages pour une réunion
     fetch(
         pathDynamic + "/calendrier/api/api_calendrier.php/obtenir-messages-reunion",
         {
@@ -100,8 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             const boutonModifier = $(
                                 "<button id='modifier-message'>⚙</button>"
                             );
-                            message.children("#heure-message").append(boutonSupprimer);
-                            message.children("#heure-message").append(boutonModifier);
+
+                            let boutonsMessage = $(".conteneur-boutons-message");
+                            boutonsMessage.append(boutonSupprimer);
+                            boutonsMessage.append(boutonModifier);
+                            
+                            message.children("#heure-message").append(boutonsMessage);
 
                             boutonSupprimer.on("click", function () {
                                 supprimerMessage(data[i]["id_message"]);

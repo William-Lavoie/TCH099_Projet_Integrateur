@@ -1845,14 +1845,14 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut 
+        $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin
                                     FROM reunions AS r 
                                     INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
                                     WHERE courriel_enseignant = :courriel)
                                     
                                     UNION ALL
                                     
-                                    (SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut 
+                                    (SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin 
                                     FROM reunions AS r
                                     INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
                                     WHERE courriel_utilisateurs = :courriel)

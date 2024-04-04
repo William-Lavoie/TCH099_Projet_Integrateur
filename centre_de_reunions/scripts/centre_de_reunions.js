@@ -135,11 +135,17 @@ document.addEventListener("DOMContentLoaded", function () {
                             "</div></div></div>"
                     );
 
-                    if (data[i]["date"] >= formatterDate(new Date())) {
+                    const currentDate = new Date();
+                    const currentTime = `${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+                
+                    const reunionDate = new Date(data[i]["date"] + "T" + data[i]["heure_fin"]);
+                
+                    if (reunionDate > currentDate || (reunionDate.toDateString() === currentDate.toDateString() && data[i]["heure_fin"] > currentTime)) {
                         $("#conteneur-reunions-prochaines").append(nouvelleReunion);
                     } else {
                         $("#conteneur-reunions-passees").append(nouvelleReunion);
                     }
+
 
                     // Ouvrir la réunion quand l'utilisateur clique dessus
                     nouvelleReunion.on("click", function () {
@@ -607,7 +613,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .then((data) => {
-                //window.location.reload();
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error);

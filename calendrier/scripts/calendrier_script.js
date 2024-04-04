@@ -652,7 +652,7 @@ $(document).ready(function() {
             
                         // Fermer les formulaires et rafraîchir la page
                         fermerFormulaires();
-                    //  window.location.reload();
+                       window.location.reload();
                         return response.json();
                     } else {
 
@@ -683,7 +683,7 @@ $(document).ready(function() {
                 
                             // Fermer les formulaires et rafraîchir la page
                             fermerFormulaires();
-                            //window.location.reload();
+                            window.location.reload();
                             return response.json();
                         } else {
 
@@ -736,7 +736,7 @@ $(document).ready(function() {
 
                     // Fermer les formulaires et rafraîchir la page
                     fermerFormulaires();
-                    //window.location.reload();
+                    window.location.reload();
                     return response.json();
                 } else {
                     console.log("error");
@@ -767,7 +767,7 @@ $(document).ready(function() {
 
                 // Fermer les formulaires et rafraîchir la page
                 fermerFormulaires();
-                //window.location.reload();
+                window.location.reload();
                 return response.json();
                 }  else {
 
