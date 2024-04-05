@@ -139,7 +139,7 @@ $(document).ready(function () {
                             ouvrirReunion($(this));
                         }
                     });
-
+ 
                 // Ajout de l'écouteur d'évènement aux enfants
                 $("#calendrier")
                     .children()
