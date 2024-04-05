@@ -274,7 +274,7 @@ $(document).ready(function() {
         console.log("erreur entre la connexion des comptes");
     });
 
-}, 500); // attendre demi seconde
+}, 500); // attendre une demi seconde pour que le api puisse etre set avant
 
 
     /**

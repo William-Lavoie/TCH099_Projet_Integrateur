@@ -51,13 +51,12 @@ auth0.createAuth0Client({
     const isAuthenticated = await auth0Client.isAuthenticated();
 
 
-    //******************absolutly awful and annoying during testing, so taking this for now ***************** */
     //verifie si l'utilisateur est authentifie, si il ne l'ai pas, redirect to landing page
-    //if (!isAuthenticated) {
-        // Redirect to the login page if the user is not authenticated
-        //window.location.href = 'https://huddleharbor.com';
- //     return;
- // }
+    if (!isAuthenticated) {
+        //Redirect to the login page if the user is not authenticated
+        window.location.href = 'https://huddleharbor.com';
+    return;
+    }
 
     //Si l'utilisateur est authentifier, utuliser les info
     const userProfile = await auth0Client.getUser();
@@ -66,6 +65,12 @@ auth0.createAuth0Client({
 
             // profile de Auth0
             const profileElement = document.getElementById("profile");
+    
+            if (userProfile) {
+            //    profileElement.innerHTML = `<p>${userProfile.name}</p>`;
+            } else {
+                profileElement.style.display = "none";
+            }
 
             // Envoie de l'identifiant de l'utilisateur 
             const identifiants = {"courriel": userProfile.name};

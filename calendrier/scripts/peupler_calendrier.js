@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    setTimeout(() => {
+
     //declaration des path dynamic
     const pathDynamic = window.location.origin;
 
@@ -343,7 +345,7 @@ $(document).ready(function () {
         }
 
          // Chercher les réunions du mois prochain
-         dateDebutFormatte = formatterDate(
+        dateDebutFormatte = formatterDate(
             new Date(premierDuMois.getFullYear(), premierDuMois.getMonth() + 1, 1)
         );
         dateFinFormatte = formatterDate(
@@ -841,4 +843,9 @@ $(document).ready(function () {
         );
         afficherCalendrier(jourCourant);
     });
+
+}, 500); // attendre une demi seconde pour que le api puisse etre set avant
+
 });
+
+
