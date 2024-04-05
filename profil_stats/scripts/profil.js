@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Gérer le clic sur le bouton de modification de la photo
         $("#modifier-photo").on("click", function () {
             let fichierPhoto = $('#photo-choisie')[0].files[0];  // Récupérer le fichier sélectionné
+            console.log(fichierPhoto);
     
             if (fichierPhoto) {
                 let formData = new FormData();
@@ -102,8 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
                 fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
                  method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(donnees),
+                 body: formData,
             
 
                     
