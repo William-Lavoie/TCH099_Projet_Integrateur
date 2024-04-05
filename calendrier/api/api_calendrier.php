@@ -198,21 +198,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $courriel = $donnees['courriel'];
         
         
-            $query = $conn->prepare("(SELECT DISTINCT date 
-                                    FROM reunions AS r 
-                                    INNER JOIN utilisateurs_reunions AS ur ON r.id_reunions = ur.id_reunions 
-                                    WHERE ur.courriel_utilisateurs = :courriel 
-                                        AND date BETWEEN :dateDebut 
-                                        AND :dateFin)
-
-                                    UNION 
-                                    
-                                    (SELECT DISTINCT date 
+            $query = $conn->prepare("SELECT DISTINCT date 
                                     FROM reunions AS r 
                                     INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
                                     WHERE g.courriel_enseignant = :courriel 
                                         AND date BETWEEN :dateDebut 
-                                        AND :dateFin)
+                                        AND :dateFin
                                     ORDER BY date");
             $query->bindParam(":dateDebut", $dateDebut,  PDO::PARAM_STR);
             $query->bindParam(":dateFin", $dateFin,  PDO::PARAM_STR);
@@ -227,7 +218,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(["error" => "erreur"]);
         }
     }
-
+    
+    
     if (preg_match("~chercher_reunions_journee$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
