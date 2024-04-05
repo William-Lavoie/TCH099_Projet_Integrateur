@@ -201,6 +201,8 @@ $(document).ready(function() {
     }
 
 
+    setTimeout(() => {
+
     // Créer un compte lorsque l'utilisateur se connecte pour la première fois 
     fetch(pathDynamic + "/calendrier/api/api_calendrier.php/compte_existe", {
 
@@ -211,7 +213,7 @@ $(document).ready(function() {
             return response.json();
         } else {
 
-            console.log("error");
+            console.log("error pour le fetch");
         }
     })  .then(data => {
 
@@ -269,8 +271,10 @@ $(document).ready(function() {
         }
     })  .catch(error => {
 
-        console.log("erreur");
+        console.log("erreur entre la connexion des comptes");
     });
+
+}, 500); // attendre demi seconde
 
 
     /**

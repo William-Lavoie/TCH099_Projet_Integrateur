@@ -1925,8 +1925,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($_SESSION['courriel'])) {
 
             $query = $conn->prepare("SELECT * 
-            FROM utilisateurs 
-            WHERE courriel_utilisateurs = :courriel");
+                                    FROM utilisateurs 
+                                    WHERE courriel_utilisateurs = :courriel");
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetch();
@@ -1937,7 +1937,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["existe" => false]);
             }
         }
-       
+    
     }
 
     
