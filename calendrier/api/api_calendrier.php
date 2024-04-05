@@ -1343,7 +1343,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         if (isset($donnees['contenu'], $donnees['idReunion'])) {
 
             require("connexion.php");
-
+            
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("SELECT id_forum 
                                     FROM forum 
@@ -1355,7 +1355,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             if ($resultat) {
 
                 $query = $conn->prepare("INSERT INTO message (contenu, auteur, heure, id_forum) 
-                                        VALUES (:contenu, :auteur, NOW(), :id)");
+                                        VALUES (:contenu, :auteur, DATE_SUB(NOW(), INTERVAL 4 HOUR), :id)");
                 $query->bindParam(":contenu", $donnees['contenu'],  PDO::PARAM_STR);
                 $query->bindParam(":auteur", $_SESSION['courriel'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $resultat['id_forum'],  PDO::PARAM_STR);
@@ -1613,17 +1613,36 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
      // Chercher les autres participants pour une réunion donnée
     if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
-
-        $donnees_json = file_get_contents('php://input');
-        $donnees = json_decode($donnees_json, true);
+    $donnees_json = file_get_contents('php://input');
+    $donnees = json_decode($donnees_json, true);
     
-        if (isset($donnees['idReunions'])) {
-    
-            require("connexion.php");
-    
-            $idReunions = $donnees['idReunions'];
-
-            $query = $conn->prepare("SELECT id_presences_reunions FROM présences_reunions WHERE id_reunions = :id AND courriel_utilisateur = :courriel");
+    if (isset($donnees['idReunions'])) {
+        require("connexion.php");
+        $idReunions = $donnees['idReunions'];
+        
+        // Courriel de l'enseignant si la réunion est pour un groupe
+        $query = $conn->prepare("SELECT g.courriel_enseignant 
+                                FROM groupes AS g 
+                                INNER JOIN reunions AS r ON r.id_groupes = g.id_groupes
+                                WHERE r.id_reunions = :id");
+        $query->bindParam(":id", $idReunions, PDO::PARAM_STR);
+        $query->execute();
+        $enseignant = $query->fetchColumn();
+        
+        if (!empty($enseignant) && $enseignant == $_SESSION['courriel']) {
+            
+            $query = $conn->prepare("SELECT nom, presence
+                                    FROM utilisateurs_reunions 
+                                    INNER JOIN utilisateurs On utilisateurs_reunions.courriel_utilisateurs = utilisateurs.courriel_utilisateurs
+                                    WHERE id_reunions = :id");
+            $query->bindParam(":id", $idReunions, PDO::PARAM_STR);
+            $query->execute();
+            $resultatEnseignant = $query->fetchAll();
+            
+            echo json_encode($resultatEnseignant);
+        } else {
+            
+           $query = $conn->prepare("SELECT id_presences_reunions FROM présences_reunions WHERE id_reunions = :id AND courriel_utilisateur = :courriel");
             $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
 
@@ -1645,11 +1664,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $resultat = $query->fetchAll();
 
             echo json_encode($resultat);
-        } else {
-            echo json_encode(["error" => "erreur"]);
         }
+    } else {
+        // idReunions is not set
+        echo json_encode(["error" => "ID de réunions non défini"]);
     }
-
+} 
 
     // Marquer un membre d'une réunion comme présent ou absent
     if (preg_match("~modifier_presence$~", $_SERVER['REQUEST_URI'], $matches)) {
@@ -1800,7 +1820,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("SELECT g.nom, g.id_groupes, g.courriel_enseignant 
+            $query = $conn->prepare("SELECT g.nom, g.id_groupes, g.courriel_enseignant 
                                 FROM groupes g 
                                 INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes 
                                 WHERE courriel_etudiants = :courriel 
@@ -1817,6 +1837,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             echo json_encode(["error" => "erreur"]);
         }
+        
+        
     }
 
 
@@ -1845,7 +1867,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
         require("connexion.php");
 
-        $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin
+        $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin 
                                     FROM reunions AS r 
                                     INNER JOIN groupes AS g ON r.id_groupes = g.id_groupes 
                                     WHERE courriel_enseignant = :courriel)

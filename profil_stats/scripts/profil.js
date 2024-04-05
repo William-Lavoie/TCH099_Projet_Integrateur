@@ -86,47 +86,44 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Erreur:", error));
     });
 
-    /* // pour la modification PHOTO 
-        $('#modifier-photo').on('click', function(event) {
 
-                event.preventDefault();
-                // je récupère le fichier sélectionné
-                let fichier = $("#photo-choisie")[0].files[0]; 
-                console.log(fichier);
-                if (fichier != null) {
 
-                        let reader = new FileReader();
+    // modifier photo de profil 
+    document.addEventListener("DOMContentLoaded", function () {
+        const pathDynamic = window.location.origin;
+    
+        // Gérer le clic sur le bouton de modification de la photo
+        $("#modifier-photo").on("click", function () {
+            let fichierPhoto = $('#photo-choisie')[0].files[0];  // Récupérer le fichier sélectionné
+            console.log(fichierPhoto);
+    
+            if (fichierPhoto) {
+                let formData = new FormData();
+                formData.append('nouvelle-photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
+    
+                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
+                 method: 'POST',
+                 body: formData,
+            
 
-                        // Define a callback function to handle the loaded file data
-                        reader.onload = function(event) {
-                                // The result property contains the Blob data
-                                let blobData = event.target.result;
-        
-                                // Now you can do something with the Blob data, such as sending it to the server
-                                sendBlobToServer(blobData);
-                        let formData = new FormData();
-                        formData.append('photo', blobData);
-                        
-                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
-                        method: 'POST',
-                        body: formData
+                    
                 })
-                .then(response => {
-                        if (response.ok) {
-                                console.log("La photo a été modifiée avec succès")
-                        }
-
-                        else {
-                                console.log("La photo n'a pas été modifiée");
-                        }
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        // Mettre à jour l'affichage de la photo de profil
+                        $("#photo").css("background-image", `url(${URL.createObjectURL(fichierPhoto)})`);
+                    } else {
+                        alert('Erreur lors de la modification de la photo de profil.');
+                    }
                 })
-                .catch(error => console.error('Erreur:', error));
-                        
-                }};
-
-                else {
-                        alert("vous devez choisir une image");
-                }
+                .catch(error => {
+                    console.error('Erreur:', error);
                 });
-*/
+            }
+        });
+    });
+    
+
+    
 });
