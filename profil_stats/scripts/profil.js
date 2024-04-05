@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const pathDynamic = window.location.origin;
 
     // Afficher la photo de profil
-    fetch(pathDynamic + "/profil_stats/api/api_profil.php/afficher_photo", {})
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_photo", {})
         .then((response) => {
             if (response.ok) {
                 return response.blob();
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Afficher le nom
-    fetch(pathDynamic + "/profil_stats/api/api_profil.php/afficher_nom", {})
+    fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_nom", {})
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Afficher le courriel
     // Vérifier si le message a été écrit par l'utilisateur connecté
     fetch(
-        pathDynamic + "/api/api_globale.php/chercher-courriel",
+        pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel",
         {}
     )
         .then((response) => {
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const donnees = { nom: nouveauNom };
 
-        fetch(pathDynamic + "/profil_stats/api/api_profil.php/modifier-nom", {
+        fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-nom", {
             // Envoie une requête POST au serveur
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -101,9 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 let formData = new FormData();
                 formData.append('nouvelle-photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
     
-                fetch(pathDynamic + "/profil_stats/api/api_profil.php/modifier-photo", {
-                method: 'POST',
-                body: formData,
+                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
+                 method: 'POST',
+                 body: formData,
             
 
                     

@@ -21,7 +21,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idGroupe'])) {
     
-            require("api/connexion.php");
+            require("/calendrier/api/connexion.php");
     
             $idGroupe = $donnees['idGroupe'];
         
@@ -48,7 +48,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['nom'], $donnees['participants'])) {
 
-            require("api/connexion.php");
+            require("calendrier/api/connexion.php");
 
             $nom = $donnees['nom'];
             $participants = $donnees['participants'];
@@ -91,7 +91,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['participants'], 
                 $donnees['idGroupe'])) {
 
-            require("api/connexion.php");
+            require("calendrier/api/connexion.php");
 
             $nom = $donnees['nom'];
             $participants = $donnees['participants'];
@@ -127,6 +127,34 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
+    
+    // Chercher si le participant existe
+    if (preg_match("~chercher_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['courriel'],)) {
+    
+            require("calendrier/api/connexion.php");
+    
+            $courriel = $donnees['courriel'];
+        
+            $query = $conn->prepare("SELECT * 
+                                    FROM utilisateurs 
+                                    WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+    
+            $query->execute();
+    
+            $resultat = $query->fetch(PDO::FETCH_ASSOC);
+
+            echo json_encode(["existe" => !empty($resultat)]);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
 
     // Chercher les membres d'un groupe
     if (preg_match("~chercher-membres-groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
@@ -136,7 +164,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idGroupes'])) {
     
-            require("api/connexion.php");
+            require("calendrier/api/connexion.php");
 
             $id_groupe = $donnees['idGroupes'];
         
@@ -168,7 +196,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
             $id_groupe = $donnees['idGroupe'];
     
-            require("api/connexion.php");
+            require("calendrier/api/connexion.php");
         
             // Supprimer le groupe
             $query = $conn->prepare("DELETE FROM groupes 
@@ -207,7 +235,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Obtenir toutes les réunions de l'utilisateur courant
     if (preg_match("~obtenir_reunions_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("calendrier/api/connexion.php");
 
         $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin 
                                     FROM reunions AS r 
@@ -235,10 +263,50 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
 
+
+    // Chercher le courriel de l'utilisateur courant
+    if (preg_match("~chercher-courriel$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("calendrier/api/connexion.php");
+
+        if (isset($_SESSION['courriel'])) {
+            echo json_encode($_SESSION['courriel']);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+    // Afficher les groupes associés à un utilisateur
+    if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("calendrier/api/connexion.php");
+
+            $query = $conn->prepare("SELECT g.nom, g.id_groupes, g.courriel_enseignant 
+                                FROM groupes g 
+                                INNER JOIN utilisateurs_groupes ug ON g.id_groupes = ug.id_groupes 
+                                WHERE courriel_etudiants = :courriel 
+                                UNION 
+                                SELECT nom, id_groupes, courriel_enseignant 
+                                FROM groupes 
+                                WHERE courriel_enseignant = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+        
     // Chercher le type de l'utilisateur (étudiant ou enseignant)
     if (preg_match("~afficher_type$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("calendrier/api/connexion.php");
 
         $query = $conn->prepare("SELECT type 
                                 FROM utilisateurs 
