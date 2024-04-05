@@ -20,7 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['courriel'],)) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
     
             $courriel = $donnees['courriel'];
         
@@ -50,7 +50,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Chercher le courriel de l'utilisateur courant
     if (preg_match("~chercher-courriel$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("./api/connexion.php");
 
         if (isset($_SESSION['courriel'])) {
             echo json_encode($_SESSION['courriel']);
@@ -64,7 +64,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Afficher les groupes associés à un utilisateur
     if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("./api/connexion.php");
 
             $query = $conn->prepare("SELECT g.nom, g.id_groupes, g.courriel_enseignant 
                                 FROM groupes g 

@@ -21,7 +21,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idGroupe'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
     
             $idGroupe = $donnees['idGroupe'];
         
@@ -48,7 +48,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['nom'], $donnees['participants'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             $nom = $donnees['nom'];
             $participants = $donnees['participants'];
@@ -91,7 +91,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['participants'], 
                 $donnees['idGroupe'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             $nom = $donnees['nom'];
             $participants = $donnees['participants'];
@@ -136,7 +136,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idGroupes'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             $id_groupe = $donnees['idGroupes'];
         
@@ -168,7 +168,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
             $id_groupe = $donnees['idGroupe'];
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
         
             // Supprimer le groupe
             $query = $conn->prepare("DELETE FROM groupes 
@@ -207,7 +207,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Obtenir toutes les réunions de l'utilisateur courant
     if (preg_match("~obtenir_reunions_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("./api/connexion.php");
 
         $query = $conn->prepare("(SELECT r.id_reunions, r.titre, r.description, r.date, r.heure_debut, r.heure_fin 
                                     FROM reunions AS r 
@@ -238,7 +238,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Chercher le type de l'utilisateur (étudiant ou enseignant)
     if (preg_match("~afficher_type$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("api/connexion.php");
+        require("./api/connexion.php");
 
         $query = $conn->prepare("SELECT type 
                                 FROM utilisateurs 

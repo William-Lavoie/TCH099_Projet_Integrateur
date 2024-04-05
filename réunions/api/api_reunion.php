@@ -20,7 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         
         if (isset($donnees['courriel'])) {
             
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             $query = $conn->prepare("SELECT g.nom, g.id_groupes 
                                 FROM groupes g 
@@ -50,7 +50,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idReunion'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("SELECT DISTINCT m.id_message, m.auteur, m.contenu, m.heure, u.nom 
@@ -83,7 +83,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idReunion'])) {
             
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             $query = $conn->prepare("SELECT u.nom, u.courriel_utilisateurs, COALESCE(ur.presence, 'VIDE') AS presence 
                                     FROM utilisateurs_reunions AS ur
@@ -108,7 +108,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['id_message'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("DELETE FROM message 
@@ -126,7 +126,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idMessage'], $donnees['contenu'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("UPDATE message SET contenu = :contenu 
@@ -148,7 +148,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['contenu'], $donnees['idReunion'])) {
 
-            require("api/connexion.php");
+            require("./api/connexion.php");
             
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("SELECT id_forum 
@@ -184,7 +184,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['titre'], $donnees['idReunion'])) {
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Obtenir la liste des tâches de la réunion
             $query = $conn->prepare("SELECT id_listes_taches 
@@ -219,7 +219,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
         
         if (isset($donnees['idReunions'])) {
-            require("api/connexion.php");
+            require("./api/connexion.php");
             $idReunions = $donnees['idReunions'];
             
             // Courriel de l'enseignant si la réunion est pour un groupe
@@ -284,7 +284,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['etat'], 
                 $donnees['idReunion'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Chercher l'identifiant de la liste des tâches
             $query = $conn->prepare("SELECT id_presences_reunions
@@ -333,7 +333,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunions'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
     
             $idReunions = $donnees['idReunions'];
         
@@ -364,7 +364,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['etat'], 
                 $donnees['idReunion'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             // Chercher l'identifiant de la liste des tâches
             $query = $conn->prepare("SELECT id_listes_taches 
@@ -412,7 +412,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunions'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
     
             $idReunions = $donnees['idReunions'];
         
@@ -440,7 +440,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunions'], $donnees['minutes'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
     
             $idReunions = $donnees['idReunions'];
             $minutes = $donnees['minutes'];
@@ -467,7 +467,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunion'])) {
     
-            require("api/connexion.php");
+            require("./api/connexion.php");
 
             //Liste des participants à la rencontre
             $query = $conn->prepare("SELECT courriel_utilisateurs 
