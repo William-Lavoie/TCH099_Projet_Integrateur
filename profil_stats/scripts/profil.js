@@ -104,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
                  method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(donnees),
+            
+
                     
                 })
                 .then(response => response.json())
@@ -123,47 +125,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
 
-    /* // pour la modification PHOTO 
-        $('#modifier-photo').on('click', function(event) {
-
-                event.preventDefault();
-                // je récupère le fichier sélectionné
-                let fichier = $("#photo-choisie")[0].files[0]; 
-                console.log(fichier);
-                if (fichier != null) {
-
-                        let reader = new FileReader();
-
-                        // Define a callback function to handle the loaded file data
-                        reader.onload = function(event) {
-                                // The result property contains the Blob data
-                                let blobData = event.target.result;
-        
-                                // Now you can do something with the Blob data, such as sending it to the server
-                                sendBlobToServer(blobData);
-                        let formData = new FormData();
-                        formData.append('photo', blobData);
-                        
-                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", { // Envoie une requête POST au serveur
-                        method: 'POST',
-                        body: formData
-                })
-                .then(response => {
-                        if (response.ok) {
-                                console.log("La photo a été modifiée avec succès")
-                        }
-
-                        else {
-                                console.log("La photo n'a pas été modifiée");
-                        }
-                })
-                .catch(error => console.error('Erreur:', error));
-                        
-                }};
-
-                else {
-                        alert("vous devez choisir une image");
-                }
-                });
-*/
+    
 });
