@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
 
                 //  connexion à la base de données
-                require("./api/connexion.php");
+                require("api/connexion.php");
 
                 $query = $conn->prepare("UPDATE utilisateurs SET nom = :nom WHERE courriel_utilisateurs = :courriel");
                 $query->bindParam(":nom", $nouveauNom,  PDO::PARAM_STR);
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         if (isset($donnees['courriel'])) {
     
-            require("./api/connexion.php");
+            require("api/connexion.php");
             
             $query = $conn->prepare("SELECT photo 
                                     FROM utilisateurs 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $blobData = file_get_contents('php://input');
     
         if (!empty($blobData)) {
-            require("./api/connexion.php"); // Check if this file includes the database connection correctly
+            require("api/connexion.php"); // Check if this file includes the database connection correctly
     
             $query = $conn->prepare("UPDATE utilisateurs SET photo = :photo WHERE courriel = :courriel");
             $query->bindParam(":photo", $blobData, PDO::PARAM_LOB);
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (preg_match("~chercher_reunions_stats$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         //  connexion à la base de données
-        require("./api/connexion.php");
+        require("api/connexion.php");
 
         $query = $conn->prepare("SELECT * 
                                 FROM utilisateurs_reunions AS ur 
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
      // Chercher la photo de profil de l'utilisateur
     if (preg_match("~afficher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("./api/connexion.php");
+        require("api/connexion.php");
 
         $query = $conn->prepare("SELECT photo 
                                 FROM utilisateurs 
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       // Chercher le nom de l'utilisateur
     if (preg_match("~afficher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require("./api/connexion.php");
+        require("api/connexion.php");
 
         $query = $conn->prepare("SELECT nom 
                                 FROM utilisateurs 
