@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         var elementsCellule = $(this).closest(".cellule-groupe");
 
                         $("button").removeClass("groupe-choisi");
-                        $(this).addClass("groupe-choisi");
+                        $(this).parent().addClass("groupe-choisi");
                         elementsCellule.find(".modifier-groupe").addClass("groupe-choisi");
                         afficherReunionsGroupe(data[i]["id_groupes"]);
                     }
