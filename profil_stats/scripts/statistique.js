@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetch(
-        pathDynamic + "/profil_stats//api/profil.php/chercher_reunions_stats",
+        pathDynamic + "/profil_stats/api/api_profil.php/chercher_reunions_stats",
         {}
     )
         .then((response) => {

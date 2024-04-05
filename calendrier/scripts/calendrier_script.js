@@ -134,7 +134,7 @@ $(document).ready(function() {
         $("#choix-groupe").html("");
         $("#choix-groupe").append("<option value='null'>Veuillez choisir un groupe</option>");
 
-        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes", {
+        fetch(pathDynamic + "/api/api_globale.php/afficher_groupes", {
         })  .then(response => {
     
             if (response.ok) {
@@ -213,7 +213,7 @@ $(document).ready(function() {
             return response.json();
         } else {
 
-            console.log("error pour le fetch");
+            console.log("error");
         }
     })  .then(data => {
 
@@ -450,7 +450,7 @@ $(document).ready(function() {
 
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
-        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel", {
+        fetch(pathDynamic + "/api/api_globale.php/chercher-courriel", {
         })  .then(response => {
     
             if (response.ok) {
@@ -474,7 +474,7 @@ $(document).ready(function() {
                 const courriel = {"courriel": texte};
         
                 // Cherche le participant dans la table des utilisateurs de la base de données
-                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/chercher_participants", {
+                fetch(pathDynamic + "/api/api_globale.php/chercher_participants", {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(courriel)

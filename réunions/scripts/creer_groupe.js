@@ -19,7 +19,7 @@ $(document).ready(function () {
      */
     function afficherGroupes() {
         fetch(
-            pathDynamic + "/calendrier/api/api_calendrier.php/afficher_groupes",
+            pathDynamic + "/api/api_globale.php/afficher_groupes",
             {}
         )
             .then((response) => {
@@ -65,7 +65,7 @@ $(document).ready(function () {
         // Afficher les réunions pour un groupe
         fetch(
             pathDynamic +
-                "/calendrier/api/api_calendrier.php/obtenir_reunions_groupes",
+                "/centre_de_reunions/api/api_centre_reunion.php/obtenir_reunions_groupes",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -174,7 +174,7 @@ $(document).ready(function () {
             // Si tous les champs sont valides, procéder à la soumission du formulaire
             const donnees = { nom: nomGroupe, participants: tableauParticipants };
 
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/ajouter_groupe", {
+            fetch(pathDynamic + "/centre_de_reunions/api/api_centre_reunion.php/ajouter_groupe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(donnees),

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Afficher les messages pour une réunion
     fetch(
-        pathDynamic + "/calendrier/api/api_calendrier.php/obtenir-messages-reunion",
+        pathDynamic + "/réunions/api/api_reunion.php/obtenir-messages-reunion",
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Mettre la photo de profil de l'utilisateur
                 fetch(
                     pathDynamic +
-                        "/calendrier/api/api_calendrier.php/obtenir-photo-profil",
+                        "/profil_stats/api/api_profil.php/obtenir-photo-profil",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Vérifier si le message a été écrit par l'utilisateur connecté
                 fetch(
-                    pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel",
+                    pathDynamic + "/api/api_globale.php/chercher-courriel",
                     {}
                 )
                     .then((response) => {
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Supprimer le message avec identifiant id_message
         fetch(
-            pathDynamic + "/calendrier/api/api_calendrier.php/supprimer-message",
+            pathDynamic + "/réunions/api/api_reunion.php/supprimer-message",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let donnees = { contenu: texte, idMessage: id_message };
 
                 fetch(
-                    pathDynamic + "/calendrier/api/api_calendrier.php/modifier-message",
+                    pathDynamic + "/réunions/api/api_reunion.php/modifier-message",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 fetch(
                     pathDynamic +
-                        "/calendrier/api/api_calendrier.php/ajouter-nouveau-message",
+                        "/réunions/api/api_reunion.php/ajouter-nouveau-message",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fetch(
                 pathDynamic +
-                    "/calendrier/api/api_calendrier.php/ajouter-nouvelle-tache",
+                    "/réunions/api/api_reunion.php/ajouter-nouvelle-tache",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function () {
     donnees = { 'idReunions': idReunion };
     fetch(
         pathDynamic +
-            "/calendrier/api/api_calendrier.php/chercher_presences_reunions",
+            "/réunions/api/api_reunion.php/chercher_presences_reunions",
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -461,7 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Modifier l'état de la tâche
             donnees = { 'courriel': courriel, 'etat': etat, 'idReunion': idReunion };
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_presence", {
+            fetch(pathDynamic + "/réunions/api/api_reunion.php/modifier_presence", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(donnees),
@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Chercher la liste des tâches
     donnees = { idReunions: idReunion };
     fetch(
-        pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_taches",
+        pathDynamic + "/réunions/api/api_reunion.php/chercher_liste_taches",
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -626,7 +626,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Modifier l'état de la tâche
             donnees = { 'titre': titre, 'etat': etat, 'idReunion': idReunion };
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_tache", {
+            fetch(pathDynamic + "/réunions/api/api_reunion.php/modifier_tache", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(donnees),
@@ -684,7 +684,7 @@ document.addEventListener("DOMContentLoaded", function () {
         donnees = { idReunions: idReunion };
         await fetch(
             pathDynamic +
-                "/calendrier/api/api_calendrier.php/chercher_heures_reunions",
+                "/réunions/api/api_reunion.php/chercher_heures_reunions",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -755,7 +755,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Chercher la liste des tâches
         donnees = { idReunions: idReunion, minutes: minutes };
 
-        fetch(pathDynamic + "/calendrier/api/api_calendrier.php/ajouter_temps", {
+        fetch(pathDynamic + "/réunions/api/api_reunion.php/ajouter_temps", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(donnees),
@@ -818,7 +818,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 donnees = { idReunion: idReunion};
                 // Déterminer si les participants étaient présents ou non 
-                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/mettre_presences_a_jour", {
+                fetch(pathDynamic + "/réunions/api/api_reunion.php/mettre_presences_a_jour", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(donnees),

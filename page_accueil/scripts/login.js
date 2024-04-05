@@ -63,19 +63,10 @@ auth0.createAuth0Client({
 
     //const userId = userProfile.user_id; //****************************************** */
 
-            // profile de Auth0
-            const profileElement = document.getElementById("profile");
-    
-            if (userProfile) {
-            //    profileElement.innerHTML = `<p>${userProfile.name}</p>`;
-            } else {
-                profileElement.style.display = "none";
-            }
-
             // Envoie de l'identifiant de l'utilisateur 
             const identifiants = {"courriel": userProfile.name};
 
-            fetch(pathDynamic + "/calendrier/api/api_calendrier.php/envoyer_identifiant", {
+            fetch(pathDynamic + "/page_accueil/api/api_auth.php/envoyer_identifiant", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(identifiants)

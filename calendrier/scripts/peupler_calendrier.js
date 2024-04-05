@@ -515,7 +515,7 @@ $(document).ready(function () {
 
             // Ajoute le bouton modifier si l'utilisateur est le créateur de la réunion
             fetch(
-                pathDynamic + "/calendrier/api/api_calendrier.php/chercher-courriel",
+                pathDynamic + "/api/api_globale.php/chercher-courriel",
                 {}
             )
                 .then((response) => {
@@ -749,7 +749,7 @@ $(document).ready(function () {
             idReunions: reunion.data("listeReunionsJournee")["id_reunions"],
         };
         fetch(
-            pathDynamic + "/calendrier/api/api_calendrier.php/chercher_liste_taches",
+            pathDynamic + "/réunions/api/api_reunion.php/chercher_liste_taches",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

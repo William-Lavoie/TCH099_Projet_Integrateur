@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (button.innerHTML === "En aprendre plus") {
             button.innerHTML = "▼";
         } else {
-            button.innerHTML = "En aprendre plus";
+            button.innerHTML = "En aprendre plus"; 
         }
 
         //afficher apres en aprendre plus

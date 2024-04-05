@@ -9,6 +9,9 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Max-Age: 3600");
 
+//************************************
+//Post 
+//************************************
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (preg_match("~modifier-nom$~", $_SERVER['REQUEST_URI'], $matches)) {
@@ -24,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (preg_match('/^[a-zA-Z0-9\'\-\s]+$/', $nouveauNom)) {
 
                 //  connexion à la base de données
-                require("connexionP.php");
+                require("api/connexion.php");
 
                 $query = $conn->prepare("UPDATE utilisateurs SET nom = :nom WHERE courriel_utilisateurs = :courriel");
                 $query->bindParam(":nom", $nouveauNom,  PDO::PARAM_STR);
@@ -45,6 +48,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
+    
+     // Chercher la photo de profil d'un utilisateur
+    if (preg_match("~obtenir-photo-profil$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['courriel'])) {
+    
+            require("api/connexion.php");
+            
+            $query = $conn->prepare("SELECT photo 
+                                    FROM utilisateurs 
+                                    WHERE courriel_utilisateurs = :courriel");
+            $query->bindParam(":courriel", $donnees['courriel'],  PDO::PARAM_STR);
+            $query->execute();
+            $resultat = $query->fetch();
+    
+            echo $resultat[0];
+
+            if ($resultat) {
+                echo json_encode($resultat);
+            }
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
     /*if (preg_match("~modifier-photo$~", $_SERVER['REQUEST_URI'], $matches) && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = array(); // Initialize response array
     
@@ -52,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $blobData = file_get_contents('php://input');
     
         if (!empty($blobData)) {
-            require("connexionP.php"); // Check if this file includes the database connection correctly
+            require("api/connexion.php"); // Check if this file includes the database connection correctly
     
             $query = $conn->prepare("UPDATE utilisateurs SET photo = :photo WHERE courriel = :courriel");
             $query->bindParam(":photo", $blobData, PDO::PARAM_LOB);
@@ -75,13 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 } 
 
+
+//******************************************** */
+//GET
+//************************************************ */
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     // Chercher les réunions de l'utilisateur connecté dans les 140 derniers jours
     if (preg_match("~chercher_reunions_stats$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         //  connexion à la base de données
-        require("connexionP.php");
+        require("api/connexion.php");
 
         $query = $conn->prepare("SELECT * 
                                 FROM utilisateurs_reunions AS ur 
@@ -102,5 +139,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(['success' => false, 'error' => 'Aucune réunion trouvée']);
         }     
     }
+
+
+     // Chercher la photo de profil de l'utilisateur
+    if (preg_match("~afficher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("api/connexion.php");
+
+        $query = $conn->prepare("SELECT photo 
+                                FROM utilisateurs 
+                                WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        echo $resultat[0];
+        if ($resultat) {
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
+      // Chercher le nom de l'utilisateur
+    if (preg_match("~afficher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        require("api/connexion.php");
+
+        $query = $conn->prepare("SELECT nom 
+                                FROM utilisateurs 
+                                WHERE courriel_utilisateurs = :courriel");
+        $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetch();
+
+        if ($resultat) {
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+
 }
 

@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Afficher les réunions pour un groupe
         fetch(
             pathDynamic +
-                "centre_de_reunions/api/api_centre_reunion.php/obtenir_reunions_groupes",
+                "/centre_de_reunions/api/api_centre_reunion.php/obtenir_reunions_groupes",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Afficher les réunions
         fetch(
             pathDynamic +
-                "centre_de_reunions/api/api_centre_reunion.php/obtenir_reunions_utilisateur",
+                "/centre_de_reunions/api/api_centre_reunion.php/obtenir_reunions_utilisateur",
             {}
         )
             .then((response) => {
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Récupérer le courriel de l'utilisateur courant
     fetch(
-        pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/chercher-courriel",
+        pathDynamic + "/api/api_globale.php/chercher-courriel",
         {}
     )
         .then((response) => {
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // Afficher la liste des groupes
-    fetch(pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/afficher_groupes", {})
+    fetch(pathDynamic + "/api/api_globale.php/afficher_groupes", {})
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Affiche le bouton de création d'un nouveau groupe uniquement si l'utilisateur est
     // un enseignant
-    fetch(pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/afficher_type", {})
+    fetch(pathDynamic + "/centre_de_reunions/api/api_centre_reunion.php/afficher_type", {})
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const donnees = { nom: nomGroupe, participants: tableauParticipants };
 
                 fetch(
-                    pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/ajouter_groupe",
+                    pathDynamic + "/centre_de_reunions/api/api_centre_reunion.php/ajouter_groupe",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
                 fetch(
-                    pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/modifier_groupe",
+                    pathDynamic + "/centre_de_reunions/api/api_centre_reunion.php/modifier_groupe",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Le créateur ne peut pas s'ajouter lui-même car il en fait parti par défaut
         fetch(
-            pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/chercher-courriel",
+            pathDynamic + "/api/api_globale.php/chercher-courriel",
             {}
         )
             .then((response) => {
@@ -461,7 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Cherche le participant dans la table des utilisateurs de la base de données
                     fetch(
                         pathDynamic +
-                            "centre_de_reunions/api/api_centre_reunion.php/chercher_participants",
+                            "/api/api_globale.php/chercher_participants",
                         {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -546,7 +546,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Chercher les membres du groupe
         fetch(
             pathDynamic +
-                "centre_de_reunions/api/api_centre_reunion.php/chercher-membres-groupe",
+                "/centre_de_reunions/api/api_centre_reunion.php/chercher-membres-groupe",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function supprimerGroupe(groupe) {
         donnees = { idGroupe: groupe };
-        fetch(pathDynamic + "centre_de_reunions/api/api_centre_reunion.php/supprimer_groupe", {
+        fetch(pathDynamic + "/centre_de_reunions/api/api_centre_reunion.php/supprimer_groupe", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(donnees),
