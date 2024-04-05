@@ -86,6 +86,43 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Erreur:", error));
     });
 
+
+
+    // modifier photo de profil 
+    document.addEventListener("DOMContentLoaded", function () {
+        const pathDynamic = window.location.origin;
+    
+        // Gérer le clic sur le bouton de modification de la photo
+        $("#modifier-photo").on("click", function () {
+            let fichierPhoto = $('#photo-choisie')[0].files[0];  // Récupérer le fichier sélectionné
+    
+            if (fichierPhoto) {
+                let formData = new FormData();
+                formData.append('photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
+    
+                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
+                 method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(donnees),
+                    
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        // Mettre à jour l'affichage de la photo de profil
+                        $("#photo").css("background-image", `url(${URL.createObjectURL(fichierPhoto)})`);
+                    } else {
+                        alert('Erreur lors de la modification de la photo de profil.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            }
+        });
+    });
+    
+
     /* // pour la modification PHOTO 
         $('#modifier-photo').on('click', function(event) {
 
