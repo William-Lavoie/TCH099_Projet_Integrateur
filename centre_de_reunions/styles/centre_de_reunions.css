@@ -19,6 +19,19 @@ main{
     top: 0;
 }
 
+#formulaire-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 15%;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #04071d;
+
+}
+
 #conteneur-reunions {
     display: flex;
     flex-direction: column;

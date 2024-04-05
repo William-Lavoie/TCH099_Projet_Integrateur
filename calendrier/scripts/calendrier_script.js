@@ -431,7 +431,6 @@ $(document).ready(function() {
     })
 
 
-     // TODO: SUBMITTING GROUP BY READING FIELD INSTEAD OF ARRAY
     /** 
      * Ajout d'un participant si celui-ci a un compte valide
      */
@@ -542,24 +541,27 @@ $(document).ready(function() {
          // Tâche entrée par l'utilisateur
         let texte = $("#nouvelle-tache").val();
 
-         // La tâche est ajoutée à la liste
-        $("#nouvelle-tache").val("");
+        if (texte != "") {
+            // La tâche est ajoutée à la liste
+            $("#nouvelle-tache").val("");
 
-        const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
-        const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
+            const nouvelleTache = $("<div class='nom-participant'> <p></p> </div> ");
+            const boutonSupprimer = $("<button class='supprimer-tache'>🗑</button>");
 
-        // Bouton pour supprimer le participant 
-        boutonSupprimer.on("click", function(event) {
+            // Bouton pour supprimer le participant 
+            boutonSupprimer.on("click", function(event) {
 
-            // Évite de supprimer les parents également
-            event.stopPropagation(); 
-            $(this).parent().remove();
-        });
+                // Évite de supprimer les parents également
+                event.stopPropagation(); 
+                $(this).parent().remove();
+            });
 
-        // Création du participant dans le formulaire 
-        nouvelleTache.children("p").text(texte);
-        nouvelleTache.append(boutonSupprimer);
-        $("#liste-taches").append(nouvelleTache);
+            // Création de la tâche dans le formulaire 
+            nouvelleTache.children("p").text(texte);
+            nouvelleTache.append(boutonSupprimer);
+            $("#liste-taches").append(nouvelleTache);
+        }
+       
     })
 
     // Revenir en arrière à partir du formulaire de création des tâches
