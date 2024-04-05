@@ -229,10 +229,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 nouveauGroupe.on("click", function (event) {
                     event.preventDefault();
 
-                    // Si le groupe est déjà sélectionné, affiche toutes les réunions
+                     // Si le groupe est déjà sélectionné, affiche toutes les réunions
                     if ($(this).hasClass("groupe-choisi")) {
                         afficherReunion();
-                        $("button").removeClass("groupe-choisi");
+                        $("button, td").removeClass("groupe-choisi");
                     }
 
                     // Afficher uniquement les réunions du groupe choisi
@@ -240,8 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         // Sélectionner les éléments de la cellule sélectionnée
                         var elementsCellule = $(this).closest(".cellule-groupe");
 
-                        $("button").removeClass("groupe-choisi");
+                        $("td, button").removeClass("groupe-choisi");
                         $(this).parent().addClass("groupe-choisi");
+                        $(this).addClass("groupe-choisi");
                         elementsCellule.find(".modifier-groupe").addClass("groupe-choisi");
                         afficherReunionsGroupe(data[i]["id_groupes"]);
                     }
