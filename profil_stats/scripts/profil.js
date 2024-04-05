@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             if (fichierPhoto) {
                 let formData = new FormData();
-                formData.append('photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
+                formData.append('nouvelle-photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
     
                 fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
                  method: 'POST',
