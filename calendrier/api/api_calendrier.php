@@ -7,7 +7,9 @@ header("Access-Control-Max-Age: 3600");
 
 session_start();
 
-
+//************************************
+//Post 
+//************************************
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
@@ -20,11 +22,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idReunion'], $donnees['courriel'])) {
             
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $query = $conn->prepare("SELECT p.presence, pr.courriel_utilisateur 
                                 FROM présences AS p
@@ -81,7 +79,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idReunion'])) {
             
-             require("connexion.php");
+            require("connexion.php");
 
             $query = $conn->prepare("SELECT u.nom, u.courriel_utilisateurs, COALESCE(ur.presence, 'VIDE') AS presence 
                                     FROM utilisateurs_reunions AS ur
@@ -91,7 +89,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
             $resultat = $query->fetchAll();
 
-             echo json_encode($resultat);
+            echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
@@ -106,12 +104,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['courriel'])) {
             
-<<<<<<< HEAD
-             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
-
+            require("connexion.php");
 
             $courriel = $donnees['courriel'];
 
@@ -122,26 +115,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
             $resultat = $query->fetch();
 
-             echo json_encode($resultat);
+            echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
     }
 
      // Chercher si une journée a au moins une réunion
-     if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'], $donnees['date'])) {
             
-<<<<<<< HEAD
-             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
-
+            require("connexion.php");
 
             $courriel = $donnees['courriel'];
             $date = $donnees['date'];
@@ -170,29 +158,26 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
-      // Chercher toutes les informations sur une réunion
-      if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    // Chercher toutes les informations sur une réunion
+    if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['idReunion'])) {
             
-<<<<<<< HEAD
-             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
+            require("connexion.php");
 
             $query = $conn->prepare("SELECT r.titre, r.heure_debut, r.heure_fin, COALESCE(g.nom, 'VIDE') AS nom 
-                                     FROM reunions AS r
-                                     LEFT JOIN groupes AS g ON g.id_groupes = r.id_groupes
-                                     WHERE id_reunions = :id");
+                                    FROM reunions AS r
+                                    LEFT JOIN groupes AS g ON g.id_groupes = r.id_groupes
+                                    WHERE id_reunions = :id");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetch();
 
-             echo json_encode($resultat);
+            echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
@@ -207,11 +192,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             isset($donnees['fin']) && 
             isset($donnees['courriel'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
     
             $dateDebut = $donnees['debut'];
             $dateFin = $donnees['fin'];
@@ -247,11 +228,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['courriel'], $donnees['date'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
     
             $courriel = $donnees['courriel'];
             $date = $donnees['date'];
@@ -323,11 +300,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['listeParticipants'], 
                 $donnees['taches'])) {
 
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $participants = $donnees['listeParticipants'];
             $titre = $donnees['titre'];
@@ -521,11 +494,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['groupe'], 
                 $donnees['taches'])) {
 
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $groupe = $donnees['groupe'];
             $titre = $donnees['titre'];
@@ -633,11 +602,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['taches'], 
                 $donnees['id_reunions'])) {
 
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $groupe = $donnees['groupe'];
             $titre = $donnees['titre'];
@@ -782,11 +747,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 $donnees['id_reunions'], 
                 $donnees['listeParticipants'])) {
 
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $titre = $donnees['titre'];
             $debut = $donnees['debutReunion'];
@@ -947,11 +908,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             isset($donnees['fin']) && 
             isset($_SESSION['courriel'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
     
             $dateDebut = $donnees['debut'];
             $dateFin = $donnees['fin'];
@@ -990,11 +947,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunions'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
         
             // Supprimer la réunion
             $query = $conn->prepare("DELETE FROM reunions 
@@ -1119,11 +1072,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['idReunions'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
     
             $idReunions = $donnees['idReunions'];
         
@@ -1322,11 +1271,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'])) {
-<<<<<<< HEAD
+            
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
             $query = $conn->prepare("SELECT photo 
                                     FROM utilisateurs 
@@ -1556,11 +1502,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['courriel'], $donnees['debut'], $donnees['fin'], $donnees['date'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
             
             $query = $conn->prepare("SELECT * 
                                     FROM utilisateurs_reunions AS ur 
@@ -1593,11 +1535,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
         if (isset($donnees['nom'], $donnees['type'])) {
     
-<<<<<<< HEAD
             require("connexion.php");
-=======
-            require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
             
             $query = $conn->prepare("INSERT INTO utilisateurs (nom, type, courriel_utilisateurs) VALUES (:nom, :type, :courriel)");
             $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
@@ -1839,10 +1777,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
-
-
-
 }
+};
 
 
 
@@ -1936,7 +1872,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
                                     WHERE courriel_utilisateurs = :courriel)
                                     
                                     ORDER BY date, heure_debut;
-                                 ");
+                                ");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();
@@ -1984,11 +1920,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Chercher si le courriel de l'utilisateur est associé à un compte 
     if (preg_match("~compte_existe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-<<<<<<< HEAD
         require("connexion.php");
-=======
-        require("api/connexion.php");
->>>>>>> parent of dbe2c2c (keeping hope alive)
 
         if (isset($_SESSION['courriel'])) {
 
@@ -2005,13 +1937,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["existe" => false]);
             }
         }
-       
+    
     }
 
     
 
 
 };
-
 
 ?>
