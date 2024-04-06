@@ -358,6 +358,35 @@ function updateSliderValue() {
     valeurSatisfaction.innerText = satisfaction.value;
 }
 
+function modifierAppreciation() {
+    
+    let satisfaction = document.getElementById("satisfaction");
+    let valeurSatisfaction = document.getElementById("valeurSatisfaction");
+    valeurSatisfaction.innerText = satisfaction.value;
+    
+    donnees = { 'idReunions': idReunion, 'appreciation': satisfaction.value };
+    fetch(
+        pathDynamic +
+            "/calendrier/api/api_calendrier.php/modifier_appreciation",
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(donnees),
+        }
+    )
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("error");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+
 //************************* */
 //ajouter noms dans la table des presence
 //************************* */
@@ -512,6 +541,36 @@ document.addEventListener("DOMContentLoaded", function () {
             checkbox.dispatchEvent(new Event("change"));
         });
     });
+    
+    // Afficher le slider à la bonne valeur
+console.log(idReunion);
+    donnees = { 'idReunions': idReunion};
+fetch(
+    pathDynamic +
+        "/calendrier/api/api_calendrier.php/afficher_appreciation",
+    {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(donnees),
+    }
+)
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log("error");
+        }
+    })
+    .then((data) => {
+        let satisfaction = document.getElementById("satisfaction");
+        let valeurSatisfaction = document.getElementById("valeurSatisfaction");
+        valeurSatisfaction.innerText = data['appreciation'];
+        satisfaction.value = data['appreciation'];
+
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 });
 
 //************************* */
@@ -554,12 +613,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 addTasksToContainer(data[i]["titre"], data[i]["completee"]);
             }
 
-            // Updater le compteur
+            if (nbObectifAjouter > 0) {
+                // Updater le compteur
             updateCompletion(
                 totalCheckboxesChecked,
                 document.getElementById("toDo_conteneur").getElementsByTagName("input")
                     .length
             );
+            }
+            
         })
         .catch((error) => {
             console.log(error);

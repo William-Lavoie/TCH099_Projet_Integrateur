@@ -101,7 +101,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'])) {
-            
+        
              require("connexion.php");
 
 
@@ -1659,6 +1659,59 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         echo json_encode(["error" => "ID de réunions non défini"]);
     }
 } 
+
+    // Chercher la satisfaction d'une réunion pour l'utilisateur courant
+    if (preg_match("~afficher_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['idReunions'])) {
+    
+            require("connexion.php");
+
+            // Chercher l'identifiant de la liste des tâches
+            $query = $conn->prepare("SELECT appreciation
+                                     FROM utilisateurs_reunions
+                                     WHERE courriel_utilisateurs = :courriel AND id_reunions = :id");
+            $query->bindParam(":id", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+
+            $query->execute();
+
+            $resultat = $query -> fetch();
+    
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+
+// Changer l'apprécation d'une réunion
+    if (preg_match("~modifier_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['appreciation'], 
+                  $donnees['idReunions'])) {
+    
+            require("connexion.php");
+
+            // Chercher l'identifiant de la liste des tâches
+            $query = $conn->prepare("UPDATE utilisateurs_reunions SET appreciation = :appreciation WHERE id_reunions = :id AND courriel_utilisateurs = :courriel");
+            $query->bindParam(":appreciation", $donnees['appreciation'],  PDO::PARAM_STR);
+            $query->bindParam(":id", $donnees['idReunions'],  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+
+            $query->execute();
+
+    
+            echo json_encode(["message" => "succès"]);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
 
     // Marquer un membre d'une réunion comme présent ou absent
     if (preg_match("~modifier_presence$~", $_SERVER['REQUEST_URI'], $matches)) {
