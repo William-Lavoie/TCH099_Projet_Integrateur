@@ -543,7 +543,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
     // Afficher le slider à la bonne valeur
-console.log(idReunion);
     donnees = { 'idReunions': idReunion};
 fetch(
     pathDynamic +
@@ -562,10 +561,13 @@ fetch(
         }
     })
     .then((data) => {
-        let satisfaction = document.getElementById("satisfaction");
-        let valeurSatisfaction = document.getElementById("valeurSatisfaction");
-        valeurSatisfaction.innerText = data['appreciation'];
-        satisfaction.value = data['appreciation'];
+        
+        if (data['appreciation'] != -1) {
+            let satisfaction = document.getElementById("satisfaction");
+            let valeurSatisfaction = document.getElementById("valeurSatisfaction");
+            valeurSatisfaction.innerText = data['appreciation'];
+            satisfaction.value = data['appreciation'];    
+        }
 
     })
     .catch((error) => {
