@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            // Modifier l'état de la tâche
+            // Modifier l'état de la présence
             donnees = { 'courriel': courriel, 'etat': etat, 'idReunion': idReunion };
             fetch(pathDynamic + "/calendrier/api/api_calendrier.php/modifier_presence", {
                 method: "POST",
@@ -479,6 +479,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 .catch((error) => {
                     console.log(error);
                 });
+                
+                 donnees = { idReunion: idReunion};
+                // Déterminer si les participants étaient présents ou non 
+                fetch(pathDynamic + "/calendrier/api/api_calendrier.php/mettre_presences_a_jour", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(donnees),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            console.log("error");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
         });
     }

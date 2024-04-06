@@ -7,9 +7,7 @@ header("Access-Control-Max-Age: 3600");
 
 session_start();
 
-//************************************
-//Post 
-//************************************
+
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
@@ -79,7 +77,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['idReunion'])) {
             
-            require("connexion.php");
+             require("connexion.php");
 
             $query = $conn->prepare("SELECT u.nom, u.courriel_utilisateurs, COALESCE(ur.presence, 'VIDE') AS presence 
                                     FROM utilisateurs_reunions AS ur
@@ -89,7 +87,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
             $resultat = $query->fetchAll();
 
-            echo json_encode($resultat);
+             echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
@@ -104,7 +102,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (isset($donnees['courriel'])) {
             
-            require("connexion.php");
+             require("connexion.php");
+
 
             $courriel = $donnees['courriel'];
 
@@ -115,21 +114,22 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
             $resultat = $query->fetch();
 
-            echo json_encode($resultat);
+             echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
     }
 
      // Chercher si une journée a au moins une réunion
-    if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+     if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'], $donnees['date'])) {
             
-            require("connexion.php");
+             require("connexion.php");
+
 
             $courriel = $donnees['courriel'];
             $date = $donnees['date'];
@@ -158,26 +158,25 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
-    // Chercher toutes les informations sur une réunion
-    if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
-    if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+      // Chercher toutes les informations sur une réunion
+      if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['idReunion'])) {
             
-            require("connexion.php");
+             require("connexion.php");
 
             $query = $conn->prepare("SELECT r.titre, r.heure_debut, r.heure_fin, COALESCE(g.nom, 'VIDE') AS nom 
-                                    FROM reunions AS r
-                                    LEFT JOIN groupes AS g ON g.id_groupes = r.id_groupes
-                                    WHERE id_reunions = :id");
+                                     FROM reunions AS r
+                                     LEFT JOIN groupes AS g ON g.id_groupes = r.id_groupes
+                                     WHERE id_reunions = :id");
             $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
             $query->execute();
             $resultat = $query->fetch();
 
-            echo json_encode($resultat);
+             echo json_encode($resultat);
         }else {
             echo json_encode(["error" => "erreur"]);
         }
@@ -1271,7 +1270,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $donnees = json_decode($donnees_json, true);
 
         if (isset($donnees['courriel'])) {
-            
             require("connexion.php");
 
             $query = $conn->prepare("SELECT photo 
@@ -1643,14 +1641,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             $query->execute();
             $id_presence = $query->fetchColumn();
 
-            $query = $conn->prepare("SELECT DISTINCT u.nom, u.courriel_utilisateurs, pre.presence, pre.id_presences_reunions 
-                                    FROM utilisateurs AS u 
-                                    INNER JOIN utilisateurs_reunions AS ur ON u.courriel_utilisateurs = ur.courriel_utilisateurs 
-                                    INNER JOIN présences_reunions AS pr ON pr.id_reunions = ur.id_reunions
-                                    INNER JOIN présences AS pre ON pre.id_presences_reunions = pr.id_presences_reunions
-                                    WHERE ur.id_reunions = :id AND u.courriel_utilisateurs NOT LIKE :courriel AND pre.id_presences_reunions = :id_presence");
-            $query->bindParam(":id", $idReunions,  PDO::PARAM_STR);
-            $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
+            $query = $conn->prepare("SELECT DISTINCT u.courriel_utilisateurs, u.nom, pre.presence
+                                    FROM utilisateurs AS u                                    
+                                    INNER JOIN présences AS pre ON pre.courriel = u.courriel_utilisateurs
+                                    INNER JOIN présences_reunions AS pr ON pr.id_presences_reunions = pre.id_presences_reunions
+                                    WHERE pre.id_presences_reunions = :id_presence");
             $query->bindParam(":id_presence", $id_presence,  PDO::PARAM_STR);
 
             $query->execute();
@@ -1717,68 +1712,69 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     if (preg_match("~mettre_presences_a_jour$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        $donnees_json = file_get_contents('php://input');
-        $donnees = json_decode($donnees_json, true);
-    
-        if (isset($donnees['idReunion'])) {
-    
-            require("connexion.php");
+    $donnees_json = file_get_contents('php://input');
+    $donnees = json_decode($donnees_json, true);
 
-            //Liste des participants à la rencontre
-            $query = $conn->prepare("SELECT courriel_utilisateurs 
-                                    FROM utilisateurs_reunions AS ur
-                                    INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions
-                                    WHERE r.id_reunions = :id");
-            $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
-            $query->execute();
-            $resultat = $query->fetchAll();
+    if (isset($donnees['idReunion'])) {
 
+        require("connexion.php");
 
-            //Récupérer les présences pour chacun des participants 
-            for ($i = 0; $i < count($resultat); $i++) {
+        // Liste des participants à la rencontre
+        $query = $conn->prepare("SELECT courriel_utilisateurs 
+                                FROM utilisateurs_reunions
+                                WHERE id_reunions = :id");
+        $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
+        $query->execute();
+        $resultat = $query->fetchAll();
+
+        if ($resultat) {
+            // Récupérer les présences pour chacun des participants 
+            foreach ($resultat as $participant) {
 
                 $query = $conn->prepare("SELECT p.presence 
                                     FROM présences AS p
                                     INNER JOIN présences_reunions AS pr ON p.id_presences_reunions = pr.id_presences_reunions 
                                     INNER JOIN reunions  AS r ON pr.id_reunions = r.id_reunions
                                     WHERE r.id_reunions = :id AND p.courriel = :courriel");
-                $query->bindParam(":courriel", $resultat[$i]['courriel_utilisateurs'],  PDO::PARAM_STR);
+                $query->bindParam(":courriel", $participant['courriel_utilisateurs'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
 
                 $query->execute();
                 $presences = $query->fetchAll();
 
                 $somme_presences = 0;
-                for ($j = 0; $j < count($presences); $j++) {
-
-                    if ($presences[$j] != null && $presences[$j] != -1) {
-                        $somme_presences += (int)$presences[$j]['presence'];
+                $nb_votes = 0;
+                foreach ($presences as $presence) {
+                    if ($presence['presence'] !== null && $presence['presence'] !== -1) {
+                        $somme_presences += (int)$presence['presence'];
+                        $nb_votes++;
                     }
                 }
 
                 // L'utilisateur est considéré présent si la majorité des utilisateurs l'ont indiqué présent
-                $present = round($somme_presences / count($presences));
+                $present = $nb_votes > 0 ? round($somme_presences / $nb_votes) : -1;
 
                 // Insérer la présence dans la table de jointure des utilisateurs et des réunions 
                 $query = $conn->prepare("UPDATE utilisateurs_reunions 
                                 SET presence = :present 
                                 WHERE courriel_utilisateurs = :courriel AND id_reunions = :id");
-                $query->bindParam(":courriel", $resultat[$i]['courriel_utilisateurs'],  PDO::PARAM_STR);
+                $query->bindParam(":courriel", $participant['courriel_utilisateurs'],  PDO::PARAM_STR);
                 $query->bindParam(":id", $donnees['idReunion'],  PDO::PARAM_STR);
-                $query->bindParam(":present", $present,  PDO::PARAM_STR);
+                $query->bindParam(":present", $present,  PDO::PARAM_INT);
                 $query->execute();
             }
-            
-            if ($resultat) {
-                echo json_encode($presences);
-            } else {
-                echo json_encode(["error" => "erreur"]);
-            }
+
+            echo json_encode(["success" => "Présences mises à jour avec succès"]);
+        } else {
+            echo json_encode(["error" => "Erreur: Aucun participant trouvé"]);
         }
     }
+}
+
+
+
 
 }
-};
 
 
 
@@ -1872,7 +1868,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
                                     WHERE courriel_utilisateurs = :courriel)
                                     
                                     ORDER BY date, heure_debut;
-                                ");
+                                 ");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();
@@ -1937,12 +1933,13 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["existe" => false]);
             }
         }
-    
+       
     }
 
     
 
 
 };
+
 
 ?>
