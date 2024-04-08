@@ -74,18 +74,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const userProfile = await auth0Client.getUser();
 
             // Evoi le token au backend
-            fetch(pathDynamic + "/page_accueil/api/JWTValidation.php/valider_token", {
-            method: "POST",
-            headers: {
+            fetch(
+                pathDynamic + 
+                "/page_accueil/api/JWTValidation.php/valider_token", 
+                {
+                method: "POST",
+                headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ token: token }),
+                },
+                body: JSON.stringify({ token: token }),
             })
             .then((response) => {
                 if (response.ok) {
                 //Si l'utilisateur est authentifier et le token valider, utuliser les info
 
+                console.log("le token a ete valider"); // to delete ***************
                 // Envoie de l'identifiant de l'utilisateur
                 const identifiants = { courriel: userProfile.name };
 
@@ -104,8 +108,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
                 } else {
-                console.log("error");
+                    throw new Error("erreur avec validation du jwt");
                 // si le token n'est pas valid, renvoi l'utilisateur a la page d'acceuil
+                /*
                 if (
                     window.location.hostname === "localhost:" ||
                     window.location.hostname === "127.0.0.1:"
@@ -118,11 +123,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     window.location.href = "https://huddleharbor.com";
                 }
+                */
                 }
             })
             .catch((error) => {
                 // error avec la validation de token
-                console.log(error);
+                console.error(error);
+                returnError(error.message);
             });
         }
         })

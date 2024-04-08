@@ -13,13 +13,20 @@ use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Constraint\IdentifiedBy;
 
+// retourner une erreur approprie 
+function returnError($errorMessage, $statusCode = 500) {
+    http_response_code($statusCode);
+    echo json_encode(['error' => $errorMessage]);
+    exit;
+}
+
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (preg_match("~valider_token$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require __DIR__ . '/vendor/autoload.php'; // Include Composer autoloader
+        require __DIR__ . '/vendor/autoload.php'; // Inclure Composer autoloader
 
-        //configer au auth0 SDK
+        //configure au auth0 SDK
         $config = new SdkConfiguration(
             strategy: SdkConfiguration::STRATEGY_API,
             domain: 'https://projet-integrateur-eq2.us.auth0.com',
@@ -32,16 +39,14 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $token = $_POST['token'] ?? null;
 
         if (!$token) {
-            echo json_encode(['error' => 'Pas de Token']);
-            exit;
+            returnError('Pas de Token', 400);
         }
 
         // Decode le token
         try {
             $decodedToken = $auth0->decode($token);
         } catch (\Auth0\Exception\CoreException $e) { //exception thrown par auth0
-            echo json_encode(['error' => 'Impossible de décoder le token']);
-            return;
+            returnError('Impossible de décoder le token', 400);
         }
 
         // Get le JWKS de auth0
@@ -62,7 +67,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
         if (!$signingKey) {
             // Key not found
-            echo json_encode(['error' => 'Clé introuvable']);
+            returnError('Clé introuvable', 400);
         } else{
 
             // Configuration for JWT
@@ -82,7 +87,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(['success' => 'Token est valid']);
             } else {
                 // Token n'est pas valide
-                echo json_encode(['error' => 'Token n\'est pas valid']);
+                returnError('Token n\'est pas valide', 401); // Unauthorized
             }
         }
     }
