@@ -257,6 +257,84 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             echo json_encode(["error" => "erreur"]);
         }
     }
+    
+    
+     if (preg_match("~chercher_membres_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['idGroupe'])) {
+    
+            require("connexion.php");
+    
+            $groupe = $donnees['idGroupe'];
+            
+            $query = $conn->prepare("SELECT courriel_etudiants
+                                     FROM utilisateurs_groupes 
+                                     WHERE id_groupes = :id");
+            $query->bindParam(":id", $groupe,  PDO::PARAM_STR);
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+
+            echo json_encode($resultat);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
+    
+    
+     if (preg_match("~chercher_presences_membres$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+        $donnees_json = file_get_contents('php://input');
+        $donnees = json_decode($donnees_json, true);
+    
+        if (isset($donnees['idGroupe'], $donnees['courriel'])) {
+    
+            require("connexion.php");
+    
+            $groupe = $donnees['idGroupe'];
+            $courriel = $donnees['courriel'];
+
+            
+            $query = $conn->prepare("SELECT ur.presence
+                                     FROM utilisateurs_reunions AS ur
+                                     INNER JOIN reunions AS r ON ur.id_reunions = r.id_reunions 
+                                     WHERE ur.courriel_utilisateurs = :courriel and r.id_groupes = :id");
+            $query->bindParam(":id", $groupe,  PDO::PARAM_STR);
+            $query->bindParam(":courriel", $courriel,  PDO::PARAM_STR);
+
+
+            $query->execute();
+    
+            $resultat = $query->fetchAll();
+            
+            
+            $absent = 0;
+            $present = 0;
+            $nonEvalue = 0;
+            
+            foreach ($resultat as $row) {
+                $status = $row['presence'];
+                
+                if ($status == 0) {
+                    $absent++;
+                } else if ($status == 1) {
+                    $present++;
+                } else if ($status == -1) {
+                    $nonEvalue++;
+                }
+            }
+            
+            $presences = array($absent, $present, $nonEvalue);
+
+            echo json_encode($presences);
+        } else {
+            echo json_encode(["error" => "erreur"]);
+        }
+    }
 
 
 
