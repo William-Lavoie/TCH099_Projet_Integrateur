@@ -68,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
             }
 
+            const userProfile = await auth0Client.getUser();
+
             //recevoir token apres l'authentification
             const token = await auth0Client.getTokenSilently();
-
-            const userProfile = await auth0Client.getUser();
 
             // Evoi le token au backend
             fetch(
