@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require ("./vendor/autoload.php"); // Inclure Composer autoloader
+require ("../../vendor/autoload.php"); // Inclure Composer autoloader
 
 header("Access-Control-Allow-Origin: http://127.0.0.1:3000, https://huddleharbor.com");
 header("Access-Control-Allow-Methods: POST");
