@@ -36,7 +36,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         $auth0 = new Auth0($config);
 
         //recoi token du post
-        $token = $_POST['token'] ?? null;
+        $token = $_SERVER['HTTP_AUTHORIZATION'];
+       // $token = $_POST['token'] ?? null;
 
         if (!$token) {
             returnError('Pas de Token', 400);
