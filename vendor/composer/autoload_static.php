@@ -13,12 +13,36 @@ class ComposerStaticInitcceae5f9c8196c5731d105a4687683f3
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
+            'Psr\\EventDispatcher\\' => 20,
+            'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
+            'Psr\\Cache\\' => 10,
+            'PsrDiscovery\\' => 13,
+        ),
+        'N' => 
+        array (
+            'Nyholm\\Psr7\\' => 12,
         ),
         'L' => 
         array (
             'Lcobucci\\JWT\\' => 13,
             'Lcobucci\\Clock\\' => 15,
+        ),
+        'H' => 
+        array (
+            'Http\\Message\\MultipartStream\\' => 29,
+            'Http\\Discovery\\' => 15,
+        ),
+        'C' => 
+        array (
+            'Composer\\Semver\\' => 16,
+        ),
+        'A' => 
+        array (
+            'Auth0\\SDK\\' => 10,
         ),
     );
 
@@ -27,9 +51,48 @@ class ComposerStaticInitcceae5f9c8196c5731d105a4687683f3
         array (
             0 => __DIR__ . '/..' . '/stella-maris/clock/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
+        'Psr\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
         'Psr\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'PsrDiscovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr-discovery/cache-implementations/src',
+            1 => __DIR__ . '/..' . '/psr-discovery/container-implementations/src',
+            2 => __DIR__ . '/..' . '/psr-discovery/discovery/src',
+            3 => __DIR__ . '/..' . '/psr-discovery/event-dispatcher-implementations/src',
+            4 => __DIR__ . '/..' . '/psr-discovery/http-client-implementations/src',
+            5 => __DIR__ . '/..' . '/psr-discovery/http-factory-implementations/src',
+            6 => __DIR__ . '/..' . '/psr-discovery/log-implementations/src',
+        ),
+        'Nyholm\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nyholm/psr7/src',
         ),
         'Lcobucci\\JWT\\' => 
         array (
@@ -38,6 +101,22 @@ class ComposerStaticInitcceae5f9c8196c5731d105a4687683f3
         'Lcobucci\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/clock/src',
+        ),
+        'Http\\Message\\MultipartStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/multipart-stream-builder/src',
+        ),
+        'Http\\Discovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
+        ),
+        'Composer\\Semver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
+        'Auth0\\SDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/auth0/auth0-php/src',
         ),
     );
 
