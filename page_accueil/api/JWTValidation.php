@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header("Access-Control-Allow-Origin: http://127.0.0.1:3000, https://huddleharbor.com");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -24,7 +27,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
     if (preg_match("~valider_token$~", $_SERVER['REQUEST_URI'], $matches)) {
 
-        require __DIR__ . '/vendor/autoload.php'; // Inclure Composer autoloader
+        require __DIR__ . './vendor/autoload.php'; // Inclure Composer autoloader
 
         //configure au auth0 SDK
         $config = new SdkConfiguration(

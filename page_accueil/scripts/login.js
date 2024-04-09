@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (response.ok) {
                 //Si l'utilisateur est authentifier et le token valider, utuliser les info
 
-                console.log("le token a ete valider"); // to delete ***************
                 // Envoie de l'identifiant de l'utilisateur
                 const identifiants = { courriel: userProfile.name };
 
