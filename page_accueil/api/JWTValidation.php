@@ -37,6 +37,9 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             audience: ['https://HHValidation/api']
         );
 
+        //set le client HTTP pour auth0
+        $config->setHttpClient(new \GuzzleHttp\Client());
+
         $auth0 = new Auth0($config);
 
         //recoi token du post
