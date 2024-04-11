@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // modifier photo de profiler 
 
-    /*if (preg_match("~modifier-photo$~", $_SERVER['REQUEST_URI'], $matches) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+   
+       if (preg_match("~modifier-photo$~", $_SERVER['REQUEST_URI'], $matches)) {
         $response = array(); // Initialize response array
     
         // Read the Blob data from the request body
@@ -71,9 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     
         echo json_encode($response);
-    }*/
+    }
 
-} 
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
