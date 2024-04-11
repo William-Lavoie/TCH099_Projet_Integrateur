@@ -70,8 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const userProfile = await auth0Client.getUser();
 
+
+
             //recevoir token apres l'authentification
-            const token = await auth0Client.getTokenSilently();
+            const token = await auth0Client.getTokenSilently({ authorizationParams: { audience:  'https://HHValidation/api'} });
+            
 
             // Evoi le token au backend
             fetch(
