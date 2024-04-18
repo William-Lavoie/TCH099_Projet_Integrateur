@@ -3,7 +3,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require ("../../vendor/autoload.php"); // Inclure Composer autoloader
 
 header("Access-Control-Allow-Origin: http://127.0.0.1:3000, https://huddleharbor.com");
 header("Access-Control-Allow-Methods: POST");
@@ -17,6 +16,8 @@ use Lcobucci\JWT\Validation\Validator;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Constraint\IdentifiedBy;
+
+   require ("../../vendor/autoload.php"); // Inclure Composer autoloader
 
 // retourner une erreur approprie 
 function returnError($errorMessage, $statusCode = 500) {
@@ -36,19 +37,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             domain: 'https://projet-integrateur-eq2.us.auth0.com',
             audience: ['https://HHValidation/api']
         );
-
+        
         //set le client HTTP pour auth0
         $config->setHttpClient(new \GuzzleHttp\Client());
 
         $auth0 = new Auth0($config);
 
         //recoi token du post
-        $token = $_SERVER['HTTP_AUTHORIZATION'];
-       // $token = $_POST['token'] ?? null;
+        $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
+        $token = str_replace('Bearer ', '', $authorizationHeader);
 
         if (!$token) {
             returnError('Pas de Token', 400);
         }
+        
+        echo $token;
 
         // Decode le token
         try {

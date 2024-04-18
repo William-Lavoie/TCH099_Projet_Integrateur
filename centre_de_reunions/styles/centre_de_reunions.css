@@ -958,6 +958,7 @@ span {
     font-size: 1em;
     min-width: 70px;
     z-index: 2;
+    aspect-ratio: 1/1;
 }
 
 #creer-reunion:hover{

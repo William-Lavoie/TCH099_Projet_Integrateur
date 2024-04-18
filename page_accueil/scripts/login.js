@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         domain: "projet-integrateur-eq2.us.auth0.com",
         clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
         authorizationParams: {
+            audience:  'https://HHValidation/api',
             redirect_uri: pathDynamic + "/calendrier/calendrier.html",
         },
         })
@@ -71,11 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const userProfile = await auth0Client.getUser();
 
 
-
             //recevoir token apres l'authentification
-            const token = await auth0Client.getTokenSilently({ authorizationParams: { audience:  'https://HHValidation/api'} });
+            const token = await auth0Client.getTokenSilently();
             
-
+            console.log(token); //*********************************************************************
             // Evoi le token au backend
             fetch(
                 pathDynamic + 
@@ -107,25 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (response.ok) {
                     } else {
                     console.log("La requête n'a pas fonctionnée");
+                    
+                    // si le token n'est pas valid, renvoi l'utilisateur a la page d'acceuil
+                    window.location.href = "https://huddleharbor.com";
+
                     }
                 });
-                } else {
-                    throw new Error("erreur avec validation du jwt");
-                // si le token n'est pas valid, renvoi l'utilisateur a la page d'acceuil
-                /*
-                if (
-                    window.location.hostname === "localhost:" ||
-                    window.location.hostname === "127.0.0.1:"
-                ) {
-                    window.location.href =
-                    window.location.protocol +
-                    window.location.hostname +
-                    window.location.port +
-                    "index.html";
-                } else {
-                    window.location.href = "https://huddleharbor.com";
-                }
-                */
+               
                 }
             })
             .catch((error) => {

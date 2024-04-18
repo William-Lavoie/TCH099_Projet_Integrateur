@@ -663,6 +663,7 @@ reunion
     font-size: 1em;
     min-width: 70px;
     z-index: 2;
+    aspect-ratio: 1/1;
 }
 
 .focus {
@@ -670,9 +671,19 @@ reunion
     pointer-events: none;
 }
 
+@media only screen and (max-width: 1160px) {
 
+    #journee-mois {
+        width: 10em;    
+        }
+}
 
+@media only screen and (max-width: 1100px) {
 
+    #journee-mois {
+        width: 8em;   
+        }
+}
 
 /* Media query pour iPhone */
 @media only screen and (max-width: 450px) {
@@ -822,7 +833,7 @@ reunion
         font-size: 2.1em;
     }
 
-    
+}
 /* tablet  */
 @media only screen and (max-width: 600px) {
     
@@ -970,7 +981,7 @@ reunion
     .supprimer-participant:hover, .supprimer-tache:hover {
         font-size: 2.1em;
     }
-}
+
     /************************************
     /* main 
     /************************************/
