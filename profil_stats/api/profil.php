@@ -46,13 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // modifier photo de profiler 
 
-   
-       if (preg_match("~modifier-photo$~", $_SERVER['REQUEST_URI'], $matches)) {
+
+    if (preg_match("~modifier-photo$~", $_SERVER['REQUEST_URI'], $matches)) {
         $response = array(); // Initialize response array
-    
+
+        var_dump($_POST); //dump for testing
+
         // Read the Blob data from the request body
         $blobData = file_get_contents('php://input');
     
+        echo $blobData;
+
         if (!empty($blobData)) {
             require("connexionP.php"); // Check if this file includes the database connection correctly
     
@@ -69,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             $response['success'] = false;
-            $response['error'] = 'Données Blob manquantes';
+            $response['error'] = 'Donnees Blob manquantes';
         }
     
         echo json_encode($response);

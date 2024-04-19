@@ -88,40 +88,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    // modifier photo de profil 
-    document.addEventListener("DOMContentLoaded", function () {
-        const pathDynamic = window.location.origin;
+    $("#modifier-photo").on("click", async function (event) {
+        event.preventDefault(); 
     
-        // Gérer le clic sur le bouton de modification de la photo
-        $("#modifier-photo").on("click", function () {
-            let fichierPhoto = $('#photo-choisie')[0].files[0];  // Récupérer le fichier sélectionné
-            console.log(fichierPhoto);
+        let fichierPhoto = $('#photo-choisie')[0].files[0];  // Récupérer le fichier sélectionné
+        console.log(fichierPhoto);
     
-            if (fichierPhoto) {
-                let formData = new FormData();
-                formData.append('nouvelle-photo', fichierPhoto);  // Ajouter le fichier à l'objet FormData
+        if (fichierPhoto) {
+            let formData = new FormData();
+            formData.append("nouvelle-photo", fichierPhoto, fichierPhoto.name);  // Ajouter le fichier à l'objet FormData
     
-                fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
-                 method: 'POST',
-                 body: formData,
-            
-
-                    
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        // Mettre à jour l'affichage de la photo de profil
-                        $("#photo").css("background-image", `url(${URL.createObjectURL(fichierPhoto)})`);
-                    } else {
-                        alert('Erreur lors de la modification de la photo de profil.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
+            try {
+                let response = await fetch(pathDynamic + "/profil_stats/api/profil.php/modifier-photo", {
+                    method: 'POST',
+                    body: formData,
                 });
+    
+                let data = await response.json();
+                
+                if (data) {
+                    // Mettre à jour l'affichage de la photo de profil
+                    $("#photo").css("background-image", `url(${URL.createObjectURL(fichierPhoto)})`);
+                } else {
+                    alert('Erreur lors de la modification de la photo de profil.');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
             }
-        });
+        }
     });
     
 
