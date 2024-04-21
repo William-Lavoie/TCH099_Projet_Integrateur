@@ -58,28 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
             auth0Client.logout();
             });
 
-
-
-            //verifie si l'utilisateur n'est pas authentifier, renvoi a la page d'acceuil
-            if (!isAuthenticated) {
-            if (
-                window.location.hostname === "localhost:" ||
-                window.location.hostname === "127.0.0.1:"
-            ) {
-                window.location.href =
-                window.location.protocol +
-                window.location.hostname +
-                window.location.port +
-                "index.html";
-            } else {
-                window.location.href = "https://huddleharbor.com";
-            }
-            return;
-            }
-            
-            
-            
-
             const userProfile = await auth0Client.getUser();
 
 
@@ -136,5 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch((error) => {
         //erreur avec auth
         console.log(error);
+        //si l'utilisateur n'est pas authentifier, renvoi a la page d'acceuil
+            window.location.href = "https://huddleharbor.com";
         });
 });
