@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         domain: "projet-integrateur-eq2.us.auth0.com",
         clientId: "nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs",
         authorizationParams: {
-            audience:  'https://HHValidation/api',
+            audience:  ['https://HHValidation/api'],
             redirect_uri: pathDynamic + "/calendrier/calendrier.html",
         },
         })
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
             //recevoir token apres l'authentification
             const token = await auth0Client.getTokenSilently();
             
-            console.log(token); //*********************************************************************
             // Evoi le token au backend
             fetch(
                 pathDynamic + 
@@ -110,10 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     // si le token n'est pas valid, renvoi l'utilisateur a la page d'acceuil
                     window.location.href = "https://huddleharbor.com";
-
                     }
                 });
-               
+            
                 }
             })
             .catch((error) => {

@@ -11,11 +11,14 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 //auth0
 use Auth0\SDK\Auth0;
 use Auth0\SDK\Configuration\SdkConfiguration;
+use Auth0\SDK\Token;
 //library de validation (composer require lcobucci/jwt (library utiliser pour valider))
+/*
 use Lcobucci\JWT\Validation\Validator;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Constraint\IdentifiedBy;
+*/
 
    require ("../../vendor/autoload.php"); // Inclure Composer autoloader
 
@@ -31,17 +34,6 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     if (preg_match("~valider_token$~", $_SERVER['REQUEST_URI'], $matches)) {
 
 
-        //configure au auth0 SDK
-        $config = new SdkConfiguration(
-            strategy: SdkConfiguration::STRATEGY_API,
-            domain: 'https://projet-integrateur-eq2.us.auth0.com',
-            audience: ['https://HHValidation/api']
-        );
-        
-        //set le client HTTP pour auth0
-        $config->setHttpClient(new \GuzzleHttp\Client());
-
-        $auth0 = new Auth0($config);
 
         //recoi token du post
         $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
@@ -51,8 +43,27 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             returnError('Pas de Token', 400);
         }
         
-        echo $token;
+        $token = new Token(new SdkConfiguration(
+            domain: 'https://projet-integrateur-eq2.us.auth0.com/',
+            clientId: 'nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs',
+            audience: ['https://HHValidation/api'],
+            cookieSecret: 'null'
+        ), $token, Token::TYPE_ID_TOKEN);
+        
+        if($token->verify()){
+            if( $token->validate()){
+                echo json_encode(['success' => 'Token est valid']);
+            }else {
+                // Token n'est pas valide
+                returnError('Token n\'est pas valide', 401); // Unauthorized
+            }
+        }else {
+            // Token n'est pas valide (signature)
+            returnError('Token n\'est pas signé', 401); // Unauthorized
+        }
+    
 
+        /*
         // Decode le token
         try {
             $decodedToken = $auth0->decode($token);
@@ -101,7 +112,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 returnError('Token n\'est pas valide', 401); // Unauthorized
             }
         }
+    
+*/
     }
-}
+    }
 ?>
-
