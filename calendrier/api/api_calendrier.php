@@ -7,7 +7,35 @@ header("Access-Control-Max-Age: 3600");
 
 session_start();
 
+/*
 
+$authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
+        $token = str_replace('Bearer ', '', $authorizationHeader);
+
+        if (!$token) {
+            returnError('Pas de Token', 400);
+        }
+        
+        $token = new Token(new SdkConfiguration(
+            domain: 'https://projet-integrateur-eq2.us.auth0.com/',
+            clientId: 'nrLsb1vilAv0TV5kTpyqmP7Gt0NfiXcs',
+            audience: ['https://HHValidation/api'],
+            cookieSecret: 'null'
+        ), $token, Token::TYPE_ID_TOKEN);
+        
+        if($token->verify()){
+            if( $token->validate()){
+                echo json_encode(['success' => 'Token est valid']);
+            }else {
+                // Token n'est pas valide
+                returnError('Token n\'est pas valide', 401); // Unauthorized
+            }
+        }else {
+            // Token n'est pas valide (signature)
+            returnError('Token n\'est pas signé', 401); // Unauthorized
+        }
+
+*/
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /*** FOR MOBILE (WILL BE MOVED) ***/
@@ -40,7 +68,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
     
      // Chercher les groupes avec un enseignant donné
-      if (preg_match("~afficher_groupes_enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~afficher_groupes_enseignant$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -70,7 +98,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
     
     // Chercher les présences pour une réunion
-     if (preg_match("~chercher_presences_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_presences_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -95,7 +123,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher le nom d'un utilisateur
-    if (preg_match("~chercher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -121,7 +149,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
      // Chercher si une journée a au moins une réunion
-     if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~journee_a_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -159,7 +187,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
       // Chercher toutes les informations sur une réunion
-      if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_infos_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -182,7 +210,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
     
-    if (preg_match("~chercher_reunions_mobile$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_reunions_mobile$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -220,7 +248,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
     
     
-    if (preg_match("~chercher_reunions_journee$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_reunions_journee$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -259,7 +287,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
     
     
-     if (preg_match("~chercher_membres_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_membres_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -286,7 +314,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
     
     
-     if (preg_match("~chercher_presences_membres$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_presences_membres$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -344,10 +372,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
 
-
+ 
 
     // Mettre l'adresse de l'utilisateur dans la variable de session
-    if (preg_match("~envoyer_identifiant$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~envoyer_identifiant$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -364,7 +392,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Création d'une réunion côté participants
-    if (preg_match("~creer_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~creer_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -499,7 +527,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher si le participant existe
-    if (preg_match("~chercher_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -527,7 +555,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher les membres d'un groupe
-    if (preg_match("~chercher-membres-groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher-membres-groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -558,7 +586,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Création d'une réunion côté groupe
-    if (preg_match("~creer_reunion_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~creer_reunion_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -665,7 +693,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Modification d'une réunion côté groupe
-    if (preg_match("~modifier_reunion_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_reunion_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -810,7 +838,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Modification d'une réunion côté participants
-    if (preg_match("~modifier_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_reunion_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -976,7 +1004,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher les réunions entre deux jours données
-    if (preg_match("~chercher_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1017,7 +1045,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 
-    if (preg_match("~supprimer_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~supprimer_reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1104,7 +1132,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Supprimer un groupe
-    if (preg_match("~supprimer_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~supprimer_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1142,7 +1170,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher les participants pour une réunion donnée
-    if (preg_match("~chercher_liste_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_liste_participants$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1171,7 +1199,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher l'heure de début et de fin pour une réunion donnée
-    if (preg_match("~chercher_heures_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_heures_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1198,7 +1226,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
     // Modifier l'heure de fin d'une réunion
-    if (preg_match("~ajouter_temps$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~ajouter_temps$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1226,7 +1254,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Création d'un groupe
-    if (preg_match("~ajouter_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~ajouter_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1267,7 +1295,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
         // Modification d'un grouoe
-    if (preg_match("~modifier_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_groupe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1314,7 +1342,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher les tâches pour une réunion donnée
-    if (preg_match("~chercher_liste_taches$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_liste_taches$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1342,7 +1370,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
     // Chercher la photo de profil des participants à une réunion
-    if (preg_match("~chercher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_photo$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1369,7 +1397,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Ajouter une nouvelle tâche à une réunion
-    if (preg_match("~ajouter-nouvelle-tache$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~ajouter-nouvelle-tache$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1405,7 +1433,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Ajouter un nouveau message pour une réunion donnée
-    if (preg_match("~ajouter-nouveau-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~ajouter-nouveau-message$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1441,7 +1469,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Modifier un message donné 
-    if (preg_match("~modifier-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier-message$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1463,7 +1491,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     
 
     // Obtenir les messages pour une réunion donnée
-    if (preg_match("~obtenir-messages-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~obtenir-messages-reunion$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1495,7 +1523,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
     // Obtenir les messages pour une réunion donnée
-    if (preg_match("~supprimer-message$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~supprimer-message$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1514,7 +1542,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher les réunions pour un groupe donné
-    if (preg_match("~obtenir_reunions_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~obtenir_reunions_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1543,7 +1571,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher la photo de profil d'un utilisateur
-    if (preg_match("~obtenir-photo-profil$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~obtenir-photo-profil$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1571,7 +1599,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Chercher si un utilisateur a une réunion entre deux heures données 
-    if (preg_match("~chercher_conflit$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_conflit$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1604,7 +1632,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
      // Créer un compte lorsque l'utilisateur se connecte pour la première fois
-    if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~creer-compte$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1632,7 +1660,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
     // Modifier l'état d'une tâche
-    if (preg_match("~modifier_tache$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_tache$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1682,7 +1710,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 
 
      // Chercher les autres participants pour une réunion donnée
-    if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher_presences_reunions$~", $_SERVER['REQUEST_URI'], $matches)) {
     $donnees_json = file_get_contents('php://input');
     $donnees = json_decode($donnees_json, true);
     
@@ -1739,7 +1767,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 } 
 
     // Chercher la satisfaction d'une réunion pour l'utilisateur courant
-    if (preg_match("~afficher_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~afficher_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1766,7 +1794,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
 // Changer l'apprécation d'une réunion
-    if (preg_match("~modifier_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_appreciation$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1792,7 +1820,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     }
 
     // Marquer un membre d'une réunion comme présent ou absent
-    if (preg_match("~modifier_presence$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~modifier_presence$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         $donnees_json = file_get_contents('php://input');
         $donnees = json_decode($donnees_json, true);
@@ -1841,7 +1869,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         }
     }
 
-    if (preg_match("~mettre_presences_a_jour$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~mettre_presences_a_jour$~", $_SERVER['REQUEST_URI'], $matches)) {
 
     $donnees_json = file_get_contents('php://input');
     $donnees = json_decode($donnees_json, true);
@@ -1935,7 +1963,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     // Afficher les groupes associés à un utilisateur
-    if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~afficher_groupes$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -1962,7 +1990,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
      // Chercher le nom de l'utilisateur
-    if (preg_match("~afficher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~afficher_nom$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -1982,7 +2010,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     // Obtenir toutes les réunions de l'utilisateur courant
-    if (preg_match("~obtenir_reunions_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~obtenir_reunions_utilisateur$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -1999,7 +2027,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
                                     WHERE courriel_utilisateurs = :courriel)
                                     
                                     ORDER BY date, heure_debut;
-                                 ");
+                                    ");
         $query->bindParam(":courriel", $_SESSION['courriel'],  PDO::PARAM_STR);
         $query->execute();
         $resultat = $query->fetchAll();
@@ -2013,7 +2041,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     // Chercher le courriel de l'utilisateur courant
-    if (preg_match("~chercher-courriel$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~chercher-courriel$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -2026,7 +2054,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     // Chercher le type de l'utilisateur (étudiant ou enseignant)
-    if (preg_match("~afficher_type$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~afficher_type$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -2045,7 +2073,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     // Chercher si le courriel de l'utilisateur est associé à un compte 
-    if (preg_match("~compte_existe$~", $_SERVER['REQUEST_URI'], $matches)) {
+    else if (preg_match("~compte_existe$~", $_SERVER['REQUEST_URI'], $matches)) {
 
         require("connexion.php");
 
@@ -2064,7 +2092,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["existe" => false]);
             }
         }
-       
+    
     }
 
     

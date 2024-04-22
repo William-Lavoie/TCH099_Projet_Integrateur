@@ -61,6 +61,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             // Token n'est pas valide (signature)
             returnError('Token n\'est pas signé', 401); // Unauthorized
         }
+        
     
 
         /*
